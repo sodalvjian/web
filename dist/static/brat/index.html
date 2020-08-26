@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Embedded Visualisations - brat rapid annotation tool</title>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/style-vis.css" />
+
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!-- Google Analytics -->
+    <script type="text/javascript" src="js/google_analytics.js"></script>
+
+    <script type="text/javascript" src="js/json2.js"></script>
+
+    <script
+      type="text/javascript"
+      src="http://weaver.nlplab.org/~brat/demo/v1.3/client/lib/head.load.min.js"
+    ></script>
+
+    <script type="text/javascript" src="./lib/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="./lib/jquery.svg.min.js"></script>
+    <script type="text/javascript" src="./lib/jquery.svgdom.min.js"></script>
+
+    <script type="text/javascript" src="./src/configuration.js"></script>
+    <script type="text/javascript" src="./src/util.js"></script>
+    <script type="text/javascript" src="./src/annotation_log.js"></script>
+    <script type="text/javascript" src="./lib/webfont.js"></script>
+    <script type="text/javascript" src="./src/dispatcher.js"></script>
+    <script type="text/javascript" src="./src/url_monitor.js"></script>
+    <script type="text/javascript" src="./src/visualizer.js"></script>
+    <script type="text/javascript" src="./src/visualizer_ui.js"></script>
+  </head>
+
+  <body>
+    <div id="main" class="center">
+      <div id="content">
+        <div class="showDiv" id="embedding-entity-example"></div>
+        <!-- <div id="live-io">
+        <p>
+          <textarea id="coll-input" style="display:block;float:left;width:40%;height:400px;font-size:11px;border:2px inset" placeholder="Enter JSON for the collection object here..."></textarea>
+          <textarea id="doc-input" style="display:block;float:right;width:55%;height:400px;font-size:11px;border:2px inset" placeholder="Enter JSON for the document object here..."></textarea>
+        </p>
+      </div> -->
+        <div id="embedding-live-example"></div>
+
+        <script type="text/javascript">
+          // head.js(
+          //   // External libraries
+          //   './lib/jquery.min.js',
+          //   './lib/jquery.svg.min.js',
+          //   './lib/jquery.svgdom.min.js',
+
+          //   // brat helper modules
+          //   './src/configuration.js',
+          //   './src/util.js',
+          //   './src/annotation_log.js',
+          //   './lib/webfont.js',
+          //   // brat modules
+          //   './src/dispatcher.js',
+          //   './src/url_monitor.js',
+          //   './src/visualizer.js'
+          // );
+
+          $(function() {
+            var bratStep = 1
+            // var locationReq = location.origin
+
+            var baseUrl = window.parent.baseUrl + '/'
+            var baseToken = $.cookie('vital_token')
+            // console.log('baseUrl', window.parent)
+
+            var resultId = GetQueryString('resultId')
+            var resultUrl = GetQueryString('url')
+            console.log('参数', resultId, resultUrl)
+            let postData = {}
+            if (resultId) {
+              $.ajax({
+                type: 'post',
+                contentType: 'application/json;charset=utf-8',
+                headers: {
+                  Authorization: 'Bearer ' + baseToken
+                },
+                url: `${baseUrl}api/ann/queryDocXmi?docid=${resultId}`,
+                data: JSON.stringify(postData),
+                async: false,
+                success: function(data) {
+                  console.log('成功错误', data)
+                  var data = data
+                  // if (!resultId) {
+                  //   data = {
+                  //     code: "",
+                  //     data: {
+                  //       bratFile: '{"text":"Admission Date:  [**2151-7-16**]       Discharge Date:  [**2151-8-4**]\\n\\n\\nService:\\nADDENDUM:\\n\\nRADIOLOGIC STUDIES:  Radiologic studies also included a chest\\nCT, which confirmed cavitary lesions in the left lung apex\\nconsistent with infectious process/tuberculosis.  This also\\nmoderate-sized left pleural effusion.\\n\\nHEAD CT:  Head CT showed no intracranial hemorrhage or mass\\neffect, but old infarction consistent with past medical\\nhistory.\\n\\nABDOMINAL CT:  Abdominal CT showed lesions of\\nT10 and sacrum most likely secondary to osteoporosis. These can\\nbe followed by repeat imaging as an outpatient.\\n\\n\\n\\n                            [**First Name8 (NamePattern2) **] [**First Name4 (NamePattern1) 1775**] [**Last Name (NamePattern1) **], M.D.  [**MD Number(1) 1776**]\\n\\nDictated By:[**Hospital 1807**]\\nMEDQUIST36\\n\\nD:  [**2151-8-5**]  12:11\\nT:  [**2151-8-5**]  12:21\\nJOB#:  [**Job Number 1808**]\\n","entities":[["T1","date",[[10,13]],"Date","a1","",""],["T2","desc",[[0,6]],"Admission","a1","",""]],"relations":[["R1","rel1",[["date","T1"],["desc","T2"]],"[Date] --> [Admission]"]]}',
+                  //       bratSem: '{"entity_types":[{"type":"date","labels":["date"],"bgColor":"#CCFFCC","borderColor":"darken"},{"type":"desc","labels":["desc"],"bgColor":"#529211","borderColor":"darken"}],"entity_attribute_types":[],"relation_types":[],"event_types":[]}',
+                  //       docentiry: [{
+                  //         "attr1": "",
+                  //         "attr2": "",
+                  //         "attr3": "",
+                  //         "attr4": "",
+                  //         "code": "123",
+                  //         "docId": "174",
+                  //         "endPos": 13,
+                  //         "entText": "Date",
+                  //         "id": 3,
+                  //         "seert": "a1",
+                  //         "semType": "date",
+                  //         "startPos": 10
+                  //       }, {
+                  //         "attr1": "",
+                  //         "attr2": "",
+                  //         "attr3": "",
+                  //         "attr4": "",
+                  //         "code": "456",
+                  //         "docId": "174",
+                  //         "endPos": 6,
+                  //         "entText": "Admission",
+                  //         "id": 4,
+                  //         "seert": "a1",
+                  //         "semType": "desc",
+                  //         "startPos": 0
+                  //       }],
+                  //       docrel: []
+                  //     },
+                  //     msg: "message not set",
+                  //     success: true
+                  //   };
+                  // }
+                  data.cmd = 'getResultFromIframe'
+                  window.parent.postMessage(data, '*')
+
+                  var collData = JSON.parse(data.bratSem)
+                  var docData = JSON.parse(data.bratFile)
+                  docData.entities = []
+                  var liveDispatcher = Util.embed(
+                    'embedding-live-example',
+                    $.extend(
+                      {
+                        collection: null
+                      },
+                      collData
+                    ),
+                    $.extend({}, docData)
+                  )
+
+                  window.addEventListener('message', handleIframe) //获取父级床过来的数据
+
+                  function handleIframe(event) {
+                    let data = event.data
+                    switch (data.cmd) {
+                      case 'changeColor':
+                        let collData = data.params.resultData.bratSem
+                        liveDispatcher.post('collectionLoaded', [
+                          $.extend(
+                            {
+                              collection: null
+                            },
+                            collData
+                          )
+                        ])
+                        break
+                      case 'changeShow':
+                        let entities = data.params.resultData
+                        docData.entities = entities
+                        // console.log("修改后的数据", docData)
+                        liveDispatcher.post('requestRenderData', [
+                          $.extend({}, docData)
+                        ])
+                        break
+                    }
+                  }
+                }
+              })
+            } else {
+              window.addEventListener('message', handleIframeHtml)
+
+              function handleIframeHtml(event) {
+                let data = event.data
+                var documentData
+                var collData
+                switch (data.cmd) {
+                  case 'handleHtml':
+                    // console.log('传过来的文档', data.params.resultData)
+                    let htmlData = {
+                      query: data.params.resultData
+                    }
+                    $.ajax({
+                      type: 'post',
+                      contentType: 'application/json;charset=utf-8',
+                      headers: {
+                        Authorization: 'Bearer ' + baseToken
+                      },
+                      url: `${baseUrl}api/ann/query/html`,
+                      data: JSON.stringify(htmlData),
+                      async: false,
+                      success: function(data) {
+                        console.log('成功错误', data)
+                        data.cmd = 'getResultFromIframe'
+                        window.parent.postMessage(data, '*')
+
+                        collData = JSON.parse(data.bratSem)
+                        docData = JSON.parse(data.bratFile)
+                        docData.entities = []
+                        if (bratStep == 1) {
+                          window.liveDispatcherHtml = Util.embed(
+                            'embedding-live-example',
+                            $.extend(
+                              {
+                                collection: null
+                              },
+                              collData
+                            ),
+                            $.extend({}, docData)
+                          )
+                        } else {
+                          window.liveDispatcherHtml.post('collectionLoaded', [
+                            $.extend(
+                              {
+                                collection: null
+                              },
+                              collData
+                            )
+                          ])
+
+                          window.liveDispatcherHtml.post('requestRenderData', [
+                            $.extend({}, docData)
+                          ])
+                        }
+                        bratStep++
+                      }
+                    })
+                    break
+                  case 'changeColor':
+                    collData = data.params.resultData.bratSem
+                    window.liveDispatcherHtml.post('collectionLoaded', [
+                      $.extend(
+                        {
+                          collection: null
+                        },
+                        collData
+                      )
+                    ])
+                    break
+                  case 'changeShow':
+                    let entities = data.params.resultData
+                    docData.entities = entities
+                    // console.log("修改后的数据", docData)
+                    window.liveDispatcherHtml.post('requestRenderData', [
+                      $.extend({}, docData)
+                    ])
+                    break
+                }
+              }
+            }
+
+            function GetQueryString(name) {
+              var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+              var r = window.location.search.substr(1).match(reg)
+              if (r != null) return unescape(r[2])
+              return null
+            }
+
+            // 接受子页面发来的信息
+
+            function handleMessage(event) {
+              var data = event.data
+              switch (data.cmd) {
+                case 'getFormJson':
+                  // 处理业务逻辑
+                  console.log('接收参数', data.params.resultData)
+                  var showDiv = $('#embedding-entity-example')
+                  var collData = data.params.resultData.bratSem
+                  var docData = data.params.resultData.bratFile
+                  var liveDispatcher
+
+                  // var liveDispatcher = Util.embed('embedding-entity-example', $.extend({}, collData),
+                  //   $.extend({}, docData));
+                  // liveDispatcher.post('collectionLoaded',
+                  //   [$.extend({
+                  //     'collection': null
+                  //   }, collData)]);
+                  var collInput = $('#coll-input')
+                  var docInput = $('#doc-input')
+                  var liveDiv = $('#embedding-live-example')
+
+                  // Time for some "real" brat coding, let's hook into the dispatcher
+                  if (data.params.method == 'initialization') {
+                    liveDispatcher = Util.embed(
+                      'embedding-live-example',
+                      $.extend(
+                        {
+                          collection: null
+                        },
+                        collData
+                      ),
+                      $.extend({}, docData),
+                      webFontURLs
+                    )
+                    $('#changeColor').on('click', function() {
+                      var collData = {
+                        entity_types: [
+                          {
+                            type: 'date',
+                            labels: ['date'],
+                            bgColor: '#6312DC',
+                            borderColor: 'darken'
+                          },
+                          {
+                            type: 'desc',
+                            labels: ['desc'],
+                            bgColor: '#529211',
+                            borderColor: 'darken'
+                          }
+                        ],
+                        entity_attribute_types: [],
+                        relation_types: [],
+                        event_types: []
+                      }
+                      liveDispatcher.post('collectionLoaded', [
+                        $.extend(
+                          {
+                            collection: null
+                          },
+                          collData
+                        )
+                      ])
+                    })
+                  } else {
+                    liveDispatcher.post('collectionLoaded', [
+                      $.extend(
+                        {
+                          collection: null
+                        },
+                        collData
+                      )
+                    ])
+                  }
+
+                  console.log('方法', liveDispatcher)
+
+                  var collInputHandler = function() {
+                    var collJSON
+
+                    collJSON = JSON.parse(collInput.val())
+                    liveDispatcher.post('collectionLoaded', [
+                      $.extend(
+                        {
+                          collection: null
+                        },
+                        collJSON
+                      )
+                    ])
+                  }
+
+                  var docInputHandler = function() {
+                    var docJSON
+
+                    docJSON = JSON.parse(docInput.val())
+                    docInput.css({
+                      border: '2px inset'
+                    })
+
+                    liveDispatcher.post('requestRenderData', [
+                      $.extend({}, docJSON)
+                    ])
+                    // liveDiv.css({'border': '2px inset'});  // setting this blows the layout
+                    collInput.css({
+                      border: '2px inset'
+                    })
+                  }
+
+                  // Inject our current example as a start
+                  var collJSON = JSON.stringify(collData, undefined, '    ')
+                  docJSON = JSON.stringify(docData, undefined, '    ')
+                  // pack those just a bit
+                  var packJSON = function(s) {
+                    // replace any space with ' ' in non-nested curly brackets
+                    s = s.replace(/(\{[^\{\}\[\]]*\})/g, function(a, b) {
+                      return b.replace(/\s+/g, ' ')
+                    })
+                    // replace any space with ' ' in [] up to nesting depth 1
+                    s = s.replace(
+                      /(\[(?:[^\[\]\{\}]|\[[^\[\]\{\}]*\])*\])/g,
+                      function(a, b) {
+                        return b.replace(/\s+/g, ' ')
+                      }
+                    )
+                    return s
+                  }
+                  collInput.text(packJSON(collJSON))
+                  docInput.text(packJSON(docJSON))
+
+                  var listenTo = 'propertychange keyup input paste'
+                  collInput.bind(listenTo, collInputHandler)
+                  docInput.bind(listenTo, docInputHandler)
+                  break
+              }
+            }
+
+            // var collData = {
+            //   entity_types: [{
+            //     type: 'Person',
+            //     /* The labels are used when displaying the annotion, in this case
+            //         we also provide a short-hand "Per" for cases where
+            //         abbreviations are preferable */
+            //     labels: ['Person', 'Per'],
+            //     // Blue is a nice colour for a person?
+            //     bgColor: '#7fa2ff',
+            //     // Use a slightly darker version of the bgColor for the border
+            //     borderColor: 'darken'
+            //   }]
+            // };
+            // var docData = {
+            //   // Our text of choice
+            //   text: "Ed O'Kelley was the man who shot the man who shot Jesse James.Ed O'Kelley was the man who shot the man who shot Jesse James.Ed O'Kelley was the man who shot the man who shot Jesse James.Ed O'Kelley was the man who shot the man who shot Jesse James.Ed O'Kelley was the man who shot the man who shot Jesse James.Ed O'Kelley was the man who shot the man who shot Jesse James.Ed O'Kelley was the man who shot the man who shot Jesse James.Ed O'Kelley was the man who shot the man who shot Jesse James.",
+            //   // The entities entry holds all entity annotations
+            //   entities: [
+            //     /* Format: [${ID}, ${TYPE}, [[${START}, ${END}]]]
+            //         note that range of the offsets are [${START},${END}) */
+            //     ['T1', 'Person', [
+            //       [0, 11]
+            //     ]],
+            //     ['T2', 'Person', [
+            //       [20, 23]
+            //     ]],
+            //     ['T3', 'Person', [
+            //       [37, 40]
+            //     ]],
+            //     ['T4', 'Person', [
+            //       [50, 61]
+            //     ]],
+            //   ],
+            // };
+            // Util.embed('embedding-entity-example', $.extend({}, collData),
+            //   $.extend({}, docData), webFontURLs);
+          })
+        </script>
+      </div>
+    </div>
+  </body>
+</html>
