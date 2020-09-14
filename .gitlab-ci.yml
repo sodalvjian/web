@@ -1,0 +1,11 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  script:
+    - npm run build 
+    - echo "package"
+    - zip -r dist.zip dist
