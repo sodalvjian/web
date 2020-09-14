@@ -1,0 +1,459 @@
+<template>
+  <div class="vital-container">
+    <nav class="cb">
+      <strong
+        class="fl nav-title mt-10 f16"
+      ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong>
+    </nav>
+    <el-form
+      ref="formData"
+      label-position="top"
+      :model="formData"
+      label-width="80px"
+    >
+      <section class="bg-color-gray mt-20 bd-1">
+        <el-row :gutter="15" class="p20">
+          <el-col :span="8">
+            <strong class="f16">Job Setting</strong>
+          </el-col>
+        </el-row>
+        <el-divider class="m-0"></el-divider>
+        <el-row :gutter="20">
+          <el-col :span="12" class="br-1">
+            <div class="p20">
+              <el-form-item
+                label="Job name"
+                prop="name"
+                :rules="{ required: true }"
+              >
+                <el-input
+                  v-model="formData.name"
+                  placeholder="Input your job name"
+                ></el-input>
+              </el-form-item>
+              <div class="f13 lh1-5 mt-20">
+                <i class="el-icon-warning color-main f15"></i> Support for
+                letters, Numbers and their combinations 2.Please enter 6
+                characters to 256 characters
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="p20">
+              <el-form-item
+                label="Analysis Type"
+                prop="pipelineId"
+                :rules="{ required: true }"
+              >
+                <el-select
+                  v-model="formData.pipelineId"
+                  class="w"
+                  popper-class="job-select"
+                  placeholder="Please select…"
+                  @change="changepipeline"
+                >
+                  <el-option
+                    v-for="(item, index) in analysisTypeOptions"
+                    :key="index"
+                    :label="item.name"
+                    :value="item.id"
+                  >
+                    <div class="job-select-label">{{ item.name }}</div>
+                    <div class="job-select-value">{{ item.description }}</div>
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </div>
+          </el-col></el-row>
+      </section>
+      <section class="bg-color-gray mt-25 bd-1">
+        <el-row :gutter="20" class="">
+          <el-col :span="12" class="br-1">
+            <strong class="f16 p20 disinblock">Input Data</strong>
+          </el-col>
+          <el-col :span="12">
+            <strong class="f16 p20 disinblock fl">Output Data</strong>
+            <el-popover
+              v-model="popoverVisible"
+              placement="top-end"
+              trigger="manual"
+              width="300"
+            >
+              <el-radio-group v-model="encryptionRadio" class="w">
+                <el-radio label="AES-256">AES-256</el-radio>
+                <div class="encryption-handle mt-10">
+                  <el-radio label=""></el-radio>
+                  <div class="encryption-input">
+                    <el-input
+                      v-model="encryptionHandle"
+                      clearable
+                      placeholder="Please enter secret key"
+                      size="mini"
+                      @change="handleEncryption"
+                    ></el-input>
+                  </div>
+                </div>
+              </el-radio-group>
+              <div class="tr mt-20">
+                <el-button
+                  size="mini"
+                  type="text"
+                  @click="popoverVisible = false"
+                >Cancel</el-button>
+                <el-button
+                  type="primary"
+                  size="mini"
+                  @click="confirmEncryption"
+                >Confirm</el-button>
+              </div>
+              <el-switch
+                slot="reference"
+                v-model="encryption"
+                class="fr mt-15 mr-20"
+                active-color="#13ce66"
+                inactive-text="Encryption"
+                @change="changeEncrytion"
+              >
+              </el-switch>
+            </el-popover>
+          </el-col>
+        </el-row>
+        <el-divider class="m-0"></el-divider>
+        <el-row :gutter="20">
+          <el-col :span="12" class="br-1">
+            <div class="p20">
+              <el-form-item
+                label="S3 location:"
+                prop="input"
+                :rules="{ required: true }"
+              >
+                <el-input
+                  v-model="formData.input"
+                  placeholder="s3://mybucket/myinput"
+                >
+                  <el-button
+                    slot="append"
+                    @click="
+                      openBrowse('input', {
+                        label: inRegionLabel,
+                        value: inRegion
+                      })
+                    "
+                  >Region S3</el-button>
+                </el-input>
+              </el-form-item>
+
+              <div class="f13 lh1-5 mt-20">
+                <i class="el-icon-warning color-main f15"></i> Browse,type or
+                paste the URL of a bucket or folder location in S3, or select a
+                bucket or folder location in S3
+              </div>
+              <div v-if="inRegionName" class="f15 mt-15">
+                S3 region: <strong>{{ inRegionName }}</strong>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="p20">
+              <el-form-item
+                label="S3 location:"
+                prop="output"
+                :rules="{ required: true }"
+              >
+                <el-input
+                  v-model="formData.output"
+                  placeholder="s3://mybucket/myoutput"
+                >
+                  <el-button
+                    slot="append"
+                    @click="
+                      openBrowse('output', {
+                        label: outRegionLabel,
+                        value: outRegion
+                      })
+                    "
+                  >Region S3
+                  </el-button>
+                </el-input>
+              </el-form-item>
+              <div class="f13 lh1-5 mt-20">
+                <i class="el-icon-warning color-main f15"></i> Browse,type or
+                paste the URL of a bucket or folder location in S3, or select a
+                bucket or folder location in S3
+              </div>
+              <div v-if="outRegionName" class="f15 mt-15">
+                S3 region: <strong>{{ outRegionName }}</strong>
+              </div>
+            </div>
+          </el-col></el-row>
+      </section>
+      <el-form-item class="tc mt-40">
+        <el-button
+          size="medium"
+          @click="$emit('close-dialog')"
+        >Cancel</el-button>
+        <el-button
+          size="medium"
+          type="primary"
+          :loading="btnLoading"
+          @click="onSubmit"
+        >Confirm</el-button>
+      </el-form-item>
+    </el-form>
+    <section class="mt-40 tc"></section>
+    <!-- choose resource -->
+    <choose-resource ref="chooseResourceRef" @select-s3="selectS3" />
+  </div>
+</template>
+
+<script>
+import { GetAnalysisType, AddData, CheckData } from '@/api/annotate-jobs-page'
+import chooseResource from './components/ChooseResource'
+import 'codemirror/lib/codemirror.css'
+import { s3List } from './constants'
+export default {
+  name: 'InlineEditTable',
+  components: {
+    chooseResource
+  },
+  filters: {},
+  data() {
+    return {
+      analysisTypeOptions: [],
+      encryptionRadio: 'AES-256',
+      encryptionHandle: '',
+      btnLoading: false,
+      popoverVisible: false,
+      encryption: false,
+      formData: {
+        name: '',
+        pipelineId: '',
+        encryption: '',
+        input: '',
+        output: ''
+      },
+      pipelineData: {},
+      inRegionName: '',
+      outRegionName: '',
+      inRegion: '',
+      outRegion: '',
+      inRegionLabel: '',
+      outRegionLabel: ''
+    }
+  },
+
+  created() {},
+  mounted() {
+    this.getAnalysisType()
+  },
+  methods: {
+    getCopyData() {
+      const copyStatus = this.$route.query.copy
+      const copyJobData = JSON.parse(sessionStorage.copyJobData)
+      console.log('复制数据', copyStatus)
+      const {
+        name,
+        pipeline,
+        encryption,
+        input,
+        output,
+        inRegion,
+        outRegion
+      } = copyJobData
+      if (copyStatus) {
+        const pipelineObj = this.analysisTypeOptions.find(
+          item => item.params === pipeline
+        )
+        console.log('pipelineObj', pipelineObj)
+
+        this.formData = {
+          name: name,
+          pipelineId: pipelineObj.id,
+          encryption: encryption,
+          input: input,
+          output: output
+        }
+        this.pipelineData = this.analysisTypeOptions.find(
+          item => item.id === this.formData.pipelineId
+        )
+        this.inRegion = inRegion
+        const inRegionLabel = s3List.find(item => inRegion === item.value)
+        this.inRegionName = `${inRegionLabel.label}(${inRegionLabel.value})`
+        this.inRegionLabel = inRegionLabel.label
+        this.outRegion = outRegion
+        const outRegionLabel = s3List.find(item => outRegion === item.value)
+        this.outRegionName = `${outRegionLabel.label}(${outRegionLabel.value})`
+        this.outRegionLabel = outRegionLabel.label
+        if (encryption) {
+          this.popoverVisible = true
+          if (encryption === 'AES-256') {
+            this.encryptionRadio = 'AES-256'
+            this.encryptionHandle = ''
+          } else {
+            this.encryptionRadio = ''
+            this.encryptionHandle = encryption
+          }
+          this.encryption = true
+        } else {
+          this.encryption = false
+        }
+      }
+    },
+    confirmEncryption() {
+      if (!this.encryptionRadio) {
+        this.formData.encryption = this.encryptionHandle
+      } else {
+        this.formData.encryption = this.encryptionRadio
+      }
+      this.popoverVisible = false
+    },
+    handleEncryption() {
+      this.encryptionRadio = this.encryptionHandle ? '' : 'AES-256'
+    },
+    changeEncrytion() {
+      this.popoverVisible = this.encryption
+      if (!this.encryption) {
+        this.formData.encryption = ''
+      }
+    },
+    changepipeline() {
+      this.pipelineData = this.analysisTypeOptions.find(
+        item => item.id === this.formData.pipelineId
+      )
+      console.log('this.pipelineData', this.pipelineData)
+    },
+    onSubmit() {
+      this.$refs.formData.validate(valid => {
+        if (valid) {
+          if (!this.inRegion || !this.outRegion) {
+            this.$message.warning('Please region S3.')
+            return false
+          }
+          const { name, input, output, encryption } = this.formData
+          const params = {
+            userId: 999,
+            name: name,
+            input: input,
+            output: output,
+            inRegion: this.inRegion,
+            outRegion: this.outRegion,
+            pipeline: this.pipelineData.params,
+            encryption: encryption
+          }
+          // {
+          //   userId: 999,
+          //   name: name,
+          //   input: 's3://melaxtechinput/test',
+          //   output: 's3://melaxtechinput/out',
+          //   inRegion: 'us-east-2',
+          //   outRegion: 'us-east-2',
+          //   pipeline: 'document'
+          // }
+          console.log(params)
+          this.btnLoading = true
+          AddData(params)
+            .then(res => {
+              if (res.code === 200) {
+                this.$message.success(res.message)
+                this.$emit('close-dialog')
+              }
+            })
+            .catch(res => {
+              this.btnLoading = false
+              if (res.code === 800008) {
+                this.$refs.dialogShowInfoRef.openDialog('nlp')
+                this.loading = false
+                this.noDataShow = true
+              }
+            })
+          // CheckData(params)
+          //   .then(checkRes => {
+          //     if (checkRes.code === 200) {
+          //       if (checkRes.data.canRead && checkRes.data.canWrite) {
+          //         AddData(params)
+          //           .then(res => {
+          //             if (res.code === 200) {
+          //               this.$message.success(res.message)
+          //               this.$emit('close-dialog')
+          //             }
+          //           })
+          //           .catch(msg => {
+          //             this.btnLoading = false
+          //           })
+          //       } else {
+          //         this.$message.success(checkRes.message)
+          //         this.btnLoading = false
+          //       }
+          //     }
+          //   })
+          //   .catch(msg => {
+          //     this.btnLoading = false
+          //   })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    selectS3(res) {
+      console.log(res)
+      if (res.type === 'input') {
+        this.inRegionName = `${res.data.label}(${res.data.value})`
+        this.inRegion = res.data.value
+      } else {
+        this.outRegionName = `${res.data.label}(${res.data.value})`
+        this.outRegion = res.data.value
+      }
+    },
+    openBrowse(type, data) {
+      this.$refs.chooseResourceRef.openDialog(type, data)
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
+    },
+    getAnalysisType() {
+      GetAnalysisType().then(res => {
+        if (res.code === 200) {
+          this.analysisTypeOptions = res.data
+          this.getCopyData()
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.encryption-handle {
+  label {
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+  }
+  .encryption-input {
+    width: 220px;
+    float: left;
+    // .el-input {
+
+    //   }
+  }
+}
+.job-select {
+  .el-select-dropdown__item {
+    height: 70px;
+    .job-select-label {
+      font-weight: normal;
+      margin-top: 7px;
+    }
+    .job-select-value {
+      margin-top: -10px;
+      color: #a0a0a0;
+      font-weight: normal;
+    }
+  }
+  .el-select-dropdown__item.selected::after {
+    bottom: 20px !important;
+  }
+}
+</style>
