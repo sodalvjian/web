@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong
-        class="fl nav-title mt-10 f16"
-      ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong>
+      <strong class="fl nav-title mt-10 f16"
+        ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong
+      >
     </nav>
     <el-form
       ref="formData"
@@ -65,7 +65,8 @@
                 </el-select>
               </el-form-item>
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <section class="bg-color-gray mt-25 bd-1">
         <el-row :gutter="20" class="">
@@ -100,12 +101,11 @@
                   size="mini"
                   type="text"
                   @click="popoverVisible = false"
-                >Cancel</el-button>
-                <el-button
-                  type="primary"
-                  size="mini"
-                  @click="confirmEncryption"
-                >Confirm</el-button>
+                  >Cancel</el-button
+                >
+                <el-button type="primary" size="mini" @click="confirmEncryption"
+                  >Confirm</el-button
+                >
               </div>
               <el-switch
                 slot="reference"
@@ -140,7 +140,8 @@
                         value: inRegion
                       })
                     "
-                  >Region S3</el-button>
+                    >Region S3</el-button
+                  >
                 </el-input>
               </el-form-item>
 
@@ -173,7 +174,7 @@
                         value: outRegion
                       })
                     "
-                  >Region S3
+                    >Region S3
                   </el-button>
                 </el-input>
               </el-form-item>
@@ -186,36 +187,41 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div>
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <el-form-item class="tc mt-40">
-        <el-button
-          size="medium"
-          @click="$emit('close-dialog')"
-        >Cancel</el-button>
+        <el-button size="medium" @click="$emit('close-dialog')"
+          >Cancel</el-button
+        >
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
     <!-- choose resource -->
     <choose-resource ref="chooseResourceRef" @select-s3="selectS3" />
+    <!-- info message -->
+    <dialog-show-info ref="dialogShowInfoRef" />
   </div>
 </template>
 
 <script>
-import { GetAnalysisType, AddData, CheckData } from '@/api/annotate-jobs-page'
+import { GetAnalysisType, AddData } from '@/api/annotate-jobs-page'
+import DialogShowInfo from '@/components/DialogShowInfo'
 import chooseResource from './components/ChooseResource'
 import 'codemirror/lib/codemirror.css'
 import { s3List } from './constants'
 export default {
   name: 'InlineEditTable',
   components: {
-    chooseResource
+    chooseResource,
+    DialogShowInfo
   },
   filters: {},
   data() {
