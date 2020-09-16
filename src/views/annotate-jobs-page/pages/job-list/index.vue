@@ -43,6 +43,10 @@
 
       <el-table-column width="250px" align="left">
         <template slot-scope="scope">
+          <!-- <el-progress
+            :percentage="setPercent(scope.row)"
+            :format="progressFormat"
+          ></el-progress> -->
           <el-progress
             :percentage="setPercent(scope.row)"
             :status="setStatus(scope.row)"
@@ -68,6 +72,7 @@
       <el-table-column align="center" label="Operation" width="250px">
         <template slot-scope="scope">
           <el-tooltip
+            v-if="scope.row.status !== 'COMPLETED'"
             class="item"
             effect="dark"
             content="Stop job"
@@ -78,6 +83,7 @@
               @click.stop="stopData(scope.row)"
             ></i>
           </el-tooltip>
+          <span v-else>--</span>
 
           <!-- <span v-if="setRole(scope.row).indexOf('admin') !== -1">--</span> -->
         </template>
@@ -129,6 +135,9 @@ export default {
     clearInterval(this.setInterval)
   },
   methods: {
+    progressFormat(percentage) {
+      return percentage === 100 ? '满' : `${percentage}%`
+    },
     setPercent(row) {
       const processNum = row.processedSize / row.totalSize
       console.log('processNum', processNum)

@@ -109,7 +109,7 @@
               prop="invoiceID"
               label="Invoice/Receipt ID"
               align="center"
-              min-width="180"
+              min-width="280"
             >
             </el-table-column>
             <el-table-column

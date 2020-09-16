@@ -7,6 +7,7 @@
             <el-select
               v-model="formData.pipeline"
               size="mini"
+              :loading="pipelineLoading"
               placeholder="Universal pipeline"
             >
               <el-option
@@ -19,7 +20,6 @@
             </el-select>
           </el-col>
           <el-col :span="12" align="right">
-            
             <el-button size="mini" @click="clearData">Clear</el-button>
             <el-button size="mini" type="primary" @click="handleAnalysis"
               >Analysis</el-button
@@ -58,6 +58,7 @@ export default {
   data() {
     return {
       analysisTypeOptions: [],
+      pipelineLoading: false,
       formData: {
         pipeline: '',
         text: ''
@@ -74,7 +75,6 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
-    
     handleAnalysis() {
       const { pipeline, text } = this.formData
       if (!pipeline) {
@@ -91,8 +91,10 @@ export default {
       this.$refs.analysisResultRef.getResult(params)
     },
     getAnalysisType() {
+      this.pipelineLoading = true
       GetAnalysisType().then(res => {
         if (res.code === 200) {
+          this.pipelineLoading = false
           this.analysisTypeOptions = res.data
         }
       })

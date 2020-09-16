@@ -61,14 +61,14 @@
         <el-col :span="12" class="">
           <div class="p20 bg-color-white">
             <div
-              v-for="(item, index) in relationsArr"
+              v-for="(item, index) in afterData"
               :key="index"
               class="relation-item bb-1 pb-20 mb-20"
             >
               <nav>
                 <el-row :gutter="10">
                   <el-col :span="8">
-                    {{ entitiesObj[item.fromEnt].semanticTag }}
+                    {{ item.name }}
                   </el-col>
                   <!-- <el-col :span="8">
                     City name
@@ -78,10 +78,14 @@
                   </el-col> -->
                 </el-row>
               </nav>
-              <div class="relation-item-content">
+              <div
+                v-for="(child, num) in item.origin"
+                :key="num"
+                class="relation-item-content"
+              >
                 <el-row :gutter="10">
                   <el-col :span="8">
-                    {{ entitiesObj[item.toEnt].semanticTag }}
+                    {{ child.semanticTag }}
                   </el-col>
                   <!-- <el-col :span="8">
                     City name
@@ -108,6 +112,7 @@ export default {
       bratData: [],
       relationsArr: [],
       entitiesObj: {},
+      afterData: [],
       tableData: [
         {
           name: 'Disease (12)'
@@ -127,16 +132,40 @@ export default {
     setData(data, outputData) {
       this.bratData = data
       console.log('过来的值', outputData)
-      this.$nextTick(() => {
-        this.entitiesObj = outputData.entities
-        this.relationsArr = outputData.relations
-        console.log('this.relationsArr', this.relationsArr)
+
+      this.entitiesObj = outputData.entities
+      this.relationsArr = outputData.relations
+      const relationData = []
+      outputData.relations.map(item => {
+        relationData.push({
+          name: outputData.entities[item.fromEnt].semanticTag,
+          child: outputData.entities[item.toEnt]
+        })
       })
+      console.log('relationData', relationData)
+      const tempArr = []
+      for (let i = 0; i < relationData.length; i++) {
+        if (tempArr.indexOf(relationData[i].name) === -1) {
+          this.afterData.push({
+            name: relationData[i].name,
+            origin: [relationData[i].child]
+          })
+          tempArr.push(relationData[i].name)
+        } else {
+          for (let j = 0; j < this.afterData.length; j++) {
+            if (this.afterData[j].name == relationData[i].name) {
+              this.afterData[j].origin.push(relationData[i].child)
+              break
+            }
+          }
+        }
+      }
+      console.log('afterData', this.afterData)
     }
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
 .relation-item {
   nav {
     padding: 10px 20px;
