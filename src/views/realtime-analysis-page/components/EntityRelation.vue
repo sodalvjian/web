@@ -130,6 +130,7 @@ export default {
       this.$nextTick(() => {
         this.entitiesObj = outputData.entities
         this.relationsArr = outputData.relations
+        console.log('this.relationsArr', this.relationsArr)
       })
     }
   }
