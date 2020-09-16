@@ -19,6 +19,7 @@
             </el-select>
           </el-col>
           <el-col :span="12" align="right">
+            
             <el-button size="mini" @click="clearData">Clear</el-button>
             <el-button size="mini" type="primary" @click="handleAnalysis"
               >Analysis</el-button
@@ -73,6 +74,7 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    
     handleAnalysis() {
       const { pipeline, text } = this.formData
       if (!pipeline) {

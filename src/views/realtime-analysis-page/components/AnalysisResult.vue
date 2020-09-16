@@ -6,6 +6,12 @@
           <h3>Analysis result</h3>
         </el-col>
         <el-col :span="12" align="right">
+          <!-- <input
+            ref="testInput"
+            type="file"
+            accept="text/plain"
+            @change="openFile($event)"
+          /> -->
           <el-button
             type="text"
             :disabled="generalDisabled"
@@ -137,6 +143,26 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    // 上传文件
+    openFile($event) {
+      console.log('$event', $event)
+      var input = $event.target
+      var reader = new FileReader()
+      reader.onload = () => {
+        if (reader.result) {
+          // 显示文件内容
+          // console.log('文本', reader.result)
+          const resultData = JSON.parse(reader.result)
+          console.log('结果', resultData)
+          // const postData = {
+          //   bratFile
+          // }
+          this.$refs.showMarkRef.setBratDataAgain(resultData)
+          this.$refs.testInput.value = ''
+        }
+      }
+      reader.readAsText(input.files[0])
+    },
     setNlpData(data) {
       console.log('data数据', data)
       localStorage.bratData = JSON.stringify(data)

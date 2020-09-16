@@ -452,6 +452,7 @@ export default {
   background-color: #8c7eff;
   border: none;
   border-radius: 5px;
+  max-height: 195px;
 
   &:hover {
     .operation-content {

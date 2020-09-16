@@ -9,7 +9,8 @@
           size="small"
           icon="el-icon-plus"
           @click="createData"
-        >Job</el-button>
+          >Job</el-button
+        >
       </div>
     </nav>
     <el-table
@@ -66,10 +67,18 @@
 
       <el-table-column align="center" label="Operation" width="250px">
         <template slot-scope="scope">
-          <i
-            class="el-icon-delete-solid color-red cp"
-            @click.stop="delData(scope.row)"
-          ></i>
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="Stop job"
+            placement="top"
+          >
+            <i
+              class="el-icon-remove color-red cp"
+              @click.stop="stopData(scope.row)"
+            ></i>
+          </el-tooltip>
+
           <!-- <span v-if="setRole(scope.row).indexOf('admin') !== -1">--</span> -->
         </template>
       </el-table-column>
@@ -101,6 +110,7 @@ export default {
   data() {
     return {
       tableList: [],
+      setInterval: {},
       loading: false,
       listLoading: true,
       page: 0,
@@ -109,7 +119,14 @@ export default {
     }
   },
   created() {
+    clearInterval(this.setInterval)
     this.getList()
+    this.setInterval = setInterval(() => {
+      this.getList()
+    }, 60 * 1000)
+  },
+  destroyed() {
+    clearInterval(this.setInterval)
   },
   methods: {
     setPercent(row) {
@@ -131,7 +148,7 @@ export default {
     },
     // 查看job detail
     viewDetail(row, column, event) {
-      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId }})
+      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId } })
       // sessionStorage.patientListData = JSON.stringify(row)
     },
     setRole(val) {
@@ -140,8 +157,8 @@ export default {
       })
       return roleArray.join(',')
     },
-    delData(row) {
-      this.$confirm('Are you sure you want to delete data?', {
+    stopData(row) {
+      this.$confirm('Are you sure you want to stop job?', {
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
         type: 'warning'
@@ -151,7 +168,7 @@ export default {
             if (res.code === 200) {
               this.$message({
                 type: 'success',
-                message: 'Delete success.'
+                message: 'Stop success.'
               })
               this.getList()
             }

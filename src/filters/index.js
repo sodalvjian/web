@@ -1,10 +1,14 @@
 import moment from 'moment'
 
 export function setDayDate(val) {
-  return moment(val).format('YYYY-MM-DD')
+  const testDateUtc = moment.utc(val)
+  const localDate = moment(testDateUtc).local()
+  return val ? localDate.format('YYYY-MM-DD') : '--'
 }
 export function setHourDate(val) {
-  return val ? moment(val).format('YYYY-MM-DD HH:mm:ss') : '--'
+  const testDateUtc = moment.utc(val)
+  const localDate = moment(testDateUtc).local()
+  return val ? localDate.format('YYYY-MM-DD HH:mm:ss') : '--'
 }
 export function emptyShow(val) {
   return val || '--'
