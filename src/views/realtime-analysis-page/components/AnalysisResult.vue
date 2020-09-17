@@ -122,6 +122,7 @@ export default {
       value: false,
       generalDisabled: true,
       bratSemData: [],
+      bratFileData: [],
       originalBratData: {},
       originalBratDataAgain: {},
       bratData: [],
@@ -166,7 +167,7 @@ export default {
     setNlpData(data) {
       console.log('data数据', data)
       localStorage.bratData = JSON.stringify(data)
-      console.log('output', JSON.parse(data.output))
+      console.log('bratFile', JSON.parse(data.bratFile))
       const outputData = JSON.parse(data.output)
 
       this.originalBratData = deepClone(data)
@@ -185,7 +186,8 @@ export default {
     },
     handleSetBrat() {
       this.bratSemData = JSON.parse(this.originalBratDataAgain.bratSem)
-      console.log(this.bratSemData, this.bratData)
+      this.bratFileData = JSON.parse(this.originalBratDataAgain.bratFile)
+      // console.log(this.bratSemData, this.bratData)
       JSON.parse(this.originalBratData.bratSem).entity_types.map(
         (item, index) => {
           if (!this.bratData[index].switch) {
@@ -193,9 +195,41 @@ export default {
           }
         }
       )
-      this.bratSemData.entity_types = this.bratSemData.entity_types
-      this.originalBratData.bratSem = JSON.stringify(this.bratSemData)
-      console.log('this.bratSemData', this.originalBratData)
+      console.log(
+        'this.originalBratData.bratFile',
+        JSON.parse(this.originalBratData.bratFile).entities
+      )
+
+      const selectDataArr = []
+      this.bratData.map(child => {
+        // console.log('child', child)
+        if (!child.switch) {
+          selectDataArr.push(child.type)
+        }
+      })
+
+      console.log('selectData', selectDataArr)
+
+      this.bratFileData.entities.map((item, index) => {
+        console.log('item', item)
+        if (selectDataArr.indexOf(item[1]) !== -1) {
+          delete this.bratFileData.entities[index]
+        }
+      })
+      const temporaryArr = []
+      this.bratFileData.entities.map(item => {
+        if (item) {
+          temporaryArr.push(item)
+        }
+      })
+      this.bratFileData.entities = temporaryArr
+
+      // this.bratSemData.entity_types = this.bratSemData.entity_types
+      // this.bratFileData.entities = this.bratFileData.entities
+      console.log('this.bratFileData.entities', this.bratFileData.entities)
+      // this.originalBratData.bratSem = JSON.stringify(this.bratSemData)
+      this.originalBratData.bratFile = JSON.stringify(this.bratFileData)
+      // console.log('this.bratSemData', this.originalBratData)
       this.$refs.showMarkRef.setBratDataAgain(this.originalBratData)
       this.dialogVisible = false
     },

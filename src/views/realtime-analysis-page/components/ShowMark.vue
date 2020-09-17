@@ -206,9 +206,7 @@ export default {
       //   GetBrat(url, {}, res => {})
     },
     setBratDataAgain(data) {
-      setTimeout(() => {
-        this.setBratData(data, true)
-      }, 800)
+     this.setBratData(data, true)
     },
     setBratData(data, judge) {
       // 前端模拟生成关系线条颜色
@@ -249,14 +247,13 @@ export default {
       const drawDelCircle = false
       var iframe = document.getElementById('markBrat')
       iframe.contentWindow.location.reload(true)
-
-      setTimeout(() => {
+      iframe.onload = function() {
         $('#markBrat')[0].contentWindow.readyToEmbed(
           collData,
           docData,
           drawDelCircle
         )
-      }, 250)
+      }
     },
     analysisResult(originData) {
       // 加载brat显示数据

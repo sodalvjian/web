@@ -68,6 +68,7 @@
       <div class="tr mt-20">
         <el-pagination
           :page-size="pageSize"
+          @current-change="handleCurrentChange"
           :hide-on-single-page="true"
           layout="prev, pager, next,jumper"
           :total="total"
@@ -132,6 +133,11 @@ export default {
   },
   beforeDestroy() {},
   methods: {
+    handleCurrentChange(val) {
+      // console.log(`当前页: ${val}`)
+      this.page = val
+      this.getData()
+    },
     handleSearch() {
       this.page = 1
       this.getData()
