@@ -130,6 +130,7 @@ export default {
   beforeDestroy() {},
   methods: {
     setData(data, outputData) {
+      this.afterData = []
       this.bratData = data
       console.log('过来的值', outputData)
 
@@ -165,7 +166,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" >
+<style lang="scss">
 .relation-item {
   nav {
     padding: 10px 20px;

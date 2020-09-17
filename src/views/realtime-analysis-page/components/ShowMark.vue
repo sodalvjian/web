@@ -178,8 +178,6 @@ export default {
       this.loading = true
       //      GET /tagged/label/{fileId}
       // const url = `tagged/label/${this.id}`
-      var iframe = document.getElementById('markBrat')
-      iframe.contentWindow.location.reload(true)
       GetBrat(params)
         .then(res => {
           this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
@@ -208,8 +206,6 @@ export default {
       //   GetBrat(url, {}, res => {})
     },
     setBratDataAgain(data) {
-      var iframe = document.getElementById('markBrat')
-      iframe.contentWindow.location.reload(true)
       setTimeout(() => {
         this.setBratData(data, true)
       }, 800)
@@ -229,10 +225,10 @@ export default {
           config[relationType] = randomColor_16
         }
       }
-      this.setCorpusConfigAttr({
-        attr: 'relationLineCongfig',
-        value: config
-      })
+      // this.setCorpusConfigAttr({
+      //   attr: 'relationLineCongfig',
+      //   value: config
+      // })
       window.localStorage.setItem('relationLineCongfig', JSON.stringify(config))
 
       this.analysisResult(data)
@@ -251,14 +247,16 @@ export default {
       }
       // datasource的文本不要显示实体右侧的菜单
       const drawDelCircle = false
-      if (judge) {
+      var iframe = document.getElementById('markBrat')
+      iframe.contentWindow.location.reload(true)
+
+      setTimeout(() => {
         $('#markBrat')[0].contentWindow.readyToEmbed(
           collData,
           docData,
           drawDelCircle
         )
-      }
-      $('#markBrat')[0].contentWindow.reload()
+      }, 250)
     },
     analysisResult(originData) {
       // 加载brat显示数据
@@ -287,10 +285,10 @@ export default {
       if (sentBratSem.entity_types.length) {
         bgColor = sentBratSem.entity_types[0].bgColor
       }
-      this.setSentenceRelations({
-        relations: sentBratFile.relations,
-        bgColor: bgColor
-      })
+      // this.setSentenceRelations({
+      //   relations: sentBratFile.relations,
+      //   bgColor: bgColor
+      // })
       this.sentence = {
         sentBratFile: sentBratFile,
         sentBratSem: sentBratSem
@@ -357,20 +355,20 @@ export default {
         })
         .compact()
         .value()
-      this.setCorpusConfigAttr({
-        attr: '_entity_types',
-        value: currentEntityTypes
-      })
+      // this.setCorpusConfigAttr({
+      //   attr: '_entity_types',
+      //   value: currentEntityTypes
+      // })
 
-      this.setCorpusConfigAttr({
-        attr: '_relation_types',
-        value: currentRelationTypes
-      })
+      // this.setCorpusConfigAttr({
+      //   attr: '_relation_types',
+      //   value: currentRelationTypes
+      // })
 
-      this.setCorpusConfigAttr({ attr: '_entities', value: this.entities })
-      this.setCorpusConfigAttr({ attr: '_relations', value: this.relations })
-      this.setCorpusConfigAttr({ attr: '_sentence', value: this.sentence })
-      this.setCorpusConfigAttr({ attr: '_token', value: this.token })
+      // this.setCorpusConfigAttr({ attr: '_entities', value: this.entities })
+      // this.setCorpusConfigAttr({ attr: '_relations', value: this.relations })
+      // this.setCorpusConfigAttr({ attr: '_sentence', value: this.sentence })
+      // this.setCorpusConfigAttr({ attr: '_token', value: this.token })
     },
     changeModeType(type) {
       this.showType = type // xmi,ori
