@@ -24,8 +24,7 @@
           size="medium"
           icon="el-icon-plus"
           @click="addRoleBtn"
-          >Add</el-button
-        >
+        >Add</el-button>
       </div>
     </nav>
     <el-table
@@ -135,9 +134,10 @@
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定</el-button
-        >
+        <el-button
+          type="primary"
+          @click="dialogVisible = false"
+        >确 定</el-button>
       </span>
     </el-dialog>
     <!-- 新增/修改用户 -->
@@ -170,8 +170,7 @@
                 v-model="checkAllAdmin"
                 :indeterminate="isIndeterminateAdmin"
                 @change="handleCheckAllChangeAdmin"
-                >Select All</el-checkbox
-              >
+              >Select All</el-checkbox>
               <el-checkbox-group
                 v-model="addRole.privilegesAdmin"
                 @change="handleCheckedAdminChange"
@@ -190,8 +189,7 @@
                 v-model="checkAllNormal"
                 :indeterminate="isIndeterminateNormal"
                 @change="handleCheckAllChangeNormal"
-                >Select All</el-checkbox
-              >
+              >Select All</el-checkbox>
               <el-checkbox-group
                 v-model="addRole.privilegesNormal"
                 @change="handleCheckedNormalChange"
@@ -212,11 +210,9 @@
           type="primary"
           @click="saveUserBtn('addRole')"
         >
-          <i class="iconfont icon-save f14 mr-5"></i>Save</el-button
-        >
+          <i class="iconfont icon-save f14 mr-5"></i>Save</el-button>
         <el-button class="btn-white shadow" @click="resetForm('addRole')">
-          <i class="iconfont icon-reset mr-5 f14"></i>Reset</el-button
-        >
+          <i class="iconfont icon-reset mr-5 f14"></i>Reset</el-button>
       </span>
     </el-dialog>
     <!-- 导入excel -->
@@ -245,8 +241,7 @@
             type="success"
             @click="handleUpload"
           >
-            上传Excel</el-button
-          >
+            上传Excel</el-button>
         </div>
         <!-- <el-button @click="uploadExcelBtn" type="success" size="medium" icon="el-icon-upload2" circle></el-button>
         <input accept=".xlsx,.xls" id="upload-excel" style="display:none" type="file"> -->
@@ -341,8 +336,8 @@ export default {
     handleCheckAllChangeNormal(val) {
       this.addRole.privilegesNormal = val
         ? this.rolesDataNormal.map(item => {
-            return item.name
-          })
+          return item.name
+        })
         : []
       console.log(
         ' this.addRole.privilegesNormal',
@@ -359,8 +354,8 @@ export default {
     handleCheckAllChangeAdmin(val) {
       this.addRole.privilegesAdmin = val
         ? this.rolesDataAdmin.map(item => {
-            return item.name
-          })
+          return item.name
+        })
         : []
       console.log(' this.addRole.privilegesAdmin', this.addRole.privilegesAdmin)
       this.isIndeterminateAdmin = false

@@ -24,7 +24,7 @@
             :rules="[
               {
                 required: true,
-                pattern: /^[1-9]\d{15}$/,
+                pattern: /^[1-9]\d{15}|[1-9]\d{14}$/,
                 message: 'Please input legal bank card number'
               }
             ]"
@@ -272,6 +272,8 @@ export default {
           console.log('银行卡信息', res)
           this.pageLoading = false
           this.dialogForm = res.data
+          this.dialogForm.cardNumber = `●●●● ●●●● ●●●● ${res.data.cardNumber}`
+          this.dialogForm.securityCode = '●●●●'
         })
       }
     },

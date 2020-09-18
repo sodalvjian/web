@@ -9,97 +9,103 @@
           size="small"
           icon="el-icon-plus"
           @click="createData"
-          >Job</el-button
-        >
+        >Job</el-button>
       </div>
     </nav>
-    <el-table
-      v-loading="listLoading"
-      class="table-content p20"
-      :data="tableList"
-      highlight-current-row
-      style="width: 100%"
-      @row-click="viewDetail"
-    >
-      <no-data-table slot="empty"></no-data-table>
-      <el-table-column align="center" label="No." width="80" type="index">
-      </el-table-column>
+    <section class="p20">
+      <el-table
+        v-loading="listLoading"
+        class="table-content"
+        :data="tableList"
+        highlight-current-row
+        style="width: 100%"
+        @row-click="viewDetail"
+      >
+        <no-data-table slot="empty"></no-data-table>
+        <el-table-column align="center" label="No." width="80" type="index">
+        </el-table-column>
 
-      <!-- <el-table-column width="180px" align="center" label="时间">
+        <!-- <el-table-column width="180px" align="center" label="时间">
         <template slot-scope="scope">
           <span>{{scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column> -->
-      <el-table-column min-width="200px" label="Name">
-        <template slot-scope="scope">
-          <span>{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column width="120px" align="center" label="Type">
-        <template slot-scope="scope">
-          <span>{{ scope.row.pipeline }}</span>
-        </template>
-      </el-table-column>
+        <el-table-column min-width="180px" show-overflow-tooltip label="Name">
+          <template slot-scope="scope">
+            <span>{{ scope.row.name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column width="120px" align="center" label="Type">
+          <template slot-scope="scope">
+            <span>{{ scope.row.pipeline }}</span>
+          </template>
+        </el-table-column>
 
-      <el-table-column width="250px" align="left">
-        <template slot-scope="scope">
-          <!-- <el-progress
+        <el-table-column width="250px" align="left">
+          <template slot-scope="scope">
+            <!-- <el-progress
             :percentage="setPercent(scope.row)"
             :format="progressFormat"
           ></el-progress> -->
-          <el-progress
-            :percentage="setPercent(scope.row)"
-            :status="setStatus(scope.row)"
-          ></el-progress>
-        </template>
-      </el-table-column>
-      <el-table-column width="160px" align="center" label="Create Time">
-        <template slot-scope="scope">
-          <span>{{ scope.row.date | setHourDate }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column width="160px" label="Updated Time">
-        <template slot-scope="scope">
-          {{ scope.row.update | setHourDate }}
-        </template>
-      </el-table-column>
-      <el-table-column width="160px" label="Status">
-        <template slot-scope="scope">
-          {{ scope.row.status }}
-        </template>
-      </el-table-column>
+            <el-progress
+              :percentage="setPercent(scope.row)"
+              :status="setStatus(scope.row)"
+            ></el-progress>
+          </template>
+        </el-table-column>
+        <el-table-column width="160px" label="Status">
+          <template slot-scope="scope">
+            {{ scope.row.status }}
+          </template>
+        </el-table-column>
+        <el-table-column width="160px" align="center" label="Create Time">
+          <template slot-scope="scope">
+            <span>{{ scope.row.date | setHourDate }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column width="160px" label="Updated Time">
+          <template slot-scope="scope">
+            {{ scope.row.update | setHourDate }}
+          </template>
+        </el-table-column>
 
-      <el-table-column align="center" label="Operation" width="250px">
-        <template slot-scope="scope">
-          <el-tooltip
-            v-if="scope.row.status !== 'COMPLETED'"
-            class="item"
-            effect="dark"
-            content="Stop job"
-            placement="top"
-          >
-            <i
-              class="el-icon-remove color-red cp"
-              @click.stop="stopData(scope.row)"
-            ></i>
-          </el-tooltip>
-          <span v-else>--</span>
+        <el-table-column
+          align="center"
+          label="Operation"
+          fixed="right"
+          width="90px"
+        >
+          <template slot-scope="scope">
+            <el-tooltip
+              v-if="scope.row.status !== 'COMPLETED'"
+              class="item"
+              effect="dark"
+              content="Stop job"
+              placement="top"
+            >
+              <i
+                class="el-icon-remove color-red cp"
+                @click.stop="stopData(scope.row)"
+              ></i>
+            </el-tooltip>
+            <span v-else>--</span>
 
-          <!-- <span v-if="setRole(scope.row).indexOf('admin') !== -1">--</span> -->
-        </template>
-      </el-table-column>
-    </el-table>
-    <div class="tr mt-25">
-      <el-pagination
-        background
-        :page-size="10"
-        hide-on-single-page
-        layout="total, prev, pager, next"
-        :total="total"
-        @current-change="handleCurrentChange"
-      >
-      </el-pagination>
-    </div>
+            <!-- <span v-if="setRole(scope.row).indexOf('admin') !== -1">--</span> -->
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="tr mt-25">
+        <el-pagination
+          background
+          :page-size="10"
+          hide-on-single-page
+          layout="total, prev, pager, next"
+          :total="total"
+          @current-change="handleCurrentChange"
+        >
+        </el-pagination>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -157,7 +163,7 @@ export default {
     },
     // 查看job detail
     viewDetail(row, column, event) {
-      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId } })
+      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId }})
       // sessionStorage.patientListData = JSON.stringify(row)
     },
     setRole(val) {

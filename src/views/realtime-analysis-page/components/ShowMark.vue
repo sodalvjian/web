@@ -206,7 +206,7 @@ export default {
       //   GetBrat(url, {}, res => {})
     },
     setBratDataAgain(data) {
-     this.setBratData(data, true)
+      this.setBratData(data, true)
     },
     setBratData(data, judge) {
       // 前端模拟生成关系线条颜色

@@ -4,7 +4,7 @@
       <el-row class="w">
         <el-col :span="12">
           <span class="f18 color-black">
-            <router-link to="/user/cost">Personal center</router-link> / Bill
+            <router-link to="/user/cost" class="color-main f19">Personal center</router-link> / Bill
             Details
           </span>
         </el-col>
@@ -68,10 +68,10 @@
       <div class="tr mt-20">
         <el-pagination
           :page-size="pageSize"
-          @current-change="handleCurrentChange"
           :hide-on-single-page="true"
           layout="prev, pager, next,jumper"
           :total="total"
+          @current-change="handleCurrentChange"
         >
         </el-pagination>
       </div>

@@ -11,17 +11,19 @@
         <nav>
           <el-row class="w">
             <el-col :span="16">
-              <strong class="color-black f15"
-                >Month-to-Date Spend By Service</strong
-              >
+              <strong
+                class="color-black f15"
+              >Month-to-Date Spend By Service</strong>
             </el-col>
             <el-col :span="8" align="right">
-              <strong class="color-black mr-15 f15"
-                >$ {{ totalCharges }}</strong
-              >
-              <el-button size="small" type="primary" @click="openBillDetail"
-                >Bill Details</el-button
-              >
+              <strong
+                class="color-black mr-15 f15"
+              >$ {{ totalCharges }}</strong>
+              <el-button
+                size="small"
+                type="primary"
+                @click="openBillDetail"
+              >Bill Details</el-button>
             </el-col>
           </el-row>
         </nav>
@@ -180,7 +182,7 @@ export default {
         this.totalCharges = resultData.totalCharges
         this.summaryData = [
           {
-            name: 'General Pipeline',
+            name: 'Charges',
             cost: resultData.charges
           },
           {

@@ -13,7 +13,7 @@
               <el-option
                 v-for="(item, index) in analysisTypeOptions"
                 :key="index"
-                :label="item.name"
+                :label="item.params"
                 :value="item.params"
               >
               </el-option>
@@ -21,9 +21,11 @@
           </el-col>
           <el-col :span="12" align="right">
             <el-button size="mini" @click="clearData">Clear</el-button>
-            <el-button size="mini" type="primary" @click="handleAnalysis"
-              >Analysis</el-button
-            >
+            <el-button
+              size="mini"
+              type="primary"
+              @click="handleAnalysis"
+            >Analysis</el-button>
           </el-col>
         </el-row>
       </nav>

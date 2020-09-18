@@ -44,12 +44,15 @@
     </el-table>
     <span slot="footer">
       <div class="mt-20 mb-20">
-        <el-button size="small" @click="dialogVisible = false"
-          >Cancel</el-button
-        >
-        <el-button type="primary" size="small" @click="confirmData"
-          >Confirm</el-button
-        >
+        <el-button
+          size="small"
+          @click="dialogVisible = false"
+        >Cancel</el-button>
+        <el-button
+          type="primary"
+          size="small"
+          @click="confirmData"
+        >Confirm</el-button>
       </div>
     </span>
   </el-dialog>
