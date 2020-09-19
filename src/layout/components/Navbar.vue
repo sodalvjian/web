@@ -32,7 +32,7 @@
 
     <div class="right-menu">
       <span class="mr-15 header-title fl cb">
-        <el-avatar class="fl mr-10 mt-10" :src="avatarSrc"></el-avatar>
+        <el-avatar class="fl mr-10 header-avatar" :src="avatarSrc"></el-avatar>
         <span class="f16 fl">{{ userName }}</span></span>
       <!-- <error-log class="errLog-container right-menu-item hover-effect" /> -->
       <el-dropdown class="avatar-container fr" trigger="click">
@@ -128,6 +128,9 @@ export default {
 }
 </script>
 <style lang="scss">
+.header-avatar{
+  margin-top:13px ;
+}
 .dialog-show-info {
   .el-dialog__header {
     display: none;

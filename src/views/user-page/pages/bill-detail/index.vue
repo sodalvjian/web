@@ -4,8 +4,10 @@
       <el-row class="w">
         <el-col :span="12">
           <span class="f18 color-black">
-            <router-link to="/user/cost" class="color-main f19">Personal center</router-link> / Bill
-            Details
+            <router-link to="/user/cost" class="color-main f19"
+              >Personal center</router-link
+            >
+            / Bill Details
           </span>
         </el-col>
         <el-col :span="12" align="right">
@@ -47,7 +49,15 @@
       >
         <no-data-table slot="empty"></no-data-table>
         <el-table-column
+          prop="serialNumber"
+          label="Serial Number"
+          align="center"
+          min-width="180"
+        >
+        </el-table-column>
+        <el-table-column
           prop="analysisType"
+          align="center"
           label="Analysis Type"
           min-width="180"
         >
@@ -56,6 +66,20 @@
           <template slot-scope="scope">
             {{ scope.row.cDate | setHourDate }}
           </template>
+        </el-table-column>
+        <el-table-column
+          prop="cost"
+          label="Cost"
+          align="center"
+          min-width="180"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="fieldNumber"
+          align="center"
+          label="Number of field"
+          min-width="180"
+        >
         </el-table-column>
         <el-table-column
           prop="cost"
