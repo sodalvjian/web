@@ -87,6 +87,13 @@
             >
             </el-table-column>
             <el-table-column
+            align="center"
+              prop="type"
+              label="Type"
+              width="100"
+            >
+            </el-table-column>
+            <el-table-column
               prop="callTimes"
               label="Call times"
               align="center"

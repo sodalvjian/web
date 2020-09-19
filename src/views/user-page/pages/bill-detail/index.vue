@@ -62,6 +62,8 @@
           min-width="180"
         >
         </el-table-column>
+        <el-table-column prop="type" align="center" label="Type" width="100">
+        </el-table-column>
         <el-table-column label="Call times" align="center" min-width="180">
           <template slot-scope="scope">
             {{ scope.row.cDate | setHourDate }}
