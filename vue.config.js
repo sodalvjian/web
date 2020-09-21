@@ -53,7 +53,7 @@ module.exports = {
         }
       },
       '/account': {
-        target: 'http://qinchenhuan.mynatapp.cc',
+        target: 'http://www.autowire-code.com',
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {
           '^/account': '/account'

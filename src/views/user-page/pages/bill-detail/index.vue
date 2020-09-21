@@ -50,7 +50,7 @@
         <no-data-table slot="empty"></no-data-table>
         <el-table-column
           prop="serialNumber"
-          label="Serial Number"
+          label="Serial number"
           align="center"
           min-width="180"
         >
@@ -64,17 +64,10 @@
         </el-table-column>
         <el-table-column prop="type" align="center" label="Type" width="100">
         </el-table-column>
-        <el-table-column label="Call times" align="center" min-width="180">
+        <el-table-column label="Create Time" align="center" min-width="180">
           <template slot-scope="scope">
             {{ scope.row.cDate | setHourDate }}
           </template>
-        </el-table-column>
-        <el-table-column
-          prop="cost"
-          label="Cost"
-          align="center"
-          min-width="180"
-        >
         </el-table-column>
         <el-table-column
           prop="fieldNumber"
