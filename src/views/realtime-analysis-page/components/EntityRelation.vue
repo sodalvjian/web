@@ -70,12 +70,7 @@
                   <el-col :span="8">
                     {{ item.name }}
                   </el-col>
-                  <!-- <el-col :span="8">
-                    City name
-                  </el-col>
-                  <el-col :span="8">
-                    0.234
-                  </el-col> -->
+                  
                 </el-row>
               </nav>
               <div
@@ -87,12 +82,8 @@
                   <el-col :span="8">
                     {{ child.semanticTag }}
                   </el-col>
-                  <!-- <el-col :span="8">
-                    City name
-                  </el-col>
-                  <el-col :span="8">
-                    0.234
-                  </el-col> -->
+                  <el-col :span="8"> begin: {{ child.begin }} </el-col>
+                  <el-col :span="8"> end: {{ child.end }} </el-col>
                 </el-row>
               </div>
             </div>

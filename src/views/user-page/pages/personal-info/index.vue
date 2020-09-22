@@ -33,7 +33,8 @@
                       type="primary"
                       plain
                       @click="editAvatar"
-                    >Edit</el-button>
+                      >Edit</el-button
+                    >
                   </div>
                 </el-form-item>
               </el-col>
@@ -164,7 +165,8 @@
                 type="primary"
                 :loading="btnLoading"
                 @click="submitForm('formData')"
-              >Confirm</el-button>
+                >Confirm</el-button
+              >
               <el-button @click="resetForm('formData')">Reset</el-button>
             </el-form-item>
           </div>
@@ -194,33 +196,33 @@
                     <el-row :gutter="10" class="p15">
                       <el-col :span="16">
                         <!-- <strong>{{ item.bankName }}</strong> -->
-                        <strong>Bank of America</strong>
+                        <strong>{{ item.cardType }}</strong>
                       </el-col>
                       <el-col :span="8" align="right">
                         <small
                           v-if="item.defaultPayment"
                           class="user-card-defult"
-                        >defult</small>
+                          >defult</small
+                        >
                       </el-col>
                     </el-row>
                     <div class="user-card-line"></div>
-                    <div class="user-card-chip"><span>DEBIT</span></div>
+                    <div class="user-card-chip"><span>CREDIT</span></div>
                     <div class="f16 colof-white p15">
-                      ●●●● ●●●● ●●●● {{ item.cardNumber }}
+                      {{ item.cardNumber }}
                     </div>
                     <div class="operation-content">
-                      <el-button
-                        type="danger"
-                        @click="deleteCard(item)"
-                      >Delete</el-button>
-                      <el-button
-                        type="warning"
-                        @click="handleEdit(item)"
-                      >Edit</el-button>
+                      <el-button type="danger" @click="deleteCard(item)"
+                        >Delete</el-button
+                      >
+                      <el-button type="warning" @click="handleEdit(item)"
+                        >Edit</el-button
+                      >
                       <el-button
                         type="success"
                         @click="setDefultPayment(item, index)"
-                      >Defult</el-button>
+                        >Defult</el-button
+                      >
                     </div>
                   </el-card>
                 </el-form-item>

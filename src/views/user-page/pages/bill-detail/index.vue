@@ -30,7 +30,8 @@
           <el-date-picker
             v-model="filterForm.dateRange"
             size="small"
-            type="datetimerange"
+            type="daterange"
+            value-format="yyyy-MM-dd"
             range-separator="~"
             start-placeholder="Begin time"
             end-placeholder="End time"
@@ -90,6 +91,7 @@
           :hide-on-single-page="true"
           layout="prev, pager, next,jumper"
           :total="total"
+          :current-page="page"
           @current-change="handleCurrentChange"
         >
         </el-pagination>
@@ -140,7 +142,7 @@ export default {
       tableData: [],
       value: '',
       total: 0,
-      pageSize: 10,
+      pageSize: 2,
       page: 1
     }
   },

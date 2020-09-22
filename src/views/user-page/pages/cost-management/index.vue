@@ -55,6 +55,7 @@
                 size="small"
                 range-separator="~"
                 start-placeholder="Begin month"
+                value-format="yyyy-MM"
                 end-placeholder="End month"
                 @change="changeMonthRange"
               >
