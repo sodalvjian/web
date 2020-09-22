@@ -43,6 +43,16 @@
                 placement="top"
               >
                 <span v-if="detailData.status === 'STOPPED'">--</span>
+                <div
+                  v-else-if="
+                    detailData.status === 'STARTED' ||
+                      detailData.status === 'STARTING'
+                  "
+                  class="progress-running"
+                >
+                  <el-progress class="w" :percentage="0"></el-progress
+                  ><i class="progress-running-icon el-icon-loading"></i>
+                </div>
                 <el-progress
                   v-else
                   :percentage="progressNum"

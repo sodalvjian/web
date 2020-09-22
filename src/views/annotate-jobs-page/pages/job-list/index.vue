@@ -64,7 +64,7 @@
                 "
                 class="progress-running"
               >
-                <el-progress :percentage="0" :format="setFormat"></el-progress
+                <el-progress :percentage="0" class="w"></el-progress
                 ><i class="progress-running-icon el-icon-loading"></i>
               </div>
               <el-progress
@@ -155,11 +155,7 @@ export default {
       total: 0
     }
   },
-  computed: {
-    setFormat() {
-      return ''
-    }
-  },
+  computed: {},
   created() {
     clearInterval(this.setInterval)
     this.getList()
@@ -277,15 +273,5 @@ export default {
 </script>
 
 <style lang="scss">
-.progress-running {
-  position: relative;
-  .el-progress__text {
-    display: none;
-  }
-  .progress-running-icon {
-    position: absolute;
-    left: 184px;
-    top: 0;
-  }
-}
+
 </style>

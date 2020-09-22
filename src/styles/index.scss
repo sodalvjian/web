@@ -13,7 +13,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
 }
 
 label {
@@ -24,10 +25,9 @@ html {
   height: 100%;
   box-sizing: border-box;
 }
-ul{
+ul {
   padding: 0;
 }
-
 
 #app {
   height: 100%;
@@ -61,7 +61,7 @@ div:focus {
     visibility: hidden;
     display: block;
     font-size: 0;
-    content: " ";
+    content: ' ';
     clear: both;
     height: 0;
   }
@@ -71,29 +71,29 @@ div:focus {
 .app-container {
   padding: 20px;
 }
-.search-popover{
-  margin-top:20px!important;
-  width:58%;
+.search-popover {
+  margin-top: 20px !important;
+  width: 58%;
   min-width: 770px;
   padding: 20px;
   border-radius: 15px;
 }
-.vital-container{
+.vital-container {
   background-color: #fff;
   padding: 20px 25px;
   border-radius: 5px;
 }
-.color-main{
+.color-main {
   color: $mainColor;
 }
-.bg-color-main{
+.bg-color-main {
   background-color: $mainColor;
 }
-.nav-title{
+.nav-title {
   position: relative;
   padding-left: 20px;
-  &:before{
-    content:'';
+  &:before {
+    content: '';
     width: 10px;
     height: 20px;
     background-color: $mainColor;
@@ -102,11 +102,11 @@ div:focus {
     top: -2px;
   }
 }
-.search-input{
+.search-input {
   width: 250px;
 }
-.hight-light-container{
-  em{
+.hight-light-container {
+  em {
     color: #ff5656;
     font-style: normal;
     font-weight: bold;
@@ -116,11 +116,11 @@ div:focus {
 .query-string-content {
   .concept {
     font-style: normal;
-    color: #FF9966;
+    color: #ff9966;
   }
   .AND {
     font-style: normal;
-    color: #66CCCC;
+    color: #66cccc;
   }
   .NOT {
     font-style: normal;
@@ -128,10 +128,10 @@ div:focus {
   }
   .OR {
     font-style: normal;
-    color: #99CCFF;
+    color: #99ccff;
   }
 }
-.el-popover{
+.el-popover {
   border-radius: 10px;
 }
 .upload-content {
@@ -167,5 +167,17 @@ div:focus {
         border-right: 3px solid $mainColor;
       }
     }
+  }
+}
+
+.progress-running {
+  position: relative;
+  .el-progress__text {
+    display: none;
+  }
+  .progress-running-icon {
+    position: absolute;
+    right: 35px;
+    top: 0;
   }
 }
