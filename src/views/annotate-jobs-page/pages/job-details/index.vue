@@ -9,7 +9,8 @@
           size="small"
           icon="el-icon-document-copy"
           @click="createJobAgain"
-        >Copy</el-button>
+          >Copy</el-button
+        >
       </div>
     </nav>
     <section v-loading="pageLoading" class="bg-color-gray mt-15 bd-1">
@@ -35,16 +36,26 @@
               Status:
             </el-col>
             <el-col :span="18">
-              <strong><el-progress
-                :percentage="progressNum"
-                :status="setStatus"
-              ></el-progress></strong>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="setTooltipContent"
+                placement="top"
+              >
+                <span v-if="detailData.status === 'STOPPED'">--</span>
+                <el-progress
+                  v-else
+                  :percentage="progressNum"
+                  :status="setStatus"
+                ></el-progress>
+              </el-tooltip>
             </el-col>
           </el-row>
         </el-col>
         <el-col :span="8" class="tc">
           Updated Time: <strong> {{ detailData.update }}</strong>
-        </el-col> </el-row><el-row :gutter="15" class="p20">
+        </el-col> </el-row
+      ><el-row :gutter="15" class="p20">
         <el-col :span="8" class="tc">
           <el-card shadow="never">
             <div class="f15">Number of ducuments</div>
@@ -68,11 +79,13 @@
         <el-col :span="24" class="tl">
           Input location:
           <strong> {{ detailData.input }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.input"
-            v-clipboard:success="copySuccess"
-            class="el-icon-document-copy cp ml-5"
-          ></i></span>
+          <span
+            ><i
+              v-clipboard:copy="detailData.input"
+              v-clipboard:success="copySuccess"
+              class="el-icon-document-copy cp ml-5"
+            ></i
+          ></span>
         </el-col>
       </el-row>
       <el-divider class="m-0"></el-divider>
@@ -80,11 +93,20 @@
         <el-col :span="24" class="tl">
           Output location:
           <strong> {{ detailData.output }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.output"
-            v-clipboard:success="copySuccess"
-            class="el-icon-document-copy cp ml-5"
-          ></i></span>
+          <span
+            ><i
+              v-clipboard:copy="detailData.output"
+              v-clipboard:success="copySuccess"
+              class="el-icon-document-copy cp ml-5"
+            ></i
+          ></span>
+        </el-col> </el-row
+      ><el-divider class="m-0"></el-divider>
+      <el-row :gutter="15" class="p20">
+        <el-col :span="24" class="tl">
+          Cost:
+          <strong class="f20 color-main"> {{ costData }}</strong>
+          <small> $</small>
         </el-col>
       </el-row>
     </section>
@@ -109,7 +131,8 @@
                 type="primary"
                 size="mini"
                 icon="el-icon-document-copy"
-              >Copy</el-button>
+                >Copy</el-button
+              >
             </div>
           </div>
           <div class="mt-10">
@@ -129,7 +152,8 @@
                 type="primary"
                 size="mini"
                 icon="el-icon-document-copy"
-              >Copy</el-button>
+                >Copy</el-button
+              >
             </div>
           </div>
           <div class="mt-10">
@@ -146,7 +170,7 @@
 </template>
 
 <script>
-import { GetDetail } from '@/api/annotate-jobs-page'
+import { GetDetail, GetCostData } from '@/api/annotate-jobs-page'
 import { codemirror } from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/display/autorefresh'
@@ -163,6 +187,7 @@ export default {
       sqlData: '',
       apiCallData: '',
       apiResponseData: '',
+      costData: '',
       cmOptions: {
         // codemirror options
         tabSize: 4,
@@ -176,20 +201,36 @@ export default {
     progressNum() {
       const processNum =
         this.detailData.processedSize / this.detailData.totalSize
-      return processNum
-        ? Math.round(processNum * 100) >= 100
-          ? 100
-          : Math.round(processNum * 100)
-        : 0
+      if (processNum) {
+        if (Math.round(processNum * 100) >= 100) {
+          return 100
+        } else {
+          return Math.round(processNum * 100)
+        }
+      } else if (this.detailData.status === 'FAILED') {
+        return 100
+      } else {
+        return 0
+      }
     },
     setStatus() {
       const processNum =
         this.detailData.processedSize / this.detailData.totalSize
-      return processNum
+      return this.detailData.processedErrCount > 0
+        ? 'warning'
+        : processNum
         ? Math.round(processNum * 100) >= 100
           ? 'success'
           : ''
         : 'exception'
+    },
+    setTooltipContent() {
+      console.log('详细信息', this.detailData.status)
+      if (this.detailData.processedErrCount > 0) {
+        return `Error count: ${this.detailData.processedErrCount}`
+      } else {
+        return this.detailData.status
+      }
     },
     codemirror() {
       return this.$refs.jsonEditor.codemirror
@@ -197,6 +238,7 @@ export default {
   },
   mounted() {
     this.getData()
+    this.getCostData()
   },
   methods: {
     createJobAgain() {
@@ -208,6 +250,12 @@ export default {
     },
     copySuccess() {
       this.$message.success('Copy success!')
+    },
+    getCostData() {
+      const bizId = this.$route.query.bizId
+      GetCostData(bizId).then(res => {
+        this.costData = res.data || 0
+      })
     },
     getData() {
       const params = {

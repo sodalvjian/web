@@ -51,3 +51,11 @@ export function GetDetail(data) {
     data
   })
 }
+
+// get cost
+export function GetCostData(bizid) {
+  return request({
+    url: `jobbizweb/getcost/${bizid}`,
+    method: 'get'
+  })
+}

@@ -9,7 +9,8 @@
           size="small"
           icon="el-icon-plus"
           @click="createData"
-        >Job</el-button>
+          >Job</el-button
+        >
       </div>
     </nav>
     <section class="p20">
@@ -35,7 +36,12 @@
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column width="120px" align="center" label="Type">
+        <el-table-column
+          width="160px"
+          show-overflow-tooltip
+          align="left"
+          label="Type"
+        >
           <template slot-scope="scope">
             <span>{{ scope.row.pipeline }}</span>
           </template>
@@ -43,14 +49,30 @@
 
         <el-table-column width="250px" align="left">
           <template slot-scope="scope">
-            <!-- <el-progress
-            :percentage="setPercent(scope.row)"
-            :format="progressFormat"
-          ></el-progress> -->
-            <el-progress
-              :percentage="setPercent(scope.row)"
-              :status="setStatus(scope.row)"
-            ></el-progress>
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :disabled="setTooltipDisabled(scope.row)"
+              :content="setTooltipContent(scope.row)"
+              placement="top"
+            >
+              <span v-if="scope.row.status === 'STOPPED'">--</span>
+              <div
+                v-else-if="
+                  scope.row.status === 'STARTED' ||
+                    scope.row.status === 'STARTING'
+                "
+                class="progress-running"
+              >
+                <el-progress :percentage="0" :format="setFormat"></el-progress
+                ><i class="progress-running-icon el-icon-loading"></i>
+              </div>
+              <el-progress
+                v-else
+                :percentage="setPercent(scope.row)"
+                :status="setStatus(scope.row)"
+              ></el-progress>
+            </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column width="160px" label="Status">
@@ -77,7 +99,10 @@
         >
           <template slot-scope="scope">
             <el-tooltip
-              v-if="scope.row.status !== 'COMPLETED'"
+              v-if="
+                scope.row.status === 'STARTED' ||
+                  scope.row.status === 'STARTING'
+              "
               class="item"
               effect="dark"
               content="Stop job"
@@ -130,6 +155,11 @@ export default {
       total: 0
     }
   },
+  computed: {
+    setFormat() {
+      return ''
+    }
+  },
   created() {
     clearInterval(this.setInterval)
     this.getList()
@@ -141,21 +171,44 @@ export default {
     clearInterval(this.setInterval)
   },
   methods: {
+    setTooltipDisabled(row) {
+      if (row.processedErrCount > 0) {
+        return false
+      }
+      return true
+    },
+    setTooltipContent(row) {
+      if (row.processedErrCount > 0) {
+        return `Error count: ${row.processedErrCount}`
+      }
+    },
     progressFormat(percentage) {
       return percentage === 100 ? '满' : `${percentage}%`
     },
     setPercent(row) {
       const processNum = row.processedSize / row.totalSize
-      console.log('processNum', processNum)
-      return processNum
-        ? Math.round(processNum * 100) >= 100
-          ? 100
-          : Math.round(processNum * 100)
-        : 0
+      if (processNum) {
+        if (Math.round(processNum * 100) >= 100) {
+          return 100
+        } else {
+          return Math.round(processNum * 100)
+        }
+      } else if (row.status === 'FAILED') {
+        return 100
+      } else {
+        return 0
+      }
+      // return processNum
+      //   ? Math.round(processNum * 100) >= 100
+      //     ? 100
+      //     : Math.round(processNum * 100)
+      //   : 0
     },
     setStatus(row) {
       const processNum = row.processedSize / row.totalSize
-      return processNum
+      return row.processedErrCount > 0
+        ? 'warning'
+        : processNum
         ? Math.round(processNum * 100) >= 100
           ? 'success'
           : ''
@@ -163,7 +216,7 @@ export default {
     },
     // 查看job detail
     viewDetail(row, column, event) {
-      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId }})
+      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId } })
       // sessionStorage.patientListData = JSON.stringify(row)
     },
     setRole(val) {
@@ -223,4 +276,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.progress-running {
+  position: relative;
+  .el-progress__text {
+    display: none;
+  }
+  .progress-running-icon {
+    position: absolute;
+    left: 184px;
+    top: 0;
+  }
+}
+</style>

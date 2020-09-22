@@ -12,7 +12,7 @@
       :model="formData"
       label-width="80px"
     >
-      <section class="bg-color-gray mt-20 bd-1">
+      <section v-loading="pageLoading" class="bg-color-gray mt-20 bd-1">
         <el-row :gutter="15" class="p20">
           <el-col :span="8">
             <strong class="f16">Job Setting</strong>
@@ -49,25 +49,22 @@
                 <el-select
                   v-model="formData.pipelineId"
                   class="w"
-                  popper-class="job-select"
+                  popper-class=""
                   placeholder="Please select…"
                   @change="changepipeline"
                 >
                   <el-option
                     v-for="(item, index) in analysisTypeOptions"
                     :key="index"
-                    :label="item.name"
-                    :value="item.id"
+                    :label="item.params"
+                    :value="item.params"
                   >
-                    <div class="job-select-label">{{ item.name }}</div>
-                    <div class="job-select-value">{{ item.description }}</div>
                   </el-option>
                 </el-select>
               </el-form-item>
-            </div>
-          </el-col></el-row>
+            </div> </el-col></el-row>
       </section>
-      <section class="bg-color-gray mt-25 bd-1">
+      <section v-loading="pageLoading" class="bg-color-gray mt-25 bd-1">
         <el-row :gutter="20" class="">
           <el-col :span="12" class="br-1">
             <strong class="f16 p20 disinblock">Input Data</strong>
@@ -215,6 +212,7 @@ import DialogShowInfo from '@/components/DialogShowInfo'
 import chooseResource from './components/ChooseResource'
 import 'codemirror/lib/codemirror.css'
 import { s3List } from './constants'
+import store from '@/store'
 export default {
   name: 'InlineEditTable',
   components: {
@@ -225,8 +223,10 @@ export default {
   data() {
     return {
       analysisTypeOptions: [],
+      pageLoading: false,
       encryptionRadio: 'AES-256',
       encryptionHandle: '',
+      userId: store.getters.userInfo.userId,
       btnLoading: false,
       popoverVisible: false,
       encryption: false,
@@ -259,7 +259,7 @@ export default {
     getCopyData() {
       const copyStatus = this.$route.query.copy
       const copyJobData = JSON.parse(sessionStorage.copyJobData)
-      console.log('复制数据', copyStatus)
+      console.log('复制数据', copyJobData, this.analysisTypeOptions)
       const {
         name,
         pipeline,
@@ -277,7 +277,7 @@ export default {
 
         this.formData = {
           name: name,
-          pipelineId: pipelineObj.id,
+          pipelineId: pipelineObj ? pipelineObj.id : '',
           encryption: encryption,
           input: input,
           output: output
@@ -327,7 +327,7 @@ export default {
     },
     changepipeline() {
       this.pipelineData = this.analysisTypeOptions.find(
-        item => item.id === this.formData.pipelineId
+        item => item.params === this.formData.pipelineId
       )
       console.log('this.pipelineData', this.pipelineData)
     },
@@ -340,7 +340,7 @@ export default {
           }
           const { name, input, output, encryption } = this.formData
           const params = {
-            userId: 999,
+            userId: this.userId,
             name: name,
             input: input,
             output: output,
@@ -421,10 +421,12 @@ export default {
       this.$refs[formName].resetFields()
     },
     getAnalysisType() {
+      this.pageLoading = true
       GetAnalysisType().then(res => {
         if (res.code === 200) {
           this.analysisTypeOptions = res.data
           this.getCopyData()
+          this.pageLoading = false
         }
       })
     }
