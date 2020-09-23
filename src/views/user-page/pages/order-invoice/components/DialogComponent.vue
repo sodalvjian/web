@@ -12,17 +12,17 @@
           <strong class="f17">Invoice</strong>
         </el-col>
         <el-col :span="12" align="right">
-          <el-button
-            size="small"
-            @click="dialogVisible = false"
-          >Cancel</el-button>
+          <el-button size="small" @click="dialogVisible = false"
+            >Cancel</el-button
+          >
           <el-button
             size="small"
             type="primary"
             icon="el-icon-printer"
             :loading="btnLoading"
             @click="handlePrint"
-          >Print</el-button>
+            >Print</el-button
+          >
         </el-col>
       </el-row>
     </div>
@@ -41,9 +41,9 @@
               </span>
             </td>
             <td valign="top" height="35" rowspan="1" colspan="2">
-              <span
-                style="color: rgb(89, 89, 89); font-size: 15px;"
-              ><strong>Melax Technologies,Inc</strong></span>
+              <span style="color: rgb(89, 89, 89); font-size: 15px;"
+                ><strong>Melax Technologies,Inc</strong></span
+              >
             </td>
           </tr>
           <tr>
@@ -70,9 +70,8 @@
               height="50"
               style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); word-break: break-all;"
             >
-              <span
-                style="color: rgb(89, 89, 89); font-size: 13px;"
-              >Email or talk to us about your account account or bill visit
+              <span style="color: rgb(89, 89, 89); font-size: 13px;"
+                >Email or talk to us about your account or bill visit
                 melaxtech.com/index. php/about-us/contact
               </span>
             </td>
@@ -109,7 +108,9 @@
               width="312"
               style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); word-break: break-all;"
             >
-              <span style="color: rgb(89, 89, 89);">ATTN: Hua Xu</span>
+              <span style="color: rgb(89, 89, 89);"
+                >ATTN: {{ printData.firstname }} {{ printData.lastname }}</span
+              >
             </td>
             <td
               valign="middle"
@@ -149,7 +150,10 @@
               width="312"
               style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255);"
             >
-              <span style="color: rgb(89, 89, 89);">3023 Newbrook Dr</span>
+              <span style="color: rgb(89, 89, 89);"
+                >{{ printData.apartment || '--' }}
+                {{ printData.street || '--' }}</span
+              >
             </td>
             <td
               valign="top"
@@ -180,19 +184,20 @@
               width="312"
               style="word-break: break-all; border-color: rgb(255, 255, 255);"
             >
-              <span
-                style="color: rgb(89, 89, 89);"
-              >Pearland , TX , 77584 , US</span>
+              <span style="color: rgb(89, 89, 89);"
+                >{{ printData.city }} , {{ printData.state }} ,
+                {{ printData.countryRegion }}</span
+              >
             </td>
             <td
               valign="top"
               width="486"
               style="border-color: rgb(255, 255, 255); word-break: break-all;"
             >
-              <strong
-                style="font-size:16px;text-transform:uppercase;"
-              >TOTAL AMOUNT DUE ON
-                {{ printData.invoiceDate | setDate }}</strong>
+              <strong style="font-size:16px;text-transform:uppercase;"
+                >TOTAL AMOUNT DUE ON
+                {{ printData.invoiceDate | setDate }}</strong
+              >
             </td>
             <td
               valign="top"
@@ -201,22 +206,25 @@
               width="136"
               style="word-break: break-all;"
             >
-              <strong
-                style="font-size:16px"
-              >${{ printData.totalCharge }}</strong>
+              <strong style="font-size:16px"
+                >${{ printData.totalCharge }}</strong
+              >
             </td>
           </tr>
         </tbody>
       </table>
       <p style="text-align: center; margin-top:40px;font-size:15px">
-        <strong>This invoice is for the billing period April 1 - April 30 ,
-          2020</strong>
+        <strong
+          >This invoice is for the billing period April 1 - April 30 ,
+          2020</strong
+        >
       </p>
       <p style="text-align: center; margin-top:20px">
         <span
           style="color: rgb(136, 136, 136); font-size: 13px; text-align: center; background-color: rgb(255, 255, 255);"
-        >Greetings from Amazon Web Services, were writing to provide you with
-          an electronic invoice for your use of AWS services.</span>
+          >Greetings from Amazon Web Services, were writing to provide you with
+          an electronic invoice for your use of AWS services.</span
+        >
       </p>
       <p style="text-align: center;margin-top:-8px">
         <span
@@ -224,7 +232,8 @@
         >
           Additional information about your bill, individual service charge
           details, and your account history are available on the Account
-          Activity Page.</span>
+          Activity Page.</span
+        >
       </p>
       <table
         data-sort="sortDisabled"
@@ -242,9 +251,9 @@
               align="left"
               width="671"
             >
-              <span
-                style="color: #000;padding:20px"
-              ><strong>Summary</strong></span>
+              <span style="color: #000;padding:20px"
+                ><strong>Summary</strong></span
+              >
             </td>
             <td
               valign="middle"
@@ -270,9 +279,9 @@
               height="40"
               width="320"
             >
-              <span
-                style="color: rgb(96, 98, 102);padding:20px"
-              >${{ printData.charges }}</span>
+              <span style="color: rgb(96, 98, 102);padding:20px"
+                >${{ printData.charges }}</span
+              >
             </td>
           </tr>
           <tr>
@@ -290,9 +299,9 @@
               align="right"
               width="320"
             >
-              <span
-                style="color: rgb(96, 98, 102);padding:20px"
-              >${{ printData.credits }}</span>
+              <span style="color: rgb(96, 98, 102);padding:20px"
+                >${{ printData.credits }}</span
+              >
             </td>
           </tr>
           <tr>
@@ -310,9 +319,9 @@
               align="right"
               width="320"
             >
-              <span
-                style="color: rgb(96, 98, 102);padding:20px"
-              >${{ printData.tax }}</span>
+              <span style="color: rgb(96, 98, 102);padding:20px"
+                >${{ printData.tax }}</span
+              >
             </td>
           </tr>
           <tr>
@@ -325,9 +334,9 @@
               height="45"
               width="671"
             >
-              <span
-                style="padding: 20px;color: #fff;font-weight: bold;"
-              >Total for this invoice</span>
+              <span style="padding: 20px;color: #fff;font-weight: bold;"
+                >Total for this invoice</span
+              >
             </td>
             <td
               valign="middle"
@@ -338,9 +347,9 @@
               style="background-color: rgb(134, 143, 169); "
               width="320"
             >
-              <span
-                style="color: #fff;font-weight: bold;padding:20px"
-              >${{ printData.totalCharge }}</span>
+              <span style="color: #fff;font-weight: bold;padding:20px"
+                >${{ printData.totalCharge }}</span
+              >
             </td>
           </tr>
           <tr>
@@ -352,7 +361,7 @@
               style="word-break: break-all; background-color: rgb(249, 248, 253); "
             >
               <div
-                style="color: rgb(96, 98, 102); padding:20px;line-height: 2;font-size:13px"
+                style="color: rgb(96, 98, 102); padding:20px;line-height: 1.6;font-size:13px"
               >
                 May include estimated US sales tax, VAT, ST GST an CT Amazon Web
                 Services, Inc, is registered under the Sing apore GST Overseas
