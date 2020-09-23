@@ -272,7 +272,7 @@ export default {
           console.log('银行卡信息', res)
           this.pageLoading = false
           this.dialogForm = res.data
-          this.dialogForm.cardNumber = `●●●● ●●●● ●●●● ${res.data.cardNumber}`
+          this.dialogForm.cardNumber = `${res.data.cardNumber}`
           this.dialogForm.securityCode = '●●●●'
         })
       }
