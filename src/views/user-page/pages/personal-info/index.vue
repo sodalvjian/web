@@ -438,7 +438,8 @@ export default {
 <style lang="scss" scoped>
 .user-form {
   width: 60%;
-  min-width: 500px;
+  min-width: 740px;
+  max-width: 800px;
 }
 .user-card-content {
   .user-card-item {
