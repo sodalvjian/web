@@ -277,13 +277,13 @@ export default {
 
         this.formData = {
           name: name,
-          pipelineId: pipelineObj ? pipelineObj.id : '',
+          pipelineId: pipelineObj ? pipelineObj.params : '',
           encryption: encryption,
           input: input,
           output: output
         }
         this.pipelineData = this.analysisTypeOptions.find(
-          item => item.id === this.formData.pipelineId
+          item => item.params === pipelineObj.params
         )
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)
@@ -332,6 +332,7 @@ export default {
       console.log('this.pipelineData', this.pipelineData)
     },
     onSubmit() {
+      console.log('this.pipelineData', this.pipelineData)
       this.$refs.formData.validate(valid => {
         if (valid) {
           if (!this.inRegion || !this.outRegion) {

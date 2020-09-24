@@ -51,7 +51,7 @@
                   class="progress-running"
                 >
                   <el-progress class="w" :percentage="0"></el-progress
-                  ><i class="progress-running-icon el-icon-loading"></i>
+                  ><i style="right:1%" class="progress-running-icon el-icon-loading"></i>
                 </div>
                 <el-progress
                   v-else
