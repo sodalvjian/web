@@ -24,7 +24,6 @@
             :rules="[
               {
                 required: true,
-                pattern: /^[1-9]\d{15}|[1-9]\d{14}$/,
                 message: 'Please input legal bank card number'
               }
             ]"
@@ -32,6 +31,7 @@
             <el-input
               v-model="dialogForm.cardNumber"
               type="test"
+              :disabled="editStatus"
               placeholder="Card Number"
               autocomplete="off"
             ></el-input>
@@ -51,6 +51,7 @@
             <el-input
               v-model="dialogForm.firstname"
               type="test"
+              :disabled="editStatus"
               placeholder="First name"
               autocomplete="off"
             ></el-input>
@@ -62,6 +63,7 @@
               v-model="dialogForm.lastname"
               placeholder="Last name"
               type="test"
+              :disabled="editStatus"
               autocomplete="off"
             ></el-input>
           </el-form-item>
@@ -74,7 +76,7 @@
           >
             <el-row>
               <el-col :span="11">
-                <el-select v-model="expirationMonth" placeholder="MM">
+                <el-select v-model="expirationMonth" :disabled="editStatus" placeholder="MM">
                   <el-option
                     v-for="(item, index) in monthList"
                     :key="index"
@@ -86,7 +88,7 @@
               </el-col>
               <el-col :span="2" align="center">/</el-col>
               <el-col :span="11">
-                <el-select v-model="expirationYear" placeholder="YY">
+                <el-select v-model="expirationYear" :disabled="editStatus" placeholder="YY">
                   <el-option
                     v-for="(item, index) in yearList"
                     :key="index"
@@ -112,6 +114,7 @@
           >
             <el-input
               v-model="dialogForm.securityCode"
+              :disabled="editStatus"
               placeholder="Security Code"
               type="test"
               autocomplete="off"
@@ -208,16 +211,16 @@
         </el-col>
       </el-row>
       <div class="mt-40 tc mb-20">
-        <el-button
-          size="small"
-          @click="dialogVisible = false"
-        >Cancel</el-button>
+        <el-button size="small" @click="dialogVisible = false"
+          >Cancel</el-button
+        >
         <el-button
           size="small"
           :loading="btnLoading"
           type="primary"
           @click="submitForm('dialogForm')"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </div>
     </el-form>
   </el-dialog>

@@ -72,7 +72,7 @@
             >
               <span style="color: rgb(89, 89, 89); font-size: 13px;"
                 >Email or talk to us about your account or bill visit
-                melaxtech.com/index. php/about-us/contact
+                melaxtech.com/index.php/about-us/contact
               </span>
             </td>
           </tr>
@@ -215,8 +215,8 @@
       </table>
       <p style="text-align: center; margin-top:40px;font-size:15px">
         <strong
-          >This invoice is for the billing period April 1 - April 30 ,
-          2020</strong
+          >This invoice is for the billing period
+          {{ printData.invoiceDate | setDate }} </strong
         >
       </p>
       <p style="text-align: center; margin-top:20px">

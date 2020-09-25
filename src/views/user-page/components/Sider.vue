@@ -3,7 +3,7 @@
     <nav class="tc bb-1 p20">
       <el-avatar shape="circle" :size="80" :src="avatarSrc"></el-avatar>
       <div class="mt-10">
-        <strong class="color-black f16">{{ userName }} </strong><i class="iconfont iconpro1 "></i>
+        <strong class="color-black f16">{{ userName }} </strong>
       </div>
     </nav>
     <ul class="user-sider-mean">
