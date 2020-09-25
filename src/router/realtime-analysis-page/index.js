@@ -11,7 +11,8 @@ export default [
         component: () => import('@/views/realtime-analysis-page'),
         meta: {
           title: 'Realtime analysis',
-          icon: '#iconRealtimeAnalysis'
+          icon: '#iconRealtimeAnalysis',
+          keepAlive: true
         }
       }
     ]

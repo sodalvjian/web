@@ -56,7 +56,14 @@
               :content="setTooltipContent(scope.row)"
               placement="top"
             >
-              <span v-if="scope.row.status === 'STOPPED'">--</span>
+              <span
+                v-if="
+                  scope.row.status === 'STOPPED' ||
+                    scope.row.reqStatus === 'STOPPED' ||
+                    scope.row.reqStatus === 'STOPPING'
+                "
+                >--</span
+              >
               <div
                 v-else-if="
                   scope.row.status === 'STARTED' ||
@@ -65,7 +72,10 @@
                 class="progress-running"
               >
                 <el-progress :percentage="0" class="w"></el-progress
-                ><i style="right:14%" class="progress-running-icon el-icon-loading"></i>
+                ><i
+                  style="right:14%"
+                  class="progress-running-icon el-icon-loading"
+                ></i>
               </div>
               <el-progress
                 v-else
@@ -77,7 +87,11 @@
         </el-table-column>
         <el-table-column width="160px" label="Status">
           <template slot-scope="scope">
-            {{ scope.row.status }}
+            {{
+              scope.row.reqStatus !== 'UNKNOWN' && scope.row.reqStatus
+                ? scope.row.reqStatus
+                : scope.row.status
+            }}
           </template>
         </el-table-column>
         <el-table-column width="160px" align="center" label="Create Time">
@@ -178,9 +192,6 @@ export default {
         return `Error count: ${row.processedErrCount}`
       }
     },
-    progressFormat(percentage) {
-      return percentage === 100 ? '满' : `${percentage}%`
-    },
     setPercent(row) {
       const processNum = row.processedSize / row.totalSize
       if (processNum) {
@@ -272,6 +283,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

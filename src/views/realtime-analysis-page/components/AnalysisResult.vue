@@ -17,7 +17,8 @@
             :disabled="generalDisabled"
             class="mt-5"
             @click="openSetting"
-          >General Settings<i class="el-icon-s-tools el-icon--right f18"></i></el-button>
+            >General Settings<i class="el-icon-s-tools el-icon--right f18"></i
+          ></el-button>
         </el-col>
       </el-row>
     </nav>
@@ -92,15 +93,12 @@
         </el-table> -->
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button
-          size="small"
-          @click="dialogVisible = false"
-        >Cancel</el-button>
-        <el-button
-          size="small"
-          type="primary"
-          @click="handleSetBrat"
-        >Confirm</el-button>
+        <el-button size="small" @click="dialogVisible = false"
+          >Cancel</el-button
+        >
+        <el-button size="small" type="primary" @click="handleSetBrat"
+          >Confirm</el-button
+        >
       </span>
     </el-dialog>
   </div>
@@ -184,7 +182,10 @@ export default {
       })
       this.bratData = bratData
 
-      this.$refs.entityRelationref.setData(bratData, outputData)
+      const bratFile = JSON.parse(data.bratFile)
+      const bratSem = JSON.parse(data.bratSem)
+
+      this.$refs.entityRelationref.setData(bratFile, outputData, bratSem)
     },
     handleSetBrat() {
       this.bratSemData = JSON.parse(this.originalBratDataAgain.bratSem)

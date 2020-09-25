@@ -1,6 +1,35 @@
 <template>
-  <div v-if="false">
-    <nav class="pl-20 pr-20 bg-color-white mt-30">
+  <div>
+    <el-table
+      :data="tableData"
+      class="mt-40"
+      style="width: 100%;margin-bottom: 20px;"
+      row-key="dataId"
+      border
+      :tree-props="{ children: 'children' }"
+    >
+      <el-table-column label="Entity" width="320">
+        <template slot-scope="scope">
+          {{ findText(bratText, scope.row.begin, scope.row.end) }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Type" width="180">
+        <template slot-scope="scope">
+          <i
+            :style="setColor(scope.row.semanticTag)"
+            class="mr-5 entity-type-round"
+          ></i
+          >{{ scope.row.semanticTag }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="address" label="CUI">
+        <template slot-scope="scope">
+          {{ scope.row.cui }}
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <!-- <nav class="pl-20 pr-20 bg-color-white mt-30">
       <el-row class="bb-1">
         <el-col :span="12">
           <h3>Entity</h3>
@@ -23,12 +52,12 @@
               {{ item.type }}
             </el-col>
             <el-col :span="12" align="center">
-              <!-- <el-switch active-color="#13ce66" v-model="item.switch">
-              </el-switch> -->
+              <el-switch active-color="#13ce66" v-model="item.switch">
+              </el-switch>
             </el-col>
           </el-row>
 
-          <!-- <el-table
+          <el-table
             :data="tableData"
             :height="300"
             stripe
@@ -56,7 +85,7 @@
             <el-table-column label="Other" align="center">
               <template> </template>
             </el-table-column>
-          </el-table> -->
+          </el-table>
         </el-col>
         <el-col :span="12" class="">
           <div class="p20 bg-color-white">
@@ -70,7 +99,6 @@
                   <el-col :span="8">
                     {{ item.name }}
                   </el-col>
-                  
                 </el-row>
               </nav>
               <div
@@ -90,10 +118,12 @@
           </div>
         </el-col>
       </el-row>
-    </section>
+    </section> -->
   </div>
 </template>
 <script>
+const { v1: uuidv1, v4: uuidv4 } = require('uuid')
+import { deepClone } from '@/utils/method'
 export default {
   name: '',
   components: {},
@@ -102,16 +132,11 @@ export default {
     return {
       bratData: [],
       relationsArr: [],
+      bratFile: [],
       entitiesObj: {},
       afterData: [],
-      tableData: [
-        {
-          name: 'Disease (12)'
-        },
-        {
-          name: 'Determination (12)'
-        }
-      ]
+      bratText: '',
+      tableData: []
     }
   },
   computed: {},
@@ -120,63 +145,80 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
-    setData(data, outputData) {
+    setData(bratFile, outputData, bratSem) {
       this.afterData = []
-      this.bratData = data
-      console.log('过来的值', outputData)
+      console.log('bratFile', bratFile)
+      this.bratText = bratFile.text
+      console.log('过来的bratSem', bratSem)
+      this.bratSem = bratSem
 
-      this.entitiesObj = outputData.entities
-      this.relationsArr = outputData.relations
-      const relationData = []
-      outputData.relations.map(item => {
-        relationData.push({
-          name: outputData.entities[item.fromEnt].semanticTag,
-          child: outputData.entities[item.toEnt]
+      const entitiesObj = outputData.entities
+      const relationsArr = outputData.relations
+
+      // 将entity取出
+      const entitiesData = []
+      for (const i in entitiesObj) {
+        entitiesObj[i].keyName = i
+        entitiesObj[i].dataId = uuidv1()
+        entitiesObj[i].children = []
+        entitiesData.push(entitiesObj[i])
+      }
+      const copyEntitiesData = deepClone(entitiesData)
+      relationsArr.map(item => {
+        copyEntitiesData.map(child => {
+          if (item.fromEnt === child.keyName) {
+            entitiesObj[item.toEnt].dataId = uuidv1()
+            child.children.push(entitiesObj[item.toEnt])
+          }
         })
       })
-      console.log('relationData', relationData)
-      const tempArr = []
-      for (let i = 0; i < relationData.length; i++) {
-        if (tempArr.indexOf(relationData[i].name) === -1) {
-          this.afterData.push({
-            name: relationData[i].name,
-            origin: [relationData[i].child]
-          })
-          tempArr.push(relationData[i].name)
-        } else {
-          for (let j = 0; j < this.afterData.length; j++) {
-            if (this.afterData[j].name == relationData[i].name) {
-              this.afterData[j].origin.push(relationData[i].child)
-              break
-            }
-          }
-        }
-      }
-      console.log('afterData', this.afterData)
+
+      console.log('entitiesData', copyEntitiesData)
+      this.tableData = copyEntitiesData
+    },
+    setColor(type) {
+      console.log('type啊啊啊', type)
+      const colorObj = {}
+      const entityTypes = this.bratSem.entity_types
+      entityTypes.map(item => {
+        colorObj[item.type] = item
+      })
+      console.log('colorObj', colorObj)
+      return `background-color:${colorObj[type].bgColor}`
+    },
+    findText(str, begin, end) {
+      return str.substr(begin, end - begin)
     }
   }
 }
 </script>
 <style lang="scss">
-.relation-item {
-  nav {
-    padding: 10px 20px;
-    background-color: #f8f8fa;
-  }
-  .relation-item-content {
-    margin-top: 15px;
-    padding: 10px 20px;
-    margin-left: 40px;
-    border: 1px solid #e9e9e9;
-    position: relative;
+.entity-type-round {
+  float: left;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 7px;
+  margin-right: 7px;
+}
+.el-table__row--level-1 {
+  .el-table_1_column_1 {
     &:before {
+      transition: all .5s;
       content: '';
-      width: 40px;
-      height: 1px;
-      background-color: #e9e9e9;
       position: absolute;
-      left: -40px;
-      top: 18px;
+      left: 20px;
+      width: 22px;
+      top: -12px;
+      height: 37px;
+      border-left: 1px solid #ebeef5;
+      border-bottom: 1px solid #ebeef5;
+    }
+  }
+  .el-table_1_column_1:hover{
+    &:before {
+      border-left: 1px solid #a0a0a0;
+      border-bottom: 1px solid #a0a0a0;
     }
   }
 }

@@ -32,7 +32,8 @@
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "vue-clipboard2": "^0.3.1",
-    "vue-avatar-editor-improved":"^1.0.5"
+    "vue-avatar-editor-improved": "^1.0.5",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
