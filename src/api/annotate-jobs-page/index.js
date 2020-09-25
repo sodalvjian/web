@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // delete user
 export function DelData(data) {
   return request({
-    url: `jobbizweb/jobbiz/stop/${data.id}`,
+    url: `jobbizweb/jobbiz/stop/${data.bizId}`,
     method: 'DELETE'
   })
 }
