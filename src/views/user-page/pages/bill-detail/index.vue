@@ -142,7 +142,7 @@ export default {
       tableData: [],
       value: '',
       total: 0,
-      pageSize: 2,
+      pageSize: 10,
       page: 1
     }
   },

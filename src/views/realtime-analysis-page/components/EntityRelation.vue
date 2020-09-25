@@ -1,5 +1,5 @@
 <template>
-  <div v-if="bratData.length > 0">
+  <div v-if="false">
     <nav class="pl-20 pr-20 bg-color-white mt-30">
       <el-row class="bb-1">
         <el-col :span="12">
