@@ -3,9 +3,9 @@
     <el-table
       :data="tableData"
       class="mt-40"
+      ref="tableDataRef"
       style="width: 100%;margin-bottom: 20px;"
       row-key="dataId"
-      border
       :tree-props="{ children: 'children' }"
     >
       <el-table-column label="Entity" width="320">
@@ -134,7 +134,6 @@ export default {
       relationsArr: [],
       bratFile: [],
       entitiesObj: {},
-      afterData: [],
       bratText: '',
       tableData: []
     }
@@ -145,8 +144,10 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
+    setDataEmpty() {
+      this.tableData = []
+    },
     setData(bratFile, outputData, bratSem) {
-      this.afterData = []
       console.log('bratFile', bratFile)
       this.bratText = bratFile.text
       console.log('过来的bratSem', bratSem)
@@ -175,6 +176,7 @@ export default {
 
       console.log('entitiesData', copyEntitiesData)
       this.tableData = copyEntitiesData
+      this.$refs.tableDataRef.doLayout()
     },
     setColor(type) {
       console.log('type啊啊啊', type)
@@ -204,7 +206,7 @@ export default {
 .el-table__row--level-1 {
   .el-table_1_column_1 {
     &:before {
-      transition: all .5s;
+      transition: all 0.5s;
       content: '';
       position: absolute;
       left: 20px;
@@ -215,7 +217,7 @@ export default {
       border-bottom: 1px solid #ebeef5;
     }
   }
-  .el-table_1_column_1:hover{
+  .el-table_1_column_1:hover {
     &:before {
       border-left: 1px solid #a0a0a0;
       border-bottom: 1px solid #a0a0a0;

@@ -29,7 +29,8 @@
         @success-data="generalDisabled = false"
       />
     </section>
-    <!-- Entity & Relation -->
+    <h3>Entity & Relation</h3>
+
     <entity-relation ref="entityRelationref" />
     <!-- General Settings dialog -->
     <el-dialog
@@ -238,6 +239,7 @@ export default {
     },
     getResult(params) {
       this.generalDisabled = true
+      this.$refs.entityRelationref.setDataEmpty()
       this.$refs.showMarkRef.fetchData(params)
     },
     switchClick() {
