@@ -216,7 +216,7 @@
       <p style="text-align: center; margin-top:40px;font-size:15px">
         <strong
           >This invoice is for the billing period
-          {{ printData.invoiceDate | setDate }} </strong
+          {{ printData.periodEndDate | setDate }} </strong
         >
       </p>
       <p style="text-align: center; margin-top:20px">

@@ -10,6 +10,7 @@
     >
       <el-table-column label="Entity" width="320">
         <template slot-scope="scope">
+          <span class="relation-data">{{ scope.row.relationData || '' }}</span>
           {{ findText(bratText, scope.row.begin, scope.row.end) }}
         </template>
       </el-table-column>
@@ -169,6 +170,7 @@ export default {
         copyEntitiesData.map(child => {
           if (item.fromEnt === child.keyName) {
             entitiesObj[item.toEnt].dataId = uuidv1()
+            entitiesObj[item.toEnt].relationData = item.semanticTag
             child.children.push(entitiesObj[item.toEnt])
           }
         })
@@ -179,13 +181,11 @@ export default {
       this.$refs.tableDataRef.doLayout()
     },
     setColor(type) {
-      console.log('type啊啊啊', type)
       const colorObj = {}
       const entityTypes = this.bratSem.entity_types
       entityTypes.map(item => {
         colorObj[item.type] = item
       })
-      console.log('colorObj', colorObj)
       return `background-color:${colorObj[type].bgColor}`
     },
     findText(str, begin, end) {
@@ -204,6 +204,14 @@ export default {
   margin-right: 7px;
 }
 .relation-entity-table {
+  .relation-data {
+    font-size: 12px;
+    position: absolute;
+    transition: all .8s;
+    left: 10px;
+    transform: scale(0.85);
+    top: 24px;
+  }
   .el-table__expand-icon {
     margin-left: -6px;
   }
@@ -222,6 +230,9 @@ export default {
       }
     }
     .el-table_1_column_1:hover {
+      .relation-data {
+        font-size: 13px;
+      }
       &:before {
         border-left: 1px solid #a0a0a0;
         border-bottom: 1px solid #a0a0a0;
