@@ -29,7 +29,7 @@
         @success-data="generalDisabled = false"
       />
     </section>
-    <h3>Entity & Relation</h3>
+    <h3 class="mt-40">Entity & Relation</h3>
 
     <entity-relation ref="entityRelationref" />
     <!-- General Settings dialog -->

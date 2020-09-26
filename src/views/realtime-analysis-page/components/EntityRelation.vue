@@ -2,7 +2,7 @@
   <div>
     <el-table
       :data="tableData"
-      class="mt-40"
+      class="relation-entity-table"
       ref="tableDataRef"
       style="width: 100%;margin-bottom: 20px;"
       row-key="dataId"
@@ -203,24 +203,29 @@ export default {
   margin-top: 7px;
   margin-right: 7px;
 }
-.el-table__row--level-1 {
-  .el-table_1_column_1 {
-    &:before {
-      transition: all 0.5s;
-      content: '';
-      position: absolute;
-      left: 20px;
-      width: 22px;
-      top: -12px;
-      height: 37px;
-      border-left: 1px solid #ebeef5;
-      border-bottom: 1px solid #ebeef5;
-    }
+.relation-entity-table {
+  .el-table__expand-icon {
+    margin-left: -6px;
   }
-  .el-table_1_column_1:hover {
-    &:before {
-      border-left: 1px solid #a0a0a0;
-      border-bottom: 1px solid #a0a0a0;
+  .el-table__row--level-1 {
+    .el-table_1_column_1 {
+      &:before {
+        transition: all 0.5s;
+        content: '';
+        position: absolute;
+        left: 14px;
+        width: 25px;
+        top: -12px;
+        height: 37px;
+        border-left: 1px solid #ebeef5;
+        border-bottom: 1px solid #ebeef5;
+      }
+    }
+    .el-table_1_column_1:hover {
+      &:before {
+        border-left: 1px solid #a0a0a0;
+        border-bottom: 1px solid #a0a0a0;
+      }
     }
   }
 }
