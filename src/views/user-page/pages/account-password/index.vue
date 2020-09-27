@@ -21,6 +21,7 @@
               ref="account"
               v-model="formData.account"
               placeholder="Account"
+              size="medium"
               disabled
               type="text"
             />
@@ -36,6 +37,7 @@
             <el-input
               v-model="formData.oldPassword"
               placeholder="Primary password"
+              size="medium"
               type="password"
               autocomplete="off"
             ></el-input>
@@ -48,19 +50,21 @@
             <el-input
               v-model="formData.password"
               placeholder="Password"
+              size="medium"
               type="password"
               autocomplete="off"
             ></el-input>
           </el-form-item>
           <el-form-item
             prop="checkPass"
-            class="mt-35"
+            class="mt-30"
             label="Password again:"
             :rules="{ validator: validateCheckPass }"
           >
             <el-input
               v-model="formData.checkPass"
               type="password"
+              size="medium"
               placeholder="Confirm password"
               autocomplete="off"
             ></el-input>
@@ -72,7 +76,8 @@
               size="small"
               type="primary"
               @click.native.prevent="handleSave"
-            >Save</el-button>
+              >Save</el-button
+            >
           </el-form-item>
         </el-form>
       </section>

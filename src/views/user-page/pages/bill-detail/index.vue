@@ -5,7 +5,8 @@
         <el-col :span="8">
           <span class="f18 color-black">
             <router-link to="/user/cost" class="color-main f19"
-              >Personal center</router-link
+              ><i class="el-icon-arrow-left mr-5"></i>Personal
+              center</router-link
             >
             / Bill Details
           </span>

@@ -212,17 +212,45 @@
                       {{ item.cardNumber }}
                     </div>
                     <div class="operation-content">
-                      <el-button type="danger" @click="deleteCard(item)"
-                        >Delete</el-button
+                      <el-tooltip
+                        class="item"
+                        effect="dark"
+                        content="Delete card"
+                        placement="top"
                       >
-                      <el-button type="warning" @click="handleEdit(item)"
-                        >Edit</el-button
+                        <el-button
+                          type="danger"
+                          circle
+                          icon="el-icon-delete"
+                          @click="deleteCard(item)"
+                        ></el-button>
+                      </el-tooltip>
+                      <el-tooltip
+                        class="item"
+                        effect="dark"
+                        content="Edit card"
+                        placement="top"
                       >
-                      <el-button
-                        type="success"
-                        @click="setDefultPayment(item, index)"
-                        >Defult</el-button
+                        <el-button
+                          type="warning"
+                          circle
+                          icon="el-icon-edit"
+                          @click="handleEdit(item)"
+                        ></el-button>
+                      </el-tooltip>
+                      <el-tooltip
+                        class="item"
+                        effect="dark"
+                        content="Set default"
+                        placement="top"
                       >
+                        <el-button
+                          type="primary"
+                          circle
+                          icon="el-icon-star-off"
+                          @click="setDefultPayment(item, index)"
+                        ></el-button>
+                      </el-tooltip>
                     </div>
                   </el-card>
                 </el-form-item>

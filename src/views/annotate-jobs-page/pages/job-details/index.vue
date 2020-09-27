@@ -115,8 +115,8 @@
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Cost:
-          <strong class="f20 color-main"> {{ costData }}</strong>
-          <small> $</small>
+          <strong class="f20 color-main"> <small> $</small> {{ costData }}</strong>
+          
         </el-col>
       </el-row>
     </section>

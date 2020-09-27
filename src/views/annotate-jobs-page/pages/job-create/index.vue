@@ -86,7 +86,7 @@
                     <el-input
                       v-model="encryptionHandle"
                       clearable
-                      placeholder="Please enter secret key"
+                      placeholder="Please enter kms key"
                       size="mini"
                       @change="handleEncryption"
                     ></el-input>
@@ -293,7 +293,6 @@ export default {
         this.outRegionName = `${outRegionLabel.label}(${outRegionLabel.value})`
         this.outRegionLabel = outRegionLabel.label
         if (encryption) {
-          this.popoverVisible = true
           if (encryption === 'AES-256') {
             this.encryptionRadio = 'AES-256'
             this.encryptionHandle = ''

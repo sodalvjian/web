@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
-    <router-link
-      to="/"
-    ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt="" /></span></router-link>
+    <router-link to="/"
+      ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt=""/></span
+    ></router-link>
     <hamburger
       v-if="router.indexOf('user') === -1"
       :is-active="sidebar.opened"
@@ -31,15 +31,19 @@
     </div>
 
     <div class="right-menu">
-      <span class="mr-15 header-title fl cb">
-        <el-avatar class="fl mr-10 header-avatar" :src="avatarSrc"></el-avatar>
-        <span class="f16 fl">{{ userName }}</span></span>
       <!-- <error-log class="errLog-container right-menu-item hover-effect" /> -->
       <el-dropdown class="avatar-container fr" trigger="click">
         <div class="avatar-wrapper">
           <!-- <svg class="icon f22 cp header-menu" aria-hidden="true">
             <use xlink:href="#icon-A19" />
           </svg> -->
+          <span class="mr-15 header-title fl cb cp">
+            <el-avatar
+              class="fl mr-10 header-avatar"
+              :src="avatarSrc"
+            ></el-avatar>
+            <span class="f16 fl">{{ userName }}</span></span
+          >
           <i class=" f16 cp header-menu el-icon-arrow-down fb"></i>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -128,8 +132,8 @@ export default {
 }
 </script>
 <style lang="scss">
-.header-avatar{
-  margin-top:13px ;
+.header-avatar {
+  margin-top: 10px;
 }
 .dialog-show-info {
   .el-dialog__header {

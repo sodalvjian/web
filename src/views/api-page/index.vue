@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <nav class="vital-container cb bb-1">
-      <strong class="fl mt-10 f16">Job list</strong>
+      <strong class="fl mt-10 f16">API</strong>
       <div class="fr">
         <el-button
           class="filter-item shadow"

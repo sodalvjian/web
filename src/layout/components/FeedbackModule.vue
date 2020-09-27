@@ -1,9 +1,12 @@
 <template>
   <div>
     <!-- 问题反馈 -->
-    <footer class="problem-feedback cp" @click="openFeedback">
-      <i class="iconfont iconfankui"></i>
-    </footer>
+    <el-tooltip class="item" effect="dark" content="Feedback" placement="top">
+      <footer class="problem-feedback cp bg-color-main" @click="openFeedback">
+        <i class="el-icon-question color-white"></i>
+      </footer>
+    </el-tooltip>
+
     <el-dialog
       title="Feedback"
       center
@@ -62,17 +65,17 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button
-          size="small"
-          @click="dialogVisible = false"
-        >Cancel</el-button>
+        <el-button size="small" @click="dialogVisible = false"
+          >Cancel</el-button
+        >
         <el-button
           size="small"
           :disabled="!imgSuccess"
           :loading="btnLoading"
           type="primary"
           @click="handleConfirm"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </span>
     </el-dialog>
     <el-dialog :visible.sync="dialogImgVisible">
@@ -196,10 +199,16 @@ export default {
   position: fixed;
   right: 20px;
   bottom: 20px;
-  background: #000;
-  color: #fff;
-  padding: 8px;
-  border-radius: 5px;
-  z-index: 9999;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #409eff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  z-index: 9998;
 }
 </style>

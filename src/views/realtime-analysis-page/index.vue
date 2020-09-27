@@ -1,5 +1,8 @@
 <template>
   <div>
+    <nav class="vital-container cb bb-1">
+      <strong class="fl f16">Realtime analysis</strong>
+    </nav>
     <div class="vital-container realtime-top-content">
       <nav>
         <el-row>
@@ -21,11 +24,9 @@
           </el-col>
           <el-col :span="12" align="right">
             <el-button size="mini" @click="clearData">Clear</el-button>
-            <el-button
-              size="mini"
-              type="primary"
-              @click="handleAnalysis"
-            >Analysis</el-button>
+            <el-button size="mini" type="primary" @click="handleAnalysis"
+              >Analysis</el-button
+            >
           </el-col>
         </el-row>
       </nav>

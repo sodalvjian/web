@@ -13,6 +13,9 @@
       <app-main />
     </div>
 
+    <!-- 返回顶部 -->
+    <el-backtop :right="20" :bottom="70"></el-backtop>
+
     <!-- 问题反馈 -->
     <feedback-module />
   </div>
