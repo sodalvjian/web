@@ -1,9 +1,53 @@
 <template>
   <div>
+    <nav class="tr mb-10">
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-input
+            v-model.trim="tableSearchData"
+            size="small"
+            clearable
+            placeholder="Find entities"
+          >
+            <i slot="prefix" class="el-input__icon el-icon-search"></i
+          ></el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-select
+            v-model="dataType"
+            clearable
+            size="small"
+            placeholder="请选择"
+            @change="handleChangeType"
+          >
+            <el-option label="All" value=""> </el-option>
+            <el-option
+              v-for="(item, index) in typeOptions"
+              :key="index"
+              :label="item"
+              :value="item"
+            >
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="8">
+          <el-pagination
+            background
+            :page-size="pageSize"
+            :current-page="currentPage"
+            layout="prev, pager, next, total"
+            :total="tableData.length"
+            @current-change="handleCurrentChang"
+          >
+          </el-pagination>
+        </el-col>
+      </el-row>
+    </nav>
     <el-table
-      :data="tableData"
-      class="relation-entity-table"
       ref="tableDataRef"
+      :data="tableDataSlice"
+      class="relation-entity-table"
+      height="300"
       style="width: 100%;margin-bottom: 20px;"
       row-key="dataId"
       :tree-props="{ children: 'children' }"
@@ -11,7 +55,7 @@
       <el-table-column label="Entity" width="320">
         <template slot-scope="scope">
           <span class="relation-data">{{ scope.row.relationData || '' }}</span>
-          {{ findText(bratText, scope.row.begin, scope.row.end) }}
+          {{ scope.row.dataName }}
         </template>
       </el-table-column>
       <el-table-column label="Type" width="180">
@@ -29,102 +73,11 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <!-- <nav class="pl-20 pr-20 bg-color-white mt-30">
-      <el-row class="bb-1">
-        <el-col :span="12">
-          <h3>Entity</h3>
-        </el-col>
-        <el-col :span="12">
-          <h3>Relation</h3>
-        </el-col>
-      </el-row>
-    </nav>
-    <section>
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-row
-            v-for="(item, index) in bratData"
-            :key="index"
-            class="mt-15 pl-20"
-            :gutter="20"
-          >
-            <el-col :span="12" align="left">
-              {{ item.type }}
-            </el-col>
-            <el-col :span="12" align="center">
-              <el-switch active-color="#13ce66" v-model="item.switch">
-              </el-switch>
-            </el-col>
-          </el-row>
-
-          <el-table
-            :data="tableData"
-            :height="300"
-            stripe
-            class="analysis-result-table pl-20 pr-20 pb-20 pt-5 bg-color-white"
-            style="width: 100%"
-          >
-            <el-table-column type="expand">
-              <template slot-scope="">
-                <el-row class="pt-5 pb-10 bb-1">
-                  <el-col :span="8">Shanghai</el-col>
-                  <el-col class="pl-30" :span="8">City name</el-col>
-                </el-row>
-                <el-row class="pt-15 pb-5">
-                  <el-col :span="8">Shanghai</el-col>
-                  <el-col class="pl-30" :span="8">City name</el-col>
-                </el-row>
-              </template>
-            </el-table-column>
-            <el-table-column label="Entity concep">
-              <template slot-scope="scoped">
-                <strong>{{ scoped.row.name }}</strong>
-              </template>
-            </el-table-column>
-            <el-table-column label="Entity concep"> </el-table-column>
-            <el-table-column label="Other" align="center">
-              <template> </template>
-            </el-table-column>
-          </el-table>
-        </el-col>
-        <el-col :span="12" class="">
-          <div class="p20 bg-color-white">
-            <div
-              v-for="(item, index) in afterData"
-              :key="index"
-              class="relation-item bb-1 pb-20 mb-20"
-            >
-              <nav>
-                <el-row :gutter="10">
-                  <el-col :span="8">
-                    {{ item.name }}
-                  </el-col>
-                </el-row>
-              </nav>
-              <div
-                v-for="(child, num) in item.origin"
-                :key="num"
-                class="relation-item-content"
-              >
-                <el-row :gutter="10">
-                  <el-col :span="8">
-                    {{ child.semanticTag }}
-                  </el-col>
-                  <el-col :span="8"> begin: {{ child.begin }} </el-col>
-                  <el-col :span="8"> end: {{ child.end }} </el-col>
-                </el-row>
-              </div>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </section> -->
   </div>
 </template>
 <script>
-const { v1: uuidv1, v4: uuidv4 } = require('uuid')
-import { deepClone } from '@/utils/method'
+const { v1: uuidv1 } = require('uuid')
+import { deepClone, unique } from '@/utils/method'
 export default {
   name: '',
   components: {},
@@ -136,15 +89,43 @@ export default {
       bratFile: [],
       entitiesObj: {},
       bratText: '',
-      tableData: []
+      tableData: [],
+      pageSize: 10,
+      currentPage: 1,
+      tableSearchData: '',
+      dataType: '',
+      typeOptions: []
     }
   },
-  computed: {},
+  computed: {
+    tableDataSlice() {
+      const handleTableData = this.tableData.slice(
+        (this.currentPage - 1) * this.pageSize,
+        this.currentPage * this.pageSize
+      )
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.typeOptions = unique(handleTableData.map(item => item.semanticTag))
+      return handleTableData
+        .filter(
+          data =>
+            !this.tableSearchData ||
+            data.dataName
+              .toLowerCase()
+              .includes(this.tableSearchData.toLowerCase())
+        )
+        .filter(data => !this.dataType || data.semanticTag === this.dataType)
+    }
+  },
   watch: {},
   created() {},
   mounted() {},
   beforeDestroy() {},
   methods: {
+    handleChangeType() {},
+    handleCurrentChang(val) {
+      this.currentPage = val
+      this.$refs.tableDataRef.bodyWrapper.scrollTop = 0
+    },
     setDataEmpty() {
       this.tableData = []
     },
@@ -177,6 +158,19 @@ export default {
       })
 
       console.log('entitiesData', copyEntitiesData)
+      copyEntitiesData.map(item => {
+        item.dataName = this.findText(this.bratText, item.begin, item.end)
+        if (item.children.length > 0) {
+          item.children.map(child => {
+            child.dataName = this.findText(
+              this.bratText,
+              child.begin,
+              child.end
+            )
+          })
+        }
+      })
+
       this.tableData = copyEntitiesData
       this.$refs.tableDataRef.doLayout()
     },
@@ -207,7 +201,7 @@ export default {
   .relation-data {
     font-size: 12px;
     position: absolute;
-    transition: all .8s;
+    transition: all 0.8s;
     left: 10px;
     transform: scale(0.85);
     top: 24px;

@@ -22,7 +22,7 @@
         </el-col>
       </el-row>
     </nav>
-    <section class="analysis-result-content">
+    <section class="analysis-result-content mt-15">
       <show-mark
         ref="showMarkRef"
         @set-nlp-data="setNlpData"

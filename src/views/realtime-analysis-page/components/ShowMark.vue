@@ -18,6 +18,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 // import * as types from '@/store/mutation-types';
+import { globalBus } from '@/utils/globalBus'
 import { GetBrat } from '@/api/realtime-analysis-page'
 import DialogShowInfo from '@/components/DialogShowInfo'
 import _ from 'lodash'
@@ -194,6 +195,7 @@ export default {
               // this.$emit('setPre', null);
             }
           }
+          globalBus.$emit('set-analysis-loading-false')
         })
         .catch(res => {
           if (res.code === 800008) {
@@ -201,6 +203,7 @@ export default {
             this.loading = false
             this.noDataShow = true
           }
+          globalBus.$emit('set-analysis-loading-false')
         })
 
       //   GetBrat(url, {}, res => {})

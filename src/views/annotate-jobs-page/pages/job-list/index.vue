@@ -21,6 +21,7 @@
         highlight-current-row
         style="width: 100%"
         @row-click="viewDetail"
+        @sort-change="changeTableSort"
       >
         <no-data-table slot="empty"></no-data-table>
         <el-table-column align="center" label="No." width="80" type="index">
@@ -31,7 +32,13 @@
           <span>{{scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column> -->
-        <el-table-column min-width="180px" show-overflow-tooltip label="Name">
+        <el-table-column
+          min-width="180px"
+          show-overflow-tooltip
+          sortable="custom"
+          label="Name"
+          prop="name"
+        >
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
@@ -40,6 +47,7 @@
           width="160px"
           show-overflow-tooltip
           align="left"
+          sortable="custom"
           label="Type"
         >
           <template slot-scope="scope">
@@ -94,12 +102,23 @@
             }}
           </template>
         </el-table-column>
-        <el-table-column width="160px" align="center" label="Create Time">
+        <el-table-column
+          width="160px"
+          align="center"
+          sortable="custom"
+          label="Create Time"
+          prop="date"
+        >
           <template slot-scope="scope">
             <span>{{ scope.row.date | setHourDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column width="160px" label="Updated Time">
+        <el-table-column
+          width="160px"
+          sortable="custom"
+          label="Updated Time"
+          prop="update"
+        >
           <template slot-scope="scope">
             {{ scope.row.update | setHourDate }}
           </template>
@@ -166,7 +185,9 @@ export default {
       listLoading: true,
       page: 0,
       pageSize: 10,
-      total: 0
+      total: 0,
+      propData: 'date',
+      orderData: 'desc'
     }
   },
   computed: {},
@@ -174,13 +195,24 @@ export default {
     clearInterval(this.setInterval)
     this.getList()
     this.setInterval = setInterval(() => {
-      this.getList()
-    }, 60 * 1000)
+      this.getList(false)
+    }, 45 * 1000)
   },
   destroyed() {
     clearInterval(this.setInterval)
   },
   methods: {
+    // 排序
+    changeTableSort(column) {
+      this.propData = column.order ? column.prop : ''
+      this.orderData = column.order
+        ? column.order === 'descending'
+          ? 'desc'
+          : 'asc'
+        : ''
+
+      this.getList()
+    },
     setTooltipDisabled(row) {
       if (row.processedErrCount > 0) {
         return false
@@ -258,23 +290,31 @@ export default {
       this.page = val
       this.getList()
     },
-    getList() {
-      this.listLoading = true
-      const pageOption = {
+    getList(loadingNotShow) {
+      if (!loadingNotShow) {
+        this.listLoading = true
+      }
+
+      const paramsOptions = {
         page: this.page,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        propData: this.propData,
+        orderData: this.orderData
       }
       const params = {
         name: this.$route.query.jobName || ''
       }
-      GetList(pageOption, params).then(res => {
-        console.log('结果', res)
-        if (res.code === 200) {
-          this.tableList = res.data.content
+      GetList(paramsOptions, params)
+        .then(res => {
+          if (res.code === 200) {
+            this.tableList = res.data.content
+            this.listLoading = false
+            this.total = res.data.totalElements
+          }
+        })
+        .catch(() => {
           this.listLoading = false
-          this.total = res.data.totalElements
-        }
-      })
+        })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()

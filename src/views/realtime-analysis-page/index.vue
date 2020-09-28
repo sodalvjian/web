@@ -24,7 +24,11 @@
           </el-col>
           <el-col :span="12" align="right">
             <el-button size="mini" @click="clearData">Clear</el-button>
-            <el-button size="mini" type="primary" @click="handleAnalysis"
+            <el-button
+              :loading="analysisLoading"
+              size="mini"
+              type="primary"
+              @click="handleAnalysis"
               >Analysis</el-button
             >
           </el-col>
@@ -50,7 +54,7 @@
 <script>
 import { GetAnalysisType } from '@/api/annotate-jobs-page'
 import analysisResult from './components/AnalysisResult'
-
+import { globalBus } from '@/utils/globalBus'
 export default {
   name: '',
   components: {
@@ -62,6 +66,7 @@ export default {
     return {
       analysisTypeOptions: [],
       pipelineLoading: false,
+      analysisLoading: false,
       formData: {
         pipeline: '',
         text: ''
@@ -73,6 +78,9 @@ export default {
   created() {},
   mounted() {
     this.getAnalysisType()
+    globalBus.$on('set-analysis-loading-false', () => {
+      this.analysisLoading = false
+    })
   },
   activited() {},
   update() {},
@@ -91,6 +99,7 @@ export default {
         pipeline: pipeline,
         text: text
       }
+      this.analysisLoading = true
       this.$refs.analysisResultRef.getResult(params)
     },
     getAnalysisType() {

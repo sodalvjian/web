@@ -9,9 +9,9 @@ export function DelData(data) {
 }
 
 // get list
-export function GetList(pageOption, data) {
+export function GetList(paramsOption, data) {
   return request({
-    url: `jobbizweb/jobbiz/${pageOption.page}/${pageOption.pageSize}`,
+    url: `jobbizweb/jobbiz/${paramsOption.page}/${paramsOption.pageSize}/${paramsOption.propData}/${paramsOption.orderData}`,
     method: 'POST',
     data
   })
