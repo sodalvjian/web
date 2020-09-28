@@ -169,7 +169,6 @@ export default {
       console.log('data数据', data)
       localStorage.bratData = JSON.stringify(data)
       console.log('bratFile', JSON.parse(data.bratFile))
-      const outputData = JSON.parse(data.output)
 
       this.originalBratData = deepClone(data)
       this.originalBratDataAgain = deepClone(data)
@@ -185,8 +184,9 @@ export default {
 
       const bratFile = JSON.parse(data.bratFile)
       const bratSem = JSON.parse(data.bratSem)
+      const outputData = JSON.parse(data.output)
 
-      this.$refs.entityRelationref.setData(bratFile, outputData, bratSem)
+      this.$refs.entityRelationref.setData(data)
     },
     handleSetBrat() {
       this.bratSemData = JSON.parse(this.originalBratDataAgain.bratSem)
@@ -235,6 +235,7 @@ export default {
       this.originalBratData.bratFile = JSON.stringify(this.bratFileData)
       // console.log('this.bratSemData', this.originalBratData)
       this.$refs.showMarkRef.setBratDataAgain(this.originalBratData)
+      this.$refs.entityRelationref.setData(this.originalBratData)
       this.dialogVisible = false
     },
     getResult(params) {

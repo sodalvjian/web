@@ -129,7 +129,10 @@ export default {
     setDataEmpty() {
       this.tableData = []
     },
-    setData(bratFile, outputData, bratSem) {
+    setData(bratData) {
+      const bratFile = JSON.parse(bratData.bratFile)
+      const outputData = JSON.parse(bratData.output)
+      const bratSem = JSON.parse(bratData.bratSem)
       console.log('bratFile', bratFile)
       this.bratText = bratFile.text
       console.log('过来的bratSem', bratSem)
