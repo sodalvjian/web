@@ -86,8 +86,17 @@ export function DownloadInvoicePDF(data) {
 // Generate single invoice
 export function GenerateSingleInvoice(transactionId) {
   return request({
-    url: `account/user/generate/single/invoice/${transactionId}`,
+    url: `account/user/generate/single/invoice/${transactionId[0]}`,
     method: 'get'
+  })
+}
+
+// Generate single invoice
+export function GenerateMultiInvoice(data) {
+  return request({
+    url: `account/user/generate/multi/invoice`,
+    method: 'post',
+    data
   })
 }
 
@@ -140,4 +149,3 @@ export function DeleteBankCard(params) {
     method: 'get'
   })
 }
-

@@ -133,3 +133,20 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .el-form-item--small .el-form-item__label {
   min-height: 32px;
 }
+
+.el-message {
+  background-color: #fff !important;
+  border: none;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  .el-message__icon {
+    margin-right: 15px;
+    font-size: 18px !important;
+  }
+  .el-message__content {
+    color: #606266;
+  }
+}
+
+.el-backtop {
+  z-index: 9998;
+}

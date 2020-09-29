@@ -28,13 +28,14 @@
               :loading="analysisLoading"
               size="mini"
               type="primary"
+              icon="el-icon-data-line"
               @click="handleAnalysis"
               >Analysis</el-button
             >
           </el-col>
         </el-row>
       </nav>
-      <section class="mt-20">
+      <section class="mt-15">
         <el-input
           v-model="formData.text"
           type="textarea"

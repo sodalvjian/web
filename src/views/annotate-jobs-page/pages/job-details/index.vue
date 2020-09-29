@@ -42,7 +42,14 @@
                 :content="setTooltipContent"
                 placement="top"
               >
-                <span v-if="detailData.status === 'STOPPED'">--</span>
+                <span
+                  v-if="
+                    detailData.status === 'STOPPED' ||
+                      detailData.reqStatus === 'STOPPED' ||
+                      detailData.reqStatus === 'STOPPING'
+                  "
+                  >--</span
+                >
                 <div
                   v-else-if="
                     detailData.status === 'STARTED' ||
@@ -51,7 +58,10 @@
                   class="progress-running"
                 >
                   <el-progress class="w" :percentage="0"></el-progress
-                  ><i style="right:1%" class="progress-running-icon el-icon-loading"></i>
+                  ><i
+                    style="right:1%"
+                    class="progress-running-icon el-icon-loading"
+                  ></i>
                 </div>
                 <el-progress
                   v-else
@@ -115,8 +125,9 @@
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Cost:
-          <strong class="f20 color-main"> <small> $</small> {{ costData }}</strong>
-          
+          <strong class="f20 color-main">
+            <small> $</small> {{ costData }}</strong
+          >
         </el-col>
       </el-row>
     </section>

@@ -91,8 +91,9 @@
         </nav>
         <div class="mt-15">
           <el-table
+            ref="invoicetableDataRef"
             v-loading="historyLoading"
-            :data="tableData"
+            :data="tableDataSlice"
             border
             style="width: 100%"
             @selection-change="handleSelectionChange"
@@ -143,14 +144,17 @@
             </el-table-column>
           </el-table>
         </div>
-        <!-- <div class="tr mt-20">
+        <div class="tr mt-20">
           <el-pagination
-            :page-size="20"
-            layout="prev, pager, next,jumper"
-            :total="1000"
+            :page-size="invoicePageSize"
+            layout="prev, pager, next"
+            hide-on-single-page
+            :current-page="invoiceCurrentPage"
+            :total="tableData.length"
+            @current-change="handleInvoiceCurrentPage"
           >
           </el-pagination>
-        </div> -->
+        </div>
       </section>
     </article>
     <!-- print dialog -->
@@ -162,6 +166,7 @@ import { saveAs } from 'file-saver'
 import Sider from '../../components/Sider'
 import DialogComponent from './components/DialogComponent'
 import { GetOrderAndInvoiceHistory, GetPaymentDue } from '@/api/user-page'
+import moment from 'moment'
 import axios from 'axios'
 export default {
   name: '',
@@ -179,10 +184,19 @@ export default {
       monthRange: [],
       summaryData: [],
       tableData: [],
-      multipleSelection: []
+      multipleSelection: [],
+      invoiceCurrentPage: 1,
+      invoicePageSize: 12
     }
   },
-  computed: {},
+  computed: {
+    tableDataSlice() {
+      return this.tableData.slice(
+        (this.invoiceCurrentPage - 1) * this.invoicePageSize,
+        this.invoiceCurrentPage * this.invoicePageSize
+      )
+    }
+  },
   watch: {},
   created() {},
   mounted() {
@@ -191,6 +205,10 @@ export default {
   },
   beforeDestroy() {},
   methods: {
+    handleInvoiceCurrentPage(val) {
+      this.invoiceCurrentPage = val
+      this.$refs.invoicetableDataRef.bodyWrapper.scrollTop = 0
+    },
     changeMonthRange() {
       this.getOrderAndInvoiceHistory()
     },
@@ -209,22 +227,25 @@ export default {
         })
         .then(res => {
           this.btnLoading = false
+          const testDateUtc = moment.utc()
+          const localDate = moment(testDateUtc).local()
+          const nowTime = localDate.format('YY-MM-DD-HH-mm-ss')
           saveAs(
             new Blob([res.data], {
               type:
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'
             }),
-            `Order and invoice history.csv`
+            `Order and invoice history ${nowTime}.csv`
           )
         })
     },
     handleSelectionChange(val) {
       this.multipleSelection = val
 
-      this.btnDisabled = val.length !== 1
+      this.btnDisabled = val.length === 0
     },
     openPrint() {
-      const invoiceID = this.multipleSelection[0].invoiceID
+      const invoiceID = this.multipleSelection.map(item => item.invoiceID)
       this.$refs.dialogComponentref.openDialog(invoiceID)
     },
     getOrderAndInvoiceHistory() {

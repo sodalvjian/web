@@ -37,7 +37,7 @@
             :current-page="currentPage"
             layout="prev, pager, next, total"
             :total="tableData.length"
-            @current-change="handleCurrentChang"
+            @current-change="handleCurrentPage"
           >
           </el-pagination>
         </el-col>
@@ -122,7 +122,7 @@ export default {
   beforeDestroy() {},
   methods: {
     handleChangeType() {},
-    handleCurrentChang(val) {
+    handleCurrentPage(val) {
       this.currentPage = val
       this.$refs.tableDataRef.bodyWrapper.scrollTop = 0
     },
