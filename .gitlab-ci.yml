@@ -6,6 +6,6 @@ cache:
 
 build:
   script:
-    - npm run build 
+    - npm i && npm run build 
     - echo "package"
     - zip -r dist.zip dist
