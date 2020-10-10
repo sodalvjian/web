@@ -1,11 +1,27 @@
-image: node:latest
-
-cache:
-  paths:
-    - node_modules/
-
-build:
+image: docker:19.03.12
+stages:
+  - Build
+  - Deploy
+node_build:
+  stage: Build
+  image: node:latest
+  artifacts:
+    name: dist
+    expire_in: 1h
+    paths:
+      - dist
   script:
     - npm i && npm run build 
     - echo "package"
     - zip -r dist.zip dist
+
+upload:
+  stage: Deploy
+  script:
+    - docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}
+    - echo "Deploy $(pwd)"
+    - docker build -t "newbielj/melaxtechcloud:app-web"  .  && docker push newbielj/melaxtechcloud:app-web
+
+
+
+
