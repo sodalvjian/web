@@ -11,9 +11,7 @@ node_build:
     paths:
       - dist
   script:
-    - npm i && npm run build 
-    - echo "package"
-    - zip -r dist.zip dist
+    - npm i && npm run build
 
 upload:
   stage: Deploy
