@@ -15,6 +15,7 @@
             !search || data.label.toLowerCase().includes(search.toLowerCase())
         )
       "
+      class="choose-resource-table"
       @selection-change="handleSelectionChange"
       @select="select"
       @select-all="selectAll"
@@ -44,15 +45,12 @@
     </el-table>
     <span slot="footer">
       <div class="mt-20 mb-20">
-        <el-button
-          size="small"
-          @click="dialogVisible = false"
-        >Cancel</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          @click="confirmData"
-        >Confirm</el-button>
+        <el-button size="small" @click="dialogVisible = false"
+          >Cancel</el-button
+        >
+        <el-button type="primary" size="small" @click="confirmData"
+          >Confirm</el-button
+        >
       </div>
     </span>
   </el-dialog>
@@ -128,4 +126,12 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss">
+.choose-resource-table {
+  .el-table__header-wrapper {
+    .el-checkbox {
+      visibility: hidden;
+    }
+  }
+}
+</style>

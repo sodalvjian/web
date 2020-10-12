@@ -95,8 +95,8 @@
             >
             </el-table-column>
             <el-table-column
-              prop="callTimes"
-              label="Call times"
+              prop="fileCount"
+              label="File count"
               align="center"
               min-width="180"
             >

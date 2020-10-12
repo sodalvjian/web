@@ -147,6 +147,7 @@
         <div class="tr mt-20">
           <el-pagination
             :page-size="invoicePageSize"
+            background
             layout="prev, pager, next"
             hide-on-single-page
             :current-page="invoiceCurrentPage"

@@ -215,7 +215,6 @@ export default {
       console.log('selectData', selectDataArr)
 
       this.bratFileData.entities.map((item, index) => {
-        console.log('item', item)
         if (selectDataArr.indexOf(item[1]) !== -1) {
           delete this.bratFileData.entities[index]
         }
@@ -235,7 +234,7 @@ export default {
       this.originalBratData.bratFile = JSON.stringify(this.bratFileData)
       // console.log('this.bratSemData', this.originalBratData)
       this.$refs.showMarkRef.setBratDataAgain(this.originalBratData)
-      this.$refs.entityRelationref.setData(this.originalBratData)
+      this.$refs.entityRelationref.setData(this.originalBratData, selectDataArr)
       this.dialogVisible = false
     },
     getResult(params) {

@@ -89,6 +89,7 @@
       <div class="tr mt-20">
         <el-pagination
           :page-size="pageSize"
+          background
           :hide-on-single-page="true"
           layout="prev, pager, next,jumper"
           :total="total"
@@ -111,10 +112,14 @@ export default {
       tableLoading: false,
       dateData: [],
       filterForm: {
-        recentMonth: '',
+        recentMonth: 0,
         dateRange: []
       },
       options: [
+        {
+          value: 0,
+          label: 'Current month'
+        },
         {
           value: 1,
           label: '1 month'

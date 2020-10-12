@@ -398,14 +398,14 @@
       </div>
       <!-- mutli data -->
       <div v-else>
-        <table style="width:100%;font-size:14px;" data-sort="sortDisabled">
+        <table style="width:100%;font-size:14px;">
           <tbody>
-            <tr class="firstRow">
+            <tr>
               <td
                 valign="middle"
                 colspan="1"
                 rowspan="1"
-                width="312"
+                width="512"
                 style="word-break: break-all;"
               ></td>
               <td valign="middle" colspan="2" rowspan="1" height="40">
@@ -414,28 +414,32 @@
                     >Name</span
                   >: </strong
                 ><span style='color:#333333;font-family:"font-size:18px;'></span
-                >Xu hong
+                >{{ printData.firstname | emptyShow }}
+                {{ printData.lastname | emptyShow }}
               </td>
             </tr>
             <tr>
-              <td valign="top" colspan="1" rowspan="1" height="30" width="312">
+              <td valign="top" colspan="1" rowspan="1" height="30" width="512">
                 <span style='color:#333333;font-family:"font-size:18px;'
-                  ><strong>Print Date</strong>：09:00 2020-07-09</span
+                  ><strong>Print Date</strong>:
+                  {{ new Date() | setHourDate }}</span
                 >
               </td>
               <td valign="top" colspan="2" rowspan="1" height="30">
                 <span style="color:#595959;"
                   ><span style='color:#333333;font-family:"font-size:18px;'
-                    ><strong>Account number&nbsp;</strong>: 582103370404</span
+                    ><strong>Account number&nbsp;</strong>:
+                    {{
+                      printData.accountNumber
+                        ? printData.accountNumber.join(', ')
+                        : ''
+                    }}</span
                   ></span
                 >
               </td>
             </tr>
           </tbody>
         </table>
-        <p style="text-align:center;font-size:15px;">
-          <br />
-        </p>
         <p>
           <br />
         </p>
@@ -443,8 +447,7 @@
           border="0"
           cellspacing="0"
           cellpadding="0"
-          style="border: 1px solid rgb(204, 204, 204); font-size: 14px;"
-          class="ke-zeroborder"
+          style="border: 1px solid rgb(204, 204, 204); width:100%;font-size:14px"
         >
           <tbody>
             <tr class="firstRow">
@@ -455,7 +458,9 @@
                 align="left"
                 width="146"
               >
-                <span style="color:#000;"><strong>Payment Date</strong></span>
+                <span style="color:#000;padding-left:20px"
+                  ><strong>Payment Date</strong></span
+                >
               </td>
               <td
                 width="146"
@@ -503,17 +508,17 @@
                 <strong>Transaction Amount</strong>
               </td>
             </tr>
-            <tr>
+            <tr v-for="(item, index) in printData.invoiceList" :key="index">
               <td
                 valign="middle"
                 height="40"
                 width="146"
-                style="word-break: break-all;"
+                style="word-break: break-all;padding-left:20px"
               >
-                1
+                {{ item.paymentDate }}
               </td>
               <td width="146" style="word-break: break-all;">
-                2
+                {{ item.invoiceID }}
               </td>
               <td
                 colspan="1"
@@ -522,7 +527,7 @@
                 width="146"
                 style="word-break: break-all;"
               >
-                3
+                {{ item.paymentInstruction }}
               </td>
               <td
                 colspan="1"
@@ -531,7 +536,7 @@
                 width="146"
                 style="word-break: break-all;"
               >
-                4
+                {{ item.transactionType }}
               </td>
               <td
                 colspan="1"
@@ -540,16 +545,16 @@
                 width="146"
                 style="word-break: break-all;"
               >
-                5
+                {{ item.paymentMethod }}
               </td>
               <td
                 valign="middle"
-                align="right"
+                align="left"
                 height="40"
                 width="146"
                 style="word-break: break-all;"
               >
-                6
+                {{ item.transactionAmount }}
               </td>
             </tr>
           </tbody>
@@ -560,61 +565,33 @@
         </p>
         <table data-sort="sortDisabled">
           <tbody>
-            <tr class="firstRow">
+            <tr>
               <td
-                valign="middle"
                 colspan="1"
                 rowspan="1"
                 width="614"
-                style="word-break: break-all;"
+                style="word-break: break-all;line-height: 2;"
               >
                 <span
-                  style='color: rgb(51, 51, 51); font-family: "font-size:18px;";'
+                  style='color: rgb(51, 51, 51); "font-size:18px;";'
                 ></span>
                 <p>
-                  This&nbsp;is&nbsp;not&nbsp;a&nbsp;VAT.&nbsp;ST&nbsp;or&nbsp;GST&nbsp;invoice.&nbsp;Related&nbsp;ax&nbsp;invoices
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;can&nbsp;be&nbsp;accessed&nbsp;by&nbsp;going&nbsp;to&nbsp;le&nbsp;Bills&nbsp;page&nbsp;on&nbsp;your&nbsp;Billing
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Management&nbsp;Cons&nbsp;ole&nbsp;****&nbsp;Please&nbsp;reference&nbsp;the&nbsp;tax&nbsp;invoice
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;a&nbsp;breakut&nbsp;of&nbsp;the&nbsp;Canadian&nbsp;taxes&nbsp;by&nbsp;pe&nbsp;Usage&nbsp;and&nbsp;recuming
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;charges&nbsp;for&nbsp;this&nbsp;statement&nbsp;perio&nbsp;amount&nbsp;of&nbsp;your&nbsp;actual
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;charges&nbsp;for&nbsp;this&nbsp;statement&nbsp;perioc&nbsp;may&nbsp;differ&nbsp;from&nbsp;the
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;charges&nbsp;shown&nbsp;on&nbsp;this&nbsp;will&nbsp;be&nbsp;charged&nbsp;on&nbsp;your&nbsp;next&nbsp;billing
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date.&nbsp;The&nbsp;page.&nbsp;The&nbsp;charges&nbsp;shown&nbsp;on&nbsp;this&nbsp;page&nbsp;do&nbsp;not
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;Iny&nbsp;additional&nbsp;usage&nbsp;charges&nbsp;accrued&nbsp;during&nbsp;this
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statement&nbsp;period&nbsp;after&nbsp;the&nbsp;date&nbsp;you&nbsp;are&nbsp;viewing&nbsp;this&nbsp;pa&nbsp;ge.
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also,&nbsp;one-time&nbsp;fees&nbsp;and&nbsp;subscription&nbsp;charges&nbsp;are&nbsp;assessed
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;separately,&nbsp;on&nbsp;the&nbsp;date&nbsp;that&nbsp;they&nbsp;occur&nbsp;.&nbsp;All&nbsp;charges&nbsp;and
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prices&nbsp;are&nbsp;in&nbsp;US&nbsp;Dollars&nbsp;All&nbsp;AWS&nbsp;Services&nbsp;are&nbsp;sold&nbsp;by&nbsp;Amazon
-                </p>
-                <p>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Web&nbsp;Services.Inc.
+                  This is not a VAT. ST or GST invoice. Related ax invoices can
+                  be accessed by going to le Bills page on your Billing
+                  Management Cons ole **** Please reference the tax invoice for
+                  a breakut of the Canadian taxes by pe Usage and recuming
+                  charges for this statement perio amount of your actual charges
+                  for this statement perioc may differ from the charges shown on
+                  this will be charged on your next billing date. The page. The
+                  charges shown on this page do not include Iny additional usage
+                  charges accrued during this statement period after the date
+                  you are viewing this pa ge. Also, one-time fees and
+                  subscription charges are assessed separately, on the date that
+                  they occur . All charges and prices are in US Dollars All AWS
+                  Services are sold by Amazon Web Services.Inc.
                 </p>
                 <span
-                  style='color: rgb(51, 51, 51); font-family: "font-size:18px;";'
+                  style='color: rgb(51, 51, 51); "font-size:18px;";'
                 ></span>
               </td>
               <td
@@ -622,45 +599,45 @@
                 colspan="2"
                 rowspan="1"
                 height="40"
-                style="word-break: break-all;"
+                style="word-break: break-all;padding-left:20px"
                 width="341"
                 align="left"
               >
                 <strong
                   ><span
-                    style='color: rgb(51, 51, 51); font-family: "font-size:18px;";'
+                    style='color: rgb(51, 51, 51); "font-size:17px;";'
                   ></span
                 ></strong>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                    style='color: rgb(51, 51, 51);font-size: 17px;'
                     >Service Provider:</span
                   >
                 </p>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                    style='color: rgb(51, 51, 51);font-size: 17px;'
                     ><span
-                      style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                      style='color: rgb(51, 51, 51);font-size: 17px;'
                       >(Not to be used for payment remittance)</span
                     ></span
                   >
                 </p>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                    style='color: rgb(51, 51, 51);font-size: 17px;'
                     ><span
-                      style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                      style='color: rgb(51, 51, 51);font-size: 17px;'
                       ><br /></span
                   ></span>
                 </p>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                    style='color: rgb(51, 51, 51);font-size: 17px;'
                     ><span
-                      style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                      style='color: rgb(51, 51, 51);font-size: 17px;'
                       ><span
-                        style='color: rgb(51, 51, 51); font-family: "Arial Negreta", "Arial Normal", Arial, sans-serif; font-size: 18px; font-weight: 700;'
+                        style='color: rgb(51, 51, 51);  font-size: 17px; font-weight: 700;'
                         >Melax Technologies,Inc</span
                       ></span
                     ></span
@@ -668,19 +645,19 @@
                 </p>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                    style='color: rgb(51, 51, 51);font-size: 18px;'
                     ><span
-                      style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                      style='color: rgb(51, 51, 51);font-size: 18px;'
                       ><br /></span
                   ></span>
                 </p>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                    style='color: rgb(51, 51, 51);font-size: 18px;'
                     ><span
-                      style='color: rgb(51, 51, 51); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                      style='color: rgb(51, 51, 51);font-size: 18px;'
                       ><span
-                        style='color: rgb(85, 85, 85); font-family: "Arial Normal", Arial, sans-serif; font-size: 18px;'
+                        style='color: rgb(85, 85, 85);font-size: 17px;'
                         >7000 Fannin St #1950d, Houston, TX 77030</span
                       ></span
                     ></span
@@ -690,12 +667,6 @@
             </tr>
           </tbody>
         </table>
-        <p style="text-align: center; font-size: 15px;">
-          <br style="white-space: normal;" />
-        </p>
-        <p>
-          <span style="font-size: 14px;"><br /></span><br />
-        </p>
       </div>
     </section>
   </el-dialog>
@@ -739,7 +710,9 @@ export default {
           cost: '$62.33'
         }
       ],
-      printData: {}
+      printData: {
+        invoiceList: []
+      }
     }
   },
 
@@ -764,7 +737,7 @@ export default {
       this.btnLoading = true
       const htmlDom = this.$refs.exportContent
       const params = {
-        content: `<html style="font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;">${htmlDom.innerHTML}</html>`
+        content: `<html style="Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;">${htmlDom.innerHTML}</html>`
       }
       const downloadUrl = `/account/user/download/invoice/pdf`
       axios.defaults.headers.Authorization =

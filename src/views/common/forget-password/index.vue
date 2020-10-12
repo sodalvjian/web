@@ -1,5 +1,5 @@
 <template>
-  <div class="register-container">
+  <div class="forget-password-container">
     <div class="register-content bg-color-white">
       <header class="tl cb p20">
         <img src="@/assets/img/Logo.png" class="fl" width="250px" alt="" />
@@ -15,7 +15,8 @@
       <section class="w60 bc pb-70">
         <nav class="mt-50 f15 lh1-5">
           <span v-if="step === 1">
-            Please enter the address associated with your account.</span>
+            Please enter the address associated with your account.</span
+          >
           <span v-if="step === 2">
             For the security of your account,we need to verify your identity.We
             have sent a verification code to your email address
@@ -107,11 +108,13 @@
               :loading="loading"
               :disabled="!formData.email"
               class="mt-5"
-              type="warning"
+              type="primary"
               style="width:100%;height:40px"
               @click.native.prevent="handleNext"
-            >{{ step === 3 ? 'Confirm' : 'Next' }}</el-button>
-          </el-form-item></el-form>
+              >{{ step === 3 ? 'Confirm' : 'Next' }}</el-button
+            >
+          </el-form-item></el-form
+        >
         <div v-if="step === 1" class="f13 mt-50 lh2">
           If you no longer use the email address associated with your account.
           contact customer service to help restore access to your account.
@@ -331,7 +334,7 @@ export default {
 
 <style lang="scss" scoped>
 .forget-header-title {
-  background: #3189ef;
+  background: #8da5c2;
   color: white;
 }
 /* 修复input 背景不协调 和光标变色 */
@@ -341,14 +344,8 @@ $bg: #283443;
 $light_gray: #757575;
 $cursor: #757575;
 
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .register-container .el-input input {
-    color: $cursor;
-  }
-}
-
 /* reset element-ui css */
-.register-container {
+.forget-password-container {
   text-align: center;
   .register-left {
     background-image: url('../../../assets/img/login_left.png');
@@ -432,7 +429,7 @@ $bg: #f5f5f5;
 $dark_gray: #333333;
 $light_gray: #333333;
 
-.register-container {
+.forget-password-container {
   height: 100%;
   width: 100%;
   background-color: $bg;

@@ -24,7 +24,7 @@
         @sort-change="changeTableSort"
       >
         <no-data-table slot="empty"></no-data-table>
-        <el-table-column align="center" label="No." width="80" type="index">
+        <el-table-column align="center" label="No." width="60" type="index">
         </el-table-column>
 
         <!-- <el-table-column width="180px" align="center" label="时间">
@@ -93,7 +93,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column width="160px" label="Status">
+        <el-table-column width="120px" label="Status">
           <template slot-scope="scope">
             {{
               scope.row.reqStatus !== 'UNKNOWN' && scope.row.reqStatus
@@ -103,7 +103,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          width="160px"
+          width="190px"
           align="center"
           sortable="custom"
           label="Create Time"
@@ -114,7 +114,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          width="160px"
+          width="190px"
           sortable="custom"
           label="Updated Time"
           prop="update"

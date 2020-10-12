@@ -19,7 +19,25 @@
           <div v-loading="personalLoading">
             <el-row :gutter="20">
               <el-col :span="24">
-                <el-form-item label="Picture" label-width="100px" prop="pass">
+                <el-form-item label="Api key" label-width="100px" prop="pass">
+                  <small>{{ formData.apiKey }}</small>
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="Copy"
+                    placement="top"
+                  >
+                    <el-button
+                      v-clipboard:copy="formData.apiKey"
+                      v-clipboard:success="copySuccess"
+                      class="ml-10 f15"
+                      type="text"
+                      icon="el-icon-document-copy"
+                    ></el-button>
+                  </el-tooltip>
+                </el-form-item>
+                <el-divider></el-divider>
+                <el-form-item label="" label-width="100px" prop="pass">
                   <div class="cb mb-20">
                     <el-avatar
                       shape="circle"
@@ -33,8 +51,7 @@
                       type="primary"
                       plain
                       @click="editAvatar"
-                      >Edit</el-button
-                    >
+                    >Edit</el-button>
                   </div>
                 </el-form-item>
               </el-col>
@@ -165,8 +182,7 @@
                 type="primary"
                 :loading="btnLoading"
                 @click="submitForm('formData')"
-                >Confirm</el-button
-              >
+              >Confirm</el-button>
               <el-button @click="resetForm('formData')">Reset</el-button>
             </el-form-item>
           </div>
@@ -202,8 +218,7 @@
                         <small
                           v-if="item.defaultPayment"
                           class="user-card-defult"
-                          >defult</small
-                        >
+                        >defult</small>
                       </el-col>
                     </el-row>
                     <div class="user-card-line"></div>
@@ -225,7 +240,7 @@
                           @click="deleteCard(item)"
                         ></el-button>
                       </el-tooltip>
-                      <el-tooltip
+                      <!-- <el-tooltip
                         class="item"
                         effect="dark"
                         content="Edit card"
@@ -237,7 +252,7 @@
                           icon="el-icon-edit"
                           @click="handleEdit(item)"
                         ></el-button>
-                      </el-tooltip>
+                      </el-tooltip> -->
                       <el-tooltip
                         class="item"
                         effect="dark"
@@ -339,6 +354,9 @@ export default {
   },
   beforeDestroy() {},
   methods: {
+    copySuccess() {
+      this.$message.success('Copy success!')
+    },
     handleEdit(item) {
       this.$refs.addCardRef.openDialog(item)
     },

@@ -13,7 +13,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Futura, PingFang SC, Helvetica Neue, Helvetica,
+  font-family: PingFang SC, museo, sans, Futura, Helvetica Neue, Helvetica,
     Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
@@ -161,7 +161,7 @@ div:focus {
   }
   .user-sider-mean {
     li {
-      padding: 15px 20px;
+      padding: 15px 17px;
       cursor: pointer;
       &.active {
         border-right: 3px solid $mainColor;

@@ -41,7 +41,7 @@
           type="textarea"
           show-word-limit
           maxlength="4096"
-          :rows="10"
+          :rows="12"
           placeholder="Please enter"
         >
         </el-input>

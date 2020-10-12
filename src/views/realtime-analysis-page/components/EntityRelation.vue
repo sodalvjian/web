@@ -4,7 +4,7 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <el-input
-            v-model.trim="tableSearchData"
+            v-model="tableSearchData"
             size="small"
             clearable
             placeholder="Find entities"
@@ -17,7 +17,6 @@
             v-model="dataType"
             clearable
             size="small"
-            placeholder="请选择"
             @change="handleChangeType"
           >
             <el-option label="All" value=""> </el-option>
@@ -36,7 +35,7 @@
             :page-size="pageSize"
             :current-page="currentPage"
             layout="prev, pager, next, total"
-            :total="tableData.length"
+            :total="total"
             @current-change="handleCurrentPage"
           >
           </el-pagination>
@@ -45,9 +44,11 @@
     </nav>
     <el-table
       ref="tableDataRef"
-      :data="tableDataSlice"
+      :data="
+        tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+      "
       class="relation-entity-table"
-      height="300"
+      height="400"
       style="width: 100%;margin-bottom: 20px;"
       row-key="dataId"
       :tree-props="{ children: 'children' }"
@@ -90,8 +91,10 @@ export default {
       entitiesObj: {},
       bratText: '',
       tableData: [],
+      copyTableData: [],
       pageSize: 10,
       currentPage: 1,
+      total: 0,
       tableSearchData: '',
       dataType: '',
       typeOptions: []
@@ -105,7 +108,16 @@ export default {
       )
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.typeOptions = unique(handleTableData.map(item => item.semanticTag))
-      return handleTableData
+      return handleTableData.filter(
+        data => !this.dataType || data.semanticTag === this.dataType
+      )
+    }
+  },
+  watch: {
+    tableSearchData(val) {
+      console.log('输入', val)
+      this.currentPage = 1
+      const filterTable = this.copyTableData
         .filter(
           data =>
             !this.tableSearchData ||
@@ -114,14 +126,34 @@ export default {
               .includes(this.tableSearchData.toLowerCase())
         )
         .filter(data => !this.dataType || data.semanticTag === this.dataType)
+
+      console.log('filterTable', filterTable)
+
+      this.tableData = filterTable
+      this.total = filterTable.length
     }
   },
-  watch: {},
   created() {},
   mounted() {},
   beforeDestroy() {},
   methods: {
-    handleChangeType() {},
+    handleChangeType() {
+      this.currentPage = 1
+      const filterTable = this.copyTableData
+        .filter(data => !this.dataType || data.semanticTag === this.dataType)
+        .filter(
+          data =>
+            !this.tableSearchData ||
+            data.dataName
+              .toLowerCase()
+              .includes(this.tableSearchData.toLowerCase())
+        )
+
+      console.log('filterTable', filterTable)
+
+      this.tableData = filterTable
+      this.total = filterTable.length
+    },
     handleCurrentPage(val) {
       this.currentPage = val
       this.$refs.tableDataRef.bodyWrapper.scrollTop = 0
@@ -129,13 +161,36 @@ export default {
     setDataEmpty() {
       this.tableData = []
     },
-    setData(bratData) {
+    setData(bratData, selectDataArr) {
+      this.total = 0
+      this.currentPage = 1
+      this.tableData = []
+      
       const bratFile = JSON.parse(bratData.bratFile)
       const outputData = JSON.parse(bratData.output)
       const bratSem = JSON.parse(bratData.bratSem)
-      console.log('bratFile', bratFile)
+
       this.bratText = bratFile.text
-      console.log('过来的bratSem', bratSem)
+      console.log('bratFile', bratFile)
+      console.log('outputData', outputData)
+      console.log('bratSem', bratSem)
+      if (selectDataArr) {
+        console.log('selectDataArr', selectDataArr)
+        const entitiesObj = outputData.entities
+        console.log('处理前', entitiesObj)
+        for (const i in entitiesObj) {
+          if (selectDataArr.indexOf(entitiesObj[i].semanticTag) !== -1) {
+            delete entitiesObj[i]
+          }
+        }
+        // entitiesArr.map((item, index) => {
+        //   if (selectDataArr.indexOf(item.semanticTag) !== -1) {
+        //     delete entitiesArr[index]
+        //   }
+        // })
+        console.log('处理后', entitiesObj)
+      }
+
       this.bratSem = bratSem
 
       const entitiesObj = outputData.entities
@@ -174,8 +229,12 @@ export default {
         }
       })
 
+      this.total = copyEntitiesData.length
+      this.typeOptions = unique(copyEntitiesData.map(item => item.semanticTag))
       this.tableData = copyEntitiesData
+      this.copyTableData = deepClone(copyEntitiesData)
       this.$refs.tableDataRef.doLayout()
+      this.currentPage = 1
     },
     setColor(type) {
       const colorObj = {}

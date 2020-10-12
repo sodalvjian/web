@@ -7,26 +7,26 @@
       </div>
     </nav>
     <ul class="user-sider-mean">
-      <router-link
-        to="/user/cost"
-      ><li :class="handleActive('cost')">
-        Billing & Cost Management
-      </li></router-link>
-      <router-link
-        to="/user/personalInfo"
-      ><li :class="handleActive('personalInfo')">
-        Personal Information& credit card
-      </li></router-link>
-      <router-link
-        to="/user/accountPassword"
-      ><li :class="handleActive('accountPassword')">
-        Account and password
-      </li></router-link>
-      <router-link
-        to="/user/orderInvoice"
-      ><li :class="handleActive('orderInvoice')">
-        Order and invoice
-      </li></router-link>
+      <router-link to="/user/cost"
+        ><li :class="handleActive('cost')">
+          Billing & Cost Management
+        </li></router-link
+      >
+      <router-link to="/user/orderInvoice"
+        ><li :class="handleActive('orderInvoice')">
+          Order and invoice
+        </li></router-link
+      >
+      <router-link to="/user/personalInfo"
+        ><li :class="handleActive('personalInfo')">
+          Personal Information& credit card
+        </li></router-link
+      >
+      <router-link to="/user/accountPassword"
+        ><li :class="handleActive('accountPassword')">
+          Account and password
+        </li></router-link
+      >
     </ul>
   </aside>
 </template>

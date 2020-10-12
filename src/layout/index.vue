@@ -14,7 +14,7 @@
     </div>
 
     <!-- 返回顶部 -->
-    <el-backtop :right="20" :bottom="70"></el-backtop>
+    <el-backtop class="page-backup" :right="20" :bottom="70"></el-backtop>
 
     <!-- 问题反馈 -->
     <feedback-module />
@@ -111,5 +111,8 @@ export default {
 
 .mobile .fixed-header {
   width: 100%;
+}
+.page-backup {
+  z-index: 2000;
 }
 </style>

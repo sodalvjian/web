@@ -94,19 +94,35 @@
                 </div>
               </el-radio-group>
               <div class="tr mt-20">
-                <el-button size="mini" type="text" @click="cancerPopoverVisible"
+                <el-button
+                  size="mini"
+                  type="text"
+                  @click="popoverVisible = false"
                   >Cancel</el-button
                 >
-                <el-button type="primary" size="mini" @click="confirmEncryption"
+                <el-button
+                  type="text"
+                  size="mini"
+                  class="color-red"
+                  @click="cancerPopoverVisible"
+                  >Close</el-button
+                >
+                <el-button
+                  type="text"
+                  size="mini"
+                  class="color-green"
+                  @click="confirmEncryption"
                   >Confirm</el-button
                 >
               </div>
               <el-switch
                 slot="reference"
                 v-model="encryption"
-                class="fr mt-15 mr-20"
+                class="fr mt-15 mr-20 job-create-switch"
                 active-color="#13ce66"
                 inactive-text="Encryption"
+                disabled
+                @click.native="popoverVisible = true"
                 @change="changeEncrytion"
               >
               </el-switch>
@@ -312,6 +328,7 @@ export default {
       } else {
         this.formData.encryption = this.encryptionRadio
       }
+      this.encryption = true
       this.popoverVisible = false
     },
     handleEncryption() {
@@ -334,7 +351,7 @@ export default {
       this.$refs.formData.validate(valid => {
         if (valid) {
           if (!this.inRegion || !this.outRegion) {
-            this.$message.warning('Please region S3.')
+            this.$message.warning('Pleas select region S3')
             return false
           }
           const { name, input, output, encryption } = this.formData
@@ -436,7 +453,15 @@ export default {
   }
 }
 </script>
-
+<style lang="scss">
+.job-create-switch {
+  opacity: 1 !important;
+  .el-switch__label,
+  .el-switch__core {
+    cursor: pointer !important;
+  }
+}
+</style>
 <style lang="scss" scoped>
 .encryption-handle {
   label {
