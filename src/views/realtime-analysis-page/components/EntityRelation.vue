@@ -165,7 +165,9 @@ export default {
       this.total = 0
       this.currentPage = 1
       this.tableData = []
-      
+      this.tableSearchData = ''
+      this.dataType = ''
+
       const bratFile = JSON.parse(bratData.bratFile)
       const outputData = JSON.parse(bratData.output)
       const bratSem = JSON.parse(bratData.bratSem)

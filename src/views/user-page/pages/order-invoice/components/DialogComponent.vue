@@ -440,9 +440,6 @@
             </tr>
           </tbody>
         </table>
-        <p>
-          <br />
-        </p>
         <table
           border="0"
           cellspacing="0"
@@ -466,7 +463,7 @@
                 width="146"
                 style="word-break: break-all; background-color: rgb(243, 243, 243);"
               >
-                <strong>Invoice ID</strong><br />
+                <strong>Invoice ID</strong>
               </td>
               <td
                 colspan="1"
@@ -559,11 +556,7 @@
             </tr>
           </tbody>
         </table>
-        <span style="font-size: 14px;"></span>
-        <p>
-          <br />
-        </p>
-        <table data-sort="sortDisabled">
+        <table>
           <tbody>
             <tr>
               <td
@@ -628,7 +621,7 @@
                     style='color: rgb(51, 51, 51);font-size: 17px;'
                     ><span
                       style='color: rgb(51, 51, 51);font-size: 17px;'
-                      ><br /></span
+                      ></span
                   ></span>
                 </p>
                 <p>
@@ -648,7 +641,7 @@
                     style='color: rgb(51, 51, 51);font-size: 18px;'
                     ><span
                       style='color: rgb(51, 51, 51);font-size: 18px;'
-                      ><br /></span
+                      ></span
                   ></span>
                 </p>
                 <p>
