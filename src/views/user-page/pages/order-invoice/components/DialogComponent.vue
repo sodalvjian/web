@@ -12,17 +12,17 @@
           <strong class="f17">Invoice</strong>
         </el-col>
         <el-col :span="12" align="right">
-          <el-button size="small" @click="dialogVisible = false"
-            >Cancel</el-button
-          >
+          <el-button
+            size="small"
+            @click="dialogVisible = false"
+          >Cancel</el-button>
           <el-button
             size="small"
             type="primary"
             icon="el-icon-printer"
             :loading="btnLoading"
             @click="handlePrint"
-            >Print</el-button
-          >
+          >Print</el-button>
         </el-col>
       </el-row>
     </div>
@@ -42,9 +42,9 @@
                 </span>
               </td>
               <td valign="top" height="35" rowspan="1" colspan="2">
-                <span style="color: rgb(89, 89, 89); font-size: 15px;"
-                  ><strong>Melax Technologies,Inc</strong></span
-                >
+                <span
+                  style="color: rgb(89, 89, 89); font-size: 15px;"
+                ><strong>Melax Technologies,Inc</strong></span>
               </td>
             </tr>
             <tr>
@@ -71,8 +71,9 @@
                 height="50"
                 style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); word-break: break-all;"
               >
-                <span style="color: rgb(89, 89, 89); font-size: 13px;"
-                  >Email or talk to us about your account or bill visit
+                <span
+                  style="color: rgb(89, 89, 89); font-size: 13px;"
+                >Email or talk to us about your account or bill visit
                   melaxtech.com/index.php/about-us/contact
                 </span>
               </td>
@@ -109,10 +110,10 @@
                 width="312"
                 style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); word-break: break-all;"
               >
-                <span style="color: rgb(89, 89, 89);"
-                  >ATTN: {{ printData.firstname }}
-                  {{ printData.lastname }}</span
-                >
+                <span
+                  style="color: rgb(89, 89, 89);"
+                >ATTN: {{ printData.firstname }}
+                  {{ printData.lastname }}</span>
               </td>
               <td
                 valign="middle"
@@ -152,10 +153,10 @@
                 width="312"
                 style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255);"
               >
-                <span style="color: rgb(89, 89, 89);"
-                  >{{ printData.apartment || '--' }}
-                  {{ printData.street || '--' }}</span
-                >
+                <span
+                  style="color: rgb(89, 89, 89);"
+                >{{ printData.apartment || '--' }}
+                  {{ printData.street || '--' }}</span>
               </td>
               <td
                 valign="top"
@@ -186,20 +187,20 @@
                 width="312"
                 style="word-break: break-all; border-color: rgb(255, 255, 255);"
               >
-                <span style="color: rgb(89, 89, 89);"
-                  >{{ printData.city }} , {{ printData.state }} ,
-                  {{ printData.countryRegion }}</span
-                >
+                <span
+                  style="color: rgb(89, 89, 89);"
+                >{{ printData.city }} , {{ printData.state }} ,
+                  {{ printData.countryRegion }}</span>
               </td>
               <td
                 valign="top"
                 width="486"
                 style="border-color: rgb(255, 255, 255); word-break: break-all;"
               >
-                <strong style="font-size:16px;text-transform:uppercase;"
-                  >TOTAL AMOUNT DUE ON
-                  {{ printData.invoiceDate | setDate }}</strong
-                >
+                <strong
+                  style="font-size:16px;text-transform:uppercase;"
+                >TOTAL AMOUNT DUE ON
+                  {{ printData.invoiceDate | setDate }}</strong>
               </td>
               <td
                 valign="top"
@@ -208,25 +209,23 @@
                 width="136"
                 style="word-break: break-all;"
               >
-                <strong style="font-size:16px"
-                  >${{ printData.totalCharge }}</strong
-                >
+                <strong
+                  style="font-size:16px"
+                >${{ printData.totalCharge }}</strong>
               </td>
             </tr>
           </tbody>
         </table>
         <p style="text-align: center; margin-top:40px;font-size:15px">
-          <strong
-            >This invoice is for the billing period
+          <strong>This invoice is for the billing period
             {{ printData.periodEndDate | setDate }}
           </strong>
         </p>
         <p style="text-align: center; margin-top:20px">
           <span
             style="color: rgb(136, 136, 136); font-size: 13px; text-align: center; background-color: rgb(255, 255, 255);"
-            >Greetings from Amazon Web Services, were writing to provide you
-            with an electronic invoice for your use of AWS services.</span
-          >
+          >Greetings from Amazon Web Services, were writing to provide you
+            with an electronic invoice for your use of AWS services.</span>
         </p>
         <p style="text-align: center;margin-top:-8px">
           <span
@@ -234,8 +233,7 @@
           >
             Additional information about your bill, individual service charge
             details, and your account history are available on the Account
-            Activity Page.</span
-          >
+            Activity Page.</span>
         </p>
         <table
           data-sort="sortDisabled"
@@ -253,9 +251,9 @@
                 align="left"
                 width="671"
               >
-                <span style="color: #000;padding:20px"
-                  ><strong>Summary</strong></span
-                >
+                <span
+                  style="color: #000;padding:20px"
+                ><strong>Summary</strong></span>
               </td>
               <td
                 valign="middle"
@@ -281,9 +279,9 @@
                 height="40"
                 width="320"
               >
-                <span style="color: rgb(96, 98, 102);padding:20px"
-                  >${{ printData.charges }}</span
-                >
+                <span
+                  style="color: rgb(96, 98, 102);padding:20px"
+                >${{ printData.charges }}</span>
               </td>
             </tr>
             <tr>
@@ -301,9 +299,9 @@
                 align="right"
                 width="320"
               >
-                <span style="color: rgb(96, 98, 102);padding:20px"
-                  >${{ printData.credits }}</span
-                >
+                <span
+                  style="color: rgb(96, 98, 102);padding:20px"
+                >${{ printData.credits }}</span>
               </td>
             </tr>
             <tr>
@@ -321,9 +319,9 @@
                 align="right"
                 width="320"
               >
-                <span style="color: rgb(96, 98, 102);padding:20px"
-                  >${{ printData.tax }}</span
-                >
+                <span
+                  style="color: rgb(96, 98, 102);padding:20px"
+                >${{ printData.tax }}</span>
               </td>
             </tr>
             <tr>
@@ -336,9 +334,9 @@
                 height="45"
                 width="671"
               >
-                <span style="padding: 20px;color: #fff;font-weight: bold;"
-                  >Total for this invoice</span
-                >
+                <span
+                  style="padding: 20px;color: #fff;font-weight: bold;"
+                >Total for this invoice</span>
               </td>
               <td
                 valign="middle"
@@ -349,9 +347,9 @@
                 style="background-color: rgb(134, 143, 169); "
                 width="320"
               >
-                <span style="color: #fff;font-weight: bold;padding:20px"
-                  >${{ printData.totalCharge }}</span
-                >
+                <span
+                  style="color: #fff;font-weight: bold;padding:20px"
+                >${{ printData.totalCharge }}</span>
               </td>
             </tr>
             <tr>
@@ -409,33 +407,30 @@
                 style="word-break: break-all;"
               ></td>
               <td valign="middle" colspan="2" rowspan="1" height="40">
-                <strong
-                  ><span style='color:#333333;font-family:"font-size:18px;'
-                    >Name</span
-                  >: </strong
-                ><span style='color:#333333;font-family:"font-size:18px;'></span
-                >{{ printData.firstname | emptyShow }}
+                <strong><span
+                  style="color:#333333;font-family:&quot;font-size:18px;"
+                >Name</span>: </strong><span style="color:#333333;font-family:&quot;font-size:18px;"></span>{{ printData.firstname | emptyShow }}
                 {{ printData.lastname | emptyShow }}
               </td>
             </tr>
             <tr>
               <td valign="top" colspan="1" rowspan="1" height="30" width="512">
-                <span style='color:#333333;font-family:"font-size:18px;'
-                  ><strong>Print Date</strong>:
-                  {{ new Date() | setHourDate }}</span
-                >
+                <span
+                  style="color:#333333;font-family:&quot;font-size:18px;"
+                ><strong>Print Date</strong>:
+                  {{ new Date() | setHourDate }}</span>
               </td>
               <td valign="top" colspan="2" rowspan="1" height="30">
-                <span style="color:#595959;"
-                  ><span style='color:#333333;font-family:"font-size:18px;'
-                    ><strong>Account number&nbsp;</strong>:
-                    {{
-                      printData.accountNumber
-                        ? printData.accountNumber.join(', ')
-                        : ''
-                    }}</span
-                  ></span
-                >
+                <span
+                  style="color:#595959;"
+                ><span
+                  style="color:#333333;font-family:&quot;font-size:18px;"
+                ><strong>Account number</strong>:
+                  {{
+                    printData.accountNumber
+                      ? printData.accountNumber.join(', ')
+                      : ''
+                  }}</span></span>
               </td>
             </tr>
           </tbody>
@@ -444,7 +439,7 @@
           border="0"
           cellspacing="0"
           cellpadding="0"
-          style="border: 1px solid rgb(204, 204, 204); width:100%;font-size:14px"
+          style="border: 1px solid rgb(204, 204, 204);margin-top:25px; width:100%;font-size:14px"
         >
           <tbody>
             <tr class="firstRow">
@@ -455,9 +450,9 @@
                 align="left"
                 width="146"
               >
-                <span style="color:#000;padding-left:20px"
-                  ><strong>Payment Date</strong></span
-                >
+                <span
+                  style="color:#000;padding-left:20px"
+                ><strong>Payment Date</strong></span>
               </td>
               <td
                 width="146"
@@ -474,8 +469,7 @@
               >
                 <strong
                   style="font-size: 14px; white-space: normal; background-color: rgb(243, 243, 243);"
-                  >Payment Instrument</strong
-                >
+                >Payment Instrument</strong>
               </td>
               <td
                 colspan="1"
@@ -566,7 +560,7 @@
                 style="word-break: break-all;line-height: 2;"
               >
                 <span
-                  style='color: rgb(51, 51, 51); "font-size:18px;";'
+                  style="color: rgb(51, 51, 51); &quot;font-size:18px;&quot;;"
                 ></span>
                 <p>
                   This is not a VAT. ST or GST invoice. Related ax invoices can
@@ -584,7 +578,7 @@
                   Services are sold by Amazon Web Services.Inc.
                 </p>
                 <span
-                  style='color: rgb(51, 51, 51); "font-size:18px;";'
+                  style="color: rgb(51, 51, 51); &quot;font-size:18px;&quot;;"
                 ></span>
               </td>
               <td
@@ -596,65 +590,52 @@
                 width="341"
                 align="left"
               >
-                <strong
+                <strong><span
+                  style="color: rgb(51, 51, 51); &quot;font-size:17px;&quot;;"
+                ></span></strong>
+                <p>
+                  <span
+                    style="color: rgb(51, 51, 51);font-size: 17px;"
+                  >Service Provider:</span>
+                </p>
+                <p>
+                  <span
+                    style="color: rgb(51, 51, 51);font-size: 17px;"
                   ><span
-                    style='color: rgb(51, 51, 51); "font-size:17px;";'
-                  ></span
-                ></strong>
-                <p>
-                  <span
-                    style='color: rgb(51, 51, 51);font-size: 17px;'
-                    >Service Provider:</span
-                  >
+                    style="color: rgb(51, 51, 51);font-size: 17px;"
+                  >(Not to be used for payment remittance)</span></span>
                 </p>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51);font-size: 17px;'
-                    ><span
-                      style='color: rgb(51, 51, 51);font-size: 17px;'
-                      >(Not to be used for payment remittance)</span
-                    ></span
-                  >
+                    style="color: rgb(51, 51, 51);font-size: 17px;"
+                  ><span
+                    style="color: rgb(51, 51, 51);font-size: 17px;"
+                  ></span></span>
                 </p>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51);font-size: 17px;'
-                    ><span
-                      style='color: rgb(51, 51, 51);font-size: 17px;'
-                      ></span
-                  ></span>
+                    style="color: rgb(51, 51, 51);font-size: 17px;"
+                  ><span
+                    style="color: rgb(51, 51, 51);font-size: 17px;"
+                  ><span
+                    style="color: rgb(51, 51, 51);  font-size: 17px; font-weight: 700;"
+                  >Melax Technologies,Inc</span></span></span>
                 </p>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51);font-size: 17px;'
-                    ><span
-                      style='color: rgb(51, 51, 51);font-size: 17px;'
-                      ><span
-                        style='color: rgb(51, 51, 51);  font-size: 17px; font-weight: 700;'
-                        >Melax Technologies,Inc</span
-                      ></span
-                    ></span
-                  >
+                    style="color: rgb(51, 51, 51);font-size: 18px;"
+                  ><span
+                    style="color: rgb(51, 51, 51);font-size: 18px;"
+                  ></span></span>
                 </p>
                 <p>
                   <span
-                    style='color: rgb(51, 51, 51);font-size: 18px;'
-                    ><span
-                      style='color: rgb(51, 51, 51);font-size: 18px;'
-                      ></span
-                  ></span>
-                </p>
-                <p>
-                  <span
-                    style='color: rgb(51, 51, 51);font-size: 18px;'
-                    ><span
-                      style='color: rgb(51, 51, 51);font-size: 18px;'
-                      ><span
-                        style='color: rgb(85, 85, 85);font-size: 17px;'
-                        >7000 Fannin St #1950d, Houston, TX 77030</span
-                      ></span
-                    ></span
-                  >
+                    style="color: rgb(51, 51, 51);font-size: 18px;"
+                  ><span
+                    style="color: rgb(51, 51, 51);font-size: 18px;"
+                  ><span
+                    style="color: rgb(85, 85, 85);font-size: 17px;"
+                  >7000 Fannin St #1950d, Houston, TX 77030</span></span></span>
                 </p>
               </td>
             </tr>
@@ -730,7 +711,7 @@ export default {
       this.btnLoading = true
       const htmlDom = this.$refs.exportContent
       const params = {
-        content: `<html style="Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;">${htmlDom.innerHTML}</html>`
+        content: `<html style="font-family:Microsoft YaHei, Arial, sans-serif;">${htmlDom.innerHTML}</html>`
       }
       const downloadUrl = `/account/user/download/invoice/pdf`
       axios.defaults.headers.Authorization =
