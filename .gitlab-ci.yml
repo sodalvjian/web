@@ -19,5 +19,5 @@ upload:
     - docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}
     - echo "Deploy $(pwd)"
     - docker build -t "newbielj/melaxtechcloud:app-web-1.0"  .  && docker push newbielj/melaxtechcloud:app-web-1.0
-    - docker run --rm  -e EKS_CLUSTER=${EKS_CLUSTER} -e AWS_REGION=${AWS_REGION} -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} -e  AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} newbielj/melaxtechcloud:aws   sh -c " aws eks  update-kubeconfig --name \$EKS_CLUSTER && kubectl delete pod $(kubectl get pod | grep app-web | awk '{print $1}') "
+    - docker run --rm  -e EKS_CLUSTER=${EKS_CLUSTER} -e AWS_REGION=${AWS_REGION} -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} -e  AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} newbielj/melaxtechcloud:aws   sh -c " aws eks  update-kubeconfig --name \$EKS_CLUSTER && /usr/local/bin/kubectl get pod && kubectl delete pod $(kubectl get pod | grep app-web | awk '{print $1}')  "
 
