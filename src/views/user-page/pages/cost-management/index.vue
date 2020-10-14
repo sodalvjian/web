@@ -154,6 +154,7 @@ export default {
   beforeDestroy() {},
   methods: {
     changeMonthRange() {
+      this.getBillingSummary()
       this.getCostDashboard()
     },
     openBillDetail() {

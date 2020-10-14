@@ -14,7 +14,7 @@ export const barOption = {
   backgroundColor: '#fff',
   grid: {
     top: '15%',
-    right: '10%',
+    right: 0,
     left: '60px',
     bottom: '12%'
   },
@@ -38,8 +38,8 @@ export const barOption = {
       type: 'inside',
       show: true,
       height: 15,
-      start: 1,
-      end: 35
+      start: 10,
+      end: 80
     }
   ],
   xAxis: [

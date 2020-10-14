@@ -28,7 +28,10 @@
               width="180"
             >
             </el-table-column>
-            <el-table-column prop="invoiceId" label="Invoice ID" width="100">
+            <el-table-column label="Invoice ID" width="100">
+              <template slot-scope="scope">
+                {{ scope.invoiceID | emptyShow }}
+              </template>
             </el-table-column>
             <el-table-column prop="type" label="Type" width="100">
             </el-table-column>
