@@ -20,7 +20,7 @@ export function GetList(paramsOption, data) {
 // get Analysis Type
 export function GetAnalysisType() {
   return request({
-    url: `jobbizweb/pipeline`,
+    url: `jobbizweb/pipelinemng`,
     method: 'get'
   })
 }

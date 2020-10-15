@@ -10,16 +10,23 @@
             <el-select
               v-model="formData.pipeline"
               size="mini"
+              style="width:250px"
               :loading="pipelineLoading"
               placeholder="Universal pipeline"
             >
-              <el-option
-                v-for="(item, index) in analysisTypeOptions"
+              <el-option-group
+                v-for="(group, index) in analysisTypeOptions"
                 :key="index"
-                :label="item.params"
-                :value="item.params"
+                :label="group.lamdaName"
               >
-              </el-option>
+                <el-option
+                  v-for="item in group.version"
+                  :key="item.id"
+                  :label="item.params"
+                  :value="item.params"
+                >
+                </el-option>
+              </el-option-group>
             </el-select>
           </el-col>
           <el-col :span="12" align="right">
