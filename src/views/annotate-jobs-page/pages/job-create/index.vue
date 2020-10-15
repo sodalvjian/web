@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="fl nav-title mt-10 f16"
-        ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong
-      >
+      <strong
+        class="fl nav-title mt-10 f16"
+      ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong>
     </nav>
     <el-form
       ref="formData"
@@ -53,17 +53,22 @@
                   placeholder="Please select…"
                   @change="changepipeline"
                 >
-                  <el-option
-                    v-for="(item, index) in analysisTypeOptions"
+                  <el-option-group
+                    v-for="(group, index) in analysisTypeOptions"
                     :key="index"
-                    :label="item.params"
-                    :value="item.params"
+                    :label="group.lamdaName"
                   >
-                  </el-option>
+                    <el-option
+                      v-for="item in group.version"
+                      :key="item.id"
+                      :label="item.params"
+                      :value="item.params"
+                    >
+                    </el-option>
+                  </el-option-group>
                 </el-select>
               </el-form-item>
-            </div> </el-col
-        ></el-row>
+            </div> </el-col></el-row>
       </section>
       <section v-loading="pageLoading" class="bg-color-gray mt-25 bd-1">
         <el-row :gutter="20" class="">
@@ -98,22 +103,19 @@
                   size="mini"
                   type="text"
                   @click="popoverVisible = false"
-                  >Cancel</el-button
-                >
+                >Cancel</el-button>
                 <el-button
                   type="text"
                   size="mini"
                   class="color-red"
                   @click="cancerPopoverVisible"
-                  >Close</el-button
-                >
+                >Close</el-button>
                 <el-button
                   type="text"
                   size="mini"
                   class="color-green"
                   @click="confirmEncryption"
-                  >Confirm</el-button
-                >
+                >Confirm</el-button>
               </div>
               <el-switch
                 slot="reference"
@@ -150,8 +152,7 @@
                         value: inRegion
                       })
                     "
-                    >Region S3</el-button
-                  >
+                  >Region S3</el-button>
                 </el-input>
               </el-form-item>
 
@@ -184,7 +185,7 @@
                         value: outRegion
                       })
                     "
-                    >Region S3
+                  >Region S3
                   </el-button>
                 </el-input>
               </el-form-item>
@@ -197,20 +198,19 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div>
             </div>
-          </el-col></el-row
-        >
+          </el-col></el-row>
       </section>
       <el-form-item class="tc mt-40">
-        <el-button size="medium" @click="$emit('close-dialog')"
-          >Cancel</el-button
-        >
+        <el-button
+          size="medium"
+          @click="$emit('close-dialog')"
+        >Cancel</el-button>
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-          >Confirm</el-button
-        >
+        >Confirm</el-button>
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -238,6 +238,7 @@ export default {
   data() {
     return {
       analysisTypeOptions: [],
+      analysisChildTypeOptions: [],
       pageLoading: false,
       encryptionRadio: 'AES-256',
       encryptionHandle: '',
@@ -285,7 +286,8 @@ export default {
         outRegion
       } = copyJobData
       if (copyStatus) {
-        const pipelineObj = this.analysisTypeOptions.find(
+        console.log('pipeline', this.analysisChildTypeOptions)
+        const pipelineObj = this.analysisChildTypeOptions.find(
           item => item.params === pipeline
         )
         console.log('pipelineObj', pipelineObj)
@@ -297,9 +299,11 @@ export default {
           input: input,
           output: output
         }
-        this.pipelineData = this.analysisTypeOptions.find(
-          item => item.params === pipelineObj.params
-        )
+        this.pipelineData = pipelineObj
+          ? this.analysisChildTypeOptions.find(
+            item => item.params === pipelineObj.params
+          )
+          : {}
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)
         this.inRegionName = `${inRegionLabel.label}(${inRegionLabel.value})`
@@ -341,7 +345,7 @@ export default {
       }
     },
     changepipeline() {
-      this.pipelineData = this.analysisTypeOptions.find(
+      this.pipelineData = this.analysisChildTypeOptions.find(
         item => item.params === this.formData.pipelineId
       )
       console.log('this.pipelineData', this.pipelineData)
@@ -441,6 +445,9 @@ export default {
       GetAnalysisType().then(res => {
         if (res.code === 200) {
           this.analysisTypeOptions = res.data
+          this.analysisChildTypeOptions = res.data
+            .map(item => item.version)
+            .flat(Infinity) // 将自己版本数据拉平
           const copyStatus = this.$route.query.copy
           if (copyStatus) {
             this.getCopyData()
