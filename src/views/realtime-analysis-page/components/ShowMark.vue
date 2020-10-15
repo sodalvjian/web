@@ -204,6 +204,7 @@ export default {
             this.noDataShow = true
           }
           globalBus.$emit('set-analysis-loading-false')
+          this.loading = false
         })
 
       //   GetBrat(url, {}, res => {})
