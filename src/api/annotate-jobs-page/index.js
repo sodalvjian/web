@@ -59,3 +59,10 @@ export function GetCostData(bizid) {
     method: 'get'
   })
 }
+//  verify S3 Data
+export function VerifyS3Data(type, url) {
+  return request({
+    url: `jobbizweb/jobbiz/policytemplate?type=${type}&s3url=${url}`,
+    method: 'get'
+  })
+}

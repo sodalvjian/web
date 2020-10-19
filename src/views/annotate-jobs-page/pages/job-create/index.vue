@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong
-        class="fl nav-title mt-10 f16"
-      ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong>
+      <strong class="fl nav-title mt-10 f16"
+        ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong
+      >
     </nav>
     <el-form
       ref="formData"
@@ -46,29 +46,45 @@
                 prop="pipelineId"
                 :rules="{ required: true }"
               >
-                <el-select
-                  v-model="formData.pipelineId"
-                  class="w"
-                  popper-class=""
-                  placeholder="Please select…"
-                  @change="changepipeline"
-                >
-                  <el-option-group
-                    v-for="(group, index) in analysisTypeOptions"
-                    :key="index"
-                    :label="group.lamdaName"
+                <el-input v-model="formData.pipelineId" readonly>
+                  <el-select
+                    id="select-pipeline"
+                    slot="append"
+                    v-model="formData.pipelineId"
+                    class="w"
+                    popper-class=""
+                    placeholder="Please select…"
+                    @change="changepipeline"
                   >
-                    <el-option
-                      v-for="item in group.version"
-                      :key="item.id"
-                      :label="item.params"
-                      :value="item.params"
+                    <el-option-group
+                      v-for="(group, index) in analysisTypeOptions"
+                      :key="index"
+                      :label="group.lamdaName"
                     >
-                    </el-option>
-                  </el-option-group>
-                </el-select>
+                      <el-option
+                        v-for="item in group.version"
+                        :key="item.id"
+                        :label="item.params"
+                        :value="item.params"
+                      >
+                      </el-option>
+                    </el-option-group>
+                  </el-select>
+                  <!-- <el-button
+                    slot="append"
+                    @click="
+                      openBrowse('output', {
+                        label: outRegionLabel,
+                        value: outRegion
+                      })
+                    "
+                    >Change pipeline
+                  </el-button> -->
+                </el-input>
               </el-form-item>
-            </div> </el-col></el-row>
+            </div>
+          </el-col></el-row
+        >
       </section>
       <section v-loading="pageLoading" class="bg-color-gray mt-25 bd-1">
         <el-row :gutter="20" class="">
@@ -103,19 +119,22 @@
                   size="mini"
                   type="text"
                   @click="popoverVisible = false"
-                >Cancel</el-button>
+                  >Cancel</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-red"
                   @click="cancerPopoverVisible"
-                >Close</el-button>
+                  >Close</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-green"
                   @click="confirmEncryption"
-                >Confirm</el-button>
+                  >Confirm</el-button
+                >
               </div>
               <el-switch
                 slot="reference"
@@ -146,13 +165,10 @@
                 >
                   <el-button
                     slot="append"
-                    @click="
-                      openBrowse('input', {
-                        label: inRegionLabel,
-                        value: inRegion
-                      })
-                    "
-                  >Region S3</el-button>
+                    :loading="btnInputLoading"
+                    @click="verifyS3Data('r')"
+                    >Verify</el-button
+                  >
                 </el-input>
               </el-form-item>
 
@@ -161,9 +177,9 @@
                 paste the URL of a bucket or folder location in S3, or select a
                 bucket or folder location in S3
               </div>
-              <div v-if="inRegionName" class="f15 mt-15">
+              <!-- <div v-if="inRegionName" class="f15 mt-15">
                 S3 region: <strong>{{ inRegionName }}</strong>
-              </div>
+              </div> -->
             </div>
           </el-col>
           <el-col :span="12">
@@ -179,13 +195,9 @@
                 >
                   <el-button
                     slot="append"
-                    @click="
-                      openBrowse('output', {
-                        label: outRegionLabel,
-                        value: outRegion
-                      })
-                    "
-                  >Region S3
+                    :loading="btnOutputLoading"
+                    @click="verifyS3Data('w')"
+                    >Region S3
                   </el-button>
                 </el-input>
               </el-form-item>
@@ -194,23 +206,24 @@
                 paste the URL of a bucket or folder location in S3, or select a
                 bucket or folder location in S3
               </div>
-              <div v-if="outRegionName" class="f15 mt-15">
+              <!-- <div v-if="outRegionName" class="f15 mt-15">
                 S3 region: <strong>{{ outRegionName }}</strong>
-              </div>
+              </div> -->
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <el-form-item class="tc mt-40">
-        <el-button
-          size="medium"
-          @click="$emit('close-dialog')"
-        >Cancel</el-button>
+        <el-button size="medium" @click="$emit('close-dialog')"
+          >Cancel</el-button
+        >
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -218,21 +231,29 @@
     <choose-resource ref="chooseResourceRef" @select-s3="selectS3" />
     <!-- info message -->
     <dialog-show-info ref="dialogShowInfoRef" />
+    <!-- S3 info show -->
+    <show-s3-info ref="showS3InfoRef"></show-s3-info>
   </div>
 </template>
 
 <script>
-import { GetAnalysisType, AddData } from '@/api/annotate-jobs-page'
+import {
+  GetAnalysisType,
+  AddData,
+  VerifyS3Data
+} from '@/api/annotate-jobs-page'
 import DialogShowInfo from '@/components/DialogShowInfo'
-import chooseResource from './components/ChooseResource'
+import ChooseResource from './components/ChooseResource'
+import ShowS3Info from './components/ShowS3Info'
 import 'codemirror/lib/codemirror.css'
 import { s3List } from './constants'
 import store from '@/store'
 export default {
   name: 'InlineEditTable',
   components: {
-    chooseResource,
-    DialogShowInfo
+    ChooseResource,
+    DialogShowInfo,
+    ShowS3Info
   },
   filters: {},
   data() {
@@ -246,6 +267,8 @@ export default {
       btnLoading: false,
       popoverVisible: false,
       encryption: false,
+      btnInputLoading: false,
+      btnOutputLoading: false,
       formData: {
         name: '',
         pipelineId: '',
@@ -268,6 +291,18 @@ export default {
     this.getAnalysisType()
   },
   methods: {
+    verifyS3Data(type) {
+      const url = type === 'r' ? this.formData.input : this.formData.output
+      if (type === 'r') {
+        this.btnInputLoading = true
+      } else {
+        this.btnOutputLoading = true
+      }
+      VerifyS3Data(type, url).then(res => {
+        this.btnInputLoading = false
+        this.$refs.showS3InfoRef.openDialog(type, res.data)
+      })
+    },
     cancerPopoverVisible() {
       this.popoverVisible = false
       this.encryption = false
@@ -301,8 +336,8 @@ export default {
         }
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-            item => item.params === pipelineObj.params
-          )
+              item => item.params === pipelineObj.params
+            )
           : {}
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)
@@ -324,6 +359,7 @@ export default {
         } else {
           this.encryption = false
         }
+        this.setPipelineText()
       }
     },
     confirmEncryption() {
@@ -349,6 +385,7 @@ export default {
         item => item.params === this.formData.pipelineId
       )
       console.log('this.pipelineData', this.pipelineData)
+      this.setPipelineText()
     },
     onSubmit() {
       console.log('this.pipelineData', this.pipelineData)
@@ -364,8 +401,8 @@ export default {
             name: name,
             input: input,
             output: output,
-            inRegion: this.inRegion,
-            outRegion: this.outRegion,
+            // inRegion: this.inRegion,
+            // outRegion: this.outRegion,
             pipeline: this.pipelineData.params,
             encryption: encryption
           }
@@ -448,6 +485,7 @@ export default {
           this.analysisChildTypeOptions = res.data
             .map(item => item.version)
             .flat(Infinity) // 将自己版本数据拉平
+          this.formData.pipelineId = this.analysisChildTypeOptions[0].params
           const copyStatus = this.$route.query.copy
           if (copyStatus) {
             this.getCopyData()
@@ -455,6 +493,12 @@ export default {
 
           this.pageLoading = false
         }
+      })
+    },
+    // 设置pipeline选择按钮的文字
+    setPipelineText() {
+      this.$nextTick(() => {
+        document.getElementById('select-pipeline').value = 'Change pipeline'
       })
     }
   }
@@ -467,6 +511,10 @@ export default {
   .el-switch__core {
     cursor: pointer !important;
   }
+}
+#select-pipeline {
+  width: 142px !important;
+  padding-right: 10px;
 }
 </style>
 <style lang="scss" scoped>

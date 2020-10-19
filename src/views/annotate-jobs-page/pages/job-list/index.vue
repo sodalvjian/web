@@ -6,7 +6,7 @@
         <el-button
           class="filter-item shadow"
           type="primary"
-          size="mini"
+          size="small"
           icon="el-icon-plus"
           @click="createData"
         >Job</el-button>

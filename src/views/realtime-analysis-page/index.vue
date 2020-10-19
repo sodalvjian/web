@@ -7,10 +7,9 @@
       <nav>
         <el-row>
           <el-col :span="12">
-            <el-select
+            <!-- <el-select
               v-model="formData.pipeline"
               size="mini"
-              style="width:250px"
               :loading="pipelineLoading"
               placeholder="Universal pipeline"
             >
@@ -27,13 +26,42 @@
                 >
                 </el-option>
               </el-option-group>
-            </el-select>
+            </el-select> -->
+            <el-input
+              v-model="formData.pipeline"
+              style="width:350px"
+              class="realtime-select-pipeline"
+              size="small"
+              readonly
+            >
+              <el-select
+                id="realtime-select-pipeline"
+                slot="append"
+                v-model="formData.pipeline"
+                placeholder="Change pipeline"
+                @change="changepipeline"
+              >
+                <el-option-group
+                  v-for="(group, index) in analysisTypeOptions"
+                  :key="index"
+                  :label="group.lamdaName"
+                >
+                  <el-option
+                    v-for="item in group.version"
+                    :key="item.id"
+                    :label="item.params"
+                    :value="item.params"
+                  >
+                  </el-option>
+                </el-option-group>
+              </el-select>
+            </el-input>
           </el-col>
           <el-col :span="12" align="right">
-            <el-button size="mini" @click="clearData">Clear</el-button>
+            <el-button size="small" @click="clearData">Clear</el-button>
             <el-button
               :loading="analysisLoading"
-              size="mini"
+              size="small"
               type="primary"
               icon="el-icon-data-line"
               @click="handleAnalysis"
@@ -94,6 +122,9 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    changepipeline() {
+      this.setPipelineText()
+    },
     handleAnalysis() {
       const { pipeline, text } = this.formData
       if (!pipeline) {
@@ -116,11 +147,23 @@ export default {
         if (res.code === 200) {
           this.pipelineLoading = false
           this.analysisTypeOptions = res.data
+          const analysisChildTypeOptions = res.data
+            .map(item => item.version)
+            .flat(Infinity) // 将自己版本数据拉平
+          this.formData.pipeline = analysisChildTypeOptions[0].params
+          this.setPipelineText()
         }
       })
     },
     clearData() {
       this.formData.text = ''
+    },
+    // 设置pipeline选择按钮的文字
+    setPipelineText() {
+      this.$nextTick(() => {
+        document.getElementById('realtime-select-pipeline').value =
+          'Change pipeline'
+      })
     }
   }
 }
@@ -134,6 +177,15 @@ export default {
 </style>
 <style lang="scss">
 @import '@/styles/variables.scss';
+#realtime-select-pipeline {
+  width: 130px !important;
+  padding-right: 10px;
+}
+.realtime-select-pipeline {
+  .el-input__suffix {
+    display: none;
+  }
+}
 .analysis-result-table {
   .el-table__expanded-cell {
     padding: 10px 0px 10px 60px;
