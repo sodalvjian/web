@@ -67,7 +67,7 @@ service.interceptors.response.use(
           await store.dispatch('user/logout')
           location.href = `/login`
         }, 1000)
-      } else if (res.code === 800008) {
+      } else if (res.code === 800008 || res.code === 800009) {
         return Promise.reject(res)
       } else {
         console.log('showMessage', showMessageData)
