@@ -161,6 +161,7 @@
                 >
                   <el-button
                     slot="append"
+                    :disabled="!formData.input"
                     :loading="btnInputLoading"
                     @click="verifyS3Data('r')"
                   >Verify</el-button>
@@ -190,9 +191,10 @@
                 >
                   <el-button
                     slot="append"
+                    :disabled="!formData.output"
                     :loading="btnOutputLoading"
                     @click="verifyS3Data('w')"
-                  >Region S3
+                  >Verify
                   </el-button>
                 </el-input>
               </el-form-item>
@@ -226,7 +228,7 @@
     <!-- info message -->
     <dialog-show-info ref="dialogShowInfoRef" />
     <!-- S3 info show -->
-    <show-s3-info ref="showS3InfoRef"></show-s3-info>
+    <!-- <show-s3-info ref="showS3InfoRef"></show-s3-info> -->
   </div>
 </template>
 
@@ -238,7 +240,7 @@ import {
 } from '@/api/annotate-jobs-page'
 import DialogShowInfo from '@/components/DialogShowInfo'
 import ChooseResource from './components/ChooseResource'
-import ShowS3Info from './components/ShowS3Info'
+// import ShowS3Info from './components/ShowS3Info'
 import 'codemirror/lib/codemirror.css'
 import { s3List } from './constants'
 import store from '@/store'
@@ -246,8 +248,8 @@ export default {
   name: 'InlineEditTable',
   components: {
     ChooseResource,
-    DialogShowInfo,
-    ShowS3Info
+    DialogShowInfo
+    // ShowS3Info,
   },
   filters: {},
   data() {
@@ -292,10 +294,18 @@ export default {
       } else {
         this.btnOutputLoading = true
       }
-      VerifyS3Data(type, url).then(res => {
-        this.btnInputLoading = false
-        this.$refs.showS3InfoRef.openDialog(type, res.data)
-      })
+      VerifyS3Data(type, url)
+        .then((res) => {
+          this.btnInputLoading = false
+          this.$refs.showS3InfoRef.openDialog(type, res.data)
+        })
+        .catch(() => {
+          if (type === 'r') {
+            this.btnInputLoading = false
+          } else {
+            this.btnOutputLoading = false
+          }
+        })
     },
     cancerPopoverVisible() {
       this.popoverVisible = false
@@ -317,7 +327,7 @@ export default {
       if (copyStatus) {
         console.log('pipeline', this.analysisChildTypeOptions)
         const pipelineObj = this.analysisChildTypeOptions.find(
-          item => item.params === pipeline
+          (item) => item.params === pipeline
         )
         console.log('pipelineObj', pipelineObj)
 
@@ -330,15 +340,15 @@ export default {
         }
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-            item => item.params === pipelineObj.params
+            (item) => item.params === pipelineObj.params
           )
           : {}
         this.inRegion = inRegion
-        const inRegionLabel = s3List.find(item => inRegion === item.value)
+        const inRegionLabel = s3List.find((item) => inRegion === item.value)
         this.inRegionName = `${inRegionLabel.label}(${inRegionLabel.value})`
         this.inRegionLabel = inRegionLabel.label
         this.outRegion = outRegion
-        const outRegionLabel = s3List.find(item => outRegion === item.value)
+        const outRegionLabel = s3List.find((item) => outRegion === item.value)
         this.outRegionName = `${outRegionLabel.label}(${outRegionLabel.value})`
         this.outRegionLabel = outRegionLabel.label
         if (encryption) {
@@ -376,14 +386,14 @@ export default {
     },
     changepipeline() {
       this.pipelineData = this.analysisChildTypeOptions.find(
-        item => item.params === this.formData.pipelineId
+        (item) => item.params === this.formData.pipelineId
       )
       console.log('this.pipelineData', this.pipelineData)
       this.setPipelineText()
     },
     onSubmit() {
       console.log('this.pipelineData', this.pipelineData)
-      this.$refs.formData.validate(valid => {
+      this.$refs.formData.validate((valid) => {
         if (valid) {
           if (!this.inRegion || !this.outRegion) {
             this.$message.warning('Pleas select region S3')
@@ -412,13 +422,13 @@ export default {
           console.log(params)
           this.btnLoading = true
           AddData(params)
-            .then(res => {
+            .then((res) => {
               if (res.code === 200) {
                 this.$message.success(res.message)
                 this.$emit('close-dialog')
               }
             })
-            .catch(res => {
+            .catch((res) => {
               this.btnLoading = false
               if (res.code === 800008) {
                 this.$refs.dialogShowInfoRef.openDialog('nlp')
@@ -473,11 +483,11 @@ export default {
     },
     getAnalysisType() {
       this.pageLoading = true
-      GetAnalysisType().then(res => {
+      GetAnalysisType().then((res) => {
         if (res.code === 200) {
           this.analysisTypeOptions = res.data
           this.analysisChildTypeOptions = res.data
-            .map(item => item.version)
+            .map((item) => item.version)
             .flat(Infinity) // 将自己版本数据拉平
           this.formData.pipelineId = this.analysisChildTypeOptions[0].params
           const copyStatus = this.$route.query.copy
