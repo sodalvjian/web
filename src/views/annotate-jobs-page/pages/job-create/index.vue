@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong
-        class="fl nav-title mt-10 f16"
-      ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong>
+      <strong class="fl nav-title mt-10 f16"
+        ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong
+      >
     </nav>
     <el-form
       ref="formData"
@@ -83,7 +83,8 @@
                 </el-input>
               </el-form-item>
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <section v-loading="pageLoading" class="bg-color-gray mt-25 bd-1">
         <el-row :gutter="20" class="">
@@ -118,19 +119,22 @@
                   size="mini"
                   type="text"
                   @click="popoverVisible = false"
-                >Cancel</el-button>
+                  >Cancel</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-red"
                   @click="cancerPopoverVisible"
-                >Close</el-button>
+                  >Close</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-green"
                   @click="confirmEncryption"
-                >Confirm</el-button>
+                  >Confirm</el-button
+                >
               </div>
               <el-switch
                 slot="reference"
@@ -164,7 +168,8 @@
                     :disabled="!formData.input"
                     :loading="btnInputLoading"
                     @click="verifyS3Data('r')"
-                  >Verify</el-button>
+                    >Verify</el-button
+                  >
                 </el-input>
               </el-form-item>
 
@@ -194,7 +199,7 @@
                     :disabled="!formData.output"
                     :loading="btnOutputLoading"
                     @click="verifyS3Data('w')"
-                  >Verify
+                    >Verify
                   </el-button>
                 </el-input>
               </el-form-item>
@@ -207,28 +212,29 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <el-form-item class="tc mt-40">
-        <el-button
-          size="medium"
-          @click="$emit('close-dialog')"
-        >Cancel</el-button>
+        <el-button size="medium" @click="$emit('close-dialog')"
+          >Cancel</el-button
+        >
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
     <!-- choose resource -->
     <choose-resource ref="chooseResourceRef" @select-s3="selectS3" />
     <!-- info message -->
-    <dialog-show-info ref="dialogShowInfoRef" />
+    <!-- <dialog-show-info ref="dialogShowInfoRef" /> -->
     <!-- S3 info show -->
-    <!-- <show-s3-info ref="showS3InfoRef"></show-s3-info> -->
+    <show-s3-info ref="showS3InfoRef"></show-s3-info>
   </div>
 </template>
 
@@ -236,11 +242,12 @@
 import {
   GetAnalysisType,
   AddData,
-  VerifyS3Data
+  VerifyS3Data,
+  CheckData
 } from '@/api/annotate-jobs-page'
-import DialogShowInfo from '@/components/DialogShowInfo'
+// import DialogShowInfo from '@/components/DialogShowInfo'
 import ChooseResource from './components/ChooseResource'
-// import ShowS3Info from './components/ShowS3Info'
+import ShowS3Info from './components/ShowS3Info'
 import 'codemirror/lib/codemirror.css'
 import { s3List } from './constants'
 import store from '@/store'
@@ -248,8 +255,8 @@ export default {
   name: 'InlineEditTable',
   components: {
     ChooseResource,
-    DialogShowInfo
-    // ShowS3Info,
+    // DialogShowInfo,
+    ShowS3Info
   },
   filters: {},
   data() {
@@ -257,6 +264,8 @@ export default {
       analysisTypeOptions: [],
       analysisChildTypeOptions: [],
       pageLoading: false,
+      verityInput: false,
+      verityOutput: false,
       encryptionRadio: 'AES-256',
       encryptionHandle: '',
       userId: store.getters.userInfo.userId,
@@ -291,21 +300,51 @@ export default {
       const url = type === 'r' ? this.formData.input : this.formData.output
       if (type === 'r') {
         this.btnInputLoading = true
-      } else {
-        this.btnOutputLoading = true
-      }
-      VerifyS3Data(type, url)
-        .then((res) => {
+        const params = {
+          input: url,
+          showMessage: 'no'
+        }
+        CheckData(params).catch(msg => {
           this.btnInputLoading = false
-          this.$refs.showS3InfoRef.openDialog(type, res.data)
-        })
-        .catch(() => {
-          if (type === 'r') {
-            this.btnInputLoading = false
+          if (msg.data && msg.data.canRead) {
+            this.verityInput = true
+            this.$message.success('Verify input success.')
+          } else if (msg.data && !msg.data.canRead) {
+            this.verityInput = false
+            setTimeout(() => {
+              VerifyS3Data(type, url).then(res => {
+                this.$refs.showS3InfoRef.openDialog(type, res.data)
+              })
+            }, 500)
           } else {
-            this.btnOutputLoading = false
+            this.$message.warning(msg.message)
+            this.verityInput = false
           }
         })
+      } else {
+        this.btnOutputLoading = true
+        const params = {
+          output: url,
+          showMessage: 'no'
+        }
+        CheckData(params).catch(msg => {
+          this.btnOutputLoading = false
+          if (msg.data && msg.data.canWrite) {
+            this.verityOutput = true
+            this.$message.success('Verify output success.')
+          } else if (msg.data && !msg.data.canWrite) {
+            this.verityOutput = false
+            setTimeout(() => {
+              VerifyS3Data(type, url).then(res => {
+                this.$refs.showS3InfoRef.openDialog(type, res.data)
+              })
+            }, 500)
+          } else {
+            this.$message.warning(msg.message)
+            this.verityOutput = false
+          }
+        })
+      }
     },
     cancerPopoverVisible() {
       this.popoverVisible = false
@@ -327,7 +366,7 @@ export default {
       if (copyStatus) {
         console.log('pipeline', this.analysisChildTypeOptions)
         const pipelineObj = this.analysisChildTypeOptions.find(
-          (item) => item.params === pipeline
+          item => item.params === pipeline
         )
         console.log('pipelineObj', pipelineObj)
 
@@ -340,15 +379,15 @@ export default {
         }
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-            (item) => item.params === pipelineObj.params
-          )
+              item => item.params === pipelineObj.params
+            )
           : {}
         this.inRegion = inRegion
-        const inRegionLabel = s3List.find((item) => inRegion === item.value)
+        const inRegionLabel = s3List.find(item => inRegion === item.value)
         this.inRegionName = `${inRegionLabel.label}(${inRegionLabel.value})`
         this.inRegionLabel = inRegionLabel.label
         this.outRegion = outRegion
-        const outRegionLabel = s3List.find((item) => outRegion === item.value)
+        const outRegionLabel = s3List.find(item => outRegion === item.value)
         this.outRegionName = `${outRegionLabel.label}(${outRegionLabel.value})`
         this.outRegionLabel = outRegionLabel.label
         if (encryption) {
@@ -386,17 +425,21 @@ export default {
     },
     changepipeline() {
       this.pipelineData = this.analysisChildTypeOptions.find(
-        (item) => item.params === this.formData.pipelineId
+        item => item.params === this.formData.pipelineId
       )
       console.log('this.pipelineData', this.pipelineData)
       this.setPipelineText()
     },
     onSubmit() {
       console.log('this.pipelineData', this.pipelineData)
-      this.$refs.formData.validate((valid) => {
+      this.$refs.formData.validate(valid => {
         if (valid) {
-          if (!this.inRegion || !this.outRegion) {
-            this.$message.warning('Pleas select region S3')
+          if (!this.verityInput) {
+            this.$message.warning('Pleas verity input')
+            return false
+          }
+          if (!this.verityOutput) {
+            this.$message.warning('Pleas verity output')
             return false
           }
           const { name, input, output, encryption } = this.formData
@@ -422,13 +465,13 @@ export default {
           console.log(params)
           this.btnLoading = true
           AddData(params)
-            .then((res) => {
+            .then(res => {
               if (res.code === 200) {
                 this.$message.success(res.message)
                 this.$emit('close-dialog')
               }
             })
-            .catch((res) => {
+            .catch(res => {
               this.btnLoading = false
               if (res.code === 800008) {
                 this.$refs.dialogShowInfoRef.openDialog('nlp')
@@ -483,11 +526,11 @@ export default {
     },
     getAnalysisType() {
       this.pageLoading = true
-      GetAnalysisType().then((res) => {
+      GetAnalysisType().then(res => {
         if (res.code === 200) {
           this.analysisTypeOptions = res.data
           this.analysisChildTypeOptions = res.data
-            .map((item) => item.version)
+            .map(item => item.version)
             .flat(Infinity) // 将自己版本数据拉平
           this.formData.pipelineId = this.analysisChildTypeOptions[0].params
           const copyStatus = this.$route.query.copy

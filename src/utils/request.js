@@ -10,10 +10,15 @@ const service = axios.create({
   timeout: 100000 // request timeout
 })
 
+let showMessageData
+
 // request interceptor
 service.interceptors.request.use(
   config => {
     // do something before request is sent
+    if (config.data) {
+      showMessageData = config.data
+    }
 
     if (store.getters.token) {
       // let each request carry token
@@ -22,7 +27,6 @@ service.interceptors.request.use(
       // config.headers['token'] = getToken()
       config.headers.Authorization = 'Bearer ' + store.getters.token
     } else {
-      console.log('config', config)
       // config.defaults.withCredentials = true
       // config.defaults.crossDomain = true
       // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -51,7 +55,6 @@ service.interceptors.response.use(
   async response => {
     const res = response.data
 
-    // if the custom code is not 20000, it is judged as an error.
     if (res) {
       if (res.code === 200 || res.success) {
         return Promise.resolve(res)
@@ -60,21 +63,30 @@ service.interceptors.response.use(
           type: 'error',
           message: 'Login expired please login again'
         })
-        setTimeout(async() => {
+        setTimeout(async () => {
           await store.dispatch('user/logout')
           location.href = `/login`
         }, 1000)
       } else if (res.code === 800008) {
         return Promise.reject(res)
       } else {
+        console.log('showMessage', showMessageData)
+        const showMessage = showMessageData
+          ? showMessageData.showMessage
+            ? showMessageData.showMessage
+            : true
+          : true
+        console.log('消息', showMessage, res)
         if (res.message || res.msg) {
-          Message({
-            type: 'error',
-            message: res.message || res.msg
-          })
+          if (showMessage !== 'no') {
+            Message({
+              type: 'error',
+              message: res.message || res.msg
+            })
+          }
         }
 
-        return Promise.reject(new Error(res.message || res.msg))
+        return Promise.reject(res)
       }
 
       // else if (

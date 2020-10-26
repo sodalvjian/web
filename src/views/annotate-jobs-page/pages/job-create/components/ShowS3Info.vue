@@ -6,10 +6,9 @@
           Please copy the information to
           <a
             class="color-main"
-            href="https://s3.console.aws.amazon.com/s3/buckets/testofhong/?region=us-east-2&tab=permissions"
+            :href="s3Url"
             target="_blank"
-            ><u> S3 authorization</u></a
-          >
+          ><u> S3 authorization</u></a>
         </p>
         <div>
           <el-button
@@ -19,8 +18,7 @@
             type="primary"
             size="mini"
             icon="el-icon-document-copy"
-            >Copy</el-button
-          >
+          >Copy</el-button>
         </div>
       </header>
       <section class="mt-20 pb-20">
@@ -41,13 +39,14 @@ import 'codemirror/addon/display/autorefresh'
 export default {
   name: '',
   components: { codemirror },
-  props: {},
   filters: {},
+  props: {},
   data() {
     return {
       dialogVisible: false,
       dialogTitle: '',
       s3Data: '',
+      s3Url: '',
       cmOptions: {
         // codemirror options
         tabSize: 4,
@@ -68,7 +67,8 @@ export default {
     openDialog(type, data) {
       this.dialogTitle = type === 'r' ? 'S3 input info' : 'S3 output info'
       this.dialogVisible = true
-      this.s3Data = data
+      this.s3Data = data.temp
+      this.s3Url = data.url
     },
     copySuccess() {
       this.$message.success('Copy success!')
