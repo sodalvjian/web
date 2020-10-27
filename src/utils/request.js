@@ -10,16 +10,10 @@ const service = axios.create({
   timeout: 100000 // request timeout
 })
 
-let showMessageData
-
 // request interceptor
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-    if (config.data) {
-      showMessageData = config.data
-    }
-
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
@@ -70,20 +64,11 @@ service.interceptors.response.use(
       } else if (res.code === 800008 || res.code === 800009) {
         return Promise.reject(res)
       } else {
-        console.log('showMessage', showMessageData)
-        const showMessage = showMessageData
-          ? showMessageData.showMessage
-            ? showMessageData.showMessage
-            : true
-          : true
-        console.log('消息', showMessage, res)
         if (res.message || res.msg) {
-          if (showMessage !== 'no') {
-            Message({
-              type: 'error',
-              message: res.message || res.msg
-            })
-          }
+          Message({
+            type: 'error',
+            message: res.message || res.msg
+          })
         }
 
         return Promise.reject(res)

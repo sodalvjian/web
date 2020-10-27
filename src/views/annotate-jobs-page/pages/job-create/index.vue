@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong
-        class="fl nav-title mt-10 f16"
-      ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong>
+      <strong class="fl nav-title mt-10 f16"
+        ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong
+      >
     </nav>
     <el-form
       ref="formData"
@@ -83,7 +83,8 @@
                 </el-input>
               </el-form-item>
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <section v-loading="pageLoading" class="bg-color-gray mt-25 bd-1">
         <el-row :gutter="20" class="">
@@ -118,19 +119,22 @@
                   size="mini"
                   type="text"
                   @click="popoverVisible = false"
-                >Cancel</el-button>
+                  >Cancel</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-red"
                   @click="cancerPopoverVisible"
-                >Close</el-button>
+                  >Close</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-green"
                   @click="confirmEncryption"
-                >Confirm</el-button>
+                  >Confirm</el-button
+                >
               </div>
               <el-switch
                 slot="reference"
@@ -164,10 +168,12 @@
                     :disabled="!formData.input"
                     :loading="btnInputLoading"
                     @click="verifyS3Data('r')"
-                  ><i
-                    v-if="verityInput"
-                    class="el-icon-success mr-5 color-green"
-                  ></i>Verify</el-button>
+                    ><i
+                      v-if="verityInput"
+                      class="el-icon-success mr-5 color-green"
+                    ></i
+                    >Verify</el-button
+                  >
                 </el-input>
               </el-form-item>
 
@@ -197,10 +203,10 @@
                     :disabled="!formData.output"
                     :loading="btnOutputLoading"
                     @click="verifyS3Data('w')"
-                  ><i
-                    v-if="verityOutput"
-                    class="el-icon-success mr-5 color-green"
-                  ></i>
+                    ><i
+                      v-if="verityOutput"
+                      class="el-icon-success mr-5 color-green"
+                    ></i>
                     Verify
                   </el-button>
                 </el-input>
@@ -214,19 +220,20 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <el-form-item class="tc mt-40">
-        <el-button
-          size="medium"
-          @click="$emit('close-dialog')"
-        >Cancel</el-button>
+        <el-button size="medium" @click="$emit('close-dialog')"
+          >Cancel</el-button
+        >
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -305,46 +312,48 @@ export default {
           input: url,
           showMessage: 'no'
         }
-        CheckData(params).catch(msg => {
-          this.btnInputLoading = false
-          if (msg.data && msg.data.canRead) {
-            this.verityInput = true
-            this.$message.success('Verify input success.')
-          } else if (msg.data && !msg.data.canRead) {
-            this.verityInput = false
-            setTimeout(() => {
-              VerifyS3Data(type, url).then(res => {
-                this.$refs.showS3InfoRef.openDialog(type, res.data)
-              })
-            }, 500)
-          } else {
-            this.$message.warning(msg.message)
-            this.verityInput = false
-          }
-        })
+        CheckData(params)
+          .then(res => {
+            this.btnInputLoading = false
+            if (res.data && res.data.canRead) {
+              this.verityInput = true
+              this.$message.success('Verify input success.')
+            } else {
+              this.verityInput = false
+              setTimeout(() => {
+                VerifyS3Data(type, url).then(res => {
+                  this.$refs.showS3InfoRef.openDialog(type, res.data)
+                })
+              }, 500)
+            }
+          })
+          .catch(msg => {
+            this.btnInputLoading = false
+          })
       } else {
         this.btnOutputLoading = true
         const params = {
           output: url,
           showMessage: 'no'
         }
-        CheckData(params).catch(msg => {
-          this.btnOutputLoading = false
-          if (msg.data && msg.data.canWrite) {
-            this.verityOutput = true
-            this.$message.success('Verify output success.')
-          } else if (msg.data && !msg.data.canWrite) {
-            this.verityOutput = false
-            setTimeout(() => {
-              VerifyS3Data(type, url).then(res => {
-                this.$refs.showS3InfoRef.openDialog(type, res.data)
-              })
-            }, 500)
-          } else {
-            this.$message.warning(msg.message)
-            this.verityOutput = false
-          }
-        })
+        CheckData(params)
+          .then(res => {
+            this.btnOutputLoading = false
+            if (res.data && res.data.canWrite) {
+              this.verityOutput = true
+              this.$message.success('Verify output success.')
+            } else {
+              this.verityOutput = false
+              setTimeout(() => {
+                VerifyS3Data(type, url).then(res => {
+                  this.$refs.showS3InfoRef.openDialog(type, res.data)
+                })
+              }, 500)
+            }
+          })
+          .catch(msg => {
+            this.btnOutputLoading = false
+          })
       }
     },
     cancerPopoverVisible() {
@@ -380,8 +389,8 @@ export default {
         }
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-            item => item.params === pipelineObj.params
-          )
+              item => item.params === pipelineObj.params
+            )
           : {}
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)

@@ -1,4 +1,7 @@
 import request from '@/utils/request'
+import axios from 'axios'
+import store from '@/store'
+import { resolve } from 'core-js/fn/promise'
 
 // delete user
 export function DelData(data) {
@@ -36,11 +39,24 @@ export function AddData(data) {
 
 // check data
 export function CheckData(data) {
-  return request({
-    url: `jobbizweb/jobbiz/check`,
-    method: 'POST',
-    data
+  return new Promise((resolve, reject) => {
+    axios
+      .post('jobbizweb/jobbiz/check', data, {
+        headers: {
+          Authorization: 'Bearer ' + store.getters.token // token换成从缓存获取
+        }
+      })
+      .then(function(res) {
+        console.log('啊啊啊', res)
+        resolve(res.data)
+      })
   })
+
+  // return request({
+  //   url: `jobbizweb/jobbiz/check`,
+  //   method: 'POST',
+  //   data
+  // })
 }
 
 // get Analysis Type
