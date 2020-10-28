@@ -12,13 +12,12 @@
           :span="doubleShow ? 12 : 24"
         >
           <header>
+            <h4>{{ setTitle(verityList, index) }}</h4>
             <p>
               Please copy the information to
-              <a
-                class="color-main"
-                :href="item.url"
-                target="_blank"
-              ><u> S3 authorization</u></a>
+              <a class="color-main" :href="item.url" target="_blank"
+                ><u> S3 authorization</u></a
+              >
             </p>
             <div>
               <el-button
@@ -28,7 +27,8 @@
                 type="primary"
                 size="mini"
                 icon="el-icon-document-copy"
-              >Copy</el-button>
+                >Copy</el-button
+              >
             </div>
           </header>
           <section class="mt-20 pb-20">
@@ -57,9 +57,8 @@ export default {
     return {
       dialogVisible: false,
       doubleShow: false,
-      dialogTitle: '',
-      s3Data: '',
-      s3Url: '',
+      readStatus: false,
+      whiteStatus: false,
       verityList: [],
       cmOptions: {
         // codemirror options
@@ -78,9 +77,17 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    setTitle(list, index) {
+      if (list.length > 1) {
+        return index === 1 ? 'Input' : 'Output'
+      } else if (list.length === 0) {
+        return this.readStatus ? 'Input' : 'Output'
+      }
+    },
     openDialog(data) {
       console.log(data)
-      // this.dialogTitle = type === 'r' ? 'S3 input info' : 'S3 output info'
+      this.readStatus = data.read
+      this.whiteStatus = data.white
       this.doubleShow = !data.read && !data.write
       this.dialogVisible = true
       this.verityList = data.list
