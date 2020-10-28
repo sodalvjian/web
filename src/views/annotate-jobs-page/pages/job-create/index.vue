@@ -163,7 +163,7 @@
                   v-model="formData.input"
                   placeholder="s3://mybucket/myinput"
                 >
-                  <el-button
+                  <!-- <el-button
                     slot="append"
                     :disabled="!formData.input"
                     :loading="btnInputLoading"
@@ -173,7 +173,7 @@
                       class="el-icon-success mr-5 color-green"
                     ></i
                     >Verify</el-button
-                  >
+                  > -->
                 </el-input>
               </el-form-item>
 
@@ -198,7 +198,7 @@
                   v-model="formData.output"
                   placeholder="s3://mybucket/myoutput"
                 >
-                  <el-button
+                  <!-- <el-button
                     slot="append"
                     :disabled="!formData.output"
                     :loading="btnOutputLoading"
@@ -208,7 +208,7 @@
                       class="el-icon-success mr-5 color-green"
                     ></i>
                     Verify
-                  </el-button>
+                  </el-button> -->
                 </el-input>
               </el-form-item>
               <div class="f13 lh1-5 mt-20">
@@ -309,8 +309,7 @@ export default {
       if (type === 'r') {
         this.btnInputLoading = true
         const params = {
-          input: url,
-          showMessage: 'no'
+          input: url
         }
         CheckData(params)
           .then(res => {
@@ -333,8 +332,7 @@ export default {
       } else {
         this.btnOutputLoading = true
         const params = {
-          output: url,
-          showMessage: 'no'
+          output: url
         }
         CheckData(params)
           .then(res => {
@@ -441,81 +439,62 @@ export default {
       this.setPipelineText()
     },
     onSubmit() {
-      console.log('this.pipelineData', this.pipelineData)
       this.$refs.formData.validate(valid => {
         if (valid) {
-          if (!this.verityInput) {
-            this.$message.warning('Pleas verity input')
-            return false
-          }
-          if (!this.verityOutput) {
-            this.$message.warning('Pleas verity output')
-            return false
-          }
           const { name, input, output, encryption } = this.formData
-          const params = {
-            userId: this.userId,
-            name: name,
-            input: input,
-            output: output,
-            // inRegion: this.inRegion,
-            // outRegion: this.outRegion,
-            pipeline: this.pipelineData.params,
-            encryption: encryption
-          }
-          // {
-          //   userId: 999,
-          //   name: name,
-          //   input: 's3://melaxtechinput/test',
-          //   output: 's3://melaxtechinput/out',
-          //   inRegion: 'us-east-2',
-          //   outRegion: 'us-east-2',
-          //   pipeline: 'document'
-          // }
-          console.log(params)
+
           this.btnLoading = true
-          AddData(params)
+
+          const checkData = {
+            input: this.formData.input,
+            output: this.formData.output
+          }
+          CheckData(checkData)
             .then(res => {
+              console.log('检查', res)
               if (res.code === 200) {
-                this.$message.success(res.message)
-                this.$emit('close-dialog')
-              }
-            })
-            .catch(res => {
-              this.btnLoading = false
-              if (res.code === 800008) {
-                this.$refs.dialogShowInfoRef.openDialog('nlp')
-                this.loading = false
-                this.noDataShow = true
+                if (res.data.read && res.data.white) {
+                  const params = {
+                    userId: this.userId,
+                    name: name,
+                    input: input,
+                    output: output,
+                    // inRegion: this.inRegion,
+                    // outRegion: this.outRegion,
+                    pipeline: this.pipelineData.params,
+                    encryption: encryption
+                  }
+                  AddData(params)
+                    .then(res => {
+                      if (res.code === 200) {
+                        this.$message.success(res.message)
+                        this.$emit('close-dialog')
+                      }
+                    })
+                    .catch(res => {
+                      this.btnLoading = false
+                      if (res.code === 800008) {
+                        this.$refs.dialogShowInfoRef.openDialog('nlp')
+                        this.loading = false
+                        this.noDataShow = true
+                      } else {
+                        this.$refs.dialogShowInfoRef.openDialog('nlp')
+                        this.loading = false
+                        this.noDataShow = true
+                      }
+                    })
+                } else {
+                  this.btnLoading = false
+                  this.$refs.showS3InfoRef.openDialog(res.data) // 验证不过弹出授权提示
+                }
               } else {
-                this.$refs.dialogShowInfoRef.openDialog('nlp')
-                this.loading = false
-                this.noDataShow = true
+                this.btnLoading = false
+                this.$message.error(res.message)
               }
             })
-          // CheckData(params)
-          //   .then(checkRes => {
-          //     if (checkRes.code === 200) {
-          //       if (checkRes.data.canRead && checkRes.data.canWrite) {
-          //         AddData(params)
-          //           .then(res => {
-          //             if (res.code === 200) {
-          //               this.$message.success(res.message)
-          //               this.$emit('close-dialog')
-          //             }
-          //           })
-          //           .catch(msg => {
-          //             this.btnLoading = false
-          //           })
-          //       } else {
-          //         this.$message.success(checkRes.message)
-          //         this.btnLoading = false
-          //       }
-          //     }
-          //   })
-          //   .catch(msg => {
-          //     this.btnLoading = false
-          //   })
+            .catch(msg => {
+              this.btnLoading = false
+            })
         } else {
           console.log('error submit!!')
           return false

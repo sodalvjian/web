@@ -47,7 +47,6 @@ export function CheckData(data) {
         }
       })
       .then(function(res) {
-        console.log('啊啊啊', res)
         resolve(res.data)
       })
   })

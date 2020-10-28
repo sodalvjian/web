@@ -1,33 +1,45 @@
 <template>
-  <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="40%">
+  <el-dialog
+    title="Verity S3"
+    :visible.sync="dialogVisible"
+    :width="doubleShow ? '80%' : '40%'"
+  >
     <article>
-      <header>
-        <p>
-          Please copy the information to
-          <a
-            class="color-main"
-            :href="s3Url"
-            target="_blank"
-          ><u> S3 authorization</u></a>
-        </p>
-        <div>
-          <el-button
-            v-clipboard:copy="s3Data"
-            v-clipboard:success="copySuccess"
-            class="filter-item shadow"
-            type="primary"
-            size="mini"
-            icon="el-icon-document-copy"
-          >Copy</el-button>
-        </div>
-      </header>
-      <section class="mt-20 pb-20">
-        <codemirror
-          ref="jsonEditor"
-          v-model="s3Data"
-          :options="cmOptions"
-        ></codemirror>
-      </section>
+      <el-row :gutter="15">
+        <el-col
+          v-for="(item, index) in verityList"
+          :key="index"
+          :span="doubleShow ? 12 : 24"
+        >
+          <header>
+            <p>
+              Please copy the information to
+              <a
+                class="color-main"
+                :href="item.url"
+                target="_blank"
+              ><u> S3 authorization</u></a>
+            </p>
+            <div>
+              <el-button
+                v-clipboard:copy="item.temp"
+                v-clipboard:success="copySuccess"
+                class="filter-item shadow"
+                type="primary"
+                size="mini"
+                icon="el-icon-document-copy"
+              >Copy</el-button>
+            </div>
+          </header>
+          <section class="mt-20 pb-20">
+            <codemirror
+              ref="jsonEditor"
+              v-model="item.temp"
+              :options="cmOptions"
+            ></codemirror>
+          </section>
+        </el-col>
+      </el-row>
     </article>
   </el-dialog>
 </template>
@@ -44,9 +56,11 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      doubleShow: false,
       dialogTitle: '',
       s3Data: '',
       s3Url: '',
+      verityList: [],
       cmOptions: {
         // codemirror options
         tabSize: 4,
@@ -64,11 +78,14 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
-    openDialog(type, data) {
-      this.dialogTitle = type === 'r' ? 'S3 input info' : 'S3 output info'
+    openDialog(data) {
+      console.log(data)
+      // this.dialogTitle = type === 'r' ? 'S3 input info' : 'S3 output info'
+      this.doubleShow = !data.read && !data.write
       this.dialogVisible = true
-      this.s3Data = data.temp
-      this.s3Url = data.url
+      this.verityList = data.list
+      // this.s3Data = data.temp
+      // this.s3Url = data.url
     },
     copySuccess() {
       this.$message.success('Copy success!')
