@@ -12,7 +12,7 @@
           :span="doubleShow ? 12 : 24"
         >
           <header>
-            <h4>{{ setTitle(verityList, index) }}</h4>
+            <h3>{{ setTitle(verityList, index) }}</h3>
             <p>
               Please copy the information to
               <a class="color-main" :href="item.url" target="_blank"
@@ -78,10 +78,11 @@ export default {
   beforeRouteUpdate() {},
   methods: {
     setTitle(list, index) {
+      console.log('list', list)
       if (list.length > 1) {
-        return index === 1 ? 'Input' : 'Output'
-      } else if (list.length === 0) {
-        return this.readStatus ? 'Input' : 'Output'
+        return index === 0 ? 'Input' : 'Output'
+      } else if (list.length === 1) {
+        return !this.readStatus ? 'Input' : 'Output'
       }
     },
     openDialog(data) {
