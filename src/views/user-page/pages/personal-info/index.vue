@@ -51,7 +51,8 @@
                       type="primary"
                       plain
                       @click="editAvatar"
-                    >Edit</el-button>
+                      >Edit</el-button
+                    >
                   </div>
                 </el-form-item>
               </el-col>
@@ -182,7 +183,8 @@
                 type="primary"
                 :loading="btnLoading"
                 @click="submitForm('formData')"
-              >Confirm</el-button>
+                >Confirm</el-button
+              >
               <el-button @click="resetForm('formData')">Reset</el-button>
             </el-form-item>
           </div>
@@ -218,7 +220,8 @@
                         <small
                           v-if="item.defaultPayment"
                           class="user-card-defult"
-                        >defult</small>
+                          >defult</small
+                        >
                       </el-col>
                     </el-row>
                     <div class="user-card-line"></div>
@@ -371,13 +374,17 @@ export default {
             customerPaymentProfileId: item.customerPaymentProfileId
           }
           this.cardLoading = true
-          DeleteBankCard(params).then(res => {
-            this.cardLoading = false
-            if (res.success) {
-              this.$message.success(res.msg)
-              this.getCardList()
-            }
-          })
+          DeleteBankCard(params)
+            .then(res => {
+              this.cardLoading = false
+              if (res.success) {
+                this.$message.success(res.msg)
+                this.getCardList()
+              }
+            })
+            .catch(() => {
+              this.cardLoading = false
+            })
         })
         .catch(() => {
           this.cardLoading = false
