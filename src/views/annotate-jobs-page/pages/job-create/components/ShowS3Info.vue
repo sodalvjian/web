@@ -88,7 +88,7 @@ export default {
     openDialog(data) {
       console.log(data)
       this.readStatus = data.read
-      this.whiteStatus = data.white
+      this.whiteStatus = data.write
       this.doubleShow = !data.read && !data.write
       this.dialogVisible = true
       this.verityList = data.list

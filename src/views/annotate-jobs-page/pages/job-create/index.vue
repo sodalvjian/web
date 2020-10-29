@@ -453,7 +453,7 @@ export default {
             .then(res => {
               console.log('检查', res)
               if (res.code === 200) {
-                if (res.data.read && res.data.white) {
+                if (res.data.read && res.data.write) {
                   const params = {
                     userId: this.userId,
                     name: name,
