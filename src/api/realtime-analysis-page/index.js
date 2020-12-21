@@ -12,7 +12,7 @@ export function GetBrat(data) {
 
 export function GetBratTest(data) {
   return request({
-    url: `api/nlptest`,
+    url: `apitest/nlptest`,
     method: 'post',
     data
   })
