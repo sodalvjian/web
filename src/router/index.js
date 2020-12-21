@@ -9,6 +9,7 @@ import userPage from './user-page'
 import apiPage from './api-page'
 import annotateJobsPage from './annotate-jobs-page'
 import realtimeAnalysis from './realtime-analysis-page'
+import realtimeAnalysisTest from './realtime-analysis-test-page'
 
 export const constantRoutes = [
   {
@@ -42,7 +43,8 @@ export const asyncRoutes = [
   ...userPage,
   ...realtimeAnalysis,
   ...annotateJobsPage,
-  ...apiPage
+  ...apiPage,
+  ...realtimeAnalysisTest
 ]
 
 const createRouter = () =>

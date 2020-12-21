@@ -3,7 +3,7 @@ import axios from 'axios'
 import store from '@/store'
 import { resolve } from 'core-js/fn/promise'
 
-// delete user
+// delete
 export function DelData(data) {
   return request({
     url: `jobbizweb/jobbiz/stop/${data.bizId}`,
