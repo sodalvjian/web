@@ -17,8 +17,7 @@
             :disabled="generalDisabled"
             class="mt-5"
             @click="openSetting"
-            >General Settings<i class="el-icon-s-tools el-icon--right f18"></i
-          ></el-button>
+          >General Settings<i class="el-icon-s-tools el-icon--right f18"></i></el-button>
         </el-col>
       </el-row>
     </nav>
@@ -54,6 +53,7 @@
             </el-switch>
           </el-col>
         </el-row>
+        <no-data v-if="bratData.length === 0" />
         <!-- <el-table
           :data="tableData"
           class="analysis-result-table"
@@ -93,13 +93,16 @@
           </el-table-column>
         </el-table> -->
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button size="small" @click="dialogVisible = false"
-          >Cancel</el-button
-        >
-        <el-button size="small" type="primary" @click="handleSetBrat"
-          >Confirm</el-button
-        >
+      <span v-if="bratData.length !== 0" slot="footer" class="dialog-footer">
+        <el-button
+          size="small"
+          @click="dialogVisible = false"
+        >Cancel</el-button>
+        <el-button
+          size="small"
+          type="primary"
+          @click="handleSetBrat"
+        >Confirm</el-button>
       </span>
     </el-dialog>
   </div>

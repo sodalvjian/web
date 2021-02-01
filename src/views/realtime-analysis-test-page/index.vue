@@ -6,58 +6,10 @@
     <div class="vital-container realtime-top-content">
       <nav>
         <el-row>
-          <el-col :span="12">
-            <!-- <el-select
-              v-model="formData.pipeline"
-              size="mini"
-              :loading="pipelineLoading"
-              placeholder="Universal pipeline"
-            >
-              <el-option-group
-                v-for="(group, index) in analysisTypeOptions"
-                :key="index"
-                :label="group.lamdaName"
-              >
-                <el-option
-                  v-for="item in group.version"
-                  :key="item.id"
-                  :label="item.params"
-                  :value="item.params"
-                >
-                </el-option>
-              </el-option-group>
-            </el-select> -->
-            <el-input
-              v-model="formData.pipeline"
-              style="width:350px"
-              class="realtime-select-pipeline"
-              size="small"
-              readonly
-            >
-              <el-select
-                id="realtime-select-pipeline"
-                slot="append"
-                v-model="formData.pipeline"
-                placeholder="Change pipeline"
-                @change="changepipeline"
-              >
-                <el-option-group
-                  v-for="(group, index) in analysisTypeOptions"
-                  :key="index"
-                  :label="group.lamdaName"
-                >
-                  <el-option
-                    v-for="item in group.version"
-                    :key="item.id"
-                    :label="item.params"
-                    :value="item.params"
-                  >
-                  </el-option>
-                </el-option-group>
-              </el-select>
-            </el-input>
+          <el-col :span="5">
+            <select-pipeline v-model="formData.pipeline" size="small" />
           </el-col>
-          <el-col :span="12" align="right">
+          <el-col :span="19" align="right">
             <el-button size="small" @click="clearData">Clear</el-button>
             <el-button
               :loading="analysisLoading"
@@ -65,8 +17,7 @@
               type="primary"
               icon="el-icon-data-line"
               @click="handleAnalysis"
-              >Analysis</el-button
-            >
+            >Analysis</el-button>
           </el-col>
         </el-row>
       </nav>

@@ -54,6 +54,7 @@
             </el-switch>
           </el-col>
         </el-row>
+        <no-data v-if="bratData.length === 0" />
         <!-- <el-table
           :data="tableData"
           class="analysis-result-table"
@@ -93,7 +94,7 @@
           </el-table-column>
         </el-table> -->
       </div>
-      <span slot="footer" class="dialog-footer">
+      <span v-if="bratData.length !== 0" slot="footer" class="dialog-footer">
         <el-button size="small" @click="dialogVisible = false"
           >Cancel</el-button
         >

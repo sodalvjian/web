@@ -46,7 +46,8 @@
                 prop="pipelineId"
                 :rules="{ required: true }"
               >
-                <el-input v-model="formData.pipelineId" readonly>
+                <select-pipeline v-model="formData.pipeline" size="small" />
+                <!-- <el-input v-model="formData.pipelineId" readonly>
                   <el-select
                     id="select-pipeline"
                     slot="append"
@@ -70,7 +71,7 @@
                       </el-option>
                     </el-option-group>
                   </el-select>
-                  <!-- <el-button
+                  <el-button
                     slot="append"
                     @click="
                       openBrowse('output', {
@@ -79,8 +80,8 @@
                       })
                     "
                     >Change pipeline
-                  </el-button> -->
-                </el-input>
+                  </el-button>
+                </el-input> -->
               </el-form-item>
             </div>
           </el-col></el-row
