@@ -48,7 +48,7 @@
                 prop="pipelineId"
                 :rules="{ required: true }"
               >
-                <select-pipeline v-model="formData.pipeline" size="big" />
+                <select-pipeline v-model="formData.pipelineId" size="big" />
                 <!-- <el-input v-model="formData.pipelineId" readonly>
                   <el-select
                     id="select-pipeline"
@@ -157,11 +157,7 @@
         <el-row :gutter="20">
           <el-col :span="12" class="br-1">
             <div class="p20">
-              <el-form-item
-                label="S3 location:"
-                prop="input"
-                :rules="{ required: true }"
-              >
+              <el-form-item label="S3 location:" prop="input" :rules="s3Rules">
                 <el-input
                   v-model="formData.input"
                   placeholder="s3://mybucket/myinput"
@@ -192,11 +188,7 @@
           </el-col>
           <el-col :span="12">
             <div class="p20">
-              <el-form-item
-                label="S3 location:"
-                prop="output"
-                :rules="{ required: true }"
-              >
+              <el-form-item label="S3 location:" prop="output" :rules="s3Rules">
                 <el-input
                   v-model="formData.output"
                   placeholder="s3://mybucket/myoutput"
@@ -279,6 +271,20 @@ export default {
         callback(new Error('Please enter more than 5 characters'))
       }
     }
+    const validateS3 = (rule, value, callback) => {
+      if (value.indexOf('s3://') !== 0) {
+        callback(
+          new Error('Please enter the correct s3 location,like:"s3://xxx/xxx"')
+        )
+      }
+      const num = value.split('/').length - 1
+      console.log('num', num)
+      if (num < 3) {
+        callback(
+          new Error('Please enter the correct s3 location,like:"s3://xxx/xxx"')
+        )
+      }
+    }
     return {
       analysisTypeOptions: [],
       analysisChildTypeOptions: [],
@@ -297,6 +303,7 @@ export default {
         { required: true },
         { validator: validateProjectName, trigger: 'blur' }
       ],
+      s3Rules: [{ required: true }, { validator: validateS3, trigger: 'blur' }],
       formData: {
         name: '',
         pipelineId: '',
@@ -425,7 +432,6 @@ export default {
         } else {
           this.encryption = false
         }
-        this.setPipelineText()
       }
     },
     confirmEncryption() {
@@ -451,7 +457,6 @@ export default {
         item => item.params === this.formData.pipelineId
       )
       console.log('this.pipelineData', this.pipelineData)
-      this.setPipelineText()
     },
     onSubmit() {
       this.$refs.formData.validate(valid => {
@@ -548,13 +553,6 @@ export default {
 
           this.pageLoading = false
         }
-        this.setPipelineText()
-      })
-    },
-    // 设置pipeline选择按钮的文字
-    setPipelineText() {
-      this.$nextTick(() => {
-        document.getElementById('select-pipeline').value = 'Change pipeline'
       })
     }
   }
