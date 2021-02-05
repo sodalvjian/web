@@ -19,7 +19,7 @@
           }}
         </h3>
         <p v-if="type === 'login'">
-          {{ userName }} Personal center Exit Cancel Go to personal center You
+          {{ userName }} Go to personal center You
           have not set up the credit card information, we suggest you go to
           <strong class="disinblock"> [ Personal Center ] </strong> as soon as
           possible to supplement information, so as not to affect your service

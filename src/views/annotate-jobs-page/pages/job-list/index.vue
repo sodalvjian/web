@@ -9,7 +9,8 @@
           size="small"
           icon="el-icon-plus"
           @click="createData"
-        >Job</el-button>
+          >Job</el-button
+        >
       </div>
     </nav>
     <section class="p20">
@@ -48,6 +49,7 @@
           align="left"
           sortable="custom"
           label="Type"
+          prop="pipeline"
         >
           <template slot-scope="scope">
             <span>{{ scope.row.pipeline }}</span>
@@ -69,7 +71,8 @@
                     scope.row.reqStatus === 'STOPPED' ||
                     scope.row.reqStatus === 'STOPPING'
                 "
-              >--</span>
+                >--</span
+              >
               <div
                 v-else-if="
                   scope.row.status === 'STARTED' ||
@@ -77,7 +80,8 @@
                 "
                 class="progress-running"
               >
-                <el-progress :percentage="0" class="w"></el-progress><i
+                <el-progress :percentage="0" class="w"></el-progress
+                ><i
                   style="right:14%"
                   class="progress-running-icon el-icon-loading"
                 ></i>
@@ -201,12 +205,12 @@ export default {
   methods: {
     // 排序
     changeTableSort(column) {
-      this.propData = column.order ? column.prop : ''
+      this.propData = column.order ? column.prop : 'date'
       this.orderData = column.order
         ? column.order === 'descending'
           ? 'desc'
           : 'asc'
-        : ''
+        : 'desc'
 
       this.getList()
     },
@@ -245,14 +249,14 @@ export default {
       return row.processedErrCount > 0
         ? 'warning'
         : processNum
-          ? Math.round(processNum * 100) >= 100
-            ? 'success'
-            : ''
-          : 'exception'
+        ? Math.round(processNum * 100) >= 100
+          ? 'success'
+          : ''
+        : 'exception'
     },
     // 查看job detail
     viewDetail(row, column, event) {
-      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId }})
+      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId } })
       // sessionStorage.patientListData = JSON.stringify(row)
     },
     setRole(val) {

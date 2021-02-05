@@ -25,10 +25,12 @@
               <el-form-item
                 label="Job name"
                 prop="name"
-                :rules="{ required: true }"
+                :rules="projectNameRules"
               >
                 <el-input
                   v-model="formData.name"
+                  minlength="6"
+                  maxlength="256"
                   placeholder="Input your job name"
                 ></el-input>
               </el-form-item>
@@ -46,7 +48,7 @@
                 prop="pipelineId"
                 :rules="{ required: true }"
               >
-                <select-pipeline v-model="formData.pipeline" size="small" />
+                <select-pipeline v-model="formData.pipeline" size="big" />
                 <!-- <el-input v-model="formData.pipelineId" readonly>
                   <el-select
                     id="select-pipeline"
@@ -269,6 +271,14 @@ export default {
   },
   filters: {},
   data() {
+    const validateProjectName = (rule, value, callback) => {
+      if (value.length < 6) {
+        callback(new Error('Please enter more than 5 characters'))
+      }
+      if (value.length > 256) {
+        callback(new Error('Please enter more than 5 characters'))
+      }
+    }
     return {
       analysisTypeOptions: [],
       analysisChildTypeOptions: [],
@@ -283,6 +293,10 @@ export default {
       encryption: false,
       btnInputLoading: false,
       btnOutputLoading: false,
+      projectNameRules: [
+        { required: true },
+        { validator: validateProjectName, trigger: 'blur' }
+      ],
       formData: {
         name: '',
         pipelineId: '',

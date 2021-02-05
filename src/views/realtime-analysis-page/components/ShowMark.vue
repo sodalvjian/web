@@ -19,6 +19,7 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 // import * as types from '@/store/mutation-types';
 import { globalBus } from '@/utils/globalBus'
+import { demoResult } from '@/utils/demo-text'
 import { GetBrat } from '@/api/realtime-analysis-page'
 import DialogShowInfo from '@/components/DialogShowInfo'
 import _ from 'lodash'
@@ -175,39 +176,58 @@ export default {
     initData() {
       this.type = this.$route.params.type
     },
-    fetchData(params, judge = true) {
-      this.loading = true
-      //      GET /tagged/label/{fileId}
-      // const url = `tagged/label/${this.id}`
-      GetBrat(params)
-        .then(res => {
-          this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
-          this.loading = false
-          this.noDataShow = false
-          if (res.code === 200) {
-            const data = res.data
-            if (data) {
-              this.$emit('success-data')
-              this.setBratData(data, judge)
-            } else {
-              this.$message.warning('数据为空')
-              // this.$emit('setNext', null);
-              // this.$emit('setPre', null);
-            }
+    fetchData(params, loadType = false) {
+      if (loadType) {
+        const res = demoResult
+        this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
+        this.loading = false
+        this.noDataShow = false
+        if (res.code === 200) {
+          const data = res.data
+          if (data) {
+            this.$emit('success-data')
+            this.setBratData(data, true)
+          } else {
+            this.$message.warning('数据为空')
+            // this.$emit('setNext', null);
+            // this.$emit('setPre', null);
           }
+        }
+        setTimeout(() => {
           globalBus.$emit('set-analysis-loading-false')
-        })
-        .catch(res => {
-          if (res.code === 800008) {
-            this.$refs.dialogShowInfoRef.openDialog('nlp')
+        }, 200)
+      } else {
+        this.loading = true
+        //      GET /tagged/label/{fileId}
+        // const url = `tagged/label/${this.id}`
+        GetBrat(params)
+          .then(res => {
+            this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
             this.loading = false
-            this.noDataShow = true
-          }
-          globalBus.$emit('set-analysis-loading-false')
-          this.loading = false
-        })
-
-      //   GetBrat(url, {}, res => {})
+            this.noDataShow = false
+            if (res.code === 200) {
+              const data = res.data
+              if (data) {
+                this.$emit('success-data')
+                this.setBratData(data, true)
+              } else {
+                this.$message.warning('数据为空')
+                // this.$emit('setNext', null);
+                // this.$emit('setPre', null);
+              }
+            }
+            globalBus.$emit('set-analysis-loading-false')
+          })
+          .catch(res => {
+            if (res.code === 800008) {
+              this.$refs.dialogShowInfoRef.openDialog('nlp')
+              this.loading = false
+              this.noDataShow = true
+            }
+            globalBus.$emit('set-analysis-loading-false')
+            this.loading = false
+          })
+      }
     },
     setBratDataAgain(data) {
       this.setBratData(data, true)

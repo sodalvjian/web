@@ -17,7 +17,8 @@
             :disabled="generalDisabled"
             class="mt-5"
             @click="openSetting"
-          >General Settings<i class="el-icon-s-tools el-icon--right f18"></i></el-button>
+            >General Settings<i class="el-icon-s-tools el-icon--right f18"></i
+          ></el-button>
         </el-col>
       </el-row>
     </nav>
@@ -94,15 +95,12 @@
         </el-table> -->
       </div>
       <span v-if="bratData.length !== 0" slot="footer" class="dialog-footer">
-        <el-button
-          size="small"
-          @click="dialogVisible = false"
-        >Cancel</el-button>
-        <el-button
-          size="small"
-          type="primary"
-          @click="handleSetBrat"
-        >Confirm</el-button>
+        <el-button size="small" @click="dialogVisible = false"
+          >Cancel</el-button
+        >
+        <el-button size="small" type="primary" @click="handleSetBrat"
+          >Confirm</el-button
+        >
       </span>
     </el-dialog>
   </div>
@@ -240,10 +238,10 @@ export default {
       this.$refs.entityRelationref.setData(this.originalBratData, selectDataArr)
       this.dialogVisible = false
     },
-    getResult(params) {
+    getResult(params, loadType) {
       this.generalDisabled = true
       this.$refs.entityRelationref.setDataEmpty()
-      this.$refs.showMarkRef.fetchData(params)
+      this.$refs.showMarkRef.fetchData(params, loadType)
     },
     switchClick() {
       console.log()

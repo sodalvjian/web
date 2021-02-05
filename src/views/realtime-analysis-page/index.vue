@@ -43,6 +43,7 @@
 import { GetAnalysisType } from '@/api/annotate-jobs-page'
 import analysisResult from './components/AnalysisResult'
 import { globalBus } from '@/utils/globalBus'
+import { demoText } from '@/utils/demo-text'
 export default {
   name: '',
   components: {
@@ -57,7 +58,7 @@ export default {
       analysisLoading: false,
       formData: {
         pipeline: '',
-        text: ''
+        text: demoText
       }
     }
   },
@@ -66,6 +67,7 @@ export default {
   created() {},
   mounted() {
     this.getAnalysisType()
+    this.handleAnalysis(true)
     globalBus.$on('set-analysis-loading-false', () => {
       this.analysisLoading = false
     })
@@ -77,9 +79,9 @@ export default {
     changepipeline() {
       this.setPipelineText()
     },
-    handleAnalysis() {
+    handleAnalysis(loadType = false) {
       const { pipeline, text } = this.formData
-      if (!pipeline) {
+      if (!pipeline && !loadType) {
         this.$message.warning('Please select pipeline.')
         return false
       } else if (!text) {
@@ -91,7 +93,7 @@ export default {
         text: text
       }
       this.analysisLoading = true
-      this.$refs.analysisResultRef.getResult(params)
+      this.$refs.analysisResultRef.getResult(params, loadType)
     },
     getAnalysisType() {
       this.pipelineLoading = true

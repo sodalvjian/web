@@ -2,7 +2,7 @@
   <div>
     <nav class="tr mb-10">
       <el-row :gutter="20">
-        <el-col :span="12">
+        <el-col :span="10">
           <el-input
             v-model="tableSearchData"
             size="small"
@@ -29,7 +29,7 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="10">
           <el-pagination
             background
             :page-size="pageSize"
