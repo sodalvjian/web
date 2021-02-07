@@ -76,9 +76,6 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
-    changepipeline() {
-      this.setPipelineText()
-    },
     handleAnalysis(loadType = false) {
       const { pipeline, text } = this.formData
       if (!pipeline && !loadType) {
@@ -105,19 +102,11 @@ export default {
             .map(item => item.version)
             .flat(Infinity) // 将自己版本数据拉平
           this.formData.pipeline = analysisChildTypeOptions[0].params
-          this.setPipelineText()
         }
       })
     },
     clearData() {
       this.formData.text = ''
-    },
-    // 设置pipeline选择按钮的文字
-    setPipelineText() {
-      this.$nextTick(() => {
-        document.getElementById('realtime-select-pipeline').value =
-          'Change pipeline'
-      })
     }
   }
 }

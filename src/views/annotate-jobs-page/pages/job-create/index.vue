@@ -89,7 +89,10 @@
           </el-col></el-row
         >
       </section>
-      <section v-loading="pageLoading" class="bg-color-gray mt-25 bd-1">
+      <section
+        v-loading="pageLoading"
+        class="bg-color-gray project-create-section mt-25 bd-1"
+      >
         <el-row :gutter="20" class="">
           <el-col :span="12" class="br-1">
             <strong class="f16 p20 disinblock">Input Data</strong>
@@ -158,10 +161,48 @@
           <el-col :span="12" class="br-1">
             <div class="p20">
               <el-form-item label="S3 location:" prop="input" :rules="s3Rules">
-                <el-input
+                <el-col :span="18">
+                  <el-input
                   v-model="formData.input"
                   placeholder="s3://mybucket/myinput"
                 >
+                  </el-input>
+                </el-col>
+                <el-col :span="6">
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="Validate"
+                    placement="top"
+                  >
+                    <el-button
+                      :disabled="!formData.input"
+                      :loading="btnInputLoading"
+                      type="primary"
+                      size="medium"
+                      icon="icon-yanzhengma iconfont"
+                      @click="verifyS3Data('r')"
+                    >
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="Authorize"
+                    placement="top"
+                  >
+                    <el-button
+                      :disabled="!formData.input"
+                      :loading="btnInputLoading"
+                      type="warning"
+                      size="medium"
+                      icon="icon-shouquan iconfont"
+                      @click="verifyS3Data('r')"
+                    >
+                    </el-button>
+                  </el-tooltip>
+                </el-col>
+                
                   <!-- <el-button
                     slot="append"
                     :disabled="!formData.input"
@@ -189,22 +230,47 @@
           <el-col :span="12">
             <div class="p20">
               <el-form-item label="S3 location:" prop="output" :rules="s3Rules">
-                <el-input
-                  v-model="formData.output"
-                  placeholder="s3://mybucket/myoutput"
-                >
-                  <!-- <el-button
-                    slot="append"
-                    :disabled="!formData.output"
-                    :loading="btnOutputLoading"
-                    @click="verifyS3Data('w')"
-                    ><i
-                      v-if="verityOutput"
-                      class="el-icon-success mr-5 color-green"
-                    ></i>
-                    Verify
-                  </el-button> -->
-                </el-input>
+                <el-col :span="18">
+                  <el-input
+                    v-model="formData.output"
+                    placeholder="s3://mybucket/myoutput"
+                  >
+                  </el-input>
+                </el-col>
+                <el-col :span="6">
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="Validate"
+                    placement="top"
+                  >
+                    <el-button
+                      :disabled="!formData.output"
+                      :loading="btnOutputLoading"
+                      type="primary"
+                      size="medium"
+                      icon="icon-yanzhengma iconfont"
+                      @click="verifyS3Data('w')"
+                    >
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="Authorize"
+                    placement="top"
+                  >
+                    <el-button
+                      :disabled="!formData.output"
+                      :loading="btnOutputLoading"
+                      type="warning"
+                      size="medium"
+                      icon="icon-shouquan iconfont"
+                      @click="verifyS3Data('w')"
+                    >
+                    </el-button>
+                  </el-tooltip>
+                </el-col>
               </el-form-item>
               <div class="f13 lh1-5 mt-20">
                 <i class="el-icon-warning color-main f15"></i> Browse,type or
@@ -266,23 +332,24 @@ export default {
     const validateProjectName = (rule, value, callback) => {
       if (value.length < 6) {
         callback(new Error('Please enter more than 5 characters'))
-      }
-      if (value.length > 256) {
+      } else if (value.length > 256) {
         callback(new Error('Please enter more than 5 characters'))
+      } else {
+        callback()
       }
     }
     const validateS3 = (rule, value, callback) => {
+      const num = value.split('/').length - 1
       if (value.indexOf('s3://') !== 0) {
         callback(
           new Error('Please enter the correct s3 location,like:"s3://xxx/xxx"')
         )
-      }
-      const num = value.split('/').length - 1
-      console.log('num', num)
-      if (num < 3) {
+      } else if (num < 3) {
         callback(
           new Error('Please enter the correct s3 location,like:"s3://xxx/xxx"')
         )
+      } else {
+        callback()
       }
     }
     return {
@@ -354,7 +421,8 @@ export default {
       } else {
         this.btnOutputLoading = true
         const params = {
-          output: url
+          output: url,
+          input: ''
         }
         CheckData(params)
           .then(res => {
@@ -584,6 +652,11 @@ export default {
     // .el-input {
 
     //   }
+  }
+}
+.project-create-section {
+  .el-button {
+    padding: 10px 15px;
   }
 }
 .job-select {

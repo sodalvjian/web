@@ -17,7 +17,8 @@
               type="primary"
               icon="el-icon-data-line"
               @click="handleAnalysis"
-            >Analysis</el-button>
+              >Analysis</el-button
+            >
           </el-col>
         </el-row>
       </nav>
@@ -73,9 +74,6 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
-    changepipeline() {
-      this.setPipelineText()
-    },
     handleAnalysis() {
       const { pipeline, text } = this.formData
       if (!pipeline) {
@@ -102,19 +100,11 @@ export default {
             .map(item => item.version)
             .flat(Infinity) // 将自己版本数据拉平
           this.formData.pipeline = analysisChildTypeOptions[0].params
-          this.setPipelineText()
         }
       })
     },
     clearData() {
       this.formData.text = ''
-    },
-    // 设置pipeline选择按钮的文字
-    setPipelineText() {
-      this.$nextTick(() => {
-        document.getElementById('realtime-select-pipeline').value =
-          'Change pipeline'
-      })
     }
   }
 }
