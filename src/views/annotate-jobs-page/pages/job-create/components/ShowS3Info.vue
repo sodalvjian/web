@@ -1,18 +1,10 @@
 <template>
-  <el-dialog
-    title="Verity S3"
-    :visible.sync="dialogVisible"
-    :width="doubleShow ? '80%' : '40%'"
-  >
+  <el-dialog title="Verity S3" :visible.sync="dialogVisible" width="40%">
     <article>
       <el-row :gutter="15">
-        <el-col
-          v-for="(item, index) in verityList"
-          :key="index"
-          :span="doubleShow ? 12 : 24"
-        >
+        <el-col v-for="(item, index) in verityList" :key="index" :span="24">
           <header>
-            <h3>{{ setTitle(verityList, index) }}</h3>
+            <h3>{{ title }}</h3>
             <p>
               Please copy the information to
               <a class="color-main" :href="item.url" target="_blank"
@@ -60,6 +52,7 @@ export default {
       readStatus: false,
       whiteStatus: false,
       verityList: [],
+      title: '',
       cmOptions: {
         // codemirror options
         tabSize: 4,
@@ -85,12 +78,13 @@ export default {
         return !this.readStatus ? 'Input' : 'Output'
       }
     },
-    openDialog(data) {
+    openDialog(data, type) {
       console.log(data)
       this.readStatus = data.read
       this.whiteStatus = data.write
       this.doubleShow = !data.read && !data.write
       this.dialogVisible = true
+      this.title = type === 'read' ? 'Input' : 'Output'
       this.verityList = data.list
       // this.s3Data = data.temp
       // this.s3Url = data.url

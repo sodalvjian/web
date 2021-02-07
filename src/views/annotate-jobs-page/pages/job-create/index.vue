@@ -163,9 +163,9 @@
               <el-form-item label="S3 location:" prop="input" :rules="s3Rules">
                 <el-col :span="18">
                   <el-input
-                  v-model="formData.input"
-                  placeholder="s3://mybucket/myinput"
-                >
+                    v-model="formData.input"
+                    placeholder="s3://mybucket/myinput"
+                  >
                   </el-input>
                 </el-col>
                 <el-col :span="6">
@@ -177,11 +177,11 @@
                   >
                     <el-button
                       :disabled="!formData.input"
-                      :loading="btnInputLoading"
-                      type="primary"
+                      :loading="inputCheckLoading"
+                      :type="verityInput ? 'success' : 'primary'"
                       size="medium"
                       icon="icon-yanzhengma iconfont"
-                      @click="verifyS3Data('r')"
+                      @click="verifyS3Data('read')"
                     >
                     </el-button>
                   </el-tooltip>
@@ -193,20 +193,19 @@
                   >
                     <el-button
                       :disabled="!formData.input"
-                      :loading="btnInputLoading"
+                      :loading="inputAuthorizeLoading"
                       type="warning"
                       size="medium"
                       icon="icon-shouquan iconfont"
-                      @click="verifyS3Data('r')"
+                      @click="authorizeS3Data('read')"
                     >
                     </el-button>
                   </el-tooltip>
                 </el-col>
-                
-                  <!-- <el-button
+                <!-- <el-button
                     slot="append"
                     :disabled="!formData.input"
-                    :loading="btnInputLoading"
+                    :loading="inputCheckLoading"
                     @click="verifyS3Data('r')"
                     ><i
                       v-if="verityInput"
@@ -214,7 +213,7 @@
                     ></i
                     >Verify</el-button
                   > -->
-                </el-input>
+                <!-- </el-input> -->
               </el-form-item>
 
               <div class="f13 lh1-5 mt-20">
@@ -246,11 +245,11 @@
                   >
                     <el-button
                       :disabled="!formData.output"
-                      :loading="btnOutputLoading"
-                      type="primary"
+                      :loading="outputCheckLoading"
+                      :type="verityOutput ? 'success' : 'primary'"
                       size="medium"
                       icon="icon-yanzhengma iconfont"
-                      @click="verifyS3Data('w')"
+                      @click="verifyS3Data('write')"
                     >
                     </el-button>
                   </el-tooltip>
@@ -262,11 +261,11 @@
                   >
                     <el-button
                       :disabled="!formData.output"
-                      :loading="btnOutputLoading"
+                      :loading="outputAuthorizeLoading"
                       type="warning"
                       size="medium"
                       icon="icon-shouquan iconfont"
-                      @click="verifyS3Data('w')"
+                      @click="authorizeS3Data('write')"
                     >
                     </el-button>
                   </el-tooltip>
@@ -308,12 +307,7 @@
 </template>
 
 <script>
-import {
-  GetAnalysisType,
-  AddData,
-  VerifyS3Data,
-  CheckData
-} from '@/api/annotate-jobs-page'
+import { GetAnalysisType, AddData, CheckData } from '@/api/annotate-jobs-page'
 import DialogShowInfo from '@/components/DialogShowInfo'
 import ChooseResource from './components/ChooseResource'
 import ShowS3Info from './components/ShowS3Info'
@@ -358,13 +352,20 @@ export default {
       pageLoading: false,
       verityInput: false,
       verityOutput: false,
+      inputHasVerity: false,
+      outputHasVerity: false,
+      verityInputData: {},
+      verityOutputData: {},
       encryptionRadio: 'AES-256',
       encryptionHandle: '',
       userId: store.getters.userInfo.userId,
       btnLoading: false,
       popoverVisible: false,
       encryption: false,
-      btnInputLoading: false,
+      inputCheckLoading: false,
+      outputCheckLoading: false,
+      inputAuthorizeLoading: false,
+      outputAuthorizeLoading: false,
       btnOutputLoading: false,
       projectNameRules: [
         { required: true },
@@ -393,54 +394,70 @@ export default {
     this.getAnalysisType()
   },
   methods: {
+    authorizeS3Data(type) {
+      if (type === 'read') {
+        if (this.verityInput) {
+          this.$message.success('Verify success.')
+        } else if (this.inputHasVerity) {
+          this.$refs.showS3InfoRef.openDialog(this.verityInputData, 'read') // 验证不过弹出授权提示
+        } else {
+          this.$message.warning('Please verify first.')
+        }
+      } else {
+        if (this.verityOutput) {
+          this.$message.success('Verify success.')
+        } else if (this.outputHasVerity) {
+          this.$refs.showS3InfoRef.openDialog(this.verityInputData, 'write') // 验证不过弹出授权提示
+        } else {
+          this.$message.warning('Please verify first.')
+        }
+      }
+    },
     verifyS3Data(type) {
-      const url = type === 'r' ? this.formData.input : this.formData.output
-      if (type === 'r') {
-        this.btnInputLoading = true
+      const url = type === 'read' ? this.formData.input : this.formData.output
+      if (type === 'read') {
+        this.inputCheckLoading = true
         const params = {
           input: url
         }
         CheckData(params)
           .then(res => {
-            this.btnInputLoading = false
-            if (res.data && res.data.canRead) {
+            this.inputCheckLoading = false
+            this.inputHasVerity = true
+            if (res.data && res.data.read) {
               this.verityInput = true
               this.$message.success('Verify input success.')
             } else {
               this.verityInput = false
-              setTimeout(() => {
-                VerifyS3Data(type, url).then(res => {
-                  this.$refs.showS3InfoRef.openDialog(type, res.data)
-                })
-              }, 500)
+              this.verityInputData = res.data
+              this.$message.warning('Verity failed, Please authorize.')
+              // this.$refs.showS3InfoRef.openDialog(res.data, 'read') // 验证不过弹出授权提示
             }
           })
           .catch(msg => {
-            this.btnInputLoading = false
+            this.inputCheckLoading = false
           })
       } else {
-        this.btnOutputLoading = true
+        this.outputCheckLoading = true
         const params = {
-          output: url,
-          input: ''
+          output: url
         }
         CheckData(params)
           .then(res => {
-            this.btnOutputLoading = false
-            if (res.data && res.data.canWrite) {
+            this.outputCheckLoading = false
+            this.outputHasVerity = true
+            if (res.data && res.data.write) {
               this.verityOutput = true
               this.$message.success('Verify output success.')
             } else {
               this.verityOutput = false
-              setTimeout(() => {
-                VerifyS3Data(type, url).then(res => {
-                  this.$refs.showS3InfoRef.openDialog(type, res.data)
-                })
-              }, 500)
+              this.verityOutputData = res.data
+              // this.$refs.showS3InfoRef.openDialog(res.data, 'write') // 验证不过弹出授权提示
+              this.$message.warning('Verity failed, Please authorize.')
             }
           })
           .catch(msg => {
-            this.btnOutputLoading = false
+            this.outputCheckLoading = false
           })
       }
     },
@@ -530,59 +547,93 @@ export default {
       this.$refs.formData.validate(valid => {
         if (valid) {
           const { name, input, output, encryption } = this.formData
-
-          this.btnLoading = true
-
-          const checkData = {
-            input: this.formData.input,
-            output: this.formData.output
-          }
-          CheckData(checkData)
-            .then(res => {
-              console.log('检查', res)
-              if (res.code === 200) {
-                if (res.data.read && res.data.write) {
-                  const params = {
-                    userId: this.userId,
-                    name: name,
-                    input: input,
-                    output: output,
-                    // inRegion: this.inRegion,
-                    // outRegion: this.outRegion,
-                    pipeline: this.pipelineData.params,
-                    encryption: encryption
-                  }
-                  AddData(params)
-                    .then(res => {
-                      if (res.code === 200) {
-                        this.$message.success(res.message)
-                        this.$emit('close-dialog')
-                      }
-                    })
-                    .catch(res => {
-                      this.btnLoading = false
-                      if (res.code === 800008) {
-                        this.$refs.dialogShowInfoRef.openDialog('nlp')
-                        this.loading = false
-                        this.noDataShow = true
-                      } else {
-                        this.$refs.dialogShowInfoRef.openDialog('nlp')
-                        this.loading = false
-                        this.noDataShow = true
-                      }
-                    })
-                } else {
-                  this.btnLoading = false
-                  this.$refs.showS3InfoRef.openDialog(res.data) // 验证不过弹出授权提示
+          if (this.verityInput && this.verityOutput) {
+            this.btnLoading = true
+            const params = {
+              userId: this.userId,
+              name: name,
+              input: input,
+              output: output,
+              // inRegion: this.inRegion,
+              // outRegion: this.outRegion,
+              pipeline: this.pipelineData.params,
+              encryption: encryption
+            }
+            AddData(params)
+              .then(res => {
+                if (res.code === 200) {
+                  this.$message.success(res.message)
+                  this.$emit('close-dialog')
                 }
-              } else {
+              })
+              .catch(res => {
                 this.btnLoading = false
-                this.$message.error(res.message)
-              }
-            })
-            .catch(msg => {
-              this.btnLoading = false
-            })
+                if (res.code === 800008) {
+                  this.$refs.dialogShowInfoRef.openDialog('nlp')
+                  this.loading = false
+                  this.noDataShow = true
+                } else {
+                  this.$refs.dialogShowInfoRef.openDialog('nlp')
+                  this.loading = false
+                  this.noDataShow = true
+                }
+              })
+          } else {
+            this.$message.warning(
+              'Please verity the input data and output data.'
+            )
+          }
+
+          // const checkData = {
+          //   input: this.formData.input,
+          //   output: this.formData.output
+          // }
+          // CheckData(checkData)
+          //   .then(res => {
+          //     console.log('检查', res)
+          //     if (res.code === 200) {
+          //       if (res.data.read && res.data.write) {
+          //         const params = {
+          //           userId: this.userId,
+          //           name: name,
+          //           input: input,
+          //           output: output,
+          //           // inRegion: this.inRegion,
+          //           // outRegion: this.outRegion,
+          //           pipeline: this.pipelineData.params,
+          //           encryption: encryption
+          //         }
+          //         AddData(params)
+          //           .then(res => {
+          //             if (res.code === 200) {
+          //               this.$message.success(res.message)
+          //               this.$emit('close-dialog')
+          //             }
+          //           })
+          //           .catch(res => {
+          //             this.btnLoading = false
+          //             if (res.code === 800008) {
+          //               this.$refs.dialogShowInfoRef.openDialog('nlp')
+          //               this.loading = false
+          //               this.noDataShow = true
+          //             } else {
+          //               this.$refs.dialogShowInfoRef.openDialog('nlp')
+          //               this.loading = false
+          //               this.noDataShow = true
+          //             }
+          //           })
+          //       } else {
+          //         this.btnLoading = false
+          //         this.$refs.showS3InfoRef.openDialog(res.data) // 验证不过弹出授权提示
+          //       }
+          //     } else {
+          //       this.btnLoading = false
+          //       this.$message.error(res.message)
+          //     }
+          //   })
+          //   .catch(msg => {
+          //     this.btnLoading = false
+          //   })
         } else {
           console.log('error submit!!')
           return false
