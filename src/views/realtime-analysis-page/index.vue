@@ -16,7 +16,7 @@
               size="small"
               type="primary"
               icon="el-icon-data-line"
-              @click="handleAnalysis"
+              @click="handleAnalysis(false)"
               >Analysis</el-button
             >
           </el-col>
