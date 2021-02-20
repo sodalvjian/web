@@ -9,7 +9,8 @@
           size="mini"
           icon="el-icon-document-copy"
           @click="createJobAgain"
-        >Copy</el-button>
+          >Copy</el-button
+        >
       </div>
     </nav>
     <section v-loading="pageLoading" class="bg-color-gray mt-15 bd-1">
@@ -27,7 +28,7 @@
       <el-divider class="m-0"></el-divider>
       <el-row :gutter="15" class="p20">
         <el-col :span="8" class="tc">
-          Created Time: <strong> {{ detailData.date |setHourDate }}</strong>
+          Created Time: <strong> {{ detailData.date | setHourDate }}</strong>
         </el-col>
         <el-col :span="8" class="tc">
           <el-row :gutter="10">
@@ -47,7 +48,8 @@
                       detailData.reqStatus === 'STOPPED' ||
                       detailData.reqStatus === 'STOPPING'
                   "
-                >--</span>
+                  >--</span
+                >
                 <div
                   v-else-if="
                     detailData.status === 'STARTED' ||
@@ -55,7 +57,12 @@
                   "
                   class="progress-running"
                 >
-                  <el-progress class="w" :percentage="0"></el-progress><i
+                  <el-progress
+                    class="w"
+                    :stroke-width="7"
+                    :percentage="setProcessData(detailData)"
+                  ></el-progress
+                  ><i
                     style="right:1%"
                     class="progress-running-icon el-icon-loading"
                   ></i>
@@ -63,6 +70,7 @@
                 <el-progress
                   v-else
                   :percentage="progressNum"
+                  :stroke-width="7"
                   :status="setStatus"
                 ></el-progress>
               </el-tooltip>
@@ -70,8 +78,9 @@
           </el-row>
         </el-col>
         <el-col :span="8" class="tc">
-          Updated Time: <strong> {{ detailData.update|setHourDate }}</strong>
-        </el-col> </el-row><el-row :gutter="15" class="p20">
+          Updated Time: <strong> {{ detailData.update | setHourDate }}</strong>
+        </el-col> </el-row
+      ><el-row :gutter="15" class="p20">
         <el-col :span="8" class="tc">
           <el-card shadow="never">
             <div class="f15">Number of ducuments</div>
@@ -95,11 +104,13 @@
         <el-col :span="24" class="tl">
           Input location:
           <strong> {{ detailData.input }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.input"
-            v-clipboard:success="copySuccess"
-            class="el-icon-document-copy cp ml-5"
-          ></i></span>
+          <span
+            ><i
+              v-clipboard:copy="detailData.input"
+              v-clipboard:success="copySuccess"
+              class="el-icon-document-copy cp ml-5"
+            ></i
+          ></span>
         </el-col>
       </el-row>
       <el-divider class="m-0"></el-divider>
@@ -107,17 +118,21 @@
         <el-col :span="24" class="tl">
           Output location:
           <strong> {{ detailData.output }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.output"
-            v-clipboard:success="copySuccess"
-            class="el-icon-document-copy cp ml-5"
-          ></i></span>
-        </el-col> </el-row><el-divider class="m-0"></el-divider>
+          <span
+            ><i
+              v-clipboard:copy="detailData.output"
+              v-clipboard:success="copySuccess"
+              class="el-icon-document-copy cp ml-5"
+            ></i
+          ></span>
+        </el-col> </el-row
+      ><el-divider class="m-0"></el-divider>
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Cost:
           <strong class="f20 color-main">
-            <small> $</small> {{ costData }}</strong>
+            <small> $</small> {{ costData }}</strong
+          >
         </el-col>
       </el-row>
     </section>
@@ -142,7 +157,8 @@
                 type="primary"
                 size="mini"
                 icon="el-icon-document-copy"
-              >Copy</el-button>
+                >Copy</el-button
+              >
             </div>
           </div>
           <div class="mt-10">
@@ -162,7 +178,8 @@
                 type="primary"
                 size="mini"
                 icon="el-icon-document-copy"
-              >Copy</el-button>
+                >Copy</el-button
+              >
             </div>
           </div>
           <div class="mt-10">
@@ -228,10 +245,10 @@ export default {
       return this.detailData.processedErrCount > 0
         ? 'warning'
         : processNum
-          ? Math.round(processNum * 100) >= 100
-            ? 'success'
-            : ''
-          : 'exception'
+        ? Math.round(processNum * 100) >= 100
+          ? 'success'
+          : ''
+        : 'exception'
     },
     setTooltipContent() {
       console.log('详细信息', this.detailData.status)
@@ -250,6 +267,10 @@ export default {
     this.getCostData()
   },
   methods: {
+    // 设置进行中的百分比
+    setProcessData(row) {
+      return parseInt((row.processedSize / row.totalSize) * 100) || ''
+    },
     createJobAgain() {
       this.$router.push({
         path: '/annotateJobs',

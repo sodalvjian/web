@@ -80,7 +80,11 @@
                 "
                 class="progress-running"
               >
-                <el-progress :percentage="0" class="w"></el-progress
+                <el-progress
+                  :stroke-width="7"
+                  :percentage="setProcessData(scope.row)"
+                  class="w"
+                ></el-progress
                 ><i
                   style="right:14%"
                   class="progress-running-icon el-icon-loading"
@@ -88,6 +92,7 @@
               </div>
               <el-progress
                 v-else
+                :stroke-width="7"
                 :percentage="setPercent(scope.row)"
                 :status="setStatus(scope.row)"
               ></el-progress>
@@ -203,6 +208,10 @@ export default {
     clearInterval(this.setInterval)
   },
   methods: {
+    // 设置进行中的百分比
+    setProcessData(row) {
+      return parseInt((row.processedSize / row.totalSize) * 100) || ''
+    },
     // 排序
     changeTableSort(column) {
       this.propData = column.order ? column.prop : 'date'
@@ -217,12 +226,17 @@ export default {
     setTooltipDisabled(row) {
       if (row.processedErrCount > 0) {
         return false
+      } else if (row.status === 'STARTED' || row.status === 'STARTING') {
+        return false
       }
       return true
     },
     setTooltipContent(row) {
+      const processNum = row.processedSize / row.totalSize
       if (row.processedErrCount > 0) {
         return `Error count: ${row.processedErrCount}`
+      } else if (row.status === 'STARTED' || row.status === 'STARTING') {
+        return Math.round(processNum * 100) + '%'
       }
     },
     setPercent(row) {
@@ -233,7 +247,7 @@ export default {
         } else {
           return Math.round(processNum * 100)
         }
-      } else if (row.status === 'FAILED') {
+      } else if (row.status === 'FAILED' || row.status === 'COMPLETED') {
         return 100
       } else {
         return 0
