@@ -150,11 +150,11 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .el-backtop {
   z-index: 9998;
 }
-.el-table {
-  table {
-    margin-bottom: 10px;
-  }
-}
+// .el-table {
+//   table {
+//     margin-bottom: 10px;
+//   }
+// }
 .el-cascader-node.in-active-path,
 .el-cascader-node.is-selectable.in-checked-path,
 .el-cascader-node.is-active {

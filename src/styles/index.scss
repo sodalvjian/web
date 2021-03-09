@@ -149,16 +149,16 @@ div:focus {
 // user page style
 .user-container {
   float: left;
-  padding-left: 260px;
+  padding-left: 310px;
 }
 .user-sider {
-  width: 260px;
+  width: 310px;
   position: fixed;
   float: left;
   height: calc(100% - 50px);
-  i {
-    color: #f75a7f;
-  }
+  // i {
+  //   color: #f75a7f;
+  // }
   .user-sider-mean {
     li {
       padding: 15px 17px;

@@ -6,7 +6,27 @@
         <strong class="color-black f16">{{ userName }} </strong>
       </div>
     </nav>
-    <ul class="user-sider-mean">
+    <section class="mt-20 p20">
+      <el-row>
+        <el-col :span="21">
+          <strong class="f16">Maximum fee for a single account</strong>
+        </el-col>
+        <el-col :span="3" align="right"><i class="el-icon-edit cp f20 color-main"></i></el-col>
+        <el-col :span="24" class="mt-15">
+          <strong class="f35">$ 100</strong>
+        </el-col>
+      </el-row>
+      <el-row class="mt-30">
+        <el-col :span="21">
+          <strong class="f16">Maximum fee for a single task</strong>
+        </el-col>
+        <el-col :span="3" align="right"><i class="el-icon-edit cp f20 color-main"></i></el-col>
+        <el-col :span="24" class="mt-15">
+          <strong class="f35">$ 20</strong>
+        </el-col>
+      </el-row>
+    </section>
+    <ul class="user-sider-mean bt-1 pt-20">
       <router-link to="/user/cost"
         ><li :class="handleActive('cost')">
           Billing & Cost Management

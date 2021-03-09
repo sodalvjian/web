@@ -11,19 +11,17 @@
         <nav>
           <el-row class="w">
             <el-col :span="16">
-              <strong
-                class="color-black f15"
-              >Month-to-Date Spend By Service</strong>
+              <strong class="color-black f15"
+                >Month-to-Date Spend By Service</strong
+              >
             </el-col>
             <el-col :span="8" align="right">
-              <strong
-                class="color-black mr-15 f15"
-              >$ {{ totalCharges }}</strong>
-              <el-button
-                size="small"
-                type="primary"
-                @click="openBillDetail"
-              >Bill Details</el-button>
+              <strong class="color-black mr-15 f15"
+                >$ {{ totalCharges }}</strong
+              >
+              <el-button size="small" type="primary" @click="openBillDetail"
+                >Bill Details</el-button
+              >
             </el-col>
           </el-row>
         </nav>
@@ -42,6 +40,57 @@
               </template>
             </el-table-column>
           </el-table>
+        </div>
+        <nav class="mt-30">
+          <el-row class="w">
+            <el-col :span="16">
+              <strong class="color-black f15"> Coupon</strong>
+            </el-col>
+          </el-row>
+        </nav>
+        <div class="mt-15">
+          <el-card shadow="hover" class="mt-20">
+            <el-row :gutter="10">
+              <el-col :span="2">
+                <i class="el-icon-s-ticket color-main f40"></i>
+              </el-col>
+              <el-col :span="10">
+                <div class=" mt-3">
+                  <strong class="f24">$ 30.00</strong>
+                </div>
+
+                <div class="mt-10 color-8">Expiry Date：2020-10-23 23:59</div>
+              </el-col>
+              <el-col :span="9">
+                <div class=" mt-3">
+                  <strong class="f24">$ 30.00</strong>
+                </div>
+
+                <div class="mt-10 color-8">Reminding amount</div>
+              </el-col>
+            </el-row>
+          </el-card>
+          <el-card shadow="hover" class="mt-20">
+            <el-row :gutter="10">
+              <el-col :span="2">
+                <i class="el-icon-s-ticket color-main f40"></i>
+              </el-col>
+              <el-col :span="10">
+                <div class=" mt-3">
+                  <strong class="f24">$ 30.00</strong>
+                </div>
+
+                <div class="mt-10 color-8">Expiry Date：2020-10-23 23:59</div>
+              </el-col>
+              <el-col :span="9">
+                <div class=" mt-3">
+                  <strong class="f24">$ 30.00</strong>
+                </div>
+
+                <div class="mt-10 color-8">Reminding amount</div>
+              </el-col>
+            </el-row>
+          </el-card>
         </div>
         <nav class="mt-40">
           <el-row class="w">
@@ -88,7 +137,7 @@
             >
             </el-table-column>
             <el-table-column
-            align="center"
+              align="center"
               prop="type"
               label="Type"
               width="100"
