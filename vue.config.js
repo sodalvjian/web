@@ -39,7 +39,7 @@ module.exports = {
     },
     proxy: {
       '/jobbizweb': {
-        target: 'http://www.autowire-code.com',
+        target: 'http://153.37.174.42:10080',
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {
           '^/jobbizweb': '/jobbizweb'

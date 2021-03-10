@@ -48,51 +48,45 @@
             </el-col>
           </el-row>
         </nav>
-        <div class="mt-15">
-          <el-card shadow="hover" class="mt-20">
-            <el-row :gutter="10">
-              <el-col :span="2">
-                <i class="el-icon-s-ticket color-main f40"></i>
-              </el-col>
-              <el-col :span="10">
-                <div class=" mt-3">
-                  <strong class="f24">$ 30.00</strong>
-                </div>
+        <div class="mt-15 coupon-container" v-loading="couponLoading">
+          <div
+            v-if="couponData.length === 0"
+            class="pt-50 mt-20 mb-40 tc color-hui bbs-1 bts-1 pb-50"
+          >
+            No Coupon
+          </div>
+          <div v-else>
+            <el-card
+              v-for="(item, index) in couponData"
+              :key="index"
+              shadow="hover"
+              class="mt-20"
+            >
+              <el-row :gutter="10">
+                <el-col :span="2">
+                  <i class="el-icon-s-ticket color-main f40"></i>
+                </el-col>
+                <el-col :span="10">
+                  <div class=" mt-3">
+                    <strong class="f24">$ {{ item.quota }}</strong>
+                  </div>
 
-                <div class="mt-10 color-8">Expiry Date：2020-10-23 23:59</div>
-              </el-col>
-              <el-col :span="9">
-                <div class=" mt-3">
-                  <strong class="f24">$ 30.00</strong>
-                </div>
+                  <div class="mt-10 color-8">
+                    Expiry Date：{{ item.expireDate }}
+                  </div>
+                </el-col>
+                <el-col :span="9">
+                  <div class=" mt-3">
+                    <strong class="f24">$ {{ item.remaining }}</strong>
+                  </div>
 
-                <div class="mt-10 color-8">Reminding amount</div>
-              </el-col>
-            </el-row>
-          </el-card>
-          <el-card shadow="hover" class="mt-20">
-            <el-row :gutter="10">
-              <el-col :span="2">
-                <i class="el-icon-s-ticket color-main f40"></i>
-              </el-col>
-              <el-col :span="10">
-                <div class=" mt-3">
-                  <strong class="f24">$ 30.00</strong>
-                </div>
-
-                <div class="mt-10 color-8">Expiry Date：2020-10-23 23:59</div>
-              </el-col>
-              <el-col :span="9">
-                <div class=" mt-3">
-                  <strong class="f24">$ 30.00</strong>
-                </div>
-
-                <div class="mt-10 color-8">Reminding amount</div>
-              </el-col>
-            </el-row>
-          </el-card>
+                  <div class="mt-10 color-8">Reminding amount</div>
+                </el-col>
+              </el-row>
+            </el-card>
+          </div>
         </div>
-        <nav class="mt-40">
+        <nav class="mt-30">
           <el-row class="w">
             <el-col :span="16">
               <strong class="color-black f15">Cost Dashboard</strong>
@@ -164,13 +158,18 @@
   </div>
 </template>
 <script>
+import store from '@/store'
 import Sider from '../../components/Sider'
 import ECharts from 'vue-echarts' // 在 webpack 环境下指向 components/ECharts.vue
 import 'echarts/lib/chart/bar'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
 import { barOption } from './constants'
-import { GetBillingSummary, GetCostDashboard } from '@/api/user-page'
+import {
+  GetBillingSummary,
+  GetCostDashboard,
+  GetVoucher
+} from '@/api/user-page'
 export default {
   name: '',
   components: {
@@ -182,6 +181,8 @@ export default {
     return {
       billingLoading: false,
       costLoading: false,
+      couponLoading: false,
+      userId: store.getters.userInfo.userId,
       barData: {},
       monthRange: [],
       totalCharges: 0,
@@ -190,7 +191,8 @@ export default {
       dashboardData: {
         minYearMonth: '',
         maxYearMonth: ''
-      }
+      },
+      couponData: []
     }
   },
   computed: {},
@@ -199,6 +201,7 @@ export default {
   mounted() {
     this.getBillingSummary()
     this.getCostDashboard()
+    this.getVoucher()
   },
   beforeDestroy() {},
   methods: {
@@ -208,6 +211,16 @@ export default {
     },
     openBillDetail() {
       this.$router.push('/user/billDetail')
+    },
+    getVoucher() {
+      const params = { userId: this.userId }
+      this.couponLoading = true
+      GetVoucher(params).then(res => {
+        this.couponLoading = false
+        if (res.code === 200) {
+          this.couponData = res.data
+        }
+      })
     },
     getCostDashboard() {
       const params = {
@@ -234,7 +247,6 @@ export default {
     getBillingSummary() {
       this.billingLoading = true
       GetBillingSummary().then(res => {
-        console.log(res)
         this.billingLoading = false
         const resultData = res.data
         this.totalCharges = resultData.totalCharges
@@ -253,4 +265,8 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.coupon-container{
+  min-height: 150px;
+}
+</style>

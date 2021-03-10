@@ -6,23 +6,27 @@
         <strong class="color-black f16">{{ userName }} </strong>
       </div>
     </nav>
-    <section class="mt-20 p20">
+    <section v-loading="feeLoading" class="mt-20 p20">
       <el-row>
         <el-col :span="21">
           <strong class="f16">Maximum fee for a single account</strong>
         </el-col>
-        <el-col :span="3" align="right"><i class="el-icon-edit cp f20 color-main"></i></el-col>
+        <el-col :span="3" align="right"
+          ><i class="el-icon-edit cp f20 color-main" @click="handleConnect"></i
+        ></el-col>
         <el-col :span="24" class="mt-15">
-          <strong class="f35">$ 100</strong>
+          <strong class="f26">$ {{ quotaSetting.QUOTA.val }}</strong>
         </el-col>
       </el-row>
       <el-row class="mt-30">
         <el-col :span="21">
           <strong class="f16">Maximum fee for a single task</strong>
         </el-col>
-        <el-col :span="3" align="right"><i class="el-icon-edit cp f20 color-main"></i></el-col>
+        <el-col :span="3" align="right"
+          ><i class="el-icon-edit cp f20 color-main" @click="handleConnect"></i
+        ></el-col>
         <el-col :span="24" class="mt-15">
-          <strong class="f35">$ 20</strong>
+          <strong class="f26">$ {{ quotaSetting.TASK_QUOTA.val }}</strong>
         </el-col>
       </el-row>
     </section>
@@ -53,6 +57,7 @@
 <script>
 import store from '@/store'
 const defaultAvatar = require('@/assets/img/avatar.png')
+import { GetQuotaSettings } from '@/api/user-page'
 export default {
   name: '',
   components: {},
@@ -60,17 +65,44 @@ export default {
   data() {
     return {
       userName: store.getters.userInfo.accountName,
-      avatarSrc: store.getters.userInfo.imagePath || defaultAvatar
+      avatarSrc: store.getters.userInfo.imagePath || defaultAvatar,
+      feeLoading: false,
+      quotaSetting: {
+        QUOTA: {},
+        TASK_QUOTA: {},
+        MAIL_TO_USER: {}
+      }
     }
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {
-    console.log(this.$router)
+    this.getVoucher()
   },
   beforeDestroy() {},
   methods: {
+    handleConnect() {
+      this.$alert(
+        `<div class="cb">
+        <div class="fl w10">
+        <i class="el-icon-warning color-yellow f26 mr-15"></i></div>
+        <div class="fl w90">
+        <strong>Please contact the administrator if you want to change the amount limit</strong>
+        <div class="mt-10 color-red">
+        E-mail: <a href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a>
+        </div>
+        </div>
+        </div>
+        `,
+        {
+          confirmButtonText: 'OK',
+          center: true,
+          dangerouslyUseHTMLString: true,
+          customClass: 'show-connect-info'
+        }
+      )
+    },
     handleActive(name) {
       const routerName = this.$route.name
       if (routerName === name) {
@@ -78,8 +110,21 @@ export default {
       } else {
         return ''
       }
+    },
+    getVoucher() {
+      this.feeLoading = true
+      GetQuotaSettings().then(res => {
+        this.feeLoading = false
+        if (res.code === 200) {
+          this.quotaSetting = res.data
+        }
+      })
     }
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss">
+.show-connect-info {
+  width: 340px;
+}
+</style>

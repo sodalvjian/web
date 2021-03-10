@@ -149,3 +149,20 @@ export function DeleteBankCard(params) {
     method: 'get'
   })
 }
+
+// Get Quota Settings
+export function GetQuotaSettings() {
+  return request({
+    url: `jobbizweb/quotasettings`,
+    method: 'get'
+  })
+}
+
+// Get Quota Settings
+export function GetVoucher(params) {
+  return request({
+    url: `jobbizweb/voucher`,
+    method: 'get',
+    params
+  })
+}
