@@ -17,7 +17,7 @@
             :disabled="generalDisabled"
             class="mt-5"
             @click="openSetting"
-            >General Settings<i class="el-icon-s-tools el-icon--right f18"></i
+            >Display Filter<i class="el-icon-s-tools el-icon--right f18"></i
           ></el-button>
         </el-col>
       </el-row>

@@ -136,7 +136,7 @@
         </el-col>
       </el-row>
     </section>
-    <section class="mt-40">
+    <!-- <section class="mt-40">
       <h3 class="mb-0">Application integration</h3>
       <div class="mt-10">
         We create a font convention to ensure the best presentation across
@@ -191,7 +191,7 @@
           </div>
         </el-col>
       </el-row>
-    </section>
+    </section> -->
   </div>
 </template>
 

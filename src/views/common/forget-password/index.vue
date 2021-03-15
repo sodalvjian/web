@@ -15,12 +15,12 @@
       <section class="w60 bc pb-70">
         <nav class="mt-50 f15 lh1-5">
           <span v-if="step === 1">
-            Please enter the address associated with your account.</span
-          >
+            Please enter the email address associated with your account.</span>
           <span v-if="step === 2">
-            For the security of your account,we need to verify your identity.We
-            have sent a verification code to your email address
-            <a href="">{{ formData.email }}</a> Please enter it below.
+            If you no longer use the email address associated with your account.
+            Please contact customer service
+            <a href="mailto:support@melaxtech.com">support@melaxtech.com</a>
+            to help restore access to your account.
           </span>
           <span v-if="step === 3">
             Please set a new password. It is recommended to use a combination of
@@ -111,13 +111,16 @@
               type="primary"
               style="width:100%;height:40px"
               @click.native.prevent="handleNext"
-              >{{ step === 3 ? 'Confirm' : 'Next' }}</el-button
-            >
-          </el-form-item></el-form
-        >
+            >{{ step === 3 ? 'Confirm' : 'Next' }}</el-button>
+          </el-form-item></el-form>
         <div v-if="step === 1" class="f13 mt-50 lh2">
           If you no longer use the email address associated with your account.
-          contact customer service to help restore access to your account.
+          Please contact customer service &lt;
+          <a
+            class="color-main"
+            href="mailto:support@melaxtech.com"
+          >support@melaxtech.com</a>
+          &gt; to help restore access to your account.
         </div>
       </section>
     </div>

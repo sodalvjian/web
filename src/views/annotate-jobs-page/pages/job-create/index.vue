@@ -388,7 +388,7 @@ export default {
 
   created() {},
   mounted() {
-    this.getAnalysisType()
+    // this.getAnalysisType()
   },
   methods: {
     authorizeS3Data(type) {

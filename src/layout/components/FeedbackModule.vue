@@ -20,7 +20,12 @@
           label-position="top"
           :model="formData"
           class="demo-form-inline"
-        >
+        ><el-form-item>
+           <strong
+             class="f15 color-black lh1-5 disinblock"
+           >● The content will be sent to our team, please do not send HPI or
+             other sensitive inforrmation…</strong>
+         </el-form-item>
           <el-form-item
             label="Question Description"
             prop="qDesc"
@@ -65,17 +70,17 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button size="small" @click="dialogVisible = false"
-          >Cancel</el-button
-        >
+        <el-button
+          size="small"
+          @click="dialogVisible = false"
+        >Cancel</el-button>
         <el-button
           size="small"
           :disabled="!imgSuccess"
           :loading="btnLoading"
           type="primary"
           @click="handleConfirm"
-          >Confirm</el-button
-        >
+        >Confirm</el-button>
       </span>
     </el-dialog>
     <el-dialog :visible.sync="dialogImgVisible">

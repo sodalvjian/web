@@ -1,15 +1,15 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="fl f16">Job list</strong>
+      <strong class="fl f16 mt-10">Job list</strong>
       <div class="fr">
         <el-button
           class="filter-item shadow"
           type="primary"
-          size="small"
+          size="medium"
           icon="el-icon-plus"
           @click="createData"
-          >Job</el-button
+          >Create a job</el-button
         >
       </div>
     </nav>
@@ -48,7 +48,7 @@
           show-overflow-tooltip
           align="left"
           sortable="custom"
-          label="Type"
+          label="Type Pipeline"
           prop="pipeline"
         >
           <template slot-scope="scope">

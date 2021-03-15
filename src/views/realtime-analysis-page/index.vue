@@ -66,7 +66,7 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    this.getAnalysisType()
+    // this.getAnalysisType()
     this.handleAnalysis(true)
     globalBus.$on('set-analysis-loading-false', () => {
       this.analysisLoading = false

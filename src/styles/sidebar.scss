@@ -230,3 +230,7 @@
 .el-menu-item:focus {
   background-color: #f1f1f1;
 }
+
+.el-menu-item.is-active{
+  font-weight: bold;
+}
