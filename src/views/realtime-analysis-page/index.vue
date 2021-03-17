@@ -86,7 +86,7 @@ export default {
         return false
       }
       const params = {
-        pipeline: pipeline,
+        pipeline: pipeline[1],
         text: text
       }
       this.analysisLoading = true
