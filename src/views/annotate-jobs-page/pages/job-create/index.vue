@@ -44,7 +44,7 @@
           <el-col :span="12">
             <div class="p20">
               <el-form-item
-                label="Analysis Type"
+                label="Type pipeline"
                 prop="pipelineId"
                 :rules="{ required: true }"
               >
@@ -388,7 +388,7 @@ export default {
 
   created() {},
   mounted() {
-    // this.getAnalysisType()
+    this.getAnalysisType()
   },
   methods: {
     authorizeS3Data(type) {
@@ -465,7 +465,7 @@ export default {
     getCopyData() {
       const copyStatus = this.$route.query.copy
       const copyJobData = JSON.parse(sessionStorage.copyJobData)
-      console.log('复制数据', copyJobData, this.analysisTypeOptions)
+      // console.log('复制数据', copyJobData, this.analysisTypeOptions)
       const {
         name,
         pipeline,

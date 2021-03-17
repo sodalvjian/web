@@ -7,7 +7,7 @@
             v-model="tableSearchData"
             size="small"
             clearable
-            placeholder="Find entities"
+            placeholder="Search entities"
           >
             <i slot="prefix" class="el-input__icon el-icon-search"></i
           ></el-input>

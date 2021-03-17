@@ -9,8 +9,7 @@
           size="mini"
           icon="el-icon-document-copy"
           @click="createJobAgain"
-          >Copy</el-button
-        >
+        >Copy</el-button>
       </div>
     </nav>
     <section v-loading="pageLoading" class="bg-color-gray mt-15 bd-1">
@@ -48,8 +47,7 @@
                       detailData.reqStatus === 'STOPPED' ||
                       detailData.reqStatus === 'STOPPING'
                   "
-                  >--</span
-                >
+                >--</span>
                 <div
                   v-else-if="
                     detailData.status === 'STARTED' ||
@@ -61,8 +59,7 @@
                     class="w"
                     :stroke-width="7"
                     :percentage="setProcessData(detailData)"
-                  ></el-progress
-                  ><i
+                  ></el-progress><i
                     style="right:1%"
                     class="progress-running-icon el-icon-loading"
                   ></i>
@@ -79,8 +76,7 @@
         </el-col>
         <el-col :span="8" class="tc">
           Updated Time: <strong> {{ detailData.update | setHourDate }}</strong>
-        </el-col> </el-row
-      ><el-row :gutter="15" class="p20">
+        </el-col> </el-row><el-row :gutter="15" class="p20">
         <el-col :span="8" class="tc">
           <el-card shadow="never">
             <div class="f15">Number of ducuments</div>
@@ -104,13 +100,11 @@
         <el-col :span="24" class="tl">
           Input location:
           <strong> {{ detailData.input }}</strong>
-          <span
-            ><i
-              v-clipboard:copy="detailData.input"
-              v-clipboard:success="copySuccess"
-              class="el-icon-document-copy cp ml-5"
-            ></i
-          ></span>
+          <span><i
+            v-clipboard:copy="detailData.input"
+            v-clipboard:success="copySuccess"
+            class="el-icon-document-copy cp ml-5"
+          ></i></span>
         </el-col>
       </el-row>
       <el-divider class="m-0"></el-divider>
@@ -118,21 +112,17 @@
         <el-col :span="24" class="tl">
           Output location:
           <strong> {{ detailData.output }}</strong>
-          <span
-            ><i
-              v-clipboard:copy="detailData.output"
-              v-clipboard:success="copySuccess"
-              class="el-icon-document-copy cp ml-5"
-            ></i
-          ></span>
-        </el-col> </el-row
-      ><el-divider class="m-0"></el-divider>
+          <span><i
+            v-clipboard:copy="detailData.output"
+            v-clipboard:success="copySuccess"
+            class="el-icon-document-copy cp ml-5"
+          ></i></span>
+        </el-col> </el-row><el-divider class="m-0"></el-divider>
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Cost:
           <strong class="f20 color-main">
-            <small> $</small> {{ costData }}</strong
-          >
+            <small> $</small> {{ costData }}</strong>
         </el-col>
       </el-row>
     </section>
@@ -197,13 +187,13 @@
 
 <script>
 import { GetDetail, GetCostData } from '@/api/annotate-jobs-page'
-import { codemirror } from 'vue-codemirror'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/addon/display/autorefresh'
+// import { codemirror } from 'vue-codemirror'
+// import 'codemirror/lib/codemirror.css'
+// import 'codemirror/addon/display/autorefresh'
 export default {
   name: 'InlineEditTable',
   components: {
-    codemirror
+    // codemirror
   },
   filters: {},
   data() {
@@ -245,10 +235,10 @@ export default {
       return this.detailData.processedErrCount > 0
         ? 'warning'
         : processNum
-        ? Math.round(processNum * 100) >= 100
-          ? 'success'
-          : ''
-        : 'exception'
+          ? Math.round(processNum * 100) >= 100
+            ? 'success'
+            : ''
+          : 'exception'
     },
     setTooltipContent() {
       console.log('详细信息', this.detailData.status)
@@ -257,10 +247,10 @@ export default {
       } else {
         return this.detailData.status
       }
-    },
-    codemirror() {
-      return this.$refs.jsonEditor.codemirror
     }
+    // codemirror() {
+    //   return this.$refs.jsonEditor.codemirror
+    // }
   },
   mounted() {
     this.getData()
@@ -298,11 +288,11 @@ export default {
           this.detailData = res.data
           this.apiCallData = JSON.stringify(params)
           this.apiResponseData = JSON.stringify(res.data)
-          this.$nextTick(() => {
-            this.codemirror.setValue(
-              JSON.stringify(JSON.parse(this.apiResponseData), null, 2)
-            )
-          })
+          // this.$nextTick(() => {
+          //   this.codemirror.setValue(
+          //     JSON.stringify(JSON.parse(this.apiResponseData), null, 2)
+          //   )
+          // })
         }
       })
     }
