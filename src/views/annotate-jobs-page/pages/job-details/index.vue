@@ -290,7 +290,7 @@ export default {
   methods: {
     // 设置进行中的百分比
     setProcessData(row) {
-      return parseInt((row.processedSize / row.totalSize) * 100) || ''
+      return parseInt((row.processedSize / row.totalSize) * 100) || 0
     },
     createJobAgain() {
       this.$router.push({
