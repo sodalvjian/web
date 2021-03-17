@@ -270,13 +270,15 @@ export default {
       // datasource的文本不要显示实体右侧的菜单
       const drawDelCircle = false
       var iframe = document.getElementById('markBrat')
-      iframe.contentWindow.location.reload(true)
-      iframe.onload = function() {
-        $('#markBrat')[0].contentWindow.readyToEmbed(
-          collData,
-          docData,
-          drawDelCircle
-        )
+      if (iframe) {
+        iframe.contentWindow.location.reload(true)
+        iframe.onload = function() {
+          $('#markBrat')[0].contentWindow.readyToEmbed(
+            collData,
+            docData,
+            drawDelCircle
+          )
+        }
       }
     },
     analysisResult(originData) {

@@ -78,6 +78,7 @@ export default {
   methods: {
     handleAnalysis(loadType = false) {
       const { pipeline, text } = this.formData
+      console.log('pipeline', pipeline)
       if (!pipeline && !loadType) {
         this.$message.warning('Please select pipeline.')
         return false
@@ -89,21 +90,8 @@ export default {
         pipeline: pipeline[1],
         text: text
       }
-      this.analysisLoading = true
-      this.$refs.analysisResultRef.getResult(params, loadType)
-    },
-    getAnalysisType() {
-      this.pipelineLoading = true
-      GetAnalysisType().then(res => {
-        if (res.code === 200) {
-          this.pipelineLoading = false
-          this.analysisTypeOptions = res.data
-          const analysisChildTypeOptions = res.data
-            .map(item => item.version)
-            .flat(Infinity) // 将自己版本数据拉平
-          this.formData.pipeline = analysisChildTypeOptions[0].params
-        }
-      })
+      // this.analysisLoading = true
+      // this.$refs.analysisResultRef.getResult(params, loadType)
     },
     clearData() {
       this.formData.text = ''

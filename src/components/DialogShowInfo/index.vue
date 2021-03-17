@@ -19,14 +19,14 @@
           }}
         </h3>
         <p v-if="type === 'login'">
-          {{ userName }} Go to personal center You
-          have not set up the credit card information, we suggest you go to
+          {{ userName }} Go to personal center You have not set up the credit
+          card information, we suggest you go to
           <strong class="disinblock"> [ Personal Center ] </strong> as soon as
           possible to supplement information, so as not to affect your service
         </p>
         <p v-else>
           The limit has been reached, we suggest you go to
-          <strong class="disinblock"> [Personal </strong>Center] as soon as
+          <strong class="disinblock"> [Personal Center] </strong> as soon as
           possible to supplement information, so as not to affect your service
         </p>
       </section>
@@ -71,7 +71,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.dialog-show-info{
+.dialog-show-info {
   max-width: 600px;
 }
 </style>

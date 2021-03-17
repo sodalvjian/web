@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong
-        class="fl nav-title mt-10 f16"
-      ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong>
+      <strong class="fl nav-title mt-10 f16"
+        ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong
+      >
     </nav>
     <el-form
       ref="formData"
@@ -86,7 +86,8 @@
                 </el-input> -->
               </el-form-item>
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <section
         v-loading="pageLoading"
@@ -124,19 +125,22 @@
                   size="mini"
                   type="text"
                   @click="popoverVisible = false"
-                >Cancel</el-button>
+                  >Cancel</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-red"
                   @click="cancerPopoverVisible"
-                >Close</el-button>
+                  >Close</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-green"
                   @click="confirmEncryption"
-                >Confirm</el-button>
+                  >Confirm</el-button
+                >
               </div>
               <el-switch
                 slot="reference"
@@ -157,11 +161,11 @@
           <el-col :span="12" class="br-1">
             <div class="p20">
               <el-form-item label="S3 location:" prop="input" :rules="s3Rules">
-                <el-col :span="18">
+                <el-col :span="18" class="pl-0">
                   <el-input
                     v-model="formData.input"
                     placeholder="s3://mybucket/myinput"
-                    @keyup.native="verityInput=false"
+                    @keyup.native="verityInput = false"
                   >
                   </el-input>
                 </el-col>
@@ -226,11 +230,11 @@
           <el-col :span="12">
             <div class="p20">
               <el-form-item label="S3 location:" prop="output" :rules="s3Rules">
-                <el-col :span="18">
+                <el-col :span="18" class="pl-0">
                   <el-input
                     v-model="formData.output"
                     placeholder="s3://mybucket/myoutput"
-                    @keyup.native="verityOutput=false"
+                    @keyup.native="verityOutput = false"
                   >
                   </el-input>
                 </el-col>
@@ -278,19 +282,20 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <el-form-item class="tc mt-40">
-        <el-button
-          size="medium"
-          @click="$emit('close-dialog')"
-        >Cancel</el-button>
+        <el-button size="medium" @click="$emit('close-dialog')"
+          >Cancel</el-button
+        >
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -322,9 +327,9 @@ export default {
   data() {
     const validateProjectName = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('Please enter more than 5 characters'))
+        callback(new Error('Please enter 6 characters to 256 characters'))
       } else if (value.length > 256) {
-        callback(new Error('Please enter more than 5 characters'))
+        callback(new Error('Please enter 6 characters to 256 characters'))
       } else {
         callback()
       }
@@ -491,8 +496,8 @@ export default {
         }
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-            item => item.params === pipelineObj.params
-          )
+              item => item.params === pipelineObj.params
+            )
           : {}
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)
@@ -545,7 +550,7 @@ export default {
         if (valid) {
           const { name, input, output, encryption } = this.formData
           if (this.verityInput && this.verityOutput) {
-            this.btnLoading = true
+            // this.btnLoading = true
             const params = {
               userId: this.userId,
               name: name,
@@ -553,7 +558,10 @@ export default {
               output: output,
               // inRegion: this.inRegion,
               // outRegion: this.outRegion,
-              pipeline: this.pipelineData.params,
+              pipeline:
+                typeof this.formData.pipelineId === 'string'
+                  ? this.formData.pipelineId
+                  : this.formData.pipelineId[1],
               encryption: encryption
             }
             AddData(params)
