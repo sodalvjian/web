@@ -126,7 +126,7 @@
           >
             <el-table-column
               prop="analysisType"
-              label="Analysis Type"
+              label="Pipeline"
               min-width="180"
             >
             </el-table-column>

@@ -14,7 +14,7 @@
     </div>
 
     <!-- 返回顶部 -->
-    <el-backtop class="page-backup" :right="20" :bottom="70"></el-backtop>
+    <el-backtop class="page-backup" :right="28" :bottom="80"></el-backtop>
 
     <!-- 问题反馈 -->
     <feedback-module />

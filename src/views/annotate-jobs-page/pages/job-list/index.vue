@@ -1,11 +1,12 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="fl f16 mt-10">Job list</strong>
-      <div class="fr">
+      <strong class="fl f16 mt-10 w50">Job list</strong>
+      <div class="fr w50 tl">
         <el-button
           class="filter-item shadow"
           type="primary"
+          style="margin-left:-71px"
           size="medium"
           icon="el-icon-plus"
           @click="createData"

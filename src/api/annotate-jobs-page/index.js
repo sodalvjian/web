@@ -20,7 +20,7 @@ export function GetList(paramsOption, data) {
   })
 }
 
-// get Analysis Type
+// get Pipeline
 export function GetAnalysisType() {
   return request({
     url: `jobbizweb/pipelinemng`,
@@ -58,7 +58,7 @@ export function CheckData(data) {
   // })
 }
 
-// get Analysis Type
+// get Pipeline
 export function GetDetail(data) {
   return request({
     url: `jobbizweb/jobbiz/info`,

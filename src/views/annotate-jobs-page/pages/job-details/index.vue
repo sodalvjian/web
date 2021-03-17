@@ -19,7 +19,7 @@
           Job Name: <strong> {{ detailData.name }}</strong>
         </el-col>
         <el-col :span="8" class="tc">
-          Analysis Type:<strong> {{ detailData.pipeline }}</strong>
+          Pipeline:<strong> {{ detailData.pipeline }}</strong>
         </el-col>
         <el-col :span="8" class="tc">
           Job ID: <strong>{{ detailData.bizId }}</strong>

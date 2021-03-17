@@ -3,7 +3,7 @@
     <!-- 问题反馈 -->
     <el-tooltip class="item" effect="dark" content="Feedback" placement="top">
       <footer class="problem-feedback cp bg-color-main" @click="openFeedback">
-        <i class="el-icon-question color-white"></i>
+        <i class="el-icon-question color-white f28"></i>
       </footer>
     </el-tooltip>
 
@@ -204,8 +204,8 @@ export default {
   position: fixed;
   right: 20px;
   bottom: 20px;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   color: #409eff;
   display: flex;
