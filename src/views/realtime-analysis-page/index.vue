@@ -90,8 +90,8 @@ export default {
         pipeline: pipeline[1],
         text: text
       }
-      // this.analysisLoading = true
-      // this.$refs.analysisResultRef.getResult(params, loadType)
+      this.analysisLoading = true
+      this.$refs.analysisResultRef.getResult(params, loadType)
     },
     clearData() {
       this.formData.text = ''
