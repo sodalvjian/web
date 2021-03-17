@@ -9,7 +9,8 @@
           size="mini"
           icon="el-icon-document-copy"
           @click="createJobAgain"
-        >Copy</el-button>
+          >Copy</el-button
+        >
       </div>
     </nav>
     <section v-loading="pageLoading" class="bg-color-gray mt-15 bd-1">
@@ -36,47 +37,59 @@
             </el-col>
             <el-col :span="18">
               <el-tooltip
-                class="item"
-                effect="dark"
+                v-if="
+                  detailData.status === 'STOPPED' ||
+                    detailData.reqStatus === 'STOPPED' ||
+                    detailData.reqStatus === 'STOPPING'
+                "
                 :content="setTooltipContent"
+                class="cp"
                 placement="top"
               >
                 <span
                   v-if="
-                    detailData.status === 'STOPPED' ||
-                      detailData.reqStatus === 'STOPPED' ||
-                      detailData.reqStatus === 'STOPPING'
+                    detailData.subStatus === 'FAILED_TASK_LIMIT' ||
+                      detailData.subStatus === 'FAILED_QUOTA_LIMIT'
                   "
-                >--</span>
-                <div
-                  v-else-if="
-                    detailData.status === 'STARTED' ||
-                      detailData.status === 'STARTING'
-                  "
-                  class="progress-running"
-                >
+                  ><i class="el-icon-warning color-yellow f18"></i></span
+                ><span v-else>--</span>
+              </el-tooltip>
+
+              <el-tooltip
+                v-else-if="
+                  detailData.status === 'STARTED' ||
+                    detailData.status === 'STARTING'
+                "
+                class="cp"
+                effect="dark"
+                :content="setTooltipContent"
+                placement="top"
+              >
+                <div class="progress-running">
                   <el-progress
                     class="w"
                     :stroke-width="7"
                     :percentage="setProcessData(detailData)"
-                  ></el-progress><i
+                  ></el-progress
+                  ><i
                     style="right:1%"
                     class="progress-running-icon el-icon-loading"
                   ></i>
                 </div>
-                <el-progress
-                  v-else
-                  :percentage="progressNum"
-                  :stroke-width="7"
-                  :status="setStatus"
-                ></el-progress>
               </el-tooltip>
+              <el-progress
+                v-else
+                :percentage="progressNum"
+                :stroke-width="7"
+                :status="setStatus"
+              ></el-progress>
             </el-col>
           </el-row>
         </el-col>
         <el-col :span="8" class="tc">
           Updated Time: <strong> {{ detailData.update | setHourDate }}</strong>
-        </el-col> </el-row><el-row :gutter="15" class="p20">
+        </el-col> </el-row
+      ><el-row :gutter="15" class="p20">
         <el-col :span="8" class="tc">
           <el-card shadow="never">
             <div class="f15">Number of ducuments</div>
@@ -100,11 +113,13 @@
         <el-col :span="24" class="tl">
           Input location:
           <strong> {{ detailData.input }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.input"
-            v-clipboard:success="copySuccess"
-            class="el-icon-document-copy cp ml-5"
-          ></i></span>
+          <span
+            ><i
+              v-clipboard:copy="detailData.input"
+              v-clipboard:success="copySuccess"
+              class="el-icon-document-copy cp ml-5"
+            ></i
+          ></span>
         </el-col>
       </el-row>
       <el-divider class="m-0"></el-divider>
@@ -112,17 +127,21 @@
         <el-col :span="24" class="tl">
           Output location:
           <strong> {{ detailData.output }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.output"
-            v-clipboard:success="copySuccess"
-            class="el-icon-document-copy cp ml-5"
-          ></i></span>
-        </el-col> </el-row><el-divider class="m-0"></el-divider>
+          <span
+            ><i
+              v-clipboard:copy="detailData.output"
+              v-clipboard:success="copySuccess"
+              class="el-icon-document-copy cp ml-5"
+            ></i
+          ></span>
+        </el-col> </el-row
+      ><el-divider class="m-0"></el-divider>
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Cost:
           <strong class="f20 color-main">
-            <small> $</small> {{ costData }}</strong>
+            <small> $</small> {{ costData }}</strong
+          >
         </el-col>
       </el-row>
     </section>
@@ -235,15 +254,27 @@ export default {
       return this.detailData.processedErrCount > 0
         ? 'warning'
         : processNum
-          ? Math.round(processNum * 100) >= 100
-            ? 'success'
-            : ''
-          : 'exception'
+        ? Math.round(processNum * 100) >= 100
+          ? 'success'
+          : ''
+        : 'exception'
     },
     setTooltipContent() {
       console.log('详细信息', this.detailData.status)
+      const processNum =
+        this.detailData.processedSize / this.detailData.totalSize
       if (this.detailData.processedErrCount > 0) {
         return `Error count: ${this.detailData.processedErrCount}`
+      } else if (
+        this.detailData.subStatus === 'FAILED_TASK_LIMIT' ||
+        this.detailData.subStatus === 'FAILED_QUOTA_LIMIT'
+      ) {
+        return `Out of limit, please contact us.`
+      } else if (
+        this.detailData.status === 'STARTED' ||
+        this.detailData.status === 'STARTING'
+      ) {
+        return (processNum ? Math.round(processNum * 100) : 0) + '%'
       } else {
         return this.detailData.status
       }

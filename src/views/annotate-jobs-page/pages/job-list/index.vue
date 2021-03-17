@@ -44,7 +44,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          width="170px"
+          width="240px"
           show-overflow-tooltip
           align="left"
           sortable="custom"
@@ -59,7 +59,7 @@
         <el-table-column width="250px" align="left">
           <template slot-scope="scope">
             <el-tooltip
-              class="item"
+              class="cp"
               effect="dark"
               :disabled="setTooltipDisabled(scope.row)"
               :content="setTooltipContent(scope.row)"
@@ -71,8 +71,15 @@
                     scope.row.reqStatus === 'STOPPED' ||
                     scope.row.reqStatus === 'STOPPING'
                 "
-                >--</span
+                ><span
+                  v-if="
+                    scope.row.subStatus === 'FAILED_TASK_LIMIT' ||
+                      scope.row.subStatus === 'FAILED_QUOTA_LIMIT'
+                  "
+                  ><i class="el-icon-warning color-yellow f18"></i></span
+                ><span v-else>--</span></span
               >
+
               <div
                 v-else-if="
                   scope.row.status === 'STARTED' ||
@@ -210,7 +217,9 @@ export default {
   methods: {
     // 设置进行中的百分比
     setProcessData(row) {
-      return parseInt((row.processedSize / row.totalSize) * 100) || ''
+      return row.processedSize / row.totalSize
+        ? parseInt((row.processedSize / row.totalSize) * 100)
+        : 0
     },
     // 排序
     changeTableSort(column) {
@@ -228,6 +237,11 @@ export default {
         return false
       } else if (row.status === 'STARTED' || row.status === 'STARTING') {
         return false
+      } else if (
+        row.subStatus === 'FAILED_TASK_LIMIT' ||
+        row.subStatus === 'FAILED_QUOTA_LIMIT'
+      ) {
+        return false
       }
       return true
     },
@@ -236,7 +250,12 @@ export default {
       if (row.processedErrCount > 0) {
         return `Error count: ${row.processedErrCount}`
       } else if (row.status === 'STARTED' || row.status === 'STARTING') {
-        return Math.round(processNum * 100) + '%'
+        return (processNum ? Math.round(processNum * 100) : 0) + '%'
+      } else if (
+        row.subStatus === 'FAILED_TASK_LIMIT' ||
+        row.subStatus === 'FAILED_QUOTA_LIMIT'
+      ) {
+        return `Out of limit, please contact us.`
       }
     },
     setPercent(row) {

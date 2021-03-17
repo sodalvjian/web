@@ -52,22 +52,20 @@
               type="primary"
               style="width:100%;height:40px"
               @click.native.prevent="handleLogin"
-            >Sign in</el-button>
+              >Sign in</el-button
+            >
           </el-form-item>
           <el-form-item>
-            <el-button
-              class="w"
-              plain
-              type="primary"
-              @click="handleRegister"
-            >Create a new account</el-button>
+            <el-button class="w" plain type="primary" @click="handleRegister"
+              >Create a new account</el-button
+            >
           </el-form-item>
           <el-row :gutter="10" class="f12 login-content-right-footer">
             <el-col :span="12" class="color-main" align="left">
               <router-link to="/forgetPassword">Forget password</router-link>
             </el-col>
             <el-col :span="12" align="right" class="color-main">
-              Privacy Policy
+              <span class=" cp" @click="openPrivacyPolicy">Privacy Policy</span>
             </el-col>
           </el-row>
         </el-form>
@@ -81,14 +79,20 @@
     <div class="login-left"></div>
     <!-- login-right -->
     <div class="login-right"></div>
+    <!-- Privacy Policy -->
+    <privacy-policy ref="privacyPolicy" />
   </div>
 </template>
 
 <script>
 // import { validUsername } from '@/utils/validate'
 import Cookies from 'js-cookie'
+import PrivacyPolicy from '../privacy-policy'
 export default {
   name: 'Login',
+  components: {
+    PrivacyPolicy
+  },
   data() {
     // const validateUsername = (rule, value, callback) => {
     //   if (!validUsername(value)) {
@@ -135,6 +139,9 @@ export default {
     Cookies.set('userRoles', 'undefined')
   },
   methods: {
+    openPrivacyPolicy() {
+      this.$refs.privacyPolicy.openDialog()
+    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''

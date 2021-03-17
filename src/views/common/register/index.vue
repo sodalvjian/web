@@ -50,7 +50,8 @@
                   type="danger"
                   class="w"
                   @click="getCode"
-                >{{ getCodeText }}</el-button>
+                  >{{ getCodeText }}</el-button
+                >
               </el-col>
             </el-row>
           </el-form-item>
@@ -98,22 +99,20 @@
               type="primary"
               style="width:100%;height:40px"
               @click.native.prevent="handleRegister"
-            >Sign up</el-button>
+              >Sign up</el-button
+            >
           </el-form-item>
           <el-form-item>
-            <el-button
-              plain
-              type="primary"
-              class="w"
-              @click="handleLogin"
-            >Sign in to an exiting account</el-button>
+            <el-button plain type="primary" class="w" @click="handleLogin"
+              >Sign in to an exiting account</el-button
+            >
           </el-form-item>
           <el-row :gutter="10" class="f12 register-content-right-footer">
             <!-- <el-col :span="12" class="color-main" align="left">
               Forget password
             </el-col> -->
             <el-col :span="24" align="right" class="color-main">
-              Privacy Policy
+              <span class=" cp" @click="openPrivacyPolicy">Privacy Policy</span>
             </el-col>
           </el-row>
         </el-form>
@@ -127,16 +126,22 @@
     <div class="register-left"></div>
     <!-- register-right -->
     <div class="register-right"></div>
+    <!-- Privacy Policy -->
+    <privacy-policy ref="privacyPolicy" />
   </div>
 </template>
 
 <script>
 // import { validUsername } from '@/utils/validate'
+import PrivacyPolicy from '../privacy-policy'
 import { GetCode, RegisterAccount } from '@/api/login-register'
 import { passwordReg, passwordMsg } from '@/utils/method'
 
 export default {
   name: 'Login',
+  components: {
+    PrivacyPolicy
+  },
   data() {
     // const validateUsername = (rule, value, callback) => {
     //   if (!validUsername(value)) {
@@ -213,6 +218,9 @@ export default {
     }
   },
   methods: {
+    openPrivacyPolicy() {
+      this.$refs.privacyPolicy.openDialog()
+    },
     getCode() {
       const mailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
 
