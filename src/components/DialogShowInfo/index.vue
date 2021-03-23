@@ -12,31 +12,36 @@
       <img src="@/assets/img/dialog_top.png" class="w" alt="" />
       <section class="p20 tc">
         <h3 class="color-main">
-          {{ messageTitle }}
+          {{
+            type === 'login'
+              ? 'Login successfully'
+              : 'Times reached Upper limit'
+          }}
         </h3>
         <p v-if="type === 'login'">
-          {{ userName }} Go to personal center You have not set up the credit
-          card information, we suggest you go to
+          {{ userName }} Go to personal center You
+          have not set up the credit card information, we suggest you go to
           <strong class="disinblock"> [ Personal Center ] </strong> as soon as
           possible to supplement information, so as not to affect your service
         </p>
         <p v-else>
           The limit has been reached, we suggest you go to
-          <strong class="disinblock"> [Personal Center] </strong> as soon as
+          <strong class="disinblock"> [Personal </strong>Center] as soon as
           possible to supplement information, so as not to affect your service
         </p>
       </section>
       <footer class="tc">
-        <el-button class=" mb-40" type="primary" @click="goToPersonal"
-          >Go to personal center</el-button
-        >
+        <el-button
+          class=" mb-40"
+          type="primary"
+          @click="goToPersonal"
+        >Go to personal center</el-button>
       </footer>
     </div>
   </el-dialog>
 </template>
 <script>
 import store from '@/store'
-import { errorCode } from './constants'
 export default {
   name: '',
   components: {},
@@ -45,8 +50,7 @@ export default {
     return {
       dialogVisible: false,
       userName: store.getters.userInfo.accountName,
-      type: 'login',
-      messageTitle: ''
+      type: 'login'
     }
   },
   computed: {},
@@ -58,7 +62,6 @@ export default {
     openDialog(type) {
       this.dialogVisible = true
       this.type = type
-      this.messageTitle = errorCode.find(item => item.code === type).message
     },
     goToPersonal() {
       this.dialogVisible = false
@@ -68,7 +71,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.dialog-show-info {
+.dialog-show-info{
   max-width: 600px;
 }
 </style>

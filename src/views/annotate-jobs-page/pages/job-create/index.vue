@@ -161,7 +161,7 @@
           <el-col :span="12" class="br-1">
             <div class="p20">
               <el-form-item label="S3 location:" prop="input" :rules="s3Rules">
-                <el-col :span="18" class="pl-0">
+                <el-col :span="16" class="pl-0">
                   <el-input
                     v-model="formData.input"
                     placeholder="s3://mybucket/myinput"
@@ -169,7 +169,7 @@
                   >
                   </el-input>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="8">
                   <el-tooltip
                     class="item"
                     effect="dark"
@@ -230,7 +230,7 @@
           <el-col :span="12">
             <div class="p20">
               <el-form-item label="S3 location:" prop="output" :rules="s3Rules">
-                <el-col :span="18" class="pl-0">
+                <el-col :span="16" class="pl-0">
                   <el-input
                     v-model="formData.output"
                     placeholder="s3://mybucket/myoutput"
@@ -238,7 +238,7 @@
                   >
                   </el-input>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="8">
                   <el-tooltip
                     class="item"
                     effect="dark"
@@ -411,7 +411,10 @@ export default {
         } else if (this.outputHasVerity) {
           this.$refs.showS3InfoRef.openDialog(this.verityOutputData, 'write') // 验证不过弹出授权提示
         } else {
-          this.$message.warning('Please validate first.')
+          this.$message.warning({
+            message: 'Please validate first.',
+            duration: 0
+          })
         }
       }
     },
@@ -712,7 +715,7 @@ export default {
 }
 .project-create-section {
   .el-button {
-    padding: 10px 15px;
+    padding: 10px 14px;
   }
 }
 .job-select {

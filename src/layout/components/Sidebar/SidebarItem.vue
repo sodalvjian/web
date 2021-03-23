@@ -14,7 +14,7 @@
         >
           <svg
             v-if="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-            class="icon mr-5 f19"
+            class="icon mr-10 f19 side-svg color-black"
             aria-hidden="true"
           >
             <use :xlink:href="onlyOneChild.meta.icon" />

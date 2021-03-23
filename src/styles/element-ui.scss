@@ -139,8 +139,8 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   border: none;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
   .el-message__icon {
-    margin-right: 15px;
-    font-size: 18px !important;
+    margin-right: 10px;
+    font-size: 24px !important;
   }
   .el-message__content {
     color: #606266;
@@ -159,4 +159,14 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .el-cascader-node.is-selectable.in-checked-path,
 .el-cascader-node.is-active {
   font-weight: normal;
+}
+
+.el-table thead {
+  color: #444;
+}
+.el-dropdown,
+.el-dropdown-menu__item,
+.el-message .el-message__content {
+  color: black;
+  font-weight: bold;
 }
