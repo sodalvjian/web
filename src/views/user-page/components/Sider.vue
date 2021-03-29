@@ -9,7 +9,7 @@
     <section v-loading="feeLoading" class="mt-20 p20">
       <el-row>
         <el-col :span="21">
-          <strong class="f16">Monthly maximum expense for a single account</strong>
+          <strong class="f16">Monthly maximum expense</strong>
         </el-col>
         <el-col :span="3" align="right"
           ><i class="el-icon-edit cp f20 color-main" @click="handleConnect"></i

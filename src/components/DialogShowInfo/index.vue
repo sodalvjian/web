@@ -26,7 +26,7 @@
         </p>
         <p v-else>
           The limit has been reached, we suggest you go to
-          <strong class="disinblock"> [Personal </strong>Center] as soon as
+          <strong class="disinblock"> [Personal Center] </strong> as soon as
           possible to supplement information, so as not to affect your service
         </p>
       </section>

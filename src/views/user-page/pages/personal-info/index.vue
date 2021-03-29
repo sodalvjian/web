@@ -37,7 +37,7 @@
                   </el-tooltip>
                 </el-form-item>
                 <el-divider></el-divider>
-                <el-form-item label="" label-width="100px" prop="pass">
+                <!-- <el-form-item label="" label-width="100px" prop="pass">
                   <div class="cb mb-20">
                     <el-avatar
                       shape="circle"
@@ -54,7 +54,7 @@
                       >Edit</el-button
                     >
                   </div>
-                </el-form-item>
+                </el-form-item> -->
               </el-col>
             </el-row>
             <el-row :gutter="20">

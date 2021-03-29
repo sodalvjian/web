@@ -98,6 +98,7 @@ export default {
           })
           this.optionsList = resultData
           console.log('res消息啊啊啊', this.optionsList)
+          this.$emit('get-complete-options', resultData)
           loading.close()
         }
       })

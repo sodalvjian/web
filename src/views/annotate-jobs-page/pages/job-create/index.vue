@@ -48,7 +48,11 @@
                 prop="pipelineId"
                 :rules="{ required: true }"
               >
-                <select-pipeline v-model="formData.pipelineId" size="big" />
+                <select-pipeline
+                  @get-complete-options="getCompleteOptions"
+                  v-model="formData.pipelineId"
+                  size="big"
+                />
                 <!-- <el-input v-model="formData.pipelineId" readonly>
                   <el-select
                     id="select-pipeline"
@@ -124,9 +128,10 @@
                 <el-button
                   size="mini"
                   type="text"
+                  class="encryption-close-button"
                   @click="popoverVisible = false"
-                  >Cancel</el-button
-                >
+                  icon="el-icon-error"
+                ></el-button>
                 <el-button
                   type="text"
                   size="mini"
@@ -317,7 +322,7 @@ import ShowS3Info from './components/ShowS3Info'
 import { s3List } from './constants'
 import { debounce } from '@/utils/method'
 import store from '@/store'
-const s3Reg = /^s3:\/\/+.+\/+./
+const s3Reg = /^s3:\/(\/\w+){2,}\/?$/
 export default {
   name: 'InlineEditTable',
   components: {
@@ -397,7 +402,7 @@ export default {
 
   created() {},
   mounted() {
-    this.getAnalysisType()
+    // this.getAnalysisType()
   },
   methods: {
     verityhandle(type) {
@@ -688,6 +693,19 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
+    getCompleteOptions(val) {
+      this.analysisTypeOptions = val
+      this.analysisChildTypeOptions = val
+        .map(item => item.version)
+        .flat(Infinity) // 将自己版本数据拉平
+      this.formData.pipelineId = this.analysisChildTypeOptions[0].params
+      const copyStatus = this.$route.query.copy
+      if (copyStatus) {
+        this.getCopyData()
+      }
+
+      this.pageLoading = false
+    },
     getAnalysisType() {
       this.pageLoading = true
       GetAnalysisType().then(res => {
@@ -723,6 +741,13 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+.encryption-close-button {
+  position: absolute;
+  top: -15px;
+  right: -6px;
+  color: #7b7b7b;
+  font-size: 18px;
+}
 .encryption-handle {
   label {
     float: left;
