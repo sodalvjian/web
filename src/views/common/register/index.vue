@@ -135,7 +135,7 @@
 import PrivacyPolicy from '../privacy-policy'
 import { GetCode, RegisterAccount } from '@/api/login-register'
 import { passwordReg, passwordMsg } from '@/utils/method'
-
+const mailReg = /^.+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
 export default {
   name: 'Login',
   components: {
@@ -176,8 +176,7 @@ export default {
         callback(new Error('Please enter email.'))
       } else {
         if (value !== '') {
-          var reg = /^.+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
-          if (!reg.test(value)) {
+          if (!mailReg.test(value)) {
             callback(new Error('Please enter the correct email address.'))
           }
         }
@@ -235,8 +234,7 @@ export default {
       this.$refs.privacyPolicy.openDialog()
     },
     getCode() {
-      const mailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
-
+    
       if (!this.formData.email) {
         this.$message.warning('Please enter email')
         return false
