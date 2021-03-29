@@ -32,7 +32,7 @@
         </el-col>
         <el-col :span="8" class="tc">
           <el-row :gutter="10">
-            <el-col :span="6" align="right">
+            <el-col :span="4" align="right">
               Status:
             </el-col>
             <el-col :span="18">
@@ -83,6 +83,16 @@
                 :stroke-width="7"
                 :status="setStatus"
               ></el-progress>
+            </el-col>
+            <el-col :span="2">
+              <el-tooltip
+                v-if="detailData.passFileCount"
+                placement="top"
+                :content="
+                  `${detailData.passFileCount} files exceeded the limit`
+                "
+                ><i class="el-icon-info f17 color-yellow"></i
+              ></el-tooltip>
             </el-col>
           </el-row>
         </el-col>

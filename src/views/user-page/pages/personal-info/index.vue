@@ -3,9 +3,9 @@
     <sider />
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
-        <span class="f18 color-black">
+        <strong class="f18 color-black">
           Personal information
-        </span>
+        </strong>
       </nav>
       <section class="p25 mt-10 w">
         <el-form

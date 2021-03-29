@@ -3,13 +3,13 @@
     <nav class="p25 bb-1">
       <el-row class="w">
         <el-col :span="8">
-          <span class="f18 color-black">
+          <strong class="f18 color-black">
             <router-link to="/user/cost" class="color-main f19"
               ><i class="el-icon-arrow-left mr-5"></i>Personal
               center</router-link
             >
             / Bill Details
-          </span>
+          </strong>
         </el-col>
         <el-col :span="16" align="right">
           <span class="mr-5">Recent</span>

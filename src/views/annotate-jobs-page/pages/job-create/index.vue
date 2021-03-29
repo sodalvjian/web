@@ -165,7 +165,7 @@
                   <el-input
                     v-model="formData.input"
                     placeholder="s3://mybucket/myinput"
-                    @keyup.native="verityInput = false"
+                    @keyup.native="verityhandle('read')"
                   >
                   </el-input>
                 </el-col>
@@ -234,7 +234,7 @@
                   <el-input
                     v-model="formData.output"
                     placeholder="s3://mybucket/myoutput"
-                    @keyup.native="verityOutput = false"
+                    @keyup.native="verityhandle('write')"
                   >
                   </el-input>
                 </el-col>
@@ -313,9 +313,11 @@ import { GetAnalysisType, AddData, CheckData } from '@/api/annotate-jobs-page'
 import DialogShowInfo from '@/components/DialogShowInfo'
 import ChooseResource from './components/ChooseResource'
 import ShowS3Info from './components/ShowS3Info'
-import 'codemirror/lib/codemirror.css'
+// import 'codemirror/lib/codemirror.css'
 import { s3List } from './constants'
+import { debounce } from '@/utils/method'
 import store from '@/store'
+const s3Reg = /^s3:\/\/+.+\/+./
 export default {
   name: 'InlineEditTable',
   components: {
@@ -335,16 +337,18 @@ export default {
       }
     }
     const validateS3 = (rule, value, callback) => {
-      const num = value.split('/').length - 1
-      if (value.indexOf('s3://') !== 0) {
-        callback(
-          new Error('Please enter the correct s3 location,like:"s3://xxx/xxx"')
-        )
-      } else if (num < 3) {
-        callback(
-          new Error('Please enter the correct s3 location,like:"s3://xxx/xxx"')
-        )
+      if (value === '') {
+        callback(new Error('Please enter s3 location.'))
       } else {
+        if (value !== '') {
+          if (!s3Reg.test(value)) {
+            callback(
+              new Error(
+                'Please enter the correct s3 location,like:"s3://xxx/xxx.'
+              )
+            )
+          }
+        }
         callback()
       }
     }
@@ -396,6 +400,17 @@ export default {
     this.getAnalysisType()
   },
   methods: {
+    verityhandle(type) {
+      debounce(() => {
+        if (type === 'read' && s3Reg.test(this.formData.input)) {
+          this.verityInput = false
+          this.verifyS3Data('read')
+        } else if (type === 'write' && s3Reg.test(this.formData.output)) {
+          this.verityOutput = false
+          this.verifyS3Data('write')
+        }
+      }, 800)
+    },
     authorizeS3Data(type) {
       if (type === 'read') {
         if (this.verityInput) {
@@ -435,7 +450,12 @@ export default {
             } else {
               this.verityInput = false
               this.verityInputData = res.data
-              this.$message.warning('Verity failed, Please authorize.')
+              if (res.code !== 200) {
+                this.$message.warning(res.message)
+              } else {
+                this.$message.warning('Verity failed, Please authorize.')
+              }
+
               // this.$refs.showS3InfoRef.openDialog(res.data, 'read') // 验证不过弹出授权提示
             }
           })
@@ -522,6 +542,10 @@ export default {
         } else {
           this.encryption = false
         }
+        this.$nextTick(() => {
+          this.verifyS3Data('read')
+          this.verifyS3Data('white')
+        })
       }
     },
     confirmEncryption() {

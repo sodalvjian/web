@@ -18,10 +18,9 @@
           <el-form-item
             prop="email"
             :rules="[
-              { required: true, message: 'Please enter email.' },
               {
-                type: 'email',
-                message: 'Please enter the correct email address',
+                validator: validateEmail,
+
                 trigger: ['blur', 'change']
               }
             ]"
@@ -172,9 +171,23 @@ export default {
         callback()
       }
     }
+    var validateEmail = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please enter email.'))
+      } else {
+        if (value !== '') {
+          var reg = /^.+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+          if (!reg.test(value)) {
+            callback(new Error('Please enter the correct email address.'))
+          }
+        }
+        callback()
+      }
+    }
     return {
       passwordReg,
       passwordMsg,
+      validateEmail,
       getCodeText: 'Get Code',
       getCodeDisable: false,
       btnLoading: false,
