@@ -609,11 +609,12 @@ export default {
                   this.$refs.dialogShowInfoRef.openDialog('nlp')
                   this.loading = false
                   this.noDataShow = true
-                } else {
-                  this.$refs.dialogShowInfoRef.openDialog(res.code)
-                  this.loading = false
-                  this.noDataShow = true
                 }
+                // else {
+                //   this.$refs.dialogShowInfoRef.openDialog(res.code)
+                //   this.loading = false
+                //   this.noDataShow = true
+                // }
               })
           } else {
             this.$message.warning(
