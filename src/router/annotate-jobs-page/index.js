@@ -20,6 +20,7 @@ export default [
         hidden: true,
         meta: {
           title: 'Analysis Jobs',
+          keepAlive: false,
           icon: '#icon-A18'
         }
       }

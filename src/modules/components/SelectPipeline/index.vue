@@ -24,6 +24,10 @@ export default {
       type: [String, Number, Array],
       required: true
     },
+    fetchList: {
+      type: Boolean,
+      default: false
+    },
     size: {
       type: String,
       default: ''
@@ -61,25 +65,22 @@ export default {
     }
   },
   created() {},
-  mounted() {
+  activated() {
     this.getData()
+  },
+  mounted() {
+    if (this.fetchList) {
+      this.getData()
+    }
   },
   methods: {
     handleChange(val) {
-      // 处理多选及单选的情况
-      if (this.multiple) {
-        const resultArr = this.optionsList.filter((ele, index, arr) => {
-          return val.some(item => {
-            return item === ele.siteCode
-          })
-        })
-        this.$emit('get-complete-data', resultArr)
-      } else {
-        const resultArr = this.optionsList.find(item => {
-          return item.siteCode === val
-        })
-        this.$emit('get-complete-data', resultArr)
-      }
+      const selectData = val[1]
+      const childOptions = this.optionsList
+        .map(item => item.version)
+        .flat(Infinity) // 将自己版本数据拉平
+      const resultData = childOptions.find(item => item.params === selectData)
+      this.$emit('get-complete-data', resultData)
     },
     // 下拉框出现时重新加载数据
     visibleChange(val) {

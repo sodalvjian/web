@@ -5,11 +5,19 @@
     </nav>
     <div class="vital-container realtime-top-content">
       <nav>
-        <el-row>
+        <el-row type="flex">
           <el-col :span="5">
-            <select-pipeline size="small" v-model="formData.pipeline" />
+            <select-pipeline
+              v-model="formData.pipeline"
+              size="small"
+              @get-complete-data="getCompleteData"
+            />
           </el-col>
-          <el-col :span="19" align="right">
+          <el-col
+            :span="6"
+          ><strong v-show="selectPipeline.unitPrice" class="mt-8 ml-15 fl f16">
+            Unit price: <span class="color-main">{{ selectPipeline.unitPrice }} $</span></strong></el-col>
+          <el-col :span="13" align="right">
             <el-button size="small" @click="clearData">Clear</el-button>
             <el-button
               :loading="analysisLoading"
@@ -17,8 +25,7 @@
               type="primary"
               icon="el-icon-data-line"
               @click="handleAnalysis(false)"
-              >Analysis</el-button
-            >
+            >Analysis</el-button>
           </el-col>
         </el-row>
       </nav>
@@ -56,6 +63,9 @@ export default {
       analysisTypeOptions: [],
       pipelineLoading: false,
       analysisLoading: false,
+      selectPipeline: {
+        unitPrice: 0
+      },
       formData: {
         pipeline: '',
         text: demoText
@@ -76,6 +86,10 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    getCompleteData(val) {
+      console.log('val', val)
+      this.selectPipeline = val
+    },
     handleAnalysis(loadType = false) {
       const { pipeline, text } = this.formData
       console.log('pipeline', pipeline)

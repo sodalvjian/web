@@ -11,6 +11,7 @@ export default [
         component: () => import('@/views/api-page'),
         meta: {
           title: 'API',
+          keepAlive: false,
           icon: '#iconAPI1'
         }
       }

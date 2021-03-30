@@ -1,5 +1,4 @@
-export const demoText = `
-Sample Type / Medical Specialty:  Discharge Summary
+export const demoText = `Sample Type / Medical Specialty:  Discharge Summary
 Sample Name: Psychiatric Discharge Summary - 1
 Description:  Discharge summary of a patient with mood swings and oppositional and defiant behavior.
 (Medical Transcription Sample Report)

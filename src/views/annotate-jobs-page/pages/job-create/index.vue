@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="fl nav-title mt-10 f16"
-        ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong
-      >
+      <strong
+        class="fl nav-title mt-10 f16"
+      ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong>
     </nav>
     <el-form
       ref="formData"
@@ -49,9 +49,10 @@
                 :rules="{ required: true }"
               >
                 <select-pipeline
-                  @get-complete-options="getCompleteOptions"
                   v-model="formData.pipelineId"
                   size="big"
+                  fetch-list
+                  @get-complete-options="getCompleteOptions"
                 />
                 <!-- <el-input v-model="formData.pipelineId" readonly>
                   <el-select
@@ -90,8 +91,7 @@
                 </el-input> -->
               </el-form-item>
             </div>
-          </el-col></el-row
-        >
+          </el-col></el-row>
       </section>
       <section
         v-loading="pageLoading"
@@ -129,23 +129,21 @@
                   size="mini"
                   type="text"
                   class="encryption-close-button"
-                  @click="popoverVisible = false"
                   icon="el-icon-error"
+                  @click="popoverVisible = false"
                 ></el-button>
                 <el-button
                   type="text"
                   size="mini"
                   class="color-red"
                   @click="cancerPopoverVisible"
-                  >Close</el-button
-                >
+                >Close</el-button>
                 <el-button
                   type="text"
                   size="mini"
                   class="color-green"
                   @click="confirmEncryption"
-                  >Confirm</el-button
-                >
+                >Confirm</el-button>
               </div>
               <el-switch
                 slot="reference"
@@ -287,20 +285,19 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
             </div>
-          </el-col></el-row
-        >
+          </el-col></el-row>
       </section>
       <el-form-item class="tc mt-40">
-        <el-button size="medium" @click="$emit('close-dialog')"
-          >Cancel</el-button
-        >
+        <el-button
+          size="medium"
+          @click="$emit('close-dialog')"
+        >Cancel</el-button>
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-          >Confirm</el-button
-        >
+        >Confirm</el-button>
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -524,8 +521,8 @@ export default {
         }
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-              item => item.params === pipelineObj.params
-            )
+            item => item.params === pipelineObj.params
+          )
           : {}
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)
