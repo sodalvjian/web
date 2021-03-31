@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong
-        class="fl nav-title mt-10 f16"
-      ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong>
+      <strong class="fl nav-title mt-10 f16"
+        ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong
+      >
     </nav>
     <el-form
       ref="formData"
@@ -34,11 +34,11 @@
                   placeholder="Input your job name"
                 ></el-input>
               </el-form-item>
-              <div class="f13 lh1-5 mt-20">
+              <!-- <div class="f13 lh1-5 mt-20">
                 <i class="el-icon-warning color-main f15"></i> Support for
                 letters, Numbers and their combinations 2.Please enter 6
                 characters to 256 characters
-              </div>
+              </div> -->
             </div>
           </el-col>
           <el-col :span="12">
@@ -91,7 +91,8 @@
                 </el-input> -->
               </el-form-item>
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <section
         v-loading="pageLoading"
@@ -137,13 +138,15 @@
                   size="mini"
                   class="color-red"
                   @click="cancerPopoverVisible"
-                >Close</el-button>
+                  >Close</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-green"
                   @click="confirmEncryption"
-                >Confirm</el-button>
+                  >Confirm</el-button
+                >
               </div>
               <el-switch
                 slot="reference"
@@ -221,9 +224,11 @@
               </el-form-item>
 
               <div class="f13 lh1-5 mt-20">
-                <i class="el-icon-warning color-main f15"></i> Browse,type or
+                <i class="el-icon-warning color-main f15"></i>
+                Example: s3://mybucket/my_input_folder
+                <!-- Browse,type or
                 paste the URL of a bucket or folder location in S3, or select a
-                bucket or folder location in S3
+                bucket or folder location in S3 -->
               </div>
               <!-- <div v-if="inRegionName" class="f15 mt-15">
                 S3 region: <strong>{{ inRegionName }}</strong>
@@ -277,27 +282,30 @@
                 </el-col>
               </el-form-item>
               <div class="f13 lh1-5 mt-20">
-                <i class="el-icon-warning color-main f15"></i> Browse,type or
+                <i class="el-icon-warning color-main f15"></i> 
+                Example: s3://mybucket/my_output_folder
+                <!-- Browse,type or
                 paste the URL of a bucket or folder location in S3, or select a
-                bucket or folder location in S3
+                bucket or folder location in S3 -->
               </div>
               <!-- <div v-if="outRegionName" class="f15 mt-15">
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <el-form-item class="tc mt-40">
-        <el-button
-          size="medium"
-          @click="$emit('close-dialog')"
-        >Cancel</el-button>
+        <el-button size="medium" @click="$emit('close-dialog')"
+          >Cancel</el-button
+        >
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -521,8 +529,8 @@ export default {
         }
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-            item => item.params === pipelineObj.params
-          )
+              item => item.params === pipelineObj.params
+            )
           : {}
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)

@@ -6,18 +6,31 @@
     <div class="vital-container realtime-top-content">
       <nav>
         <el-row type="flex">
-          <el-col :span="5">
+          <el-col :span="6">
             <select-pipeline
               v-model="formData.pipeline"
               size="small"
               @get-complete-data="getCompleteData"
+              @get-complete-options="getCompleteOptions"
             />
           </el-col>
-          <el-col
-            :span="6"
-          ><strong v-show="selectPipeline.unitPrice" class="mt-8 ml-15 fl f16">
-            Unit price: <span class="color-main">{{ selectPipeline.unitPrice }} $</span></strong></el-col>
-          <el-col :span="13" align="right">
+          <el-col :span="6">
+            <el-tooltip
+              v-show="selectPipeline.unitPrice"
+              class="item"
+              effect="dark"
+              placement="top"
+            >
+              <div slot="content">
+                Unit price:
+                {{ selectPipeline.unitPrice }} $/byte
+                <br />
+                Description: {{ selectPipeline.description }}
+              </div>
+              <i class="el-icon-info f18 color-main mt-8 ml-20 cp"></i>
+            </el-tooltip>
+          </el-col>
+          <el-col :span="12" align="right">
             <el-button size="small" @click="clearData">Clear</el-button>
             <el-button
               :loading="analysisLoading"
@@ -25,7 +38,8 @@
               type="primary"
               icon="el-icon-data-line"
               @click="handleAnalysis(false)"
-            >Analysis</el-button>
+              >Analysis</el-button
+            >
           </el-col>
         </el-row>
       </nav>
@@ -86,6 +100,15 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    getCompleteOptions(val) {
+      console.log('完整数据', val)
+      const analysisChildTypeOptions = val
+        .map(item => item.version)
+        .flat(Infinity) // 将自己版本数据拉平
+      console.log('analysisChildTypeOptions', analysisChildTypeOptions)
+      this.formData.pipeline = analysisChildTypeOptions[0].params
+      this.selectPipeline = analysisChildTypeOptions[0]
+    },
     getCompleteData(val) {
       console.log('val', val)
       this.selectPipeline = val

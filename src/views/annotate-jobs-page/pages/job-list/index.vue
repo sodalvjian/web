@@ -17,7 +17,7 @@
     <section class="p20">
       <el-table
         v-loading="listLoading"
-        class="table-content"
+        class="table-list-content"
         :data="tableList"
         highlight-current-row
         style="width: 100%"
@@ -358,4 +358,10 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.table-list-content {
+  .el-table__body-wrapper {
+    padding-bottom: 10px;
+  }
+}
+</style>
