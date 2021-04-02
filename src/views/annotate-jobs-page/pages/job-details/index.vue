@@ -31,11 +31,11 @@
           Created Time: <strong> {{ detailData.date | setHourDate }}</strong>
         </el-col>
         <el-col :span="8" class="tc">
-          <el-row :gutter="10">
-            <el-col :span="4" align="right">
+          <el-row :gutter="5">
+            <el-col :span="5" align="right">
               Status:
             </el-col>
-            <el-col :span="18">
+            <el-col :span="17">
               <el-tooltip
                 v-if="
                   detailData.status === 'STOPPED' ||
@@ -252,7 +252,10 @@ export default {
         } else {
           return Math.round(processNum * 100)
         }
-      } else if (this.detailData.status === 'FAILED') {
+      } else if (
+        this.detailData.status === 'FAILED' ||
+        this.detailData.status === 'COMPLETED'
+      ) {
         return 100
       } else {
         return 0
@@ -261,13 +264,20 @@ export default {
     setStatus() {
       const processNum =
         this.detailData.processedSize / this.detailData.totalSize
-      return this.detailData.processedErrCount > 0
-        ? 'warning'
-        : processNum
-        ? Math.round(processNum * 100) >= 100
-          ? 'success'
-          : ''
-        : 'exception'
+      if (
+        this.detailData.totalSize === 0 &&
+        this.detailData.processedCount === 0
+      ) {
+        return 'success'
+      } else {
+        return this.detailData.processedErrCount > 0
+          ? 'warning'
+          : processNum
+          ? Math.round(processNum * 100) >= 100
+            ? 'success'
+            : ''
+          : 'exception'
+      }
     },
     setTooltipContent() {
       console.log('详细信息', this.detailData.status)

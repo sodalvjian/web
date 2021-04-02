@@ -167,47 +167,25 @@
           <el-col :span="12" class="br-1">
             <div class="p20">
               <el-form-item label="S3 location:" prop="input" :rules="s3Rules">
-                <el-col :span="16" class="pl-0">
+                <el-col :span="18" class="pl-0">
                   <el-input
                     v-model="formData.input"
+                    v-loading="inputCheckLoading"
+                    class="job-create-input-read"
                     placeholder="s3://mybucket/myinput"
                     @keyup.native="verityhandle('read')"
                   >
                   </el-input>
                 </el-col>
-                <el-col :span="8">
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="Validate"
-                    placement="top"
+                <el-col v-if="needAuthor" :span="6">
+                  <el-button
+                    :loading="inputAuthorizeLoading"
+                    type="warning"
+                    size="medium"
+                    @click="authorizeS3Data('read')"
                   >
-                    <el-button
-                      :disabled="!formData.input"
-                      :loading="inputCheckLoading"
-                      :type="verityInput ? 'success' : 'primary'"
-                      size="medium"
-                      icon="icon-yanzhengma iconfont"
-                      @click="verifyS3Data('read')"
-                    >
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="Authorize"
-                    placement="top"
-                  >
-                    <el-button
-                      :disabled="!formData.input"
-                      :loading="inputAuthorizeLoading"
-                      type="warning"
-                      size="medium"
-                      icon="icon-shouquan iconfont"
-                      @click="authorizeS3Data('read')"
-                    >
-                    </el-button>
-                  </el-tooltip>
+                    Authorize
+                  </el-button>
                 </el-col>
                 <!-- <el-button
                     slot="append"
@@ -237,16 +215,15 @@
           </el-col>
           <el-col :span="12">
             <div class="p20">
-              <el-form-item label="S3 location:" prop="output" :rules="s3Rules">
-                <el-col :span="16" class="pl-0">
+              <el-form-item label="S3 location:" prop="output">
+                <el-col :span="24" class="pl-0">
                   <el-input
                     v-model="formData.output"
-                    placeholder="s3://mybucket/myoutput"
-                    @keyup.native="verityhandle('write')"
+                    disabled
                   >
                   </el-input>
                 </el-col>
-                <el-col :span="8">
+                <!-- <el-col :span="8">
                   <el-tooltip
                     class="item"
                     effect="dark"
@@ -279,15 +256,15 @@
                     >
                     </el-button>
                   </el-tooltip>
-                </el-col>
+                </el-col> -->
               </el-form-item>
-              <div class="f13 lh1-5 mt-20">
-                <i class="el-icon-warning color-main f15"></i> 
+              <!-- <div class="f13 lh1-5 mt-20">
+                <i class="el-icon-warning color-main f15"></i>
                 Example: s3://mybucket/my_output_folder
-                <!-- Browse,type or
+                Browse,type or
                 paste the URL of a bucket or folder location in S3, or select a
-                bucket or folder location in S3 -->
-              </div>
+                bucket or folder location in S3
+              </div> -->
               <!-- <div v-if="outRegionName" class="f15 mt-15">
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
@@ -354,7 +331,7 @@ export default {
           if (!s3Reg.test(value)) {
             callback(
               new Error(
-                'Please enter the correct s3 location,like:"s3://xxx/xxx.'
+                'Please enter the correct s3 location,like:"s3://xxx/xxx".'
               )
             )
           }
@@ -383,11 +360,12 @@ export default {
       inputAuthorizeLoading: false,
       outputAuthorizeLoading: false,
       btnOutputLoading: false,
+      needAuthor: false,
       projectNameRules: [
         { required: true },
-        { validator: validateProjectName, trigger: 'blur' }
+        { validator: validateProjectName }
       ],
-      s3Rules: [{ required: true }, { validator: validateS3, trigger: 'blur' }],
+      s3Rules: [{ required: true }, { validator: validateS3 }],
       formData: {
         name: '',
         pipelineId: '',
@@ -445,56 +423,36 @@ export default {
     },
     verifyS3Data(type) {
       const url = type === 'read' ? this.formData.input : this.formData.output
-      if (type === 'read') {
-        this.inputCheckLoading = true
-        const params = {
-          input: url
-        }
-        CheckData(params)
-          .then(res => {
-            this.inputCheckLoading = false
-            this.inputHasVerity = true
-            if (res.data && res.data.read) {
-              this.verityInput = true
-              this.$message.success('Verify input success.')
-            } else {
-              this.verityInput = false
-              this.verityInputData = res.data
-              if (res.code !== 200) {
-                this.$message.warning(res.message)
-              } else {
-                this.$message.warning('Verity failed, Please authorize.')
-              }
-
-              // this.$refs.showS3InfoRef.openDialog(res.data, 'read') // 验证不过弹出授权提示
-            }
-          })
-          .catch(msg => {
-            this.inputCheckLoading = false
-          })
-      } else {
-        this.outputCheckLoading = true
-        const params = {
-          output: url
-        }
-        CheckData(params)
-          .then(res => {
-            this.outputCheckLoading = false
-            this.outputHasVerity = true
-            if (res.data && res.data.write) {
-              this.verityOutput = true
-              this.$message.success('Verify output success.')
-            } else {
-              this.verityOutput = false
-              this.verityOutputData = res.data
-              // this.$refs.showS3InfoRef.openDialog(res.data, 'write') // 验证不过弹出授权提示
-              this.$message.warning('Verity failed, Please authorize.')
-            }
-          })
-          .catch(msg => {
-            this.outputCheckLoading = false
-          })
+      this.inputCheckLoading = true
+      const params = {
+        input: url
       }
+      CheckData(params)
+        .then(res => {
+          this.inputCheckLoading = false
+          this.inputHasVerity = true
+          if (res.data && res.data.read) {
+            this.verityInput = true
+            this.$message.success('Verify input success.')
+            this.needAuthor = false
+            this.formData.output = res.data.output
+          } else {
+            this.formData.output = ''
+            this.verityInput = false
+            this.verityInputData = res.data
+            if (res.code !== 200) {
+              this.$message.warning(res.message)
+            } else {
+              this.$message.warning('Verity failed, Please authorize.')
+              this.needAuthor = true
+            }
+
+            // this.$refs.showS3InfoRef.openDialog(res.data, 'read') // 验证不过弹出授权提示
+          }
+        })
+        .catch(msg => {
+          this.inputCheckLoading = false
+        })
     },
     cancerPopoverVisible() {
       this.popoverVisible = false
@@ -554,7 +512,6 @@ export default {
         }
         this.$nextTick(() => {
           this.verifyS3Data('read')
-          this.verifyS3Data('white')
         })
       }
     },
@@ -623,7 +580,7 @@ export default {
               })
           } else {
             this.$message.warning(
-              'Please verity the input data and output data.'
+              'Please verity the input data.'
             )
           }
 
@@ -739,6 +696,20 @@ export default {
   .el-switch__label,
   .el-switch__core {
     cursor: pointer !important;
+  }
+}
+.job-create-input-read {
+  .el-loading-mask {
+    right: 5px !important;
+    width: 30px;
+    left: auto;
+    height: 30px;
+    top: 6px;
+    .circular {
+      width: 22px !important;
+      height: 22px !important;
+      margin-top: 10px;
+    }
   }
 }
 #select-pipeline {

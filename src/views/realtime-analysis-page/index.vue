@@ -6,7 +6,7 @@
     <div class="vital-container realtime-top-content">
       <nav>
         <el-row type="flex">
-          <el-col :span="6">
+          <el-col :span="8">
             <select-pipeline
               v-model="formData.pipeline"
               size="small"
@@ -14,23 +14,8 @@
               @get-complete-options="getCompleteOptions"
             />
           </el-col>
-          <el-col :span="6">
-            <el-tooltip
-              v-show="selectPipeline.unitPrice"
-              class="item"
-              effect="dark"
-              placement="top"
-            >
-              <div slot="content">
-                Unit price:
-                {{ selectPipeline.unitPrice }} $/byte
-                <br />
-                Description: {{ selectPipeline.description }}
-              </div>
-              <i class="el-icon-info f18 color-main mt-8 ml-20 cp"></i>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="12" align="right">
+
+          <el-col :span="16" align="right">
             <el-button size="small" @click="clearData">Clear</el-button>
             <el-button
               :loading="analysisLoading"
@@ -77,9 +62,8 @@ export default {
       analysisTypeOptions: [],
       pipelineLoading: false,
       analysisLoading: false,
-      selectPipeline: {
-        unitPrice: 0
-      },
+      selectPipeline: {},
+
       formData: {
         pipeline: '',
         text: demoText
@@ -114,7 +98,8 @@ export default {
       this.selectPipeline = val
     },
     handleAnalysis(loadType = false) {
-      const { pipeline, text } = this.formData
+      const { text } = this.formData
+      const pipeline = this.selectPipeline.params
       console.log('pipeline', pipeline)
       if (!pipeline && !loadType) {
         this.$message.warning('Please select pipeline.')
@@ -124,7 +109,7 @@ export default {
         return false
       }
       const params = {
-        pipeline: pipeline[1],
+        pipeline: pipeline,
         text: text
       }
       this.analysisLoading = true

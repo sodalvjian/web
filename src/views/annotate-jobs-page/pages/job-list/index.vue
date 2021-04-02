@@ -59,52 +59,65 @@
 
         <el-table-column width="250px" align="left">
           <template slot-scope="scope">
-            <el-tooltip
-              class="cp"
-              effect="dark"
-              :disabled="setTooltipDisabled(scope.row)"
-              :content="setTooltipContent(scope.row)"
-              placement="top"
-            >
-              <span
-                v-if="
-                  scope.row.status === 'STOPPED' ||
-                    scope.row.reqStatus === 'STOPPED' ||
-                    scope.row.reqStatus === 'STOPPING'
-                "
-                ><span
+            <el-col :span="22" :style="scope.row.passFileCount?'padding-top:4px':''">
+              <el-tooltip
+                class="cp"
+                effect="dark"
+                :disabled="setTooltipDisabled(scope.row)"
+                :content="setTooltipContent(scope.row)"
+                placement="top"
+              >
+                <span
                   v-if="
-                    scope.row.subStatus === 'FAILED_TASK_LIMIT' ||
-                      scope.row.subStatus === 'FAILED_QUOTA_LIMIT'
+                    scope.row.status === 'STOPPED' ||
+                      scope.row.reqStatus === 'STOPPED' ||
+                      scope.row.reqStatus === 'STOPPING'
                   "
-                  ><i class="el-icon-warning color-yellow f18"></i></span
-                ><span v-else>--</span></span
-              >
+                  ><span
+                    v-if="
+                      scope.row.subStatus === 'FAILED_TASK_LIMIT' ||
+                        scope.row.subStatus === 'FAILED_QUOTA_LIMIT'
+                    "
+                    ><i class="el-icon-warning color-yellow f18"></i></span
+                  ><span v-else>--</span></span
+                >
 
-              <div
-                v-else-if="
-                  scope.row.status === 'STARTED' ||
-                    scope.row.status === 'STARTING'
-                "
-                class="progress-running"
-              >
+                <div
+                  v-else-if="
+                    scope.row.status === 'STARTED' ||
+                      scope.row.status === 'STARTING'
+                  "
+                  class="progress-running"
+                >
+                  <el-progress
+                    :stroke-width="7"
+                    :percentage="setProcessData(scope.row)"
+                    class="w"
+                  ></el-progress
+                  ><i
+                    style="right:14%"
+                    class="progress-running-icon el-icon-loading"
+                  ></i>
+                </div>
                 <el-progress
+                  v-else
                   :stroke-width="7"
-                  :percentage="setProcessData(scope.row)"
-                  class="w"
-                ></el-progress
-                ><i
-                  style="right:14%"
-                  class="progress-running-icon el-icon-loading"
-                ></i>
-              </div>
-              <el-progress
-                v-else
-                :stroke-width="7"
-                :percentage="setPercent(scope.row)"
-                :status="setStatus(scope.row)"
-              ></el-progress>
-            </el-tooltip>
+                  :percentage="setPercent(scope.row)"
+                  :status="setStatus(scope.row)"
+                ></el-progress>
+              </el-tooltip>
+            </el-col>
+
+            <el-col :span="2">
+              <el-tooltip
+                v-if="scope.row.passFileCount"
+                placement="top"
+                :content="
+                  `${scope.row.passFileCount} files exceeded the limit`
+                "
+                ><i style="margin-left:-5px;margin-top:2px" class="el-icon-info f15 color-yellow"></i
+              ></el-tooltip>
+            </el-col>
           </template>
         </el-table-column>
         <el-table-column width="120px" label="Status">
@@ -280,13 +293,17 @@ export default {
     },
     setStatus(row) {
       const processNum = row.processedSize / row.totalSize
-      return row.processedErrCount > 0
-        ? 'warning'
-        : processNum
-        ? Math.round(processNum * 100) >= 100
-          ? 'success'
-          : ''
-        : 'exception'
+      if (row.totalSize === 0 && row.processedCount === 0) {
+        return 'success'
+      } else {
+        return row.processedErrCount > 0
+          ? 'warning'
+          : processNum
+          ? Math.round(processNum * 100) >= 100
+            ? 'success'
+            : ''
+          : 'exception'
+      }
     },
     // 查看job detail
     viewDetail(row, column, event) {

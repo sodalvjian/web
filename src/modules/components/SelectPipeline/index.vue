@@ -1,17 +1,35 @@
 <template>
-  <div>
-    <el-cascader
-      v-model="model"
-      :options="optionsList"
-      class="w"
-      :props="propsOption"
-      :show-all-levels="false"
-      placeholder="Select pipeline"
-      :size="size"
-      @visible-change="visibleChange"
-      @change="handleChange"
-    ></el-cascader>
-  </div>
+  <el-row type="flex">
+    <el-col :span="20">
+      <el-cascader
+        v-model="model"
+        :options="optionsList"
+        class="w"
+        :props="propsOption"
+        :show-all-levels="false"
+        placeholder="Select pipeline"
+        :size="size"
+        @visible-change="visibleChange"
+        @change="handleChange"
+      ></el-cascader>
+    </el-col>
+    <el-col :span="4">
+      <el-tooltip
+        v-show="selectPipeline.unitPrice"
+        class="item"
+        effect="dark"
+        placement="top"
+      >
+        <div slot="content">
+          Unit price:
+          {{ selectPipeline.unitPrice }} $/byte
+          <br />
+          Description: {{ selectPipeline.description }}
+        </div>
+        <i class="el-icon-info f18 color-main mt-8 ml-20 cp"></i>
+      </el-tooltip>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -43,7 +61,9 @@ export default {
       loading: false,
       model: this.value,
       optionsList: [],
-
+      selectPipeline: {
+        unitPrice: 0
+      },
       propsOption: {
         expandTrigger: 'hover',
         value: 'params',
@@ -80,6 +100,7 @@ export default {
         .map(item => item.version)
         .flat(Infinity) // 将自己版本数据拉平
       const resultData = childOptions.find(item => item.params === selectData)
+      this.selectPipeline = resultData
       this.$emit('get-complete-data', resultData)
     },
     // 下拉框出现时重新加载数据
@@ -98,11 +119,20 @@ export default {
             item.children = item.version
           })
           this.optionsList = resultData
-          console.log('res消息啊啊啊', this.optionsList)
+
           this.$emit('get-complete-options', resultData)
+          this.getCompleteOptions(resultData)
           loading.close()
         }
       })
+    },
+    getCompleteOptions(val) {
+      console.log('完整数据', val)
+      const analysisChildTypeOptions = val
+        .map(item => item.version)
+        .flat(Infinity) // 将自己版本数据拉平
+
+      this.selectPipeline = analysisChildTypeOptions[0]
     }
   }
 }
