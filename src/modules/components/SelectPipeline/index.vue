@@ -11,7 +11,11 @@
         :size="size"
         @visible-change="visibleChange"
         @change="handleChange"
-      ></el-cascader>
+      >
+        <template slot-scope="{ data }">
+          <span>{{ data.showName }}</span>
+        </template></el-cascader
+      >
     </el-col>
     <el-col :span="4">
       <el-tooltip
@@ -67,7 +71,7 @@ export default {
       propsOption: {
         expandTrigger: 'hover',
         value: 'params',
-        label: 'params'
+        label: 'showName'
       }
     }
   },
@@ -116,10 +120,14 @@ export default {
           const resultData = res.data
           resultData.map(item => {
             item.params = item.lamdaName
+            item.showName = item.lamdaName
             item.children = item.version
+            item.version.map(child => {
+              child.showName = `${child.name} (${child.version})`
+            })
           })
           this.optionsList = resultData
-
+          console.log('resultData', resultData)
           this.$emit('get-complete-options', resultData)
           this.getCompleteOptions(resultData)
           loading.close()

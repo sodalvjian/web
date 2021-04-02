@@ -431,7 +431,7 @@ export default {
         .then(res => {
           this.inputCheckLoading = false
           this.inputHasVerity = true
-          if (res.data && res.data.read) {
+          if (res.data && res.data.pass) {
             this.verityInput = true
             this.$message.success('Verify input success.')
             this.needAuthor = false
@@ -543,7 +543,7 @@ export default {
       this.$refs.formData.validate(valid => {
         if (valid) {
           const { name, input, output, encryption } = this.formData
-          if (this.verityInput && this.verityOutput) {
+          if (this.verityInput) {
             this.btnLoading = true
             const params = {
               userId: this.userId,
