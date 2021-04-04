@@ -90,6 +90,15 @@ module.exports = {
       .exclude.add(resolve('src/icons'))
       .end()
     config.module
+      .rule('md')
+      .test(/\.md$/)
+      .use('html-loader')
+      .loader('html-loader')
+      .end()
+      .use('markdown-loader')
+      .loader('markdown-loader')
+      .end()
+    config.module
       .rule('icons')
       .test(/\.svg$/)
       .include.add(resolve('src/icons'))

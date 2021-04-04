@@ -437,7 +437,7 @@ export default {
             this.needAuthor = false
             this.formData.output = res.data.output
           } else {
-            this.formData.output = ''
+            this.formData.output = res.data.output
             this.verityInput = false
             this.verityInputData = res.data
             if (res.code !== 200) {
