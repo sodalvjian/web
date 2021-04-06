@@ -1,17 +1,17 @@
 image: docker:19.03.12
 stages:
-  - Build
+  # - Build
   - Deploy
-node_build:
-  stage: Build
-  image: node:latest
-  artifacts:
-    name: dist
-    expire_in: 1h
-    paths:
-      - dist
-  script:
-    - npm i && npm run build
+# node_build:
+#   stage: Build
+#   image: node:latest
+#   artifacts:
+#     name: dist
+#     expire_in: 1h
+#     paths:
+#       - dist
+#   script:
+#     - npm i && npm run build
 
 upload:
   stage: Deploy
