@@ -74,7 +74,7 @@
         <el-table-column
           prop="fieldNumber"
           align="center"
-          label="Number of field"
+          label="Number of file"
           min-width="180"
         >
         </el-table-column>

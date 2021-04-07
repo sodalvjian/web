@@ -110,7 +110,8 @@ export default {
       }
       const params = {
         pipeline: pipeline,
-        text: text
+        text: text,
+        frontFlag: true
       }
       this.analysisLoading = true
       this.$refs.analysisResultRef.getResult(params, loadType)

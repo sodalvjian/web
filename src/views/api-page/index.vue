@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <nav class="vital-container cb bb-1">
+    <!-- <nav class="vital-container cb bb-1">
       <strong class="fl mt-10 f16">API</strong>
       <div class="fr">
         <el-button
@@ -8,11 +8,10 @@
           type="primary"
           size="small"
           icon="el-icon-document-copy"
-          @click="createData"
           >Download</el-button
         >
       </div>
-    </nav>
+    </nav> -->
     <!-- <div class="api-header tc fb pt-20 pb-30">
       <h2 class="color-white" style="white-space: pre;">Implement NLP     Empower clinical application</h2>
       <el-row :gutter="20" class="mt-30 color-white" style="max-width: 1000px;margin: 0 auto;">
@@ -50,7 +49,7 @@
         </el-col>
       </el-row>
     </div> -->
-    <section class="bg-color-white p25">
+    <section class="bg-color-white p25 api-container">
       <!-- <vue-markdown v-html="mercuryApi">
       </vue-markdown> -->
       <article>
@@ -61,7 +60,7 @@
           <li>
             <p><strong>Description</strong></p>
 
-            <p>
+            <p style="padding-left:15px">
               Returns JSON data about the entities and relations in a paragraph
               of text processed by a specified pipeline.
             </p>
@@ -70,24 +69,24 @@
           <li>
             <p><strong>HOST</strong></p>
 
-            <p>http://www.autowire-code.com</p>
+            <p style="padding-left:15px">http://www.autowire-code.com</p>
           </li>
           <li>
             <p><strong>URL</strong></p>
 
-            <p>/api/nlp</p>
+            <p style="padding-left:15px">/api/nlp</p>
           </li>
 
           <li>
             <p><strong>Method</strong></p>
 
-            <p>POST</p>
+            <p style="padding-left:15px">POST</p>
           </li>
 
           <li>
             <p><strong>URL Params</strong></p>
 
-            <p>None</p>
+            <p style="padding-left:15px">None</p>
           </li>
 
           <li>
@@ -113,7 +112,8 @@
           <li>
             <p><strong>Success Response</strong></p>
 
-            <p><strong>Code:</strong> 200</p>
+            <p><strong>Code:</strong></p>
+            <p style="padding-left:15px">200</p>
             <p><strong>Content:</strong></p>
             <p>
               <code>
@@ -130,10 +130,13 @@
           <li>
             <p><strong>Error Response</strong></p>
 
-            <p><strong>Code:</strong> 400</p>
-            <p><strong>Content:</strong><code>{ error : "" }</code></p>
+            <p><strong>Code:</strong></p>
+            <p style="padding-left:15px">400</p>
+            <p><strong>Content:</strong></p>
+            <p><code>{ error : "" }</code></p>
 
-            <p><strong>Code:</strong> 500</p>
+            <p><strong>Code:</strong></p>
+            <p style="padding-left:15px">500</p>
             <p>
               <strong>Content:</strong><br /><code
                 >{"timestamp":"","path":"/api/nlp","status":500,"error":"Internal
@@ -166,7 +169,7 @@
           <li>
             <p><strong>Notes</strong></p>
 
-            <p>None</p>
+            <p style="padding-left:15px">None</p>
           </li>
         </ul>
       </article>
@@ -176,25 +179,46 @@
 
 <script>
 import mercuryApi from '@/assets/md/mercury_api.md'
-import VueMarkdown from 'vue-markdown'
+// import VueMarkdown from 'vue-markdown'
 export default {
   components: {
-    VueMarkdown,
+    // VueMarkdown
   },
   props: {},
   data() {
     return {
-      mercuryApi,
+      mercuryApi
     }
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {},
-  methods: {},
+  methods: {}
 }
 </script>
 <style scoped lang="scss">
+.api-container {
+  color: #5f5f5f;
+  p {
+    padding: 5px 0;
+    strong {
+      display: block;
+      background-color: #f6f6f6;
+      padding: 15px;
+      color: #000;
+    }
+  }
+
+  // ul {
+  //   li {
+  //     p:nth-child(2),
+  //     p:nth-child(3) {
+  //       padding: 0 20px 20px 20px;
+  //     }
+  //   }
+  // }
+}
 code {
   background-color: #eee;
   display: block;
