@@ -111,6 +111,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 //   border-radius: 15px;
 // }
 .el-table {
+  color: #000;
   &::before {
     height: 0;
   }
@@ -161,8 +162,9 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   font-weight: normal;
 }
 
-.el-table thead {
-  color: #444;
+.el-table thead,
+.el-textarea__inner,.el-input__inner {
+  color: #000000;
 }
 .el-dropdown,
 .el-dropdown-menu__item,
