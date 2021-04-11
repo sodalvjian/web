@@ -182,6 +182,20 @@ div:focus {
   }
 }
 
-.el-icon-circle-check{
+.el-icon-circle-check {
   color: #06c75e;
+}
+input::-webkit-input-placeholder,
+.el-input__prefix {
+  color: #777 !important;
+}
+input::-moz-input-placeholder {
+  color: #777 !important;
+}
+input::-ms-input-placeholder {
+  color: #777 !important;
+}
+
+.el-input__inner {
+  border: 1px solid #8e8e8e;
 }

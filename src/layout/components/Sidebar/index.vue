@@ -42,7 +42,12 @@ export default {
       if (meta.activeMenu) {
         return meta.activeMenu
       }
-      return path
+      console.log('侧边栏', path, meta.activeMenu)
+      if (path.indexOf('jobDetails') !== -1) {
+        return '/annotateJobs'
+      } else {
+        return path
+      }
     },
     showLogo() {
       return this.$store.state.settings.sidebarLogo

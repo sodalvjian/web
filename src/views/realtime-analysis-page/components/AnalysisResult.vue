@@ -29,28 +29,45 @@
         @success-data="generalDisabled = false"
       />
     </section>
-    <h3 class="mt-40">Entity & Relation</h3>
+    <h3 class="mt-40">Entities & Relations</h3>
 
     <entity-relation ref="entityRelationref" />
     <!-- General Settings dialog -->
     <el-dialog
-      title="Select visible columns"
+      title="Select visable entities"
       center
       :visible.sync="dialogVisible"
-      width="25%"
+      width="35%"
     >
       <div class="mb-30 mt-20">
+        <el-row :gutter="20">
+          <el-col :span="12" align="center">
+            <strong>ALL</strong>
+          </el-col>
+          <el-col :span="12" align="center">
+            <el-switch
+              v-model="selectAll"
+              active-color="#13ce66"
+              @change="handleSelectAll"
+            >
+            </el-switch>
+          </el-col>
+        </el-row>
         <el-row
           v-for="(item, index) in bratData"
           :key="index"
-          class="mt-15"
+          class="mt-25"
           :gutter="20"
         >
           <el-col :span="12" align="center">
             {{ item.type }}
           </el-col>
           <el-col :span="12" align="center">
-            <el-switch v-model="item.switch" active-color="#13ce66">
+            <el-switch
+              @change="handleSingle"
+              v-model="item.switch"
+              active-color="#13ce66"
+            >
             </el-switch>
           </el-col>
         </el-row>
@@ -121,6 +138,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      selectAll: true, // 选中全部
       value: false,
       generalDisabled: true,
       bratSemData: [],
@@ -146,6 +164,23 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    handleSelectAll(val) {
+      console.log('val', val)
+      this.bratData.map(item => {
+        item.switch = val
+      })
+    },
+    handleSingle(val) {
+      const selectSwitch = this.bratData.map(item => item.switch)
+      console.log('selectSwitch', selectSwitch)
+      const selectSwitchBooble = selectSwitch.indexOf(false)
+      console.log('selectSwitchBooble', selectSwitchBooble)
+      if (selectSwitchBooble !== -1) {
+        this.selectAll = false
+      } else {
+        this.selectAll = true
+      }
+    },
     // 上传文件
     openFile($event) {
       console.log('$event', $event)

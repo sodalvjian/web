@@ -53,7 +53,7 @@
       row-key="dataId"
       :tree-props="{ children: 'children' }"
     >
-      <el-table-column label="Entity" width="320">
+      <el-table-column label="Entity" width="320" show-overflow-tooltip>
         <template slot-scope="scope">
           <span class="relation-data">{{ scope.row.relationData || '' }}</span>
           {{ scope.row.dataName }}
@@ -69,6 +69,15 @@
         </template>
       </el-table-column>
       <el-table-column prop="address" label="CUI">
+        <template slot="header" slot-scope="scope">
+          <span class="fl"> CUI</span>
+          <a
+            href="https://www.nlm.nih.gov/research/umls/new_users/online_learning/Meta_005.html"
+            target="_blank"
+            class="ml-5"
+            ><i class="el-icon-info color-main ml-10 f18 fl mt-3"></i
+          ></a>
+        </template>
         <template slot-scope="scope">
           {{ scope.row.cui }}
         </template>

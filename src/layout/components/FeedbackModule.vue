@@ -52,7 +52,7 @@
           <el-form-item label="Picture Upload">
             <el-upload
               ref="upload"
-              :action="`http://${s3Data.bucket}.s3.amazonaws.com`"
+              :action="`https://${s3Data.bucket}.s3.amazonaws.com`"
               list-type="picture-card"
               :data="s3Data"
               :auto-upload="false"

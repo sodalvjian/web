@@ -126,7 +126,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
-      location.href = `/login`
+      location.reload()
     }
   }
 }

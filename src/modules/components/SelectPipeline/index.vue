@@ -25,10 +25,10 @@
         placement="top"
       >
         <div slot="content">
-          Unit price:
+          pipeline pricing:
           {{ selectPipeline.unitPrice }} $/byte
           <br />
-          Description: {{ selectPipeline.description }}
+          description: {{ selectPipeline.description }}
         </div>
         <i class="el-icon-info f18 color-main mt-8 ml-20 cp"></i>
       </el-tooltip>
