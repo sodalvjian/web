@@ -7,7 +7,7 @@
           Personal information
         </strong>
       </nav>
-      <section class="p25 mt-10 w">
+      <section class="mt-10 p25 w">
         <el-form
           ref="formData"
           :model="formData"
@@ -17,7 +17,7 @@
           class="user-form"
         >
           <div v-loading="personalLoading">
-            <el-row :gutter="20">
+            <!-- <el-row :gutter="20">
               <el-col :span="24">
                 <el-form-item label="Api key" label-width="100px" prop="pass">
                   <small>{{ formData.apiKey }}</small>
@@ -37,8 +37,8 @@
                   </el-tooltip>
                 </el-form-item>
                 <el-divider></el-divider>
-                <!-- <el-form-item label="" label-width="100px" prop="pass">
-                  <div class="cb mb-20">
+                <el-form-item label="" label-width="100px" prop="pass">
+                  <div class="mb-20 cb">
                     <el-avatar
                       shape="circle"
                       :size="100"
@@ -54,9 +54,9 @@
                       >Edit</el-button
                     >
                   </div>
-                </el-form-item> -->
+                </el-form-item>
               </el-col>
-            </el-row>
+            </el-row> -->
             <el-row :gutter="20">
               <el-col :span="12">
                 <el-form-item label="First name" prop="firstname">

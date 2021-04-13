@@ -1,10 +1,10 @@
 <template>
   <div class="">
     <!-- <nav class="vital-container cb bb-1">
-      <strong class="fl mt-10 f16">API</strong>
+      <strong class="mt-10 fl f16">API</strong>
       <div class="fr">
         <el-button
-          class="filter-item shadow"
+          class="shadow filter-item"
           type="primary"
           size="small"
           icon="el-icon-document-copy"
@@ -12,7 +12,7 @@
         >
       </div>
     </nav> -->
-    <!-- <div class="api-header tc fb pt-20 pb-30">
+    <!-- <div class="pt-20 api-header tc fb pb-30">
       <h2 class="color-white" style="white-space: pre;">Implement NLP     Empower clinical application</h2>
       <el-row :gutter="20" class="mt-30 color-white" style="max-width: 1000px;margin: 0 auto;">
         <el-col :span="6">
@@ -49,11 +49,23 @@
         </el-col>
       </el-row>
     </div> -->
-    <section class="bg-color-white p25 api-container">
+    <section v-loading="pageLoading" class="bg-color-white p25 api-container">
       <!-- <vue-markdown v-html="mercuryApi">
       </vue-markdown> -->
       <article>
         <h2><strong>Mercury NLP APIs</strong></h2>
+        <div>
+          <strong>Api key:</strong> <small>{{ apiKey }}</small>
+          <el-tooltip class="item" effect="dark" content="Copy" placement="top">
+            <el-button
+              v-clipboard:copy="apiKey"
+              v-clipboard:success="copySuccess"
+              class="ml-10 f15"
+              type="text"
+              icon="el-icon-document-copy"
+            ></el-button>
+          </el-tooltip>
+        </div>
         <hr />
         <p>invoke</p>
         <ul>
@@ -179,6 +191,8 @@
 
 <script>
 import mercuryApi from '@/assets/md/mercury_api.md'
+import store from '@/store'
+import { GetUserInfo } from '@/api/user-page'
 // import VueMarkdown from 'vue-markdown'
 export default {
   components: {
@@ -187,14 +201,34 @@ export default {
   props: {},
   data() {
     return {
-      mercuryApi
+      mercuryApi,
+      pageLoading: false,
+      userId: store.getters.userInfo.userId,
+      apiKey: ''
     }
   },
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
-  methods: {}
+  mounted() {
+    this.getUserInfo()
+  },
+  methods: {
+    copySuccess() {
+      this.$message.success('Copy success!')
+    },
+    getUserInfo() {
+      this.pageLoading = true
+      GetUserInfo()
+        .then(res => {
+          this.apiKey = res.data.apiKey
+          this.pageLoading = false
+        })
+        .catch(() => {
+          this.pageLoading = false
+        })
+    }
+  }
 }
 </script>
 <style scoped lang="scss">
