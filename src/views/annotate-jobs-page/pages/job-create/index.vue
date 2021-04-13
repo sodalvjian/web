@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="mt-10 fl nav-title f16"
-        ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong
-      >
+      <strong
+        class="mt-10 fl nav-title f16"
+      ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong>
     </nav>
     <el-form
       ref="formData"
@@ -91,8 +91,7 @@
                 </el-input> -->
               </el-form-item>
             </div>
-          </el-col></el-row
-        >
+          </el-col></el-row>
       </section>
       <section
         v-loading="pageLoading"
@@ -138,15 +137,13 @@
                   size="mini"
                   class="color-red"
                   @click="cancerPopoverVisible"
-                  >Close</el-button
-                >
+                >Close</el-button>
                 <el-button
                   type="text"
                   size="mini"
                   class="color-green"
                   @click="confirmEncryption"
-                  >Confirm</el-button
-                >
+                >Confirm</el-button>
               </div>
               <el-switch
                 slot="reference"
@@ -172,7 +169,7 @@
                     v-model="formData.input"
                     v-loading="inputCheckLoading"
                     class="job-create-input-read"
-                    placeholder="s3://mybucket/myinput"
+                    placeholder="s3://mybucket"
                     @keyup.native="verityhandle('read')"
                   >
                   </el-input>
@@ -265,20 +262,19 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
             </div>
-          </el-col></el-row
-        >
+          </el-col></el-row>
       </section>
       <el-form-item class="mt-40 tc">
-        <el-button size="medium" @click="$emit('close-dialog')"
-          >Cancel</el-button
-        >
+        <el-button
+          size="medium"
+          @click="$emit('close-dialog')"
+        >Cancel</el-button>
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-          >Confirm</el-button
-        >
+        >Confirm</el-button>
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -300,8 +296,8 @@ import ShowS3Info from './components/ShowS3Info'
 import { s3List } from './constants'
 import { debounce } from '@/utils/method'
 import store from '@/store'
-const s3Reg = /^s3:\/(\/\w+){2,}\/?$/
-const s3RegName = /^[A-Za-z0-9](?!.*[.-]{2})[A-Za-z0-9\-.]{1,61}[A-Za-z0-9]$/
+const s3Reg = /^s3:\/(\/\w+){1,}\/?$/
+const s3RegName = /(?=^.{3,63}$)(?!^(\d+\.)+\d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])\.)*([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$)/
 
 export default {
   name: 'InlineEditTable',
@@ -329,7 +325,7 @@ export default {
           if (!s3Reg.test(value)) {
             callback(
               new Error(
-                'Please enter the correct s3 location,like:"s3://xxx/xxx".'
+                'Please enter the correct s3 location,like:"s3://xxx".'
               )
             )
           } else {
@@ -453,15 +449,15 @@ export default {
             this.needAuthor = false
             this.formData.output = res.data.output
           } else {
-            this.formData.output = res.data.output
-            this.verityInput = false
-            this.verityInputData = res.data
             if (res.code !== 200) {
               this.$message.warning(res.message)
             } else {
               this.$message.warning('Verity failed, Please authorize.')
               this.needAuthor = true
             }
+            this.formData.output = res.data.output
+            this.verityInput = false
+            this.verityInputData = res.data
 
             // this.$refs.showS3InfoRef.openDialog(res.data, 'read') // 验证不过弹出授权提示
           }
@@ -503,8 +499,8 @@ export default {
         }
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-              item => item.params === pipelineObj.params
-            )
+            item => item.params === pipelineObj.params
+          )
           : {}
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)
