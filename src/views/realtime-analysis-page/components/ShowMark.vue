@@ -219,11 +219,11 @@ export default {
             globalBus.$emit('set-analysis-loading-false')
           })
           .catch(res => {
-            if (res.code === 800008) {
-              this.$refs.dialogShowInfoRef.openDialog('nlp')
-              this.loading = false
-              this.noDataShow = true
-            }
+            // if (res.code === 800008) {
+            //   this.$refs.dialogShowInfoRef.openDialog('nlp')
+            //   this.loading = false
+            //   this.noDataShow = true
+            // }
             globalBus.$emit('set-analysis-loading-false')
             this.loading = false
           })

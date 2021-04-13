@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong
-        class="mt-10 fl nav-title f16"
-      ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong>
+      <strong class="mt-10 fl nav-title f16"
+        ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong
+      >
     </nav>
     <el-form
       ref="formData"
@@ -91,7 +91,8 @@
                 </el-input> -->
               </el-form-item>
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <section
         v-loading="pageLoading"
@@ -137,13 +138,15 @@
                   size="mini"
                   class="color-red"
                   @click="cancerPopoverVisible"
-                >Close</el-button>
+                  >Close</el-button
+                >
                 <el-button
                   type="text"
                   size="mini"
                   class="color-green"
                   @click="confirmEncryption"
-                >Confirm</el-button>
+                  >Confirm</el-button
+                >
               </div>
               <el-switch
                 slot="reference"
@@ -160,11 +163,11 @@
           </el-col>
         </el-row>
         <el-divider class="m-0"></el-divider>
-        <el-row :gutter="20">
+        <el-row :gutter="15">
           <el-col :span="12" class="br-1">
             <div class="p20">
               <el-form-item label="S3 location:" prop="input" :rules="s3Rules">
-                <el-col :span="18" class="pl-0">
+                <el-col :span="14" class="pl-0">
                   <el-input
                     v-model="formData.input"
                     v-loading="inputCheckLoading"
@@ -174,7 +177,7 @@
                   >
                   </el-input>
                 </el-col>
-                <el-col v-if="needAuthor" :span="6">
+                <el-col v-if="needAuthor" :span="10">
                   <el-button
                     :loading="inputAuthorizeLoading"
                     type="warning"
@@ -183,6 +186,21 @@
                   >
                     Authorize
                   </el-button>
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="Verity again"
+                    placement="top"
+                  >
+                    <el-button
+                      :loading="inputAuthorizeLoading"
+                      type="primary"
+                      size="medium"
+                      icon="el-icon-key"
+                      @click="verityhandle('read')"
+                    >
+                    </el-button>
+                  </el-tooltip>
                 </el-col>
                 <!-- <el-button
                     slot="append"
@@ -262,19 +280,20 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <el-form-item class="mt-40 tc">
-        <el-button
-          size="medium"
-          @click="$emit('close-dialog')"
-        >Cancel</el-button>
+        <el-button size="medium" @click="$emit('close-dialog')"
+          >Cancel</el-button
+        >
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -324,9 +343,7 @@ export default {
         if (value !== '') {
           if (!s3Reg.test(value)) {
             callback(
-              new Error(
-                'Please enter the correct s3 location,like:"s3://xxx".'
-              )
+              new Error('Please enter the correct s3 location,like:"s3://xxx".')
             )
           } else {
             const s3NameFirst = value.replace(
@@ -389,6 +406,9 @@ export default {
   created() {},
   mounted() {
     // this.getAnalysisType()
+  },
+  activated() {
+    console.log('123')
   },
   methods: {
     verityhandle(type) {
@@ -499,8 +519,8 @@ export default {
         }
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-            item => item.params === pipelineObj.params
-          )
+              item => item.params === pipelineObj.params
+            )
           : {}
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)
@@ -562,8 +582,6 @@ export default {
               name: name,
               input: input,
               output: output,
-              // inRegion: this.inRegion,
-              // outRegion: this.outRegion,
               pipeline:
                 typeof this.formData.pipelineId === 'string'
                   ? this.formData.pipelineId

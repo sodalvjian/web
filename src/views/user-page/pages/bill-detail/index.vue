@@ -63,6 +63,13 @@
           label="Pipeline"
           min-width="180"
         >
+        <template slot-scope="scope">
+                {{
+                  scope.row.aliasPipeline && scope.row.aliasPipelinev
+                    ? `${scope.row.aliasPipeline} (${scope.row.aliasPipelinev})`
+                    : scope.row.analysisType
+                }}
+              </template>
         </el-table-column>
         <el-table-column prop="type" align="center" label="Type" width="100">
         </el-table-column>

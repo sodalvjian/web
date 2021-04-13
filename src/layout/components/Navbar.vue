@@ -12,9 +12,9 @@
     <!-- <span
       class="header-back cp"
       @click="historyBack"
-    ><i class="el-icon-back"></i></span>
-    <breadcrumb class="breadcrumb-container" /> -->
-    <div class="navbar-search">
+    ><i class="el-icon-back"></i></span> -->
+    <breadcrumb class="breadcrumb-container" />
+    <div class="navbar-search bl-1">
       <el-input
         v-model="navbarQuery"
         clearable
@@ -74,13 +74,13 @@
 import { mapGetters } from 'vuex'
 import store from '@/store'
 // import ErrorLog from '@/components/ErrorLog'
-// import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import DialogShowInfo from '@/components/DialogShowInfo'
 const defaultAvatar = require('@/assets/img/avatar.png')
 export default {
   components: {
-    // Breadcrumb,
+    Breadcrumb,
     Hamburger,
     DialogShowInfo
     // ErrorLog
@@ -204,6 +204,8 @@ export default {
 
   .breadcrumb-container {
     float: left;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .right-menu {

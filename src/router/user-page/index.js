@@ -12,7 +12,7 @@ export default [
         name: 'cost',
         component: () => import('@/views/user-page/pages/cost-management'),
         meta: {
-          title: 'Cost'
+          title: 'Billing & Cost Management'
         }
       },
       {
@@ -20,7 +20,7 @@ export default [
         name: 'billDetail',
         component: () => import('@/views/user-page/pages/bill-detail'),
         meta: {
-          title: 'billDetail'
+          title: 'Bill Details'
         }
       },
       {
@@ -28,7 +28,7 @@ export default [
         name: 'personalInfo',
         component: () => import('@/views/user-page/pages/personal-info'),
         meta: {
-          title: 'personalInfo'
+          title: 'Personal information'
         }
       },
       {
@@ -36,7 +36,7 @@ export default [
         name: 'accountPassword',
         component: () => import('@/views/user-page/pages/account-password'),
         meta: {
-          title: 'accountPassword'
+          title: 'Account and password'
         }
       },
       {
@@ -44,7 +44,7 @@ export default [
         name: 'orderInvoice',
         component: () => import('@/views/user-page/pages/order-invoice'),
         meta: {
-          title: 'orderInvoice'
+          title: 'Orders and invoices'
         }
       }
     ]

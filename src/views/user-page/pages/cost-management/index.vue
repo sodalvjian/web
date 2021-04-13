@@ -129,6 +129,13 @@
               label="Pipeline"
               min-width="180"
             >
+              <template slot-scope="scope">
+                {{
+                  scope.row.aliasPipeline && scope.row.aliasPipelinev
+                    ? `${scope.row.aliasPipeline} (${scope.row.aliasPipelinev})`
+                    : scope.row.analysisType
+                }}
+              </template>
             </el-table-column>
             <el-table-column
               align="center"
@@ -266,7 +273,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.coupon-container{
+.coupon-container {
   min-height: 150px;
 }
 </style>
