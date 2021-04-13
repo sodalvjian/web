@@ -1,7 +1,7 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="fl nav-title mt-10 f16"
+      <strong class="mt-10 fl nav-title f16"
         ><span class="color-gray"> Job details > </span>
         <small>New job</small></strong
       >
@@ -12,7 +12,7 @@
       :model="formData"
       label-width="80px"
     >
-      <section v-loading="pageLoading" class="bg-color-gray mt-20 bd-1">
+      <section v-loading="pageLoading" class="mt-20 bg-color-gray bd-1">
         <el-row :gutter="15" class="p20">
           <el-col :span="8">
             <strong class="f16">Job Setting</strong>
@@ -34,7 +34,7 @@
                   placeholder="Input your job name"
                 ></el-input>
               </el-form-item>
-              <!-- <div class="f13 lh1-5 mt-20">
+              <!-- <div class="mt-20 f13 lh1-5">
                 <i class="el-icon-warning color-main f15"></i> Support for
                 letters, Numbers and their combinations 2.Please enter 6
                 characters to 256 characters
@@ -112,7 +112,7 @@
             >
               <el-radio-group v-model="encryptionRadio" class="w">
                 <el-radio label="AES-256">AES-256</el-radio>
-                <div class="encryption-handle mt-10">
+                <div class="mt-10 encryption-handle">
                   <el-radio label=""></el-radio>
                   <div class="encryption-input">
                     <el-input
@@ -125,7 +125,7 @@
                   </div>
                 </div>
               </el-radio-group>
-              <div class="tr mt-20">
+              <div class="mt-20 tr">
                 <el-button
                   size="mini"
                   type="text"
@@ -151,7 +151,7 @@
               <el-switch
                 slot="reference"
                 v-model="encryption"
-                class="fr mt-15 mr-20 job-create-switch"
+                class="mr-20 fr mt-15 job-create-switch"
                 active-color="#13ce66"
                 inactive-text="Encryption"
                 disabled
@@ -194,14 +194,14 @@
                     @click="verifyS3Data('r')"
                     ><i
                       v-if="verityInput"
-                      class="el-icon-success mr-5 color-green"
+                      class="mr-5 el-icon-success color-green"
                     ></i
                     >Verify</el-button
                   > -->
                 <!-- </el-input> -->
               </el-form-item>
 
-              <div class="f13 lh1-5 mt-20">
+              <div class="mt-20 f13 lh1-5">
                 <i class="el-icon-warning color-main f15"></i>
                 Example: s3://mybucket/my_input_folder
                 <!-- Browse,type or
@@ -217,11 +217,7 @@
             <div class="p20">
               <el-form-item label="S3 location:" prop="output">
                 <el-col :span="24" class="pl-0">
-                  <el-input
-                    v-model="formData.output"
-                    disabled
-                  >
-                  </el-input>
+                  <el-input v-model="formData.output" disabled> </el-input>
                 </el-col>
                 <!-- <el-col :span="8">
                   <el-tooltip
@@ -258,7 +254,7 @@
                   </el-tooltip>
                 </el-col> -->
               </el-form-item>
-              <!-- <div class="f13 lh1-5 mt-20">
+              <!-- <div class="mt-20 f13 lh1-5">
                 <i class="el-icon-warning color-main f15"></i>
                 Example: s3://mybucket/my_output_folder
                 Browse,type or
@@ -272,7 +268,7 @@
           </el-col></el-row
         >
       </section>
-      <el-form-item class="tc mt-40">
+      <el-form-item class="mt-40 tc">
         <el-button size="medium" @click="$emit('close-dialog')"
           >Cancel</el-button
         >
@@ -305,6 +301,8 @@ import { s3List } from './constants'
 import { debounce } from '@/utils/method'
 import store from '@/store'
 const s3Reg = /^s3:\/(\/\w+){2,}\/?$/
+const s3RegName = /^[A-Za-z0-9](?!.*[.-]{2})[A-Za-z0-9\-.]{1,61}[A-Za-z0-9]$/
+
 export default {
   name: 'InlineEditTable',
   components: {
@@ -334,6 +332,15 @@ export default {
                 'Please enter the correct s3 location,like:"s3://xxx/xxx".'
               )
             )
+          } else {
+            const s3NameFirst = value.replace(
+              /^.+?\/\/([^\\]+?)(\.[^\.\\]*?)?$/gi,
+              '$1'
+            )
+            const s3Name = s3NameFirst.split('/')[0]
+            if (!s3RegName.test(s3Name)) {
+              callback(new Error('Please enter the correct s3 name.'))
+            }
           }
         }
         callback()
@@ -390,7 +397,16 @@ export default {
   methods: {
     verityhandle(type) {
       debounce(() => {
-        if (type === 'read' && s3Reg.test(this.formData.input)) {
+        const s3NameFirst = this.formData.input.replace(
+          /^.+?\/\/([^\\]+?)(\.[^\.\\]*?)?$/gi,
+          '$1'
+        )
+        const s3Name = s3NameFirst.split('/')[0]
+        if (
+          type === 'read' &&
+          s3Reg.test(this.formData.input) &&
+          s3RegName.test(s3Name)
+        ) {
           this.verityInput = false
           this.verifyS3Data('read')
         } else if (type === 'write' && s3Reg.test(this.formData.output)) {
@@ -579,9 +595,7 @@ export default {
                 // }
               })
           } else {
-            this.$message.warning(
-              'Please verity the input data.'
-            )
+            this.$message.warning('Please verity the input data.')
           }
 
           // const checkData = {
