@@ -359,7 +359,7 @@ export default {
             )
             const s3Name = s3NameFirst.split('/')[0]
             if (!s3RegName.test(s3Name)) {
-              callback(new Error('Please enter the correct s3 name.'))
+              callback(new Error('Please enter the correct S3 URI.'))
             }
           }
         }
