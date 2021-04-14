@@ -30,7 +30,7 @@
           <br />
           description: {{ selectPipeline.description }}
         </div>
-        <i class="el-icon-info f18 color-main mt-8 ml-20 cp"></i>
+        <i class="mt-8 ml-20 el-icon-info f18 color-main cp"></i>
       </el-tooltip>
     </el-col>
   </el-row>
@@ -123,7 +123,7 @@ export default {
             item.showName = item.lamdaName
             item.children = item.version
             item.version.map(child => {
-              child.showName = `${child.name} (${child.version})`
+              child.showName = `${child.name}:${child.version}`
             })
           })
           this.optionsList = resultData

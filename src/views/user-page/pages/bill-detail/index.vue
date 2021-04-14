@@ -5,7 +5,7 @@
         <el-col :span="8">
           <strong class="f18 color-black">
             <router-link to="/user/cost" class="color-main f19"
-              ><i class="el-icon-arrow-left mr-5"></i>Personal
+              ><i class="mr-5 el-icon-arrow-left"></i>Personal
               center</router-link
             >
             / Bill Details
@@ -66,7 +66,7 @@
         <template slot-scope="scope">
                 {{
                   scope.row.aliasPipeline && scope.row.aliasPipelinev
-                    ? `${scope.row.aliasPipeline} (${scope.row.aliasPipelinev})`
+                    ? `${scope.row.aliasPipeline}:${scope.row.aliasPipelinev}`
                     : scope.row.analysisType
                 }}
               </template>
@@ -93,7 +93,7 @@
         >
         </el-table-column>
       </el-table>
-      <div class="tr mt-20">
+      <div class="mt-20 tr">
         <el-pagination
           :page-size="pageSize"
           background

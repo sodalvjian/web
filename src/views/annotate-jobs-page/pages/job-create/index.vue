@@ -104,7 +104,7 @@
           </el-col>
           <el-col :span="12">
             <strong class="f16 p20 disinblock fl">Output Data</strong>
-            <el-popover
+            <!-- <el-popover
               v-model="popoverVisible"
               placement="top-end"
               trigger="manual"
@@ -159,7 +159,14 @@
                 @change="changeEncrytion"
               >
               </el-switch>
-            </el-popover>
+            </el-popover> -->
+            <el-switch
+              v-model="formData.encryption"
+              class="mr-20 fr mt-15 job-create-switch"
+              active-color="#13ce66"
+              inactive-text="Encryption"
+            >
+            </el-switch>
           </el-col>
         </el-row>
         <el-divider class="m-0"></el-divider>
@@ -471,6 +478,7 @@ export default {
           } else {
             if (res.code !== 200) {
               this.$message.warning(res.message)
+              this.needAuthor = true
             } else {
               this.$message.warning('Verity failed, Please authorize.')
               this.needAuthor = true
@@ -484,6 +492,8 @@ export default {
         })
         .catch(msg => {
           this.inputCheckLoading = false
+          this.verityInput = false
+          this.needAuthor = true
         })
     },
     cancerPopoverVisible() {
@@ -509,11 +519,11 @@ export default {
           item => item.params === pipeline
         )
         console.log('pipelineObj', pipelineObj)
-
+        console.log('copyencryption', encryption)
         this.formData = {
           name: name,
           pipelineId: pipelineObj ? pipelineObj.params : '',
-          encryption: encryption,
+          encryption: !!encryption,
           input: input,
           output: output
         }
@@ -576,7 +586,7 @@ export default {
         if (valid) {
           const { name, input, output, encryption } = this.formData
           if (this.verityInput) {
-            this.btnLoading = true
+            // this.btnLoading = true
             const params = {
               userId: this.userId,
               name: name,
@@ -586,8 +596,10 @@ export default {
                 typeof this.formData.pipelineId === 'string'
                   ? this.formData.pipelineId
                   : this.formData.pipelineId[1],
-              encryption: encryption
+              encryption: encryption ? 'AES-256' : ''
             }
+            console.log('/encryption', params.encryption)
+            // return false
             AddData(params)
               .then(res => {
                 if (res.code === 200) {

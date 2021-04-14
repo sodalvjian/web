@@ -7,7 +7,7 @@
           Billing & Cost Management
         </strong>
       </nav>
-      <section class="p25 mt-10 w">
+      <section class="mt-10 p25 w">
         <nav>
           <el-row class="w">
             <el-col :span="16">
@@ -44,14 +44,14 @@
         <nav class="mt-30">
           <el-row class="w">
             <el-col :span="16">
-              <strong class="color-black f15"> Coupon</strong>
+              <strong class="color-black f15"> Voucjers and Credits</strong>
             </el-col>
           </el-row>
         </nav>
         <div class="mt-15 coupon-container" v-loading="couponLoading">
           <div
             v-if="couponData.length === 0"
-            class="pt-50 mt-20 mb-40 tc color-hui bbs-1 bts-1 pb-50"
+            class="mt-20 mb-40 pt-50 tc color-hui bbs-1 bts-1 pb-50"
           >
             No Coupon
           </div>
@@ -67,20 +67,20 @@
                   <i class="el-icon-s-ticket color-main f40"></i>
                 </el-col>
                 <el-col :span="10">
-                  <div class=" mt-3">
+                  <div class="mt-3 ">
                     <strong class="f24">$ {{ item.quota }}</strong>
                   </div>
 
                   <div class="mt-10 color-8">
-                    Expiry Date：{{ item.expireDate }}
+                    Expiration Date：{{ item.expireDate }}
                   </div>
                 </el-col>
                 <el-col :span="9">
-                  <div class=" mt-3">
+                  <div class="mt-3 ">
                     <strong class="f24">$ {{ item.remaining }}</strong>
                   </div>
 
-                  <div class="mt-10 color-8">Reminding amount</div>
+                  <div class="mt-10 color-8">Remaining amount</div>
                 </el-col>
               </el-row>
             </el-card>
@@ -132,7 +132,7 @@
               <template slot-scope="scope">
                 {{
                   scope.row.aliasPipeline && scope.row.aliasPipelinev
-                    ? `${scope.row.aliasPipeline} (${scope.row.aliasPipelinev})`
+                    ? `${scope.row.aliasPipeline}:${scope.row.aliasPipelinev}`
                     : scope.row.analysisType
                 }}
               </template>
