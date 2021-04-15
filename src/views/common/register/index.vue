@@ -301,6 +301,7 @@ export default {
         if (valid) {
           this.loading = true
           const params = Object.assign(this.formData)
+          console.log('params', params)
           RegisterAccount(params)
             .then(res => {
               this.$router.push('/')
@@ -439,7 +440,6 @@ $light_gray: #333333;
   width: 100%;
   background-color: $bg;
   background-size: 100%;
-  overflow: hidden;
 
   .tips {
     font-size: 14px;

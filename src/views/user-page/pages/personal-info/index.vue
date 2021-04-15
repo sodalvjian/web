@@ -4,6 +4,9 @@
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
+          <router-link to="/" class="color-main f19"
+            ><i class="mr-10 el-icon-arrow-left fb"></i
+          ></router-link>
           Personal information
         </strong>
       </nav>

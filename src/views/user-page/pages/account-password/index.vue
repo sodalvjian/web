@@ -4,10 +4,13 @@
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
+          <router-link to="/" class="color-main f19"
+            ><i class="mr-10 el-icon-arrow-left fb"></i
+          ></router-link>
           Account and password
         </strong>
       </nav>
-      <section class="p25 mt-10 w">
+      <section class="mt-10 p25 w">
         <el-form
           ref="formData"
           :model="formData"

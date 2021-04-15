@@ -298,7 +298,6 @@ $light_gray: #333333;
   width: 100%;
   background-color: $bg;
   background-size: 100%;
-  overflow: hidden;
 
   .tips {
     font-size: 14px;

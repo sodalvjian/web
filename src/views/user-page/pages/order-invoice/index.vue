@@ -4,10 +4,13 @@
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
+          <router-link to="/" class="color-main f19"
+            ><i class="mr-10 el-icon-arrow-left fb"></i
+          ></router-link>
           Orders and invoices
         </strong>
       </nav>
-      <section class="p25 mt-10 w">
+      <section class="mt-10 p25 w">
         <nav>
           <el-row class="w">
             <el-col :span="16">
@@ -147,7 +150,7 @@
             </el-table-column>
           </el-table>
         </div>
-        <div class="tr mt-20">
+        <div class="mt-20 tr">
           <el-pagination
             :page-size="invoicePageSize"
             background

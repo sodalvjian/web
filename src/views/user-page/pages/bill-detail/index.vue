@@ -5,7 +5,7 @@
         <el-col :span="8">
           <strong class="f18 color-black">
             <router-link to="/user/cost" class="color-main f19"
-              ><i class="mr-5 el-icon-arrow-left"></i>Personal
+              ><i class="mr-10 el-icon-arrow-left"></i>Personal
               center</router-link
             >
             / Bill Details
