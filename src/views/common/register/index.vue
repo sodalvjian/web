@@ -92,7 +92,6 @@
           </el-form-item>
           <el-form-item
             prop="invitationCode"
-            :rules="{ required: true, message: 'Please enter invitation code' }"
           >
             <el-input
               v-model="formData.invitationCode"
