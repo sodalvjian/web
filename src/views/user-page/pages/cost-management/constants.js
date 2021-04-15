@@ -2,8 +2,8 @@ import ECharts from 'vue-echarts'
 
 var colorArr = [
   {
-    top: '#8080ff', // 紫色
-    bottom: '#8080ff'
+    top: '#155dee', // 紫色
+    bottom: '#155dee'
   },
   {
     top: '#f75a7f', // 红色

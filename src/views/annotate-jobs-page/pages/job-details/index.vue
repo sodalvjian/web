@@ -1,15 +1,15 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="fl nav-title mt-10 f16">Job details</strong>
+      <strong class="mt-10 fl nav-title f16">Job details</strong>
       <div class="fr">
         <el-button
-          class="filter-item shadow"
+          class="shadow filter-item"
           type="primary"
           size="mini"
           icon="el-icon-document-copy"
           @click="createJobAgain"
-          >Copy</el-button
+          >Clone job</el-button
         >
       </div>
     </nav>
@@ -102,32 +102,32 @@
       ><el-row :gutter="15" class="p20">
         <el-col :span="8" class="tc">
           <el-card shadow="never">
-            <div class="f15">Number of ducuments</div>
-            <div class="fb f32 mt-20">{{ detailData.processedCount }}</div>
+            <div class="f18">Ducuments</div>
+            <div class="mt-20 fb f32">{{ detailData.processedCount }}</div>
           </el-card>
         </el-col>
         <el-col :span="8" class="tc">
           <el-card shadow="never">
-            <div class="f15">Number of Entity</div>
-            <div class="fb f32 mt-20">{{ detailData.processedEntities }}</div>
+            <div class="f18">Entities</div>
+            <div class="mt-20 fb f32">{{ detailData.processedEntities }}</div>
           </el-card>
         </el-col>
         <el-col :span="8" class="tc">
           <el-card shadow="never">
-            <div class="f15">Number of relation</div>
-            <div class="fb f32 mt-20">{{ detailData.processedRelations }}</div>
+            <div class="f18">Relations</div>
+            <div class="mt-20 fb f32">{{ detailData.processedRelations }}</div>
           </el-card>
         </el-col>
       </el-row>
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Input location:
-          <strong> {{ detailData.input }}</strong>
+          <strong class="job-detail-location"> {{ detailData.input }}</strong>
           <span
             ><i
               v-clipboard:copy="detailData.input"
               v-clipboard:success="copySuccess"
-              class="el-icon-document-copy cp ml-5"
+              class="ml-5 el-icon-document-copy cp"
             ></i
           ></span>
         </el-col>
@@ -136,12 +136,12 @@
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Output location:
-          <strong> {{ detailData.output }}</strong>
+          <strong class="job-detail-location"> {{ detailData.output }}</strong>
           <span
             ><i
               v-clipboard:copy="detailData.output"
               v-clipboard:success="copySuccess"
-              class="el-icon-document-copy cp ml-5"
+              class="ml-5 el-icon-document-copy cp"
             ></i
           ></span>
         </el-col> </el-row
@@ -165,14 +165,14 @@
       <el-row :gutter="30">
         <el-col v-loading="pageLoading" :span="12">
           <div class="cb">
-            <div class="fl fb mt-8">
+            <div class="mt-8 fl fb">
               API call
             </div>
             <div class="fr">
               <el-button
                 v-clipboard:copy="apiCallData"
                 v-clipboard:success="copySuccess"
-                class="filter-item shadow"
+                class="shadow filter-item"
                 type="primary"
                 size="mini"
                 icon="el-icon-document-copy"
@@ -186,14 +186,14 @@
         </el-col>
         <el-col v-loading="pageLoading" :span="12">
           <div class="cb">
-            <div class="fl fb mt-8">
+            <div class="mt-8 fl fb">
               API response
             </div>
             <div class="fr">
               <el-button
                 v-clipboard:copy="apiResponseData"
                 v-clipboard:success="copySuccess"
-                class="filter-item shadow"
+                class="shadow filter-item"
                 type="primary"
                 size="mini"
                 icon="el-icon-document-copy"
@@ -351,4 +351,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.job-detail-location {
+  color: #2d5b82;
+}
+</style>
