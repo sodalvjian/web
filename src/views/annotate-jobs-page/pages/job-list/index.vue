@@ -1,10 +1,10 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="fl f16 mt-10 w50">Job list</strong>
+      <strong class="mt-10 fl f16 w50">Analysis Jobs</strong>
       <div class="fr w50 tl">
         <el-button
-          class="filter-item shadow"
+          class="shadow filter-item"
           type="primary"
           style="margin-left:-71px"
           size="medium"

@@ -13,8 +13,8 @@
       class="header-back cp"
       @click="historyBack"
     ><i class="el-icon-back"></i></span> -->
-    <breadcrumb class="breadcrumb-container" />
-    <div class="navbar-search bl-1">
+    <!-- <breadcrumb class="breadcrumb-container" /> -->
+    <!-- <div class="navbar-search bl-1">
       <el-input
         v-model="navbarQuery"
         clearable
@@ -28,7 +28,7 @@
           @click="handleSearchJob"
         ></i>
       </el-input>
-    </div>
+    </div> -->
 
     <div class="right-menu">
       <!-- <error-log class="errLog-container right-menu-item hover-effect" /> -->
@@ -39,7 +39,7 @@
           </svg> -->
           <span class="mr-15 header-title fl cb cp">
             <el-avatar
-              class="fl mr-10 header-avatar"
+              class="mr-10 fl header-avatar"
               :src="avatarSrc"
             ></el-avatar>
             <span class="f16 fl">{{ userName }}</span></span

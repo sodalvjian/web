@@ -78,6 +78,7 @@ export default {
   @include clearfix;
   position: relative;
   height: 100%;
+  min-width: 1000px;
   width: 100%;
   &.mobile.openSidebar {
     position: fixed;

@@ -90,6 +90,17 @@
               type="text"
             />
           </el-form-item>
+          <el-form-item
+            prop="invitationCode"
+            :rules="{ required: true, message: 'Please enter invitation code' }"
+          >
+            <el-input
+              v-model="formData.invitationCode"
+              :maxlength="64"
+              placeholder="Invitation code"
+              type="text"
+            />
+          </el-form-item>
           <el-form-item>
             <el-button
               :loading="loading"
@@ -197,6 +208,7 @@ export default {
       formData: {
         email: '',
         accountName: '',
+        invitationCode: '',
         password: '',
         checkPass: '',
         verificationCode: ''
@@ -234,7 +246,6 @@ export default {
       this.$refs.privacyPolicy.openDialog()
     },
     getCode() {
-    
       if (!this.formData.email) {
         this.$message.warning('Please enter email')
         return false
@@ -374,7 +385,7 @@ $cursor: #757575;
     }
     .register-content-right {
       float: left;
-      height: 625px;
+      height: 680px;
       margin-top: -55px;
       position: relative;
       width: 60%;
