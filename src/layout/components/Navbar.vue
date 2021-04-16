@@ -3,12 +3,12 @@
     <router-link to="/"
       ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt=""/></span
     ></router-link>
-    <hamburger
+    <!-- <hamburger
       v-if="router.indexOf('user') === -1"
       :is-active="sidebar.opened"
       class="hamburger-container"
       @toggleClick="toggleSideBar"
-    />
+    /> -->
     <!-- <span
       class="header-back cp"
       @click="historyBack"
@@ -188,18 +188,6 @@ export default {
     margin-top: 14px;
     font-size: 20px;
     margin-right: 10px;
-  }
-  .hamburger-container {
-    line-height: 65px;
-    height: 100%;
-    float: left;
-    cursor: pointer;
-    transition: background 0.3s;
-    -webkit-tap-highlight-color: transparent;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.025);
-    }
   }
 
   .breadcrumb-container {

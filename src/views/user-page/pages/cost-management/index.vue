@@ -5,8 +5,8 @@
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
           <router-link to="/" class="color-main f19"
-            ><i class="mr-10 el-icon-arrow-left fb"></i></router-link
-          >
+            ><i class="mr-10 el-icon-arrow-left fb"></i
+          ></router-link>
           Billing & Cost Management
         </strong>
       </nav>
@@ -47,7 +47,7 @@
         <nav class="mt-30">
           <el-row class="w">
             <el-col :span="16">
-              <strong class="color-black f15"> Voucjers and Credits</strong>
+              <strong class="color-black f15"> Vouchers and Credits</strong>
             </el-col>
           </el-row>
         </nav>

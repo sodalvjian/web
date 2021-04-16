@@ -1,7 +1,16 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="mt-10 fl f16 w50">Analysis Jobs</strong>
+      <strong class="mt-10 fl f16 w50"
+        >
+        <!-- <hamburger
+          v-if="router.indexOf('user') === -1"
+          :is-active="sidebar.opened"
+          class="hamburger-container"
+          @toggleClick="toggleSideBar"
+        /> -->
+        Analysis Jobs</strong
+      >
       <div class="fr w50 tl">
         <el-button
           class="shadow filter-item"
@@ -59,7 +68,10 @@
 
         <el-table-column width="250px" align="left">
           <template slot-scope="scope">
-            <el-col :span="22" :style="scope.row.passFileCount?'padding-top:4px':''">
+            <el-col
+              :span="22"
+              :style="scope.row.passFileCount ? 'padding-top:4px' : ''"
+            >
               <el-tooltip
                 class="cp"
                 effect="dark"
@@ -112,10 +124,11 @@
               <el-tooltip
                 v-if="scope.row.passFileCount"
                 placement="top"
-                :content="
-                  `${scope.row.passFileCount} files exceeded the limit`
-                "
-                ><i style="margin-left:-5px;margin-top:2px" class="el-icon-info f15 color-yellow"></i
+                :content="`${scope.row.passFileCount} files exceeded the limit`"
+                ><i
+                  style="margin-left:-5px;margin-top:2px"
+                  class="el-icon-info f15 color-yellow"
+                ></i
               ></el-tooltip>
             </el-col>
           </template>
@@ -195,6 +208,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import Hamburger from '@/components/Hamburger'
 import {
   DelData,
   // GET_USER_LIST
@@ -203,7 +218,9 @@ import {
 export default {
   name: 'InlineEditTable',
   filters: {},
-  components: {},
+  components: {
+    Hamburger
+  },
   data() {
     return {
       tableList: [],
@@ -217,7 +234,13 @@ export default {
       orderData: 'desc'
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters(['sidebar', 'avatar']),
+    router() {
+      console.log('this.$route', this.$route)
+      return this.$route.path
+    }
+  },
   created() {
     clearInterval(this.setInterval)
     this.getList()
@@ -229,6 +252,9 @@ export default {
     clearInterval(this.setInterval)
   },
   methods: {
+    toggleSideBar() {
+      this.$store.dispatch('app/toggleSideBar')
+    },
     // 设置进行中的百分比
     setProcessData(row) {
       return row.processedSize / row.totalSize

@@ -199,3 +199,21 @@ input::-ms-input-placeholder {
 .el-input__inner {
   border: 1px solid #8e8e8e;
 }
+.hamburger-container {
+  line-height: 15px;
+  width: 100%;
+  border-top: 1px solid #ebebeb;
+  padding: 10px;
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  cursor: pointer;
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.025);
+  }
+}

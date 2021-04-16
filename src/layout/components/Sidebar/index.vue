@@ -19,21 +19,32 @@
         />
       </el-menu>
     </el-scrollbar>
+    <hamburger
+      v-if="router.indexOf('user') === -1"
+      :is-active="sidebar.opened"
+      class="hamburger-container"
+      @toggleClick="toggleSideBar"
+    />
   </div>
 </template>
 
 <script>
+import Hamburger from '@/components/Hamburger'
 import { mapGetters } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
 
 export default {
-  components: { SidebarItem, Logo },
+  components: { SidebarItem, Logo, Hamburger },
   computed: {
     ...mapGetters(['sidebar', 'permission_routes']),
     routes() {
       return this.$router.options.routes
+    },
+    router() {
+      console.log('this.$route', this.$route)
+      return this.$route.path
     },
     activeMenu() {
       const route = this.$route
@@ -57,6 +68,11 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened
+    }
+  },
+  methods: {
+    toggleSideBar() {
+      this.$store.dispatch('app/toggleSideBar')
     }
   }
 }
