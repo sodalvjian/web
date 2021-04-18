@@ -76,7 +76,7 @@ const debounce = (function () {
   }
 })()
 
-const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\*\.\$\!\^_#@&])[A-Za-z\d\*\.\$\!\^_#@&]{8,16}$/
+const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\*\.\$\!\^_#@&])[A-Za-z\d\*\.\$\!\^_#@&]{8,256}$/
 const passwordMsg = 'At least 8 characters and should contain number, uppercase and lower case letters and some special characters of ! @ # $ ^ & * . _ '
 
 export { deepClone, unique, objvalueSort, debounce, dataURLtoBlob, passwordReg, passwordMsg, findText }
