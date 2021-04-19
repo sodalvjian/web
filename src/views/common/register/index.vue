@@ -105,7 +105,7 @@
               :loading="loading"
               :disabled="!formData.verificationCode"
               class="mt-25"
-              type="primary"
+              type="success"
               style="width:100%;height:40px"
               @click.native.prevent="handleRegister"
               >Sign up</el-button
