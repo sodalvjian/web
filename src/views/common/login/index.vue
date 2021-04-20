@@ -49,7 +49,7 @@
             <el-button
               :loading="loading"
               class="mt-25"
-              type="primary"
+              type="success"
               style="width:100%;height:40px"
               @click.native.prevent="handleLogin"
               >Sign in</el-button
