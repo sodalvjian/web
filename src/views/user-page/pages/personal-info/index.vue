@@ -230,7 +230,7 @@
                     <div class="user-card-line"></div>
                     <div class="user-card-chip"><span>CREDIT</span></div>
                     <div class="f16 colof-white p15">
-                      {{ item.cardNumber }}
+                      •••• •••• •••• {{ item.last4 }}
                     </div>
                     <div class="operation-content">
                       <el-tooltip
@@ -374,14 +374,14 @@ export default {
       })
         .then(() => {
           const params = {
-            customerPaymentProfileId: item.customerPaymentProfileId
+            id: item.id
           }
           this.cardLoading = true
           DeleteBankCard(params)
             .then(res => {
               this.cardLoading = false
-              if (res.success) {
-                this.$message.success(res.msg)
+              if (res.code === 200) {
+                this.$message.success(res.message)
                 this.getCardList()
               }
             })
@@ -401,15 +401,14 @@ export default {
       })
         .then(() => {
           const params = {
-            customerPaymentProfileId: item.customerPaymentProfileId,
-            defaultPayment: 1
+            id: item.id
           }
           this.cardLoading = true
           UpdateDefaultPayment(params)
             .then(res => {
               this.cardLoading = false
-              if (res.success) {
-                this.$message.success(res.msg)
+              if (res.code === 200) {
+                this.$message.success(res.message)
                 this.getCardList()
               }
             })
@@ -425,7 +424,7 @@ export default {
       GetBankCardList(params)
         .then(res => {
           this.cardLoading = false
-          if (res.success) {
+          if (res.code === 200) {
             // console.log('银行卡', res.data)
             this.cardList = res.data
           }

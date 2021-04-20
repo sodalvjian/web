@@ -18,6 +18,7 @@ const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
 const porxyUrl = 'http://www.autowire-code.com'
 // const porxyUrl = 'http://153.37.174.42:10080'
+// const porxyUrl = 'https://mercury-dev.melaxtech.com'
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -57,7 +58,7 @@ module.exports = {
         }
       },
       '/payment': {
-        target: 'http://153.37.174.42:10080',
+        target: porxyUrl,
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {
           '^/payment': '/payment'

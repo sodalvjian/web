@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+    v-if="dialogVisible"
     :title="editStatus ? 'Edit credit card' : 'Add credit card'"
     align="center"
     :visible.sync="dialogVisible"
@@ -28,7 +29,10 @@
               }
             ]"
           >
-            <stripe-save-card />
+            <stripe-save-card
+              ref="stripeSaveCard"
+              @complate-card="complateCard"
+            />
             <!-- <el-input
               v-model="dialogForm.cardNumber"
               type="test"
@@ -52,22 +56,27 @@
         </el-col>
       </el-row>
       <div class="mt-40 mb-20 tc">
-        <el-button size="small" @click="dialogVisible = false"
-          >Cancel</el-button
-        >
+        <el-button
+          size="small"
+          @click="dialogVisible = false"
+        >Cancel</el-button>
         <el-button
           size="small"
           :loading="btnLoading"
           type="primary"
           @click="submitForm('dialogForm')"
-          >Confirm</el-button
-        >
+        >Confirm</el-button>
       </div>
     </el-form>
   </el-dialog>
 </template>
 <script>
-import { AddBankCard, EditBankCard, GetBankCardDetails } from '@/api/user-page'
+import {
+  AddBankCard,
+  EditBankCard,
+  GetBankCardDetails,
+  UpdateDefaultPayment
+} from '@/api/user-page'
 import { monthList, yearList, countryList } from '../constants'
 import store from '@/store'
 export default {
@@ -106,6 +115,29 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
+    complateCard(result) {
+      this.btnLoading = false
+      if (this.dialogForm.defaultPayment) {
+        const params = {
+          id: result.payment_method
+        }
+        this.cardLoading = true
+        UpdateDefaultPayment(params)
+          .then(res => {
+            this.cardLoading = false
+            if (res.code === 200) {
+              this.dialogVisible = false
+              this.$emit('get-card')
+            }
+          })
+          .catch(() => {
+            this.cardLoading = false
+          })
+      } else {
+        this.dialogVisible = false
+        this.$emit('get-card')
+      }
+    },
     openDialog(item) {
       this.dialogVisible = true
       this.editStatus = false
@@ -122,35 +154,36 @@ export default {
       }
     },
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          const params = {
-            ...this.dialogForm
-          }
-          params.expirationDate = `${this.expirationMonth}/${this.expirationYear}`
-          console.log('params', params)
-          const RequestFunction = this.editStatus ? EditBankCard : AddBankCard
-          this.btnLoading = true
-          RequestFunction(params)
-            .then(res => {
-              if (res.success) {
-                this.$message.success(res.msg)
-                this.$emit('get-card')
-                this.resetForm()
-              }
-              this.btnLoading = false
-            })
-            .catch(() => {
-              this.btnLoading = false
-            })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+      this.btnLoading = true
+      this.$refs.stripeSaveCard.submitCard()
+      // this.$refs[formName].validate(valid => {
+      //   if (valid) {
+      //     const params = {
+      //       ...this.dialogForm
+      //     }
+      //     params.expirationDate = `${this.expirationMonth}/${this.expirationYear}`
+      //     console.log('params', params)
+      //     const RequestFunction = this.editStatus ? EditBankCard : AddBankCard
+      //     this.btnLoading = true
+      //     RequestFunction(params)
+      //       .then(res => {
+      //         if (res.success) {
+      //           this.$message.success(res.msg)
+      //           this.$emit('get-card')
+      //           this.resetForm()
+      //         }
+      //         this.btnLoading = false
+      //       })
+      //       .catch(() => {
+      //         this.btnLoading = false
+      //       })
+      //   } else {
+      //     console.log('error submit!!')
+      //     return false
+      //   }
+      // })
     },
     resetForm(formName) {
-      this.$refs.dialogForm.resetFields()
       Object.assign(this.$data, this.$options.data())
     }
   }

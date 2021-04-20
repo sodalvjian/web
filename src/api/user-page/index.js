@@ -129,7 +129,7 @@ export function EditBankCard(data) {
 // Get bank card list by user id
 export function GetBankCardList(userId) {
   return request({
-    url: `account/user/list/card/${userId}`,
+    url: `payment/listcards`,
     method: 'get'
   })
 }
@@ -137,16 +137,16 @@ export function GetBankCardList(userId) {
 // Update default payment
 export function UpdateDefaultPayment(params) {
   return request({
-    url: `account/user/update/default/payment/${params.defaultPayment}/${params.customerPaymentProfileId}`,
-    method: 'get'
+    url: `payment/card/default?id=${params.id}`,
+    method: 'post'
   })
 }
 
 // Delete bank card
 export function DeleteBankCard(params) {
   return request({
-    url: `account/user/delete/card/${params.customerPaymentProfileId}`,
-    method: 'get'
+    url: `payment/detachcard?id=${params.id}`,
+    method: 'delete'
   })
 }
 

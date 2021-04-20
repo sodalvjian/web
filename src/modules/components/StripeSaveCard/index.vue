@@ -1,5 +1,5 @@
 <template>
-  <div class="sr-payment-form card">
+  <div class="sr-payment-form card" v-loading="pageLoading">
     <div class="sr-form-row">
       <div class="sr-input sr-element sr-card-element" id="card-element">
         <!-- A Stripe card Element will be inserted here. -->
@@ -11,13 +11,21 @@
 
 <script>
 import { GetPublicKey, CreateSetupIntent } from '@/api/user-page'
+import store from '@/store'
 export default {
   name: 'StripeSaveCard',
   components: {},
   props: {},
   filter: {},
   data() {
-    return {}
+    return {
+      cardData: {},
+      pageLoading: false,
+      email: store.getters.userInfo.email,
+      setupIntent: {},
+      stripeFun: {},
+      publicKey: ''
+    }
   },
   computed: {},
   watch: {},
@@ -29,20 +37,46 @@ export default {
     this.getPublicKey()
   },
   methods: {
+    submitCard() {
+      // var email = document.getElementById('email').value
+      // eslint-disable-next-line no-undef
+      console.log('this.card', this.cardData, this.setupIntent)
+      this.stripeFun
+        .confirmCardSetup(this.setupIntent.client_secret, {
+          payment_method: {
+            card: this.cardData,
+            billing_details: { email: this.email }
+          }
+        })
+        .then(result => {
+          if (result.error) {
+            this.$message.warning(result.error.message)
+          } else {
+            console.log('result', result)
+            this.$message.success('Add card success.')
+            this.$emit('complate-card', result.setupIntent)
+          }
+        })
+    },
     getPublicKey() {
+      this.pageLoading = true
       return GetPublicKey().then(response => {
         this.getSetupIntent(response.data)
+        this.publicKey = response.data
       })
     },
     getSetupIntent(publicKey) {
       return CreateSetupIntent().then(response => {
         this.stripeElements(publicKey, response.data)
+        this.setupIntent = response.data
+        this.pageLoading = false
       })
     },
     stripeElements(publicKey, setupIntent) {
-      var stripe = Stripe(publicKey)
-      console.log('stripe', stripe)
-      var elements = stripe.elements()
+      // eslint-disable-next-line no-undef
+      this.stripeFun = Stripe(publicKey)
+      console.log('stripe', this.stripeFun)
+      var elements = this.stripeFun.elements()
 
       // Element styles
       var style = {
@@ -68,36 +102,11 @@ export default {
         el.classList.add('focused')
       })
 
-      card.on('blur', function() {
+      card.on('blur', () => {
         var el = document.getElementById('card-element')
         el.classList.remove('focused')
       })
-
-      // Handle payment submission when user clicks the pay button.
-      var button = document.getElementById('submit')
-      button.addEventListener('click', function(event) {
-        event.preventDefault()
-        changeLoadingState(true)
-        var email = document.getElementById('email').value
-
-        stripe
-          .confirmCardSetup(setupIntent.client_secret, {
-            payment_method: {
-              card: card,
-              billing_details: { email: email }
-            }
-          })
-          .then(function(result) {
-            if (result.error) {
-              changeLoadingState(false)
-              var displayError = document.getElementById('card-errors')
-              displayError.textContent = result.error.message
-            } else {
-              // The PaymentMethod was successfully set up
-              orderComplete(stripe, setupIntent.client_secret)
-            }
-          })
-      })
+      this.cardData = card
     }
   }
 }
