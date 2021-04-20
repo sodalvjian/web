@@ -166,3 +166,19 @@ export function GetVoucher(params) {
     params
   })
 }
+
+// Get Public Key
+export function GetPublicKey() {
+  return request({
+    url: `payment/public-key`,
+    method: 'get'
+  })
+}
+
+// Create-setup-intent
+export function CreateSetupIntent() {
+  return request({
+    url: `payment/create-setup-intent`,
+    method: 'get'
+  })
+}

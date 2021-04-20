@@ -28,173 +28,14 @@
               }
             ]"
           >
-            <el-input
+            <stripe-save-card />
+            <!-- <el-input
               v-model="dialogForm.cardNumber"
               type="test"
               :disabled="editStatus"
               placeholder="Card Number"
               autocomplete="off"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="Card holder Name"
-            prop="firstname"
-            :rules="[
-              {
-                required: true,
-                message: 'Please input card holder Name'
-              }
-            ]"
-          >
-            <el-input
-              v-model="dialogForm.firstname"
-              type="test"
-              :disabled="editStatus"
-              placeholder="First name"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label=" " prop="lastname">
-            <el-input
-              v-model="dialogForm.lastname"
-              placeholder="Last name"
-              type="test"
-              :disabled="editStatus"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="Expiration Date"
-            prop="pass"
-            class="dialog-item-required"
-          >
-            <el-row>
-              <el-col :span="11">
-                <el-select v-model="expirationMonth" :disabled="editStatus" placeholder="MM">
-                  <el-option
-                    v-for="(item, index) in monthList"
-                    :key="index"
-                    :label="item"
-                    :value="item"
-                  >
-                  </el-option>
-                </el-select>
-              </el-col>
-              <el-col :span="2" align="center">/</el-col>
-              <el-col :span="11">
-                <el-select v-model="expirationYear" :disabled="editStatus" placeholder="YY">
-                  <el-option
-                    v-for="(item, index) in yearList"
-                    :key="index"
-                    :label="item"
-                    :value="item"
-                  >
-                  </el-option>
-                </el-select>
-              </el-col>
-            </el-row>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="Security Code"
-            prop="securityCode"
-            :rules="[
-              {
-                required: true,
-                message: 'Please input security code'
-              }
-            ]"
-          >
-            <el-input
-              v-model="dialogForm.securityCode"
-              :disabled="editStatus"
-              placeholder="Security Code"
-              type="test"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="24">
-          <el-form-item
-            label="Country/Region"
-            prop="countryRegion"
-            :rules="[
-              {
-                required: true,
-                message: 'Please select country/region'
-              }
-            ]"
-          >
-            <el-select
-              v-model="dialogForm.countryRegion"
-              class="w"
-              filterable
-              clearable
-              placeholder="Select and Search"
-            >
-              <el-option
-                v-for="(item, index) in countryList"
-                :key="index"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="24">
-          <el-form-item
-            label="Billing Address"
-            prop="address"
-            :rules="[
-              {
-                required: true,
-                message: 'Please enter billing address'
-              }
-            ]"
-          >
-            <el-input
-              v-model="dialogForm.address"
-              placeholder="Address"
-              type="test"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="City and State"
-            prop="city"
-            :rules="[
-              {
-                required: true,
-                message: 'Please enter city'
-              }
-            ]"
-          >
-            <el-input
-              v-model="dialogForm.city"
-              placeholder="City"
-              type="test"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label=" " prop="state">
-            <el-input
-              v-model="dialogForm.state"
-              placeholder="State"
-              type="test"
-              autocomplete="off"
-            ></el-input>
+            ></el-input> -->
           </el-form-item>
         </el-col>
       </el-row>
@@ -210,7 +51,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <div class="mt-40 tc mb-20">
+      <div class="mt-40 mb-20 tc">
         <el-button size="small" @click="dialogVisible = false"
           >Cancel</el-button
         >

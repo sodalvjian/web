@@ -16,6 +16,9 @@ const name = defaultSettings.title || 'Mercury NLP' // page title
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
+const porxyUrl = 'http://www.autowire-code.com'
+// const porxyUrl = 'http://153.37.174.42:10080'
+
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
   /**
@@ -39,7 +42,7 @@ module.exports = {
     },
     proxy: {
       '/jobbizweb': {
-        target: 'http://www.autowire-code.com',
+        target: porxyUrl,
         // target: 'http://153.37.174.42:10080', // 吕大
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {
@@ -47,14 +50,21 @@ module.exports = {
         }
       },
       '/api': {
-        target: 'http://www.autowire-code.com',
+        target: porxyUrl,
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {
           '^/api': '/api'
         }
       },
+      '/payment': {
+        target: 'http://153.37.174.42:10080',
+        changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+        pathRewrite: {
+          '^/payment': '/payment'
+        }
+      },
       '/account': {
-        target: 'http://www.autowire-code.com',
+        target: porxyUrl,
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {
           '^/account': '/account'

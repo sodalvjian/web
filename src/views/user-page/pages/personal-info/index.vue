@@ -426,7 +426,7 @@ export default {
         .then(res => {
           this.cardLoading = false
           if (res.success) {
-            console.log('银行卡', res.data)
+            // console.log('银行卡', res.data)
             this.cardList = res.data
           }
         })
