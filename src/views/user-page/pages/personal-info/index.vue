@@ -217,11 +217,11 @@
                     <el-row :gutter="10" class="p15">
                       <el-col :span="16">
                         <!-- <strong>{{ item.bankName }}</strong> -->
-                        <strong>{{ item.cardType }}</strong>
+                        <strong class="f18">{{ item.brand }}</strong>
                       </el-col>
                       <el-col :span="8" align="right">
                         <small
-                          v-if="item.defaultPayment"
+                          v-if="item.metadata.default == '1'"
                           class="user-card-defult"
                           >defult</small
                         >
@@ -229,8 +229,8 @@
                     </el-row>
                     <div class="user-card-line"></div>
                     <div class="user-card-chip"><span>CREDIT</span></div>
-                    <div class="f16 colof-white p15">
-                      •••• •••• •••• {{ item.last4 }}
+                    <div class="f16 colof-white p15 fb">
+                      ●●●● ●●●● ●●●● {{ item.last4 }}
                     </div>
                     <div class="operation-content">
                       <el-tooltip
@@ -280,8 +280,13 @@
                 <el-form-item>
                   <el-card
                     shadow="hover"
+                    :title="
+                      !publicKey &&
+                        'Error getting public key, please refresh the page'
+                    "
                     class="card-add-btn cp"
-                    @click.native="handleAddCard"
+                    :style="!publicKey && 'cursor: not-allowed;grayscale(100%);'"
+                    @click.native="publicKey ? handleAddCard() : ''"
                   >
                     <div class="tc mt-50">
                       <i class="el-icon-circle-plus-outline f22"></i>
@@ -298,7 +303,13 @@
       </section>
     </article>
     <!-- add card dialog -->
-    <add-card ref="addCardRef" @get-card="getCardList" />
+    <add-card
+      ref="addCardRef"
+      :public-key="publicKey"
+      :setup-intent="setupIntent"
+      @get-card="getCardList"
+      @get-public-key="getPublicKey"
+    />
     <!-- edit avatar -->
     <upload-avatar ref="uploadAvatarRef" @get-avatar="getAvatar" />
   </div>
@@ -310,6 +321,7 @@ import addCard from './components/DialogComponent'
 import UploadAvatar from './components/UploadAvatar'
 import { countryList } from './constants'
 const defaultAvatar = require('@/assets/img/avatar.png')
+import { GetPublicKey, CreateSetupIntent } from '@/api/user-page'
 import {
   AddUserInfo,
   GetUserInfo,
@@ -348,7 +360,9 @@ export default {
         city: '',
         state: '',
         postalCode: null
-      }
+      },
+      publicKey: '',
+      setupIntent: {}
     }
   },
   computed: {},
@@ -357,9 +371,21 @@ export default {
   mounted() {
     this.getUserInfo()
     this.getCardList()
+    this.getPublicKey()
   },
   beforeDestroy() {},
   methods: {
+    getPublicKey() {
+      return GetPublicKey().then(response => {
+        this.publicKey = response.data
+        this.getSetupIntent()
+      })
+    },
+    getSetupIntent() {
+      return CreateSetupIntent().then(response => {
+        this.setupIntent = response.data
+      })
+    },
     copySuccess() {
       this.$message.success('Copy success!')
     },
