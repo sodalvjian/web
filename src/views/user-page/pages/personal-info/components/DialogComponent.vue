@@ -28,7 +28,7 @@
               }
             ]"
           >
-            <div class="sr-payment-form card">
+            <div class="sr-payment-form">
               <div class="sr-form-row">
                 <div
                   id="card-element"
@@ -70,9 +70,7 @@
   </el-dialog>
 </template>
 <script>
-import {
-  UpdateDefaultPayment
-} from '@/api/user-page'
+import { UpdateDefaultPayment } from '@/api/user-page'
 import { monthList, yearList, countryList } from '../constants'
 import store from '@/store'
 export default {
@@ -264,4 +262,6 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '~@/styles/stripe.css';
+</style>

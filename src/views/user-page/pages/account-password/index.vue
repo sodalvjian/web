@@ -159,7 +159,7 @@ export default {
               this.$message.success(res.msg)
               setTimeout(() => {
                 this.$store.dispatch('user/logout')
-                location.href = `/login`
+                location.reload()
               }, 1000)
             })
             .catch(() => {

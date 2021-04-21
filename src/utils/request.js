@@ -59,7 +59,7 @@ service.interceptors.response.use(
         })
         setTimeout(async () => {
           await store.dispatch('user/logout')
-          location.href = `/login`
+          location.reload()
         }, 1000)
       } else if (res.code === 800008) {
         return Promise.reject(res)
