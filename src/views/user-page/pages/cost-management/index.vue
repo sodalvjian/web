@@ -75,7 +75,7 @@
                   </div>
 
                   <div class="mt-10 color-8">
-                    Expiration Date：{{ item.expireDate }}
+                    Expiration Date：{{ item.expireDate | setNormalDate }}
                   </div>
                 </el-col>
                 <el-col :span="9">
