@@ -111,6 +111,9 @@
               label="Payment Date"
               min-width="180"
             >
+              <template slot-scope="scope">
+                <strong>{{ scope.row.paymentDate }}</strong>
+              </template>
             </el-table-column>
             <el-table-column
               prop="invoiceID"

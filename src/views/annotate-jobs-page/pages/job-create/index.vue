@@ -174,11 +174,7 @@
         <el-row :gutter="15">
           <el-col :span="12" class="br-1">
             <div class="p20">
-              <el-form-item
-                label="S3 location:"
-                prop="input"
-                :rules="s3Rules"
-              >
+              <el-form-item label="S3 location:" prop="input" :rules="s3Rules">
                 <el-col :span="14" class="pl-0">
                   <el-input
                     v-model="formData.input"
@@ -483,14 +479,14 @@ export default {
           } else {
             if (res.code !== 200) {
               this.$message.warning(res.message)
-              this.needAuthor = true
+              this.needAuthor = false
             } else {
               this.$message.warning('Verity failed, Please authorize.')
               this.needAuthor = true
             }
-            this.formData.output = res.data.output
+            this.formData.output = res.data ? res.data.output : ''
             this.verityInput = false
-            this.verityInputData = res.data
+            this.verityInputData = res.data || {}
 
             // this.$refs.showS3InfoRef.openDialog(res.data, 'read') // 验证不过弹出授权提示
           }
