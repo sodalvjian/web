@@ -504,7 +504,7 @@ export default {
     getCopyData() {
       const copyStatus = this.$route.query.copy
       const copyJobData = JSON.parse(sessionStorage.copyJobData)
-      // console.log('复制数据', copyJobData, this.analysisTypeOptions)
+      console.log('复制数据', copyJobData, this.analysisTypeOptions)
       const {
         name,
         pipeline,
@@ -521,13 +521,16 @@ export default {
         )
         console.log('pipelineObj', pipelineObj)
         console.log('copyencryption', encryption)
-        this.formData = {
-          name: name,
-          pipelineId: pipelineObj ? pipelineObj.params : '',
-          encryption: !!encryption,
-          input: input,
-          output: output
-        }
+        this.$nextTick(() => {
+          this.formData = {
+            name: name,
+            pipelineId: pipelineObj ? pipelineObj.params : '',
+            encryption: !!encryption,
+            input: input,
+            output: output
+          }
+        })
+
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
               item => item.params === pipelineObj.params
@@ -702,6 +705,7 @@ export default {
       this.analysisChildTypeOptions = val
         .map(item => item.version)
         .flat(Infinity) // 将自己版本数据拉平
+
       this.formData.pipelineId = this.analysisChildTypeOptions[0].params
       const copyStatus = this.$route.query.copy
       if (copyStatus) {
