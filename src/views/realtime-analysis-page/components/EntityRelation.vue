@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="tr mb-10">
+    <nav class="mb-10 tr">
       <el-row :gutter="20">
         <el-col :span="10">
           <el-input
@@ -75,7 +75,7 @@
             href="https://www.nlm.nih.gov/research/umls/new_users/online_learning/Meta_005.html"
             target="_blank"
             class="ml-5"
-            ><i class="el-icon-info color-main ml-10 f18 fl mt-3"></i
+            ><i class="mt-3 ml-10 el-icon-info color-main f18 fl"></i
           ></a>
         </template>
         <template slot-scope="scope">

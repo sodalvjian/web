@@ -1,7 +1,7 @@
 <template>
   <div v-loading="loading" class="root-show-mark">
-    <no-data v-show="noDataShow" class="mt-70" />
-    <div v-show="!noDataShow" class="xmi-container">
+    <no-data v-if="noDataShow" class="mt-70" />
+    <div v-if="!noDataShow" class="xmi-container">
       <iframe
         id="markBrat"
         data-mode="mark"
@@ -178,24 +178,27 @@ export default {
     },
     fetchData(params, loadType = false) {
       if (loadType) {
-        const res = demoResult
-        this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
-        this.loading = false
         this.noDataShow = false
-        if (res.code === 200) {
-          const data = res.data
-          if (data) {
-            this.$emit('success-data')
-            this.setBratData(data, true)
-          } else {
-            this.$message.warning('数据为空')
-            // this.$emit('setNext', null);
-            // this.$emit('setPre', null);
-          }
-        }
         setTimeout(() => {
-          globalBus.$emit('set-analysis-loading-false')
-        }, 200)
+          const res = demoResult
+          this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
+          this.loading = false
+
+          if (res.code === 200) {
+            const data = res.data
+            if (data) {
+              this.$emit('success-data')
+              this.setBratData(data, true)
+            } else {
+              this.$message.warning('数据为空')
+              // this.$emit('setNext', null);
+              // this.$emit('setPre', null);
+            }
+          }
+          setTimeout(() => {
+            globalBus.$emit('set-analysis-loading-false')
+          }, 200)
+        }, 500)
       } else {
         this.loading = true
         //      GET /tagged/label/{fileId}
@@ -271,6 +274,10 @@ export default {
       const drawDelCircle = false
       var iframe = document.getElementById('markBrat')
       if (iframe) {
+        console.log(
+          '$("#mainfrm")[0].contentWindow',
+          $('#markBrat')[0].contentWindow.Window.readyToEmbed
+        )
         iframe.contentWindow.location.reload(true)
         iframe.onload = function() {
           $('#markBrat')[0].contentWindow.readyToEmbed(
@@ -578,7 +585,9 @@ export default {
       // GET /task/update/entity/{fileId}/{entityId}/{newSem}
       this.loading = true
       this.$http.get(
-        `task/update/entity/${this.id}/${this.entitySelectionId}/${this.candidateEntityLabelsStr}`,
+        `task/update/entity/${this.id}/${this.entitySelectionId}/${
+          this.candidateEntityLabelsStr
+        }`,
         {},
         res => {
           this.loading = false

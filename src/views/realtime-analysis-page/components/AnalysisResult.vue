@@ -39,7 +39,7 @@
       :visible.sync="dialogVisible"
       width="35%"
     >
-      <div class="mb-30 mt-20">
+      <div class="mt-20 mb-30">
         <el-row :gutter="20">
           <el-col :span="12" align="center">
             <strong>ALL</strong>
@@ -83,12 +83,12 @@
               <el-row class="pt-5 pb-10 bb-1">
                 <el-col :span="8">Shanghai</el-col>
                 <el-col class="pl-30" :span="8">City name</el-col>
-                <el-col class=" pb-5" :span="8" align="center"
+                <el-col class="pb-5 " :span="8" align="center"
                   ><el-switch v-model="value" active-color="#13ce66">
                   </el-switch
                 ></el-col>
               </el-row>
-              <el-row class="pt-15 pb-5">
+              <el-row class="pb-5 pt-15">
                 <el-col :span="8">Shanghai</el-col>
                 <el-col class="pl-30" :span="8">City name</el-col>
                 <el-col :span="8" align="center"
