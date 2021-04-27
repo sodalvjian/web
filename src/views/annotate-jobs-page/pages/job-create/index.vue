@@ -9,7 +9,7 @@
     <el-form
       ref="formData"
       label-position="top"
-      status-icon
+      :status-icon="showIconStatus"
       :model="formData"
       label-width="80px"
     >
@@ -372,6 +372,7 @@ export default {
       analysisChildTypeOptions: [],
       pageLoading: false,
       verityInput: false,
+      showIconStatus: true,
       verityOutput: false,
       inputHasVerity: false,
       outputHasVerity: false,
@@ -407,16 +408,17 @@ export default {
       inRegion: '',
       outRegion: '',
       inRegionLabel: '',
-      outRegionLabel: ''
+      outRegionLabel: '',
+      messageData: ''
     }
   },
 
   created() {},
   mounted() {
     // this.getAnalysisType()
-  },
-  activated() {
     console.log('123')
+    this.showIconStatus = true
+    this.messageData = ''
   },
   methods: {
     verityhandle(type) {
@@ -471,6 +473,7 @@ export default {
         .then(res => {
           this.inputCheckLoading = false
           this.inputHasVerity = true
+          this.messageData = ''
           if (res.data && res.data.pass) {
             this.verityInput = true
             this.$message.success('Verify input success.')
@@ -480,6 +483,8 @@ export default {
             if (res.code !== 200) {
               this.$message.warning(res.message)
               this.needAuthor = false
+              this.showIconStatus = false
+              this.messageData = res.message
             } else {
               this.$message.warning('Verity failed, Please authorize.')
               this.needAuthor = true
@@ -492,6 +497,7 @@ export default {
           }
         })
         .catch(msg => {
+          this.messageData = ''
           this.inputCheckLoading = false
           this.verityInput = false
           this.needAuthor = true
@@ -625,7 +631,9 @@ export default {
                 // }
               })
           } else {
-            this.$message.warning('Please verity the input data.')
+            this.$message.warning(
+              this.messageData || 'Please verity the input data.'
+            )
           }
 
           // const checkData = {
