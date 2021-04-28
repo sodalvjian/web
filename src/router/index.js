@@ -28,6 +28,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/test-nlp',
+    component: () => import('@/views/realtime-analysis-page-brat'),
+    hidden: true
+  },
+  {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
