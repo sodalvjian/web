@@ -5,18 +5,24 @@
     </nav>
     <div class="vital-container realtime-top-content">
       <nav>
-        <el-row>
-          <el-col :span="5">
-            <select-pipeline v-model="formData.pipeline" size="small" />
+        <el-row type="flex">
+          <el-col :span="8">
+            <select-pipeline
+              v-model="formData.pipeline"
+              size="small"
+              @get-complete-data="getCompleteData"
+              @get-complete-options="getCompleteOptions"
+            />
           </el-col>
-          <el-col :span="19" align="right">
+
+          <el-col :span="16" align="right">
             <el-button size="small" @click="clearData">Clear</el-button>
             <el-button
               :loading="analysisLoading"
               size="small"
               type="primary"
               icon="el-icon-data-line"
-              @click="handleAnalysis"
+              @click="handleAnalysis(false)"
               >Analyze</el-button
             >
           </el-col>
@@ -43,6 +49,7 @@
 import { GetAnalysisType } from '@/api/annotate-jobs-page'
 import analysisResult from './components/AnalysisResult'
 import { globalBus } from '@/utils/globalBus'
+import { demoText } from '@/utils/demo-text'
 export default {
   name: '',
   components: {
@@ -55,9 +62,11 @@ export default {
       analysisTypeOptions: [],
       pipelineLoading: false,
       analysisLoading: false,
+      selectPipeline: {},
+
       formData: {
         pipeline: '',
-        text: ''
+        text: demoText
       }
     }
   },
@@ -66,6 +75,7 @@ export default {
   created() {},
   mounted() {
     // this.getAnalysisType()
+    this.handleAnalysis(true)
     globalBus.$on('set-analysis-loading-false', () => {
       this.analysisLoading = false
     })
@@ -74,9 +84,24 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
-    handleAnalysis() {
-      const { pipeline, text } = this.formData
-      if (!pipeline) {
+    getCompleteOptions(val) {
+      console.log('完整数据', val)
+      const analysisChildTypeOptions = val
+        .map(item => item.version)
+        .flat(Infinity) // 将自己版本数据拉平
+      console.log('analysisChildTypeOptions', analysisChildTypeOptions)
+      this.formData.pipeline = analysisChildTypeOptions[0].params
+      this.selectPipeline = analysisChildTypeOptions[0]
+    },
+    getCompleteData(val) {
+      console.log('val', val)
+      this.selectPipeline = val
+    },
+    handleAnalysis(loadType = false) {
+      const { text } = this.formData
+      const pipeline = this.selectPipeline.params
+      console.log('pipeline', pipeline)
+      if (!pipeline && !loadType) {
         this.$message.warning('Please select pipeline.')
         return false
       } else if (!text) {
@@ -84,24 +109,12 @@ export default {
         return false
       }
       const params = {
-        pipeline: pipeline[1],
-        text: text
+        pipeline: pipeline,
+        text: text,
+        frontFlag: true
       }
       this.analysisLoading = true
-      this.$refs.analysisResultRef.getResult(params)
-    },
-    getAnalysisType() {
-      this.pipelineLoading = true
-      GetAnalysisType().then(res => {
-        if (res.code === 200) {
-          this.pipelineLoading = false
-          this.analysisTypeOptions = res.data
-          const analysisChildTypeOptions = res.data
-            .map(item => item.version)
-            .flat(Infinity) // 将自己版本数据拉平
-          this.formData.pipeline = analysisChildTypeOptions[0].params
-        }
-      })
+      this.$refs.analysisResultRef.getResult(params, loadType)
     },
     clearData() {
       this.formData.text = ''

@@ -17,7 +17,7 @@
             :disabled="generalDisabled"
             class="mt-5"
             @click="openSetting"
-            >General Settings<i class="el-icon-s-tools el-icon--right f18"></i
+            >Display Filter<i class="el-icon-s-tools el-icon--right f18"></i
           ></el-button>
         </el-col>
       </el-row>
@@ -29,28 +29,45 @@
         @success-data="generalDisabled = false"
       />
     </section>
-    <h3 class="mt-40">Entity & Relation</h3>
+    <h3 class="mt-40">Entities & Relations</h3>
 
     <entity-relation ref="entityRelationref" />
     <!-- General Settings dialog -->
     <el-dialog
-      title="Select visible columns"
+      title="Select visable entities"
       center
       :visible.sync="dialogVisible"
-      width="25%"
+      width="35%"
     >
-      <div class="mb-30 mt-20">
+      <div class="mt-20 mb-30">
+        <el-row :gutter="20">
+          <el-col :span="12" align="center">
+            <strong>ALL</strong>
+          </el-col>
+          <el-col :span="12" align="center">
+            <el-switch
+              v-model="selectAll"
+              active-color="#13ce66"
+              @change="handleSelectAll"
+            >
+            </el-switch>
+          </el-col>
+        </el-row>
         <el-row
           v-for="(item, index) in bratData"
           :key="index"
-          class="mt-15"
+          class="mt-25"
           :gutter="20"
         >
           <el-col :span="12" align="center">
             {{ item.type }}
           </el-col>
           <el-col :span="12" align="center">
-            <el-switch v-model="item.switch" active-color="#13ce66">
+            <el-switch
+              @change="handleSingle"
+              v-model="item.switch"
+              active-color="#13ce66"
+            >
             </el-switch>
           </el-col>
         </el-row>
@@ -66,12 +83,12 @@
               <el-row class="pt-5 pb-10 bb-1">
                 <el-col :span="8">Shanghai</el-col>
                 <el-col class="pl-30" :span="8">City name</el-col>
-                <el-col class=" pb-5" :span="8" align="center"
+                <el-col class="pb-5 " :span="8" align="center"
                   ><el-switch v-model="value" active-color="#13ce66">
                   </el-switch
                 ></el-col>
               </el-row>
-              <el-row class="pt-15 pb-5">
+              <el-row class="pb-5 pt-15">
                 <el-col :span="8">Shanghai</el-col>
                 <el-col class="pl-30" :span="8">City name</el-col>
                 <el-col :span="8" align="center"
@@ -121,6 +138,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      selectAll: true, // 选中全部
       value: false,
       generalDisabled: true,
       bratSemData: [],
@@ -146,6 +164,23 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    handleSelectAll(val) {
+      console.log('val', val)
+      this.bratData.map(item => {
+        item.switch = val
+      })
+    },
+    handleSingle(val) {
+      const selectSwitch = this.bratData.map(item => item.switch)
+      console.log('selectSwitch', selectSwitch)
+      const selectSwitchBooble = selectSwitch.indexOf(false)
+      console.log('selectSwitchBooble', selectSwitchBooble)
+      if (selectSwitchBooble !== -1) {
+        this.selectAll = false
+      } else {
+        this.selectAll = true
+      }
+    },
     // 上传文件
     openFile($event) {
       console.log('$event', $event)
@@ -238,10 +273,10 @@ export default {
       this.$refs.entityRelationref.setData(this.originalBratData, selectDataArr)
       this.dialogVisible = false
     },
-    getResult(params) {
+    getResult(params, loadType) {
       this.generalDisabled = true
       this.$refs.entityRelationref.setDataEmpty()
-      this.$refs.showMarkRef.fetchData(params)
+      this.$refs.showMarkRef.fetchData(params, loadType)
     },
     switchClick() {
       console.log()

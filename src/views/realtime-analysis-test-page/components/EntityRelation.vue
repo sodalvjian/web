@@ -1,13 +1,13 @@
 <template>
   <div>
-    <nav class="tr mb-10">
+    <nav class="mb-10 tr">
       <el-row :gutter="20">
-        <el-col :span="12">
+        <el-col :span="10">
           <el-input
             v-model="tableSearchData"
             size="small"
             clearable
-            placeholder="Find entities"
+            placeholder="Search entities"
           >
             <i slot="prefix" class="el-input__icon el-icon-search"></i
           ></el-input>
@@ -29,7 +29,7 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="10">
           <el-pagination
             background
             :page-size="pageSize"
@@ -53,7 +53,7 @@
       row-key="dataId"
       :tree-props="{ children: 'children' }"
     >
-      <el-table-column label="Entity" width="320">
+      <el-table-column label="Entity" width="320" show-overflow-tooltip>
         <template slot-scope="scope">
           <span class="relation-data">{{ scope.row.relationData || '' }}</span>
           {{ scope.row.dataName }}
@@ -69,6 +69,15 @@
         </template>
       </el-table-column>
       <el-table-column prop="address" label="CUI">
+        <template slot="header" slot-scope="scope">
+          <span class="fl"> CUI</span>
+          <a
+            href="https://www.nlm.nih.gov/research/umls/new_users/online_learning/Meta_005.html"
+            target="_blank"
+            class="ml-5"
+            ><i class="mt-3 ml-10 el-icon-info color-main f18 fl"></i
+          ></a>
+        </template>
         <template slot-scope="scope">
           {{ scope.row.cui }}
         </template>
@@ -168,6 +177,8 @@ export default {
       this.tableSearchData = ''
       this.dataType = ''
 
+      console.log('bratData', bratData)
+
       const bratFile = JSON.parse(bratData.bratFile)
       const outputData = JSON.parse(bratData.output)
       const bratSem = JSON.parse(bratData.bratSem)
@@ -210,9 +221,12 @@ export default {
       relationsArr.map(item => {
         copyEntitiesData.map(child => {
           if (item.fromEnt === child.keyName) {
-            entitiesObj[item.toEnt].dataId = uuidv1()
-            entitiesObj[item.toEnt].relationData = item.semanticTag
-            child.children.push(entitiesObj[item.toEnt])
+            console.log('测试bug', item, entitiesObj)
+            if (entitiesObj[item.toEnt]) {
+              entitiesObj[item.toEnt].dataId = uuidv1()
+              entitiesObj[item.toEnt].relationData = item.semanticTag
+              child.children.push(entitiesObj[item.toEnt])
+            }
           }
         })
       })
@@ -264,6 +278,7 @@ export default {
 .relation-entity-table {
   .relation-data {
     font-size: 12px;
+    z-index: 9;
     position: absolute;
     transition: all 0.8s;
     left: 10px;

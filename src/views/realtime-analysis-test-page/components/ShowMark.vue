@@ -1,7 +1,7 @@
 <template>
   <div v-loading="loading" class="root-show-mark">
-    <no-data v-show="noDataShow" class="mt-70" />
-    <div v-show="!noDataShow" class="xmi-container">
+    <no-data v-if="noDataShow" class="mt-70" />
+    <div v-if="!noDataShow" class="xmi-container">
       <iframe
         id="markBrat"
         data-mode="mark"
@@ -19,6 +19,7 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 // import * as types from '@/store/mutation-types';
 import { globalBus } from '@/utils/globalBus'
+import { demoResult } from '@/utils/demo-text'
 import { GetBratTest } from '@/api/realtime-analysis-page'
 import DialogShowInfo from '@/components/DialogShowInfo'
 import _ from 'lodash'
@@ -175,39 +176,61 @@ export default {
     initData() {
       this.type = this.$route.params.type
     },
-    fetchData(params, judge = true) {
-      this.loading = true
-      //      GET /tagged/label/{fileId}
-      // const url = `tagged/label/${this.id}`
-      GetBratTest(params)
-        .then(res => {
+    fetchData(params, loadType = false) {
+      if (loadType) {
+        this.noDataShow = false
+        setTimeout(() => {
+          const res = demoResult
           this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
           this.loading = false
-          this.noDataShow = false
+
           if (res.code === 200) {
             const data = res.data
             if (data) {
               this.$emit('success-data')
-              this.setBratData(data, judge)
+              this.setBratData(data, true)
             } else {
               this.$message.warning('数据为空')
               // this.$emit('setNext', null);
               // this.$emit('setPre', null);
             }
           }
-          globalBus.$emit('set-analysis-loading-false')
-        })
-        .catch(res => {
-          if (res.code === 800008) {
-            this.$refs.dialogShowInfoRef.openDialog('nlp')
+          setTimeout(() => {
+            globalBus.$emit('set-analysis-loading-false')
+          }, 200)
+        }, 500)
+      } else {
+        this.loading = true
+        //      GET /tagged/label/{fileId}
+        // const url = `tagged/label/${this.id}`
+        GetBratTest(params)
+          .then(res => {
+            this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
             this.loading = false
-            this.noDataShow = true
-          }
-          globalBus.$emit('set-analysis-loading-false')
-          this.loading = false
-        })
-
-      //   GetBratTest(url, {}, res => {})
+            this.noDataShow = false
+            if (res.code === 200) {
+              const data = res.data
+              if (data) {
+                this.$emit('success-data')
+                this.setBratData(data, true)
+              } else {
+                this.$message.warning('数据为空')
+                // this.$emit('setNext', null);
+                // this.$emit('setPre', null);
+              }
+            }
+            globalBus.$emit('set-analysis-loading-false')
+          })
+          .catch(res => {
+            // if (res.code === 800008) {
+            //   this.$refs.dialogShowInfoRef.openDialog('nlp')
+            //   this.loading = false
+            //   this.noDataShow = true
+            // }
+            globalBus.$emit('set-analysis-loading-false')
+            this.loading = false
+          })
+      }
     },
     setBratDataAgain(data) {
       this.setBratData(data, true)
@@ -250,13 +273,19 @@ export default {
       // datasource的文本不要显示实体右侧的菜单
       const drawDelCircle = false
       var iframe = document.getElementById('markBrat')
-      iframe.contentWindow.location.reload(true)
-      iframe.onload = function() {
-        $('#markBrat')[0].contentWindow.readyToEmbed(
-          collData,
-          docData,
-          drawDelCircle
+      if (iframe) {
+        console.log(
+          '$("#mainfrm")[0].contentWindow',
+          $('#markBrat')[0].contentWindow.Window.readyToEmbed
         )
+        iframe.contentWindow.location.reload(true)
+        iframe.onload = function() {
+          $('#markBrat')[0].contentWindow.readyToEmbed(
+            collData,
+            docData,
+            drawDelCircle
+          )
+        }
       }
     },
     analysisResult(originData) {
@@ -556,7 +585,9 @@ export default {
       // GET /task/update/entity/{fileId}/{entityId}/{newSem}
       this.loading = true
       this.$http.get(
-        `task/update/entity/${this.id}/${this.entitySelectionId}/${this.candidateEntityLabelsStr}`,
+        `task/update/entity/${this.id}/${this.entitySelectionId}/${
+          this.candidateEntityLabelsStr
+        }`,
         {},
         res => {
           this.loading = false
