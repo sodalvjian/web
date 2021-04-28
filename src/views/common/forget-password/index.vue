@@ -3,12 +3,12 @@
     <div class="register-content bg-color-white">
       <header class="tl cb p20">
         <img src="@/assets/img/Logo.png" class="fl" width="250px" alt="" />
-        <div class="fl mt-20 f18">
+        <div class="mt-20 fl f18">
           <span> | &nbsp; &nbsp;</span> <strong>Password reset</strong>
         </div>
       </header>
       <nav class="f18 forget-header-title p20 fb">
-        <span v-if="step === 1">Enter associated account</span>
+        <span v-if="step === 1">Request Password Reset</span>
         <span v-if="step === 2">E-mail verification</span>
         <span v-if="step === 3">Password reset</span>
       </nav>
@@ -24,8 +24,7 @@
           </span>
           <span v-if="step === 3">
             Please set a new password. It is recommended to use a combination of
-            Numbers,letters ande characters to improve the password security
-            level,
+            Numbers,letters and characters to improve the password security.
           </span>
         </nav>
         <el-form

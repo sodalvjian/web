@@ -9,7 +9,7 @@
           class="hamburger-container"
           @toggleClick="toggleSideBar"
         /> -->
-        Analysis Jobs</strong
+        Analyze Jobs</strong
       >
       <div class="fr w50 tl">
         <el-button

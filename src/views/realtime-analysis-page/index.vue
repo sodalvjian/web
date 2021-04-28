@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="fl f16">Realtime analysis</strong>
+      <strong class="fl f16">Real-time analysis</strong>
     </nav>
     <div class="vital-container realtime-top-content">
       <nav>
@@ -23,7 +23,7 @@
               type="primary"
               icon="el-icon-data-line"
               @click="handleAnalysis(false)"
-              >Analysis</el-button
+              >Analyze</el-button
             >
           </el-col>
         </el-row>
@@ -39,7 +39,7 @@
         >
         </el-input>
       </section>
-      <!-- Analysis result -->
+      <!-- Analyze result -->
       <analysis-result ref="analysisResultRef" />
     </div>
   </div>

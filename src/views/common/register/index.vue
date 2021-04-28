@@ -35,13 +35,6 @@
           </el-form-item>
           <el-form-item prop="verificationCode">
             <el-row :gutter="20">
-              <el-col :span="16">
-                <el-input
-                  v-model="formData.verificationCode"
-                  placeholder="Verification code case sensitive"
-                  type="text"
-                />
-              </el-col>
               <el-col :span="8">
                 <el-button
                   :disabled="getCodeDisable"
@@ -51,6 +44,13 @@
                   @click="getCode"
                   >{{ getCodeText }}</el-button
                 >
+              </el-col>
+              <el-col :span="16">
+                <el-input
+                  v-model="formData.verificationCode"
+                  placeholder="Verification code case sensitive"
+                  type="text"
+                />
               </el-col>
             </el-row>
           </el-form-item>
@@ -90,9 +90,7 @@
               type="text"
             />
           </el-form-item>
-          <el-form-item
-            prop="invitationCode"
-          >
+          <el-form-item prop="invitationCode">
             <el-input
               v-model="formData.invitationCode"
               :maxlength="64"

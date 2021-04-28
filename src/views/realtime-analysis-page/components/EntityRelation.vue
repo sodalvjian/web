@@ -177,6 +177,8 @@ export default {
       this.tableSearchData = ''
       this.dataType = ''
 
+      console.log('bratData', bratData)
+
       const bratFile = JSON.parse(bratData.bratFile)
       const outputData = JSON.parse(bratData.output)
       const bratSem = JSON.parse(bratData.bratSem)
@@ -219,9 +221,12 @@ export default {
       relationsArr.map(item => {
         copyEntitiesData.map(child => {
           if (item.fromEnt === child.keyName) {
-            entitiesObj[item.toEnt].dataId = uuidv1()
-            entitiesObj[item.toEnt].relationData = item.semanticTag
-            child.children.push(entitiesObj[item.toEnt])
+            console.log('测试bug', item, entitiesObj)
+            if (entitiesObj[item.toEnt]) {
+              entitiesObj[item.toEnt].dataId = uuidv1()
+              entitiesObj[item.toEnt].relationData = item.semanticTag
+              child.children.push(entitiesObj[item.toEnt])
+            }
           }
         })
       })
@@ -273,6 +278,7 @@ export default {
 .relation-entity-table {
   .relation-data {
     font-size: 12px;
+    z-index: 9;
     position: absolute;
     transition: all 0.8s;
     left: 10px;

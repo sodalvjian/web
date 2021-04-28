@@ -26,7 +26,7 @@
       >
         <div slot="content">
           Pricing:
-          {{ selectPipeline.unitPrice }} $/unit;100byte/unit
+          ${{ selectPipeline.unitPrice }}/unit;100byte/unit
           <br />
           Description: {{ selectPipeline.description }}
         </div>

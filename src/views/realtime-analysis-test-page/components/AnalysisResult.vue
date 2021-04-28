@@ -3,7 +3,7 @@
     <nav class="mt-20">
       <el-row>
         <el-col :span="12">
-          <h3>Analysis result</h3>
+          <h3>Analyze result</h3>
         </el-col>
         <el-col :span="12" align="right">
           <!-- <input

@@ -4369,11 +4369,11 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
           if (!inAsynchError) {
             inAsynchError = true;
             // TODO: Hook printout into dispatch elsewhere?
-            console.warn('Handled async error:', e);
+            // console.warn('Handled async error:', e);
             that.post('dispatchAsynchError', [e]);
             inAsynchError = false;
           } else {
-            console.warn('Dropped asynch error:', e);
+            // console.warn('Dropped asynch error:', e);
           }
         };
 
@@ -4427,7 +4427,7 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
               });
               /* DEBUG
               } else {
-              console.warn('Message ' + message + ' has no subscribers.'); // DEBUG
+              // console.warn('Message ' + message + ' has no subscribers.'); // DEBUG
               */
             }
           }
@@ -8789,7 +8789,7 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
                 // We are sure not to be drawing anymore, reset the state
                 drawing = false;
                 // TODO: Hook printout into dispatch elsewhere?
-                console.warn('Rendering terminated due to:', e);
+                // console.warn('Rendering terminated due to:', e);
                 dispatcher.post('renderError: Fatal', [sourceData, e]);
               }
               dispatcher.post('unspin');
@@ -13586,7 +13586,7 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
             $('#waiter').dialog('close');
           } else {
             if (response.edited == undefined) {
-              console.warn('Warning: server response to edit has', response.edited, 'value for "edited"');
+              // console.warn('Warning: server response to edit has', response.edited, 'value for "edited"');
             } else {
               args.edited = response.edited;
             }
@@ -14147,25 +14147,25 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
     //liveDispatcher.post('collectionLoaded',[$.extend({'collection': null}, collData)]);
 
     var reload = function () {
-      console.warn('updateData @13979');
-      // console.warn(collData, docData, webFontURLs);
+      // console.warn('updateData @13979');
+      // // console.warn(collData, docData, webFontURLs);
       Util.updateData('brat_blok', collData, docData, webFontURLs);
     };
     var updateEmbed = function (coll, doc) {
-      console.warn('updateData @13985');
+      // console.warn('updateData @13985');
       collData = coll;
       docData = doc;
-      // console.warn(collData, docData);
+      // // console.warn(collData, docData);
       Util.updateData('brat_blok', coll, doc, webFontURLs);
     };
     var readyToEmbed = function (coll, doc, drawDelCircle=true) {
       if(drawDelCircle === false){
         window.drawDelCircle = false
       }
-      console.warn('embed @13993');
+      // console.warn('embed @13993');
       collData = coll;
       docData = doc;
-      // console.warn(collData, docData);
+      // // console.warn(collData, docData);
       Util.embed('brat_blok', coll, doc, webFontURLs);
     };
     var bratresize = function(){
