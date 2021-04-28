@@ -170,7 +170,7 @@ export default {
             .dispatch('user/login', userInfo)
             .then(res => {
               console.log('为什么过不去', res)
-              this.$router.push({ path: '/' })
+              location.href = '/'
               this.loading = false
             })
             .catch(err => {
@@ -178,7 +178,7 @@ export default {
               if (err.code === 404) {
                 this.$message.error(err.msg)
               }
-              this.$router.push({ path: '/' })
+              location.href = '/'
               this.loading = false
             })
         } else {

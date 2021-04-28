@@ -222,8 +222,8 @@
                       <el-col :span="8" align="right">
                         <small
                           v-if="item.metadata.default == '1'"
-                          class="user-card-defult"
-                          >defult</small
+                          class="user-card-default"
+                          >Default</small
                         >
                       </el-col>
                     </el-row>
@@ -269,7 +269,7 @@
                           type="primary"
                           circle
                           icon="el-icon-star-off"
-                          @click="setDefultPayment(item, index)"
+                          @click="setDefaultPayment(item, index)"
                         ></el-button>
                       </el-tooltip>
                     </div>
@@ -419,7 +419,7 @@ export default {
           this.cardLoading = false
         })
     },
-    setDefultPayment(item) {
+    setDefaultPayment(item) {
       this.$confirm('Set this card as default?', {
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
@@ -553,7 +553,7 @@ export default {
     padding: 15px;
     text-align: right;
   }
-  .user-card-defult {
+  .user-card-default {
     border: 1px solid #fff;
     border-radius: 50px;
     padding: 3px 10px;
