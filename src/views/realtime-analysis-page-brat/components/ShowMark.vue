@@ -209,15 +209,17 @@ export default {
             this.loading = false
             this.noDataShow = false
             if (res.code === 200) {
-              const data = res.data
-              if (data) {
-                this.$emit('success-data')
-                this.setBratData(data, true)
-              } else {
-                this.$message.warning('数据为空')
-                // this.$emit('setNext', null);
-                // this.$emit('setPre', null);
-              }
+              this.$nextTick(() => {
+                const data = res.data
+                if (data) {
+                  this.$emit('success-data')
+                  this.setBratData(data, true)
+                } else {
+                  this.$message.warning('数据为空')
+                  // this.$emit('setNext', null);
+                  // this.$emit('setPre', null);
+                }
+              })
             }
             globalBus.$emit('set-analysis-loading-false')
           })
@@ -588,9 +590,7 @@ export default {
       // GET /task/update/entity/{fileId}/{entityId}/{newSem}
       this.loading = true
       this.$http.get(
-        `task/update/entity/${this.id}/${this.entitySelectionId}/${
-          this.candidateEntityLabelsStr
-        }`,
+        `task/update/entity/${this.id}/${this.entitySelectionId}/${this.candidateEntityLabelsStr}`,
         {},
         res => {
           this.loading = false
