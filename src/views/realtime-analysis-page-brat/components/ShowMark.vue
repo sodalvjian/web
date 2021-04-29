@@ -228,6 +228,9 @@ export default {
             //   this.noDataShow = true
             // }
             globalBus.$emit('set-analysis-loading-false')
+            if (res.code === 429) {
+              this.$message.warning('go to bed now!')
+            }
             this.loading = false
           })
       }
