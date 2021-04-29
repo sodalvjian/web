@@ -6,7 +6,7 @@
           <strong class="f18 color-black">
             <router-link to="/user/cost" class="color-main f19"
               ><i class="mr-10 el-icon-arrow-left"></i>Personal
-              center</router-link
+              Center</router-link
             >
             / Bill Details
           </strong>
@@ -73,7 +73,7 @@
         </el-table-column>
         <el-table-column prop="type" align="center" label="Type" width="100">
         </el-table-column>
-        <el-table-column label="Create Time" align="center" min-width="180">
+        <el-table-column label="Time Created" align="center" min-width="180">
           <template slot-scope="scope">
             {{ scope.row.cDate | setHourDate }}
           </template>
@@ -81,7 +81,7 @@
         <el-table-column
           prop="fieldNumber"
           align="center"
-          label="Number of file"
+          label="Number of files"
           min-width="180"
         >
         </el-table-column>

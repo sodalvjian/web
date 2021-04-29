@@ -7,7 +7,7 @@
           <router-link to="/" class="color-main f19"
             ><i class="mr-10 el-icon-arrow-left fb"></i
           ></router-link>
-          Orders and invoices
+          Orders and Invoices
         </strong>
       </nav>
       <section class="mt-10 p25 w">
@@ -57,7 +57,7 @@
           <el-row class="w">
             <el-col :span="6">
               <strong class="color-black f15"
-                >Order and invoice history ({{ tableData.length }})</strong
+                >Order and Invoice History ({{ tableData.length }})</strong
               >
             </el-col>
             <el-col :span="18" align="right">

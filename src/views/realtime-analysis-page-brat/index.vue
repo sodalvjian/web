@@ -1,18 +1,18 @@
 <template>
-  <div>
-    <nav class="vital-container cb bb-1">
+  <div class="p20 h100">
+    <!-- <nav class="vital-container cb bb-1">
       <strong class="fl f16">Real-time analysis</strong>
     </nav>
     <div class="vital-container realtime-top-content">
       <nav>
         <el-row type="flex">
           <el-col :span="8">
-            <!-- <select-pipeline
+            <select-pipeline
               v-model="formData.pipeline"
               size="small"
               @get-complete-data="getCompleteData"
               @get-complete-options="getCompleteOptions"
-            /> -->
+            />
           </el-col>
 
           <el-col :span="16" align="right">
@@ -38,10 +38,9 @@
           placeholder="Please enter"
         >
         </el-input>
-      </section>
-      <!-- Analyze result -->
-      <analysis-result ref="analysisResultRef" />
-    </div>
+      </section> -->
+    <!-- Analyze result -->
+    <analysis-result ref="analysisResultRef" />
   </div>
 </template>
 
@@ -109,12 +108,10 @@ export default {
         return false
       }
       const params = {
-        pipeline: pipeline,
-        text: text,
-        frontFlag: true
+        token: this.$route.query.token || ''
       }
       this.analysisLoading = true
-      this.$refs.analysisResultRef.getResult(params, loadType)
+      this.$refs.analysisResultRef.getResult(params, false)
     },
     clearData() {
       this.formData.text = ''

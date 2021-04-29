@@ -17,6 +17,14 @@ export function GetBratTest(data) {
     data
   })
 }
+
+export function GetBratForTest(params) {
+  return request({
+    url: `api/nlpdata`,
+    method: 'get',
+    params
+  })
+}
 // export const GetBrat = data => {
 //   return request({
 //     url: `account/user/update/card`,

@@ -4,10 +4,11 @@
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
-          <router-link to="/" class="color-main f19"
-            ><i class="mr-10 el-icon-arrow-left fb"></i
-          ></router-link>
-          Personal information
+          <router-link
+            to="/"
+            class="color-main f19"
+          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
+          Personal Information
         </strong>
       </nav>
       <section class="mt-10 p25 w">
@@ -62,7 +63,7 @@
             </el-row> -->
             <el-row :gutter="20">
               <el-col :span="12">
-                <el-form-item label="First name" prop="firstname">
+                <el-form-item label="First Name" prop="firstname">
                   <el-input
                     v-model="formData.firstname"
                     type="test"
@@ -72,7 +73,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="Last name" prop="lastname">
+                <el-form-item label="Last Name" prop="lastname">
                   <el-input
                     v-model="formData.lastname"
                     placeholder="Last name"
@@ -82,11 +83,11 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="Company name" prop="companyName">
+                <el-form-item label="Company Name" prop="companyName">
                   <el-input
                     v-model="formData.companyName"
                     type="test"
-                    placeholder="Please input"
+                    placeholder="Company"
                     autocomplete="off"
                   ></el-input>
                 </el-form-item>
@@ -95,7 +96,7 @@
                 <el-form-item label="Phone Number" prop="phoneNum">
                   <el-input
                     v-model="formData.phoneNum"
-                    placeholder="Please input"
+                    placeholder="Number"
                     type="test"
                     autocomplete="off"
                   ></el-input>
@@ -132,17 +133,17 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="Address" prop="street">
+                <el-form-item label="Address 1" prop="street">
                   <el-input
                     v-model="formData.street"
-                    placeholder="Street，P.O.Box,Company Name,c/o"
+                    placeholder="Example: 123 Pendleton St"
                     type="test"
                     autocomplete="off"
                   ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label=" " prop="apartment">
+                <el-form-item label="Address 2" prop="apartment">
                   <el-input
                     v-model="formData.apartment"
                     placeholder="Apartment,suite,unit,building,floor,etc"
@@ -155,29 +156,30 @@
                 <el-form-item label="City" prop="city">
                   <el-input
                     v-model="formData.city"
-                    placeholder="Please input"
+                    placeholder="City"
                     type="test"
                     autocomplete="off"
                   ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="State/Province or region" prop="state">
+                <el-form-item label="State/Province or Region" prop="state">
                   <el-input
                     v-model="formData.state"
-                    placeholder="Please input"
+                    placeholder="State"
                     type="test"
                     autocomplete="off"
                   ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="Postal Code" prop="postalCode">
-                  <el-input-number
+                <el-form-item label="ZIP Code" prop="postalCode">
+                  <el-input
                     v-model="formData.postalCode"
-                    :controls="false"
-                    placeholder="Please input"
-                  ></el-input-number>
+                    type="test"
+                    placeholder="Example: 12345"
+                    @keyup.native="formData.postalCode=formData.postalCode.replace(/[^\d]/g,'')"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -186,8 +188,7 @@
                 type="primary"
                 :loading="btnLoading"
                 @click="submitForm('formData')"
-                >Confirm</el-button
-              >
+              >Confirm</el-button>
               <el-button @click="resetForm('formData')">Reset</el-button>
             </el-form-item>
           </div>
@@ -223,8 +224,7 @@
                         <small
                           v-if="item.metadata.default == '1'"
                           class="user-card-default"
-                          >Default</small
-                        >
+                        >Default</small>
                       </el-col>
                     </el-row>
                     <div class="user-card-line"></div>
@@ -359,7 +359,7 @@ export default {
         street: '',
         city: '',
         state: '',
-        postalCode: null
+        postalCode: ''
       },
       publicKey: '',
       setupIntent: {}

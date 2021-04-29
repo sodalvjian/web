@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loading" class="root-show-mark">
-    <no-data v-if="noDataShow" class="mt-70" />
+    <no-data v-if="noDataShow" style="padding-top:12.5%" />
     <div v-if="!noDataShow" class="xmi-container">
       <iframe
         id="markBrat"
@@ -20,7 +20,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 // import * as types from '@/store/mutation-types';
 import { globalBus } from '@/utils/globalBus'
 import { demoResult } from '@/utils/demo-text'
-import { GetBrat } from '@/api/realtime-analysis-page'
+import { GetBratForTest } from '@/api/realtime-analysis-page'
 import DialogShowInfo from '@/components/DialogShowInfo'
 import _ from 'lodash'
 export default {
@@ -203,7 +203,7 @@ export default {
         this.loading = true
         //      GET /tagged/label/{fileId}
         // const url = `tagged/label/${this.id}`
-        GetBrat(params)
+        GetBratForTest(params)
           .then(res => {
             this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
             this.loading = false

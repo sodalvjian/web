@@ -39,7 +39,7 @@
             </el-table-column>
             <el-table-column align="right" label="" min-width="180">
               <template slot-scope="scope">
-                <span class="mr-30">{{ scope.row.cost }}</span>
+                <span class="mr-30">$ {{ scope.row.cost }}</span>
               </template>
             </el-table-column>
           </el-table>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="mt-20">
+    <nav>
       <el-row>
         <el-col :span="12">
           <h3>Analyze result</h3>
@@ -29,9 +29,9 @@
         @success-data="generalDisabled = false"
       />
     </section>
-    <h3 class="mt-40">Entities & Relations</h3>
+    <!-- <h3 class="mt-40">Entities & Relations</h3> -->
 
-    <entity-relation ref="entityRelationref" />
+    <!-- <entity-relation ref="entityRelationref" /> -->
     <!-- General Settings dialog -->
     <el-dialog
       title="Select visable entities"
@@ -222,7 +222,7 @@ export default {
       const bratSem = JSON.parse(data.bratSem)
       const outputData = JSON.parse(data.output)
 
-      this.$refs.entityRelationref.setData(data)
+      // this.$refs.entityRelationref.setData(data)
     },
     handleSetBrat() {
       this.bratSemData = JSON.parse(this.originalBratDataAgain.bratSem)
@@ -270,12 +270,12 @@ export default {
       this.originalBratData.bratFile = JSON.stringify(this.bratFileData)
       // console.log('this.bratSemData', this.originalBratData)
       this.$refs.showMarkRef.setBratDataAgain(this.originalBratData)
-      this.$refs.entityRelationref.setData(this.originalBratData, selectDataArr)
+      // this.$refs.entityRelationref.setData(this.originalBratData, selectDataArr)
       this.dialogVisible = false
     },
     getResult(params, loadType) {
       this.generalDisabled = true
-      this.$refs.entityRelationref.setDataEmpty()
+      // this.$refs.entityRelationref.setDataEmpty()
       this.$refs.showMarkRef.fetchData(params, loadType)
     },
     switchClick() {
@@ -290,7 +290,7 @@ export default {
 
 <style lang="scss" scoped>
 .analysis-result-content {
-  height: 400px;
+  height: 85vh;
   background-color: #fff;
 }
 </style>

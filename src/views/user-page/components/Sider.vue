@@ -9,7 +9,7 @@
     <section v-loading="feeLoading" class="mt-20 p20">
       <el-row>
         <el-col :span="21">
-          <strong class="f16">Monthly maximum expense</strong>
+          <strong class="f16">Monthly maximum limit</strong>
         </el-col>
         <el-col :span="3" align="right"
           ><i class="el-icon-edit cp f20 color-main" @click="handleConnect"></i
@@ -20,7 +20,7 @@
       </el-row>
       <el-row class="mt-30">
         <el-col :span="21">
-          <strong class="f16">Maximum expense for a single task</strong>
+          <strong class="f16">Maximum single task limit</strong>
         </el-col>
         <el-col :span="3" align="right"
           ><i class="el-icon-edit cp f20 color-main" @click="handleConnect"></i
@@ -38,17 +38,17 @@
       >
       <router-link to="/user/orderInvoice"
         ><li :class="handleActive('orderInvoice')">
-          Order and invoice
+          Order and Invoice
         </li></router-link
       >
       <router-link to="/user/personalInfo"
         ><li :class="handleActive('personalInfo')">
-          Personal Information& credit card
+          Personal Information & Credit Card
         </li></router-link
       >
       <router-link to="/user/accountPassword"
         ><li :class="handleActive('accountPassword')">
-          Account and password
+          Account and Password
         </li></router-link
       >
     </ul>

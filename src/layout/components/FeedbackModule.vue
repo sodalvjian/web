@@ -23,11 +23,11 @@
           ><el-form-item>
             <strong class="f15 color-black lh1-5 disinblock"
               >● The content will be sent to our team, please do not send HPI or
-              other sensitive inforrmation…</strong
+              other sensitive information…</strong
             >
           </el-form-item>
           <el-form-item
-            label="Question Description"
+            label="Question"
             prop="qDesc"
             :rules="{
               required: true,
@@ -38,18 +38,18 @@
               v-model="formData.qDesc"
               type="textarea"
               :rows="4"
-              placeholder="Please enter"
+              placeholder="Please describe your question here."
             ></el-input>
           </el-form-item>
-          <el-form-item label="Text paste">
+          <el-form-item label="Text">
             <el-input
               v-model="formData.tDesc"
               type="textarea"
               :rows="4"
-              placeholder="Please enter"
+              placeholder="Please paste your text here (if any)."
             ></el-input>
           </el-form-item>
-          <el-form-item label="Picture Upload">
+          <el-form-item label="Picture">
             <el-upload
               ref="upload"
               :action="`https://${s3Data.bucket}.s3.amazonaws.com`"
