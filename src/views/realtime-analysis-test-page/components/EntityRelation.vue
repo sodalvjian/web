@@ -180,7 +180,7 @@ export default {
       console.log('bratData', bratData)
 
       const bratFile = JSON.parse(bratData.bratFile)
-      const outputData = JSON.parse(bratData.output)
+      const outputData = JSON.parse(bratData.bratOut)
       const bratSem = JSON.parse(bratData.bratSem)
 
       this.bratText = bratFile.text
@@ -221,7 +221,6 @@ export default {
       relationsArr.map(item => {
         copyEntitiesData.map(child => {
           if (item.fromEnt === child.keyName) {
-            console.log('测试bug', item, entitiesObj)
             if (entitiesObj[item.toEnt]) {
               entitiesObj[item.toEnt].dataId = uuidv1()
               entitiesObj[item.toEnt].relationData = item.semanticTag

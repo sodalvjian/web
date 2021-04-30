@@ -180,7 +180,7 @@ export default {
       console.log('bratData', bratData)
 
       const bratFile = JSON.parse(bratData.bratFile)
-      const outputData = JSON.parse(bratData.output)
+      const outputData = JSON.parse(bratData.bratOut)
       const bratSem = JSON.parse(bratData.bratSem)
 
       this.bratText = bratFile.text

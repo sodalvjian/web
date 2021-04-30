@@ -218,10 +218,6 @@ export default {
       })
       this.bratData = bratData
 
-      const bratFile = JSON.parse(data.bratFile)
-      const bratSem = JSON.parse(data.bratSem)
-      const outputData = JSON.parse(data.output)
-
       // this.$refs.entityRelationref.setData(data)
     },
     handleSetBrat() {

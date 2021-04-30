@@ -369,6 +369,14 @@ export default {
   watch: {},
   created() {},
   mounted() {
+    if (!document.getElementById('stripe')) {
+      // 避免多次引入
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = 'https://js.stripe.com/v3/'
+      script.id = 'stripe'
+      document.body.appendChild(script)
+    }
     this.getUserInfo()
     this.getCardList()
     this.getPublicKey()

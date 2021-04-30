@@ -90,7 +90,9 @@ export default {
         <div class="fl w90">
         <strong>Please contact the administrator if you want to change the amount limit</strong>
         <div class="mt-10 color-red">
-        E-mail: <a href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a>
+        E-mail: <a href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${
+          this.quotaSetting.MAIL_TO_USER.val
+        }</a>
         </div>
         </div>
         </div>
