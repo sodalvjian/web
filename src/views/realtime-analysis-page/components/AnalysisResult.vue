@@ -3,7 +3,7 @@
     <nav class="mt-20">
       <el-row>
         <el-col :span="12">
-          <h3>Analyze result</h3>
+          <h3>Analysis Result</h3>
         </el-col>
         <el-col :span="12" align="right">
           <!-- <input
@@ -17,8 +17,7 @@
             :disabled="generalDisabled"
             class="mt-5"
             @click="openSetting"
-            >Display Filter<i class="el-icon-s-tools el-icon--right f18"></i
-          ></el-button>
+          >Display Filter<i class="el-icon-s-tools el-icon--right f18"></i></el-button>
         </el-col>
       </el-row>
     </nav>
@@ -37,10 +36,10 @@
       title="Select visable entities"
       center
       :visible.sync="dialogVisible"
-      width="35%"
+      width="38%"
     >
       <div class="mt-20 mb-30">
-        <el-row :gutter="20">
+        <el-row>
           <el-col :span="12" align="center">
             <strong>ALL</strong>
           </el-col>
@@ -53,71 +52,43 @@
             </el-switch>
           </el-col>
         </el-row>
-        <el-row
-          v-for="(item, index) in bratData"
-          :key="index"
-          class="mt-25"
-          :gutter="20"
+        <el-scrollbar
+          class="visable-entities-container mt-5"
+          style="height: 380px; overflow: visible; overflow-x: hidden"
         >
-          <el-col :span="12" align="center">
-            {{ item.type }}
-          </el-col>
-          <el-col :span="12" align="center">
-            <el-switch
-              @change="handleSingle"
-              v-model="item.switch"
-              active-color="#13ce66"
+          <section>
+            <el-row
+              v-for="(item, index) in bratData"
+              :key="index"
+              class="mt-25"
             >
-            </el-switch>
-          </el-col>
-        </el-row>
+              <el-col :span="12" align="center">
+                {{ item.type }}
+              </el-col>
+              <el-col :span="12" align="center">
+                <el-switch
+                  v-model="item.switch"
+                  active-color="#13ce66"
+                  @change="handleSingle"
+                >
+                </el-switch>
+              </el-col>
+            </el-row>
+          </section>
+        </el-scrollbar>
+
         <no-data v-if="bratData.length === 0" />
-        <!-- <el-table
-          :data="tableData"
-          class="analysis-result-table"
-          :show-header="false"
-          style="width: 100%"
-        >
-          <el-table-column type="expand">
-            <template slot-scope="">
-              <el-row class="pt-5 pb-10 bb-1">
-                <el-col :span="8">Shanghai</el-col>
-                <el-col class="pl-30" :span="8">City name</el-col>
-                <el-col class="pb-5 " :span="8" align="center"
-                  ><el-switch v-model="value" active-color="#13ce66">
-                  </el-switch
-                ></el-col>
-              </el-row>
-              <el-row class="pb-5 pt-15">
-                <el-col :span="8">Shanghai</el-col>
-                <el-col class="pl-30" :span="8">City name</el-col>
-                <el-col :span="8" align="center"
-                  ><el-switch v-model="value" active-color="#13ce66">
-                  </el-switch
-                ></el-col>
-              </el-row>
-            </template>
-          </el-table-column>
-          <el-table-column>
-            <template slot-scope="scoped">
-              <strong>{{ scoped.row.name }}</strong>
-            </template>
-          </el-table-column>
-          <el-table-column> </el-table-column>
-          <el-table-column label="" align="center">
-            <template>
-              <el-switch v-model="value" active-color="#13ce66"> </el-switch>
-            </template>
-          </el-table-column>
-        </el-table> -->
       </div>
       <span v-if="bratData.length !== 0" slot="footer" class="dialog-footer">
-        <el-button size="small" @click="dialogVisible = false"
-          >Cancel</el-button
-        >
-        <el-button size="small" type="primary" @click="handleSetBrat"
-          >Confirm</el-button
-        >
+        <el-button
+          size="small"
+          @click="dialogVisible = false"
+        >Cancel</el-button>
+        <el-button
+          size="small"
+          type="primary"
+          @click="handleSetBrat"
+        >Confirm</el-button>
       </span>
     </el-dialog>
   </div>
@@ -288,5 +259,15 @@ export default {
 .analysis-result-content {
   height: 400px;
   background-color: #fff;
+}
+.visable-entities-container {
+  height: 400px;
+}
+</style>
+<style lang="scss">
+.visable-entities-container {
+  .el-scrollbar__wrap {
+    overflow: auto;
+  }
 }
 </style>
