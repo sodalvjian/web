@@ -25,8 +25,9 @@
         placement="top"
       >
         <div slot="content">
-          Pricing:
-          ${{ selectPipeline.unitPrice }}/unit;100byte/unit
+          Pricing: ${{
+            (selectPipeline.unitPrice * 100).toFixed(3)
+          }}/unit; 100byte/unit
           <br />
           Description: {{ selectPipeline.description }}
         </div>
