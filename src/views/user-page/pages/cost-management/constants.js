@@ -6,8 +6,8 @@ var colorArr = [
     bottom: '#155dee'
   },
   {
-    top: '#f75a7f', // 红色
-    bottom: '#f75a7f'
+    top: '#155dee', // 红色
+    bottom: '#155dee'
   }
 ]
 export const barOption = {
@@ -68,7 +68,7 @@ export const barOption = {
     {
       min: 0,
       axisLabel: {
-        formatter: '{value}',
+        formatter: '${value}',
         color: '#999',
         textStyle: {
           fontSize: 14
@@ -126,6 +126,7 @@ export const barOption = {
           show: true,
           fontSize: 14,
           fontWeight: 'bold',
+          formatter: '${c}',
           color: '#333',
           position: 'top'
         }

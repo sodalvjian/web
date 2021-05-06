@@ -4,27 +4,107 @@
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
-          <router-link to="/" class="color-main f19"
-            ><i class="mr-10 el-icon-arrow-left fb"></i
-          ></router-link>
+          <router-link
+            to="/"
+            class="color-main f19"
+          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
           Billing & Cost Management
         </strong>
       </nav>
-      <section class="mt-10 p25 w">
+      <section v-loading="feeLoading" class="mt-20 p20">
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-col :span="21">
+              <strong class="f16">Monthly maximum limit</strong>
+            </el-col>
+            <el-col
+              :span="3"
+              align="right"
+            ><i
+              class="el-icon-edit cp f20 color-main"
+              @click="handleConnect"
+            ></i></el-col>
+            <el-col :span="24" class="mt-15">
+              <strong class="f26">$ {{ quotaSetting.QUOTA.val }}</strong>
+            </el-col>
+          </el-col>
+          <el-col :span="12">
+            <el-col :span="21">
+              <strong class="f16">Maximum single task limit</strong>
+            </el-col>
+            <el-col
+              :span="3"
+              align="right"
+            ><i
+              class="el-icon-edit cp f20 color-main"
+              @click="handleConnect"
+            ></i></el-col>
+            <el-col :span="24" class="mt-15">
+              <strong class="f26">$ {{ quotaSetting.TASK_QUOTA.val }}</strong>
+            </el-col>
+          </el-col>
+        </el-row>
+      </section>
+      <section class="p25 w">
         <nav>
           <el-row class="w">
             <el-col :span="16">
-              <strong class="color-black f15"
-                >Month-to-Date Spend By Service</strong
-              >
+              <strong class="color-black f15"> Vouchers</strong>
+            </el-col>
+          </el-row>
+        </nav>
+        <div v-loading="couponLoading" class="mt-15 coupon-container">
+          <div
+            v-if="couponData.length === 0"
+            class="mt-20 mb-40 pt-50 tc color-hui bbs-1 bts-1 pb-50"
+          >
+            No Voucher
+          </div>
+          <div v-else>
+            <el-card
+              v-for="(item, index) in couponData"
+              :key="index"
+              shadow="hover"
+              class="mt-20"
+            >
+              <el-row :gutter="10">
+                <el-col :span="2">
+                  <i class="el-icon-s-ticket color-main f40"></i>
+                </el-col>
+                <el-col :span="10">
+                  <div class="mt-3 ">
+                    <strong class="f24">$ {{ item.quota }}</strong>
+                  </div>
+
+                  <div class="mt-10 color-8">
+                    Expiration date：{{ item.expireDate | setNormalDate }}
+                  </div>
+                </el-col>
+                <el-col :span="9">
+                  <div class="mt-3 ">
+                    <strong class="f24">$ {{ item.remaining }}</strong>
+                  </div>
+
+                  <div class="mt-10 color-8">Remaining balance</div>
+                </el-col>
+              </el-row>
+            </el-card>
+          </div>
+        </div>
+        <nav class="mt-40">
+          <el-row class="w">
+            <el-col :span="16">
+              <strong
+                class="color-black f15"
+              >Month-to-Date Spend By Service</strong>
             </el-col>
             <el-col :span="8" align="right">
-              <strong class="color-black mr-15 f15"
-                >$ {{ totalCharges }}</strong
-              >
-              <el-button size="small" type="primary" @click="openBillDetail"
+              <strong
+                class="color-black mr-15 f15"
+              >$ {{ totalCharges }}</strong>
+              <!-- <el-button size="small" type="primary" @click="openBillDetail"
                 >Bill Details</el-button
-              >
+              > -->
             </el-col>
           </el-row>
         </nav>
@@ -44,55 +124,10 @@
             </el-table-column>
           </el-table>
         </div>
-        <nav class="mt-30">
+        <nav class="mt-40">
           <el-row class="w">
             <el-col :span="16">
-              <strong class="color-black f15"> Vouchers and Credits</strong>
-            </el-col>
-          </el-row>
-        </nav>
-        <div class="mt-15 coupon-container" v-loading="couponLoading">
-          <div
-            v-if="couponData.length === 0"
-            class="mt-20 mb-40 pt-50 tc color-hui bbs-1 bts-1 pb-50"
-          >
-            No Coupon
-          </div>
-          <div v-else>
-            <el-card
-              v-for="(item, index) in couponData"
-              :key="index"
-              shadow="hover"
-              class="mt-20"
-            >
-              <el-row :gutter="10">
-                <el-col :span="2">
-                  <i class="el-icon-s-ticket color-main f40"></i>
-                </el-col>
-                <el-col :span="10">
-                  <div class="mt-3 ">
-                    <strong class="f24">$ {{ item.quota }}</strong>
-                  </div>
-
-                  <div class="mt-10 color-8">
-                    Expiration Date：{{ item.expireDate | setNormalDate }}
-                  </div>
-                </el-col>
-                <el-col :span="9">
-                  <div class="mt-3 ">
-                    <strong class="f24">$ {{ item.remaining }}</strong>
-                  </div>
-
-                  <div class="mt-10 color-8">Remaining amount</div>
-                </el-col>
-              </el-row>
-            </el-card>
-          </div>
-        </div>
-        <nav class="mt-30">
-          <el-row class="w">
-            <el-col :span="16">
-              <strong class="color-black f15">Cost Dashboard</strong>
+              <strong class="color-black f15">Bill History</strong>
             </el-col>
             <el-col :span="8" align="right">
               <el-date-picker
@@ -103,6 +138,7 @@
                 start-placeholder="Begin month"
                 value-format="yyyy-MM"
                 end-placeholder="End month"
+                :picker-options="pickerOptions"
                 @change="changeMonthRange"
               >
               </el-date-picker>
@@ -120,7 +156,7 @@
             autoresize
           />
         </div>
-        <div class="mt-15">
+        <div class="mt-40">
           <el-table
             v-loading="costLoading"
             :data="tableData"
@@ -175,10 +211,12 @@ import 'echarts/lib/chart/bar'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
 import { barOption } from './constants'
+import moment from 'moment'
 import {
   GetBillingSummary,
   GetCostDashboard,
-  GetVoucher
+  GetVoucher,
+  GetQuotaSettings
 } from '@/api/user-page'
 export default {
   name: '',
@@ -189,12 +227,44 @@ export default {
   props: {},
   data() {
     return {
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: 'This month',
+            onClick(picker) {
+              picker.$emit('pick', [new Date(), new Date()])
+            }
+          },
+          {
+            text: 'This year',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date(new Date().getFullYear(), 0)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: 'Last 6 months',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setMonth(start.getMonth() - 6)
+              picker.$emit('pick', [start, end])
+            }
+          }
+        ]
+      },
       billingLoading: false,
       costLoading: false,
       couponLoading: false,
       userId: store.getters.userInfo.userId,
       barData: {},
-      monthRange: [],
+      monthRange: [
+        moment()
+          .startOf('year')
+          .format('yyyy-MM'),
+        moment().format('yyyy-MM')
+      ],
       totalCharges: 0,
       summaryData: [],
       tableData: [],
@@ -202,7 +272,13 @@ export default {
         minYearMonth: '',
         maxYearMonth: ''
       },
-      couponData: []
+      couponData: [],
+      feeLoading: false,
+      quotaSetting: {
+        QUOTA: {},
+        TASK_QUOTA: {},
+        MAIL_TO_USER: {}
+      }
     }
   },
   computed: {},
@@ -212,9 +288,40 @@ export default {
     this.getBillingSummary()
     this.getCostDashboard()
     this.getVoucher()
+    this.getVoucherPublic()
   },
   beforeDestroy() {},
   methods: {
+    handleConnect() {
+      this.$alert(
+        `<div class="cb">
+        <div class="fl w10">
+        <i class="el-icon-warning color-yellow f26 mr-15"></i></div>
+        <div class="fl w90">
+        <strong>Please contact the administrator if you want to change the amount limit</strong>
+        <div class="mt-10 color-red">
+        E-mail: <a href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a>
+        </div>
+        </div>
+        </div>
+        `,
+        {
+          confirmButtonText: 'OK',
+          center: true,
+          dangerouslyUseHTMLString: true,
+          customClass: 'show-connect-info'
+        }
+      )
+    },
+    getVoucherPublic() {
+      this.feeLoading = true
+      GetQuotaSettings().then(res => {
+        this.feeLoading = false
+        if (res.code === 200) {
+          this.quotaSetting = res.data
+        }
+      })
+    },
     changeMonthRange() {
       this.getBillingSummary()
       this.getCostDashboard()

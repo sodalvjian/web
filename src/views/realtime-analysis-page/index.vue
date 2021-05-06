@@ -7,6 +7,7 @@
       <nav>
         <el-row type="flex">
           <el-col :span="8">
+            <h4>Select NLP pipeline:</h4>
             <select-pipeline
               v-model="formData.pipeline"
               size="small"
@@ -14,21 +15,10 @@
               @get-complete-options="getCompleteOptions"
             />
           </el-col>
-
-          <el-col :span="16" align="right">
-            <el-button size="small" @click="clearData">Clear</el-button>
-            <el-button
-              :loading="analysisLoading"
-              size="small"
-              type="primary"
-              icon="el-icon-data-line"
-              @click="handleAnalysis(false)"
-              >Analyze</el-button
-            >
-          </el-col>
         </el-row>
       </nav>
       <section class="mt-15">
+        <h4>Input text:</h4>
         <el-input
           v-model="formData.text"
           type="textarea"
@@ -38,6 +28,16 @@
           placeholder="Please enter"
         >
         </el-input>
+        <p>
+          <el-button size="small" @click="clearData">Clear</el-button>
+          <el-button
+            :loading="analysisLoading"
+            size="small"
+            type="primary"
+            icon="el-icon-data-line"
+            @click="handleAnalysis(false)"
+          >Analyze</el-button>
+        </p>
       </section>
       <!-- Analyze result -->
       <analysis-result ref="analysisResultRef" />
@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import { GetAnalysisType } from '@/api/annotate-jobs-page'
 import analysisResult from './components/AnalysisResult'
 import { globalBus } from '@/utils/globalBus'
 import { demoText } from '@/utils/demo-text'

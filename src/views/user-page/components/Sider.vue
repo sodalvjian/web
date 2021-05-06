@@ -1,63 +1,32 @@
 <template>
   <aside class="user-sider br-1 bg-color-white">
-    <nav class="tc bb-1 p20">
-      <el-avatar shape="circle" :size="80" :src="avatarSrc"></el-avatar>
-      <div class="mt-10">
-        <strong class="color-black f16">{{ userName }} </strong>
-      </div>
-    </nav>
-    <section v-loading="feeLoading" class="mt-20 p20">
-      <el-row>
-        <el-col :span="21">
-          <strong class="f16">Monthly maximum limit</strong>
-        </el-col>
-        <el-col :span="3" align="right"
-          ><i class="el-icon-edit cp f20 color-main" @click="handleConnect"></i
-        ></el-col>
-        <el-col :span="24" class="mt-15">
-          <strong class="f26">$ {{ quotaSetting.QUOTA.val }}</strong>
-        </el-col>
-      </el-row>
-      <el-row class="mt-30">
-        <el-col :span="21">
-          <strong class="f16">Maximum single task limit</strong>
-        </el-col>
-        <el-col :span="3" align="right"
-          ><i class="el-icon-edit cp f20 color-main" @click="handleConnect"></i
-        ></el-col>
-        <el-col :span="24" class="mt-15">
-          <strong class="f26">$ {{ quotaSetting.TASK_QUOTA.val }}</strong>
-        </el-col>
-      </el-row>
-    </section>
-    <ul class="user-sider-mean bt-1 pt-20">
-      <router-link to="/user/cost"
-        ><li :class="handleActive('cost')">
-          Billing & Cost Management
-        </li></router-link
-      >
-      <router-link to="/user/orderInvoice"
-        ><li :class="handleActive('orderInvoice')">
-          Order and Invoice
-        </li></router-link
-      >
-      <router-link to="/user/personalInfo"
-        ><li :class="handleActive('personalInfo')">
-          Personal Information & Credit Card
-        </li></router-link
-      >
-      <router-link to="/user/accountPassword"
-        ><li :class="handleActive('accountPassword')">
-          Account and Password
-        </li></router-link
-      >
+    <ul class="user-sider-mean">
+      <router-link
+        to="/user/cost"
+      ><li :class="handleActive('cost')">
+        Billing & Cost Management
+      </li></router-link>
+      <router-link
+        to="/user/orderInvoice"
+      ><li :class="handleActive('orderInvoice')">
+        Order and Invoice
+      </li></router-link>
+      <router-link
+        to="/user/personalInfo"
+      ><li :class="handleActive('personalInfo')">
+        Personal Information & Credit Card
+      </li></router-link>
+      <router-link
+        to="/user/accountPassword"
+      ><li :class="handleActive('accountPassword')">
+        Account Security
+      </li></router-link>
     </ul>
   </aside>
 </template>
 <script>
 import store from '@/store'
 const defaultAvatar = require('@/assets/img/avatar.png')
-import { GetQuotaSettings } from '@/api/user-page'
 export default {
   name: '',
   components: {},
@@ -66,20 +35,13 @@ export default {
     return {
       userName: store.getters.userInfo.accountName,
       avatarSrc: store.getters.userInfo.imagePath || defaultAvatar,
-      feeLoading: false,
-      quotaSetting: {
-        QUOTA: {},
-        TASK_QUOTA: {},
-        MAIL_TO_USER: {}
-      }
+      feeLoading: false
     }
   },
   computed: {},
   watch: {},
   created() {},
-  mounted() {
-    this.getVoucher()
-  },
+  mounted() {},
   beforeDestroy() {},
   methods: {
     handleConnect() {
@@ -90,9 +52,7 @@ export default {
         <div class="fl w90">
         <strong>Please contact the administrator if you want to change the amount limit</strong>
         <div class="mt-10 color-red">
-        E-mail: <a href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${
-          this.quotaSetting.MAIL_TO_USER.val
-        }</a>
+        E-mail: <a href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a>
         </div>
         </div>
         </div>
@@ -112,15 +72,6 @@ export default {
       } else {
         return ''
       }
-    },
-    getVoucher() {
-      this.feeLoading = true
-      GetQuotaSettings().then(res => {
-        this.feeLoading = false
-        if (res.code === 200) {
-          this.quotaSetting = res.data
-        }
-      })
     }
   }
 }

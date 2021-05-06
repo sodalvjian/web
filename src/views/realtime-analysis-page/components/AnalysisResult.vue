@@ -3,7 +3,7 @@
     <nav class="mt-20">
       <el-row>
         <el-col :span="12">
-          <h3>Analysis Result</h3>
+          <h3>Visualization</h3>
         </el-col>
         <el-col :span="12" align="right">
           <!-- <input
@@ -28,7 +28,7 @@
         @success-data="generalDisabled = false"
       />
     </section>
-    <h3 class="mt-40">Entities & Relations</h3>
+    <h3 class="mt-40">Results</h3>
 
     <entity-relation ref="entityRelationref" />
     <!-- General Settings dialog -->

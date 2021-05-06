@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
-    <router-link to="/"
-      ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt=""/></span
-    ></router-link>
+    <router-link
+      to="/"
+    ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt="" /></span></router-link>
     <!-- <hamburger
       v-if="router.indexOf('user') === -1"
       :is-active="sidebar.opened"
@@ -38,18 +38,17 @@
             <use xlink:href="#icon-A19" />
           </svg> -->
           <span class="mr-15 header-title fl cb cp">
-            <el-avatar
+            <!-- <el-avatar
               class="mr-10 fl header-avatar"
               :src="avatarSrc"
-            ></el-avatar>
-            <span class="f16 fl">{{ userName }}</span></span
-          >
+            ></el-avatar> -->
+            <span class="f16 fl">{{ userName }}</span></span>
           <i class=" f16 cp header-menu el-icon-arrow-down fb"></i>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/user/cost">
             <el-dropdown-item>
-              Personal center
+              Account Settings
             </el-dropdown-item>
           </router-link>
           <!--
@@ -74,14 +73,14 @@
 import { mapGetters } from 'vuex'
 import store from '@/store'
 // import ErrorLog from '@/components/ErrorLog'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
+// import Breadcrumb from '@/components/Breadcrumb'
+// import Hamburger from '@/components/Hamburger'
 import DialogShowInfo from '@/components/DialogShowInfo'
 const defaultAvatar = require('@/assets/img/avatar.png')
 export default {
   components: {
-    Breadcrumb,
-    Hamburger,
+    // Breadcrumb,
+    // Hamburger,
     DialogShowInfo
     // ErrorLog
   },

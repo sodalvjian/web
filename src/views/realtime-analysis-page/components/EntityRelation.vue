@@ -9,8 +9,7 @@
             clearable
             placeholder="Search entities"
           >
-            <i slot="prefix" class="el-input__icon el-icon-search"></i
-          ></el-input>
+            <i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
         </el-col>
         <el-col :span="4">
           <el-select
@@ -64,19 +63,17 @@
           <i
             :style="setColor(scope.row.semanticTag)"
             class="mr-5 entity-type-round"
-          ></i
-          >{{ scope.row.semanticTag }}
+          ></i>{{ scope.row.semanticTag }}
         </template>
       </el-table-column>
       <el-table-column prop="address" label="CUI">
-        <template slot="header" slot-scope="scope">
-          <span class="fl"> CUI</span>
+        <template slot="header">
+          <span class="fl"> Code</span>
           <a
             href="https://www.nlm.nih.gov/research/umls/new_users/online_learning/Meta_005.html"
             target="_blank"
             class="ml-5"
-            ><i class="mt-3 ml-10 el-icon-info color-main f18 fl"></i
-          ></a>
+          ><i class="mt-3 ml-10 el-icon-info color-main f18 fl"></i></a>
         </template>
         <template slot-scope="scope">
           {{ scope.row.cui }}
