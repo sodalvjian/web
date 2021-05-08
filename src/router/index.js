@@ -18,6 +18,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/loginAuto',
+    component: () => import('@/views/common/login-auto'),
+    hidden: true
+  },
+  {
     path: '/register',
     component: () => import('@/views/common/register/index'),
     hidden: true

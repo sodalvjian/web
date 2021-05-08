@@ -33,7 +33,7 @@
               type="text"
             />
           </el-form-item>
-          <el-form-item prop="verificationCode">
+          <!-- <el-form-item prop="verificationCode">
             <el-row :gutter="20">
               <el-col :span="8">
                 <el-button
@@ -53,7 +53,7 @@
                 />
               </el-col>
             </el-row>
-          </el-form-item>
+          </el-form-item> -->
 
           <el-form-item
             prop="password"
@@ -101,7 +101,6 @@
           <el-form-item>
             <el-button
               :loading="loading"
-              :disabled="!formData.verificationCode"
               class="mt-25"
               type="success"
               style="width:100%;height:40px"
@@ -141,7 +140,7 @@
 <script>
 // import { validUsername } from '@/utils/validate'
 import PrivacyPolicy from '../privacy-policy'
-import { GetCode, RegisterAccount } from '@/api/login-register'
+import { RegisterAccount } from '@/api/login-register'
 import { passwordReg, passwordMsg } from '@/utils/method'
 const mailReg = /^.+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
 export default {
@@ -205,7 +204,6 @@ export default {
       formData: {
         email: '',
         accountName: '',
-        invitationCode: '',
         password: '',
         checkPass: '',
         verificationCode: ''
@@ -242,44 +240,6 @@ export default {
     openPrivacyPolicy() {
       this.$refs.privacyPolicy.openDialog()
     },
-    getCode() {
-      if (!this.formData.email) {
-        this.$message.warning('Please enter email')
-        return false
-      } else if (!mailReg.test(this.formData.email)) {
-        this.$message.warning('Please enter the correct email address')
-        return false
-      }
-      const params = {
-        email: this.formData.email
-      }
-      this.btnLoading = true
-      GetCode(params)
-        .then(res => {
-          console.log(res)
-          setTimeout(() => {
-            this.btnLoading = false
-          }, 1000)
-
-          if (res.success) {
-            var countDown = setInterval(() => {
-              if (this.codeCount < 1) {
-                this.getCodeDisable = false
-                this.getCodeText = 'Get Code'
-                this.codeCount = 30
-                clearInterval(countDown)
-              } else {
-                this.getCodeDisable = true
-                this.getCodeText = this.codeCount-- + ' s'
-              }
-            }, 1000)
-            this.$message.success(res.msg)
-          }
-        })
-        .catch(() => {
-          this.btnLoading = false
-        })
-    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -299,6 +259,7 @@ export default {
           this.loading = true
           const params = Object.assign(this.formData)
           console.log('params', params)
+          delete params.checkPass
           RegisterAccount(params)
             .then(res => {
               this.$router.push('/')

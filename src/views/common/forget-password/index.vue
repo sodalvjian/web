@@ -135,7 +135,7 @@
 // import { validUsername } from '@/utils/validate'
 import {
   GetCode,
-  SendVerificationCode,
+  SendVerification,
   DoVerificationForUpdatePassword,
   UpdatePasswordAfterVerification
 } from '@/api/login-register'
@@ -269,7 +269,7 @@ export default {
               email: this.formData.email
             }
             this.loading = true
-            SendVerificationCode(params)
+            SendVerification(params)
               .then(res => {
                 if (res.success) {
                   this.loading = false

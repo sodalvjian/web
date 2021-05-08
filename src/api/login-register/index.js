@@ -8,20 +8,20 @@ export function GetCode(data) {
   })
 }
 // 注册
-export function RegisterAccount(data) {
+export function RegisterAccount(params) {
   return request({
-    url: `account/user/addition`,
+    url: `acc/addition`,
     method: 'post',
-    data
+    params
   })
 }
 
 // forget password send code
-export function SendVerificationCode(data) {
+export function SendVerification(params) {
   return request({
-    url: `account/user/send/verification/code/password`,
+    url: `acc/resetpwd`,
     method: 'post',
-    data
+    params
   })
 }
 

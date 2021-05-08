@@ -75,6 +75,13 @@ const actions = {
         })
     })
   },
+  loginAuto({ commit }, token) {
+    return new Promise((resolve, reject) => {
+      commit('SET_TOKEN', token)
+      setToken(token)
+      resolve(token)
+    })
+  },
 
   // get user info
   getInfo({ commit, state }) {
