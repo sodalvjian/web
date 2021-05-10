@@ -8,20 +8,20 @@ export function GetCode(data) {
   })
 }
 // 注册
-export function RegisterAccount(params) {
+export function RegisterAccount(data) {
   return request({
     url: `acc/addition`,
     method: 'post',
-    params
+    data
   })
 }
 
 // forget password send code
-export function SendVerification(params) {
+export function SendVerification(data) {
   return request({
     url: `acc/resetpwd`,
     method: 'post',
-    params
+    data
   })
 }
 
@@ -37,7 +37,7 @@ export function DoVerificationForUpdatePassword(data) {
 // Update password after verification
 export function UpdatePasswordAfterVerification(data) {
   return request({
-    url: `account/user/forgot/update/password`,
+    url: `acc/verify-reset`,
     method: 'post',
     data
   })

@@ -2,15 +2,22 @@
   <div class="forget-password-container">
     <div class="register-content bg-color-white">
       <header class="tl cb p20">
-        <img src="@/assets/img/Logo.png" class="fl" width="250px" alt="" />
+        <a
+          href="/"
+        ><img
+          src="@/assets/img/Logo.png"
+          class="fl"
+          width="250px"
+          alt=""
+        /></a>
         <div class="mt-20 fl f18">
-          <span> | &nbsp; &nbsp;</span> <strong>Password reset</strong>
+          <span> | &nbsp; &nbsp;</span> <strong>Password Reset</strong>
         </div>
       </header>
       <nav class="f18 forget-header-title p20 fb">
         <span v-if="step === 1">Request Password Reset</span>
         <span v-if="step === 2">E-mail verification</span>
-        <span v-if="step === 3">Password reset</span>
+        <span v-if="step === 3">Password Reset</span>
       </nav>
       <section class="w60 bc pb-70">
         <nav class="mt-50 f15 lh1-5">
@@ -24,7 +31,7 @@
           </span>
           <span v-if="step === 3">
             Please set a new password. It is recommended to use a combination of
-            Numbers,letters and characters to improve the password security.
+            numbers, letters and characters to improve the password security.
           </span>
         </nav>
         <el-form
@@ -105,7 +112,6 @@
           <el-form-item>
             <el-button
               :loading="loading"
-              :disabled="!formData.email"
               class="mt-5"
               type="primary"
               style="width:100%;height:40px"
@@ -196,13 +202,17 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      uid: this.$route.query.uid,
+      token: this.$route.query.token
     }
   },
   watch: {
     $route: {
       handler: function(route) {
-        this.redirect = route.query && route.query.redirect
+        if (this.uid) {
+          this.step = 3
+        }
       },
       immediate: true
     }
@@ -271,9 +281,9 @@ export default {
             this.loading = true
             SendVerification(params)
               .then(res => {
-                if (res.success) {
+                if (res.code === 200) {
                   this.loading = false
-                  this.step = 2
+                  this.$message.success('Please check your email.')
                 }
               })
               .catch(() => {
@@ -298,14 +308,16 @@ export default {
           } else if (this.step === 3) {
             const params = {
               password: this.formData.password,
-              email: this.formData.email,
-              verificationCode: this.formData.verificationCode
+              token: this.token,
+              uid: this.uid
             }
             this.loading = true
             UpdatePasswordAfterVerification(params)
               .then(res => {
-                if (res.success) {
-                  this.$message.success(res.msg)
+                this.loading = false
+                if (res.code === 200) {
+                  this.$message.success(res.message)
+
                   setTimeout(() => {
                     this.$router.push('/login')
                   }, 1000)

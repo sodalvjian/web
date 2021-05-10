@@ -178,7 +178,6 @@ export default {
               if (err.code === 404) {
                 this.$message.error(err.msg)
               }
-              location.href = '/'
               this.loading = false
             })
         } else {

@@ -262,7 +262,13 @@ export default {
           delete params.checkPass
           RegisterAccount(params)
             .then(res => {
-              this.$router.push('/')
+              // this.$router.push('/')
+              this.loading = false
+              if (res.code === 200) {
+                this.$message.success(
+                  'Register success, please check your email.'
+                )
+              }
             })
             .catch(() => {
               this.loading = false

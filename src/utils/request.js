@@ -57,9 +57,9 @@ service.interceptors.response.use(
           type: 'error',
           message: 'Login expired please login again'
         })
-        setTimeout(async() => {
+        setTimeout(async () => {
           await store.dispatch('user/logout')
-          location.reload()
+          location.href = '/login'
         }, 1000)
       } else if (res.code === 800008) {
         return Promise.reject(res)
