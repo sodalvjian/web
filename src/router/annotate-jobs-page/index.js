@@ -19,7 +19,7 @@ export default [
         component: () => import('@/views/annotate-jobs-page/pages/job-details'),
         hidden: true,
         meta: {
-          title: 'Analysis Jobs',
+          title: 'Batch Analysis',
           keepAlive: false,
           icon: '#icon-A18'
         }

@@ -58,7 +58,7 @@
           show-overflow-tooltip
           align="left"
           sortable="custom"
-          label="Type Pipeline"
+          label="Pipeline"
           prop="pipeline"
         >
           <template slot-scope="scope">
@@ -146,7 +146,7 @@
           width="190px"
           align="center"
           sortable="custom"
-          label="Create Time"
+          label="Created Time"
           prop="date"
         >
           <template slot-scope="scope">
@@ -166,7 +166,7 @@
 
         <el-table-column
           align="center"
-          label="Operation"
+          label="Action"
           fixed="right"
           width="90px"
         >

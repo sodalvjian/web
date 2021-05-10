@@ -1,26 +1,26 @@
 <template>
   <aside class="user-sider br-1 bg-color-white">
     <ul class="user-sider-mean">
-      <router-link
-        to="/user/cost"
-      ><li :class="handleActive('cost')">
-        Billing & Cost Management
-      </li></router-link>
-      <router-link
-        to="/user/orderInvoice"
-      ><li :class="handleActive('orderInvoice')">
-        Order and Invoice
-      </li></router-link>
-      <router-link
-        to="/user/personalInfo"
-      ><li :class="handleActive('personalInfo')">
-        Personal Information & Credit Card
-      </li></router-link>
-      <router-link
-        to="/user/accountPassword"
-      ><li :class="handleActive('accountPassword')">
-        Account Security
-      </li></router-link>
+      <router-link to="/user/cost"
+        ><li :class="handleActive('cost')">
+          Bills & Credits
+        </li></router-link
+      >
+      <router-link to="/user/orderInvoice"
+        ><li :class="handleActive('orderInvoice')">
+          Payments
+        </li></router-link
+      >
+      <router-link to="/user/personalInfo"
+        ><li :class="handleActive('personalInfo')">
+          Payment Information
+        </li></router-link
+      >
+      <router-link to="/user/accountPassword"
+        ><li :class="handleActive('accountPassword')">
+          Account Security
+        </li></router-link
+      >
     </ul>
   </aside>
 </template>

@@ -8,7 +8,7 @@
             to="/"
             class="color-main f19"
           ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
-          Personal Information
+          Payment Information
         </strong>
       </nav>
       <section class="mt-10 p25 w">
