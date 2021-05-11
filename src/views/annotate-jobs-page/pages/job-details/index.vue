@@ -89,7 +89,9 @@
                 v-if="detailData.passFileCount"
                 placement="top"
                 :content="
-                  `${detailData.passFileCount} files exceeded the limit`
+                  `${detailData.passFileCount} file${
+                    detailData.passFileCount !== 1 ? 's' : ''
+                  } exceeded the limit`
                 "
                 ><i class="el-icon-info f17 color-yellow"></i
               ></el-tooltip>

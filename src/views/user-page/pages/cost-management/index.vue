@@ -151,7 +151,7 @@
             </el-table-column>
             <el-table-column
               prop="fileCount"
-              label="File count"
+              label="Number of files"
               align="center"
               min-width="180"
             >
@@ -162,9 +162,7 @@
               align="center"
               min-width="180"
             >
-              <template slot-scope="scope">
-                $ {{ scope.row.cost }}
-              </template>
+              <template slot-scope="scope"> $ {{ scope.row.cost }} </template>
             </el-table-column>
           </el-table>
         </div>

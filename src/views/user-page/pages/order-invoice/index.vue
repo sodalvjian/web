@@ -33,7 +33,9 @@
             </el-table-column>
             <el-table-column label="Invoice ID" width="100">
               <template slot-scope="scope">
-                {{ scope.invoiceID | emptyShow }}
+                <el-button type="text" @click="openInvoice(scope.row)">{{
+                  scope.row.invoiceID
+                }}</el-button>
               </template>
             </el-table-column>
             <el-table-column prop="type" label="Type" width="100">
@@ -121,6 +123,11 @@
               align="center"
               min-width="280"
             >
+              <template slot-scope="scope">
+                <el-button type="text" @click="openInvoice(scope.row)">{{
+                  scope.row.invoiceID
+                }}</el-button>
+              </template>
             </el-table-column>
             <el-table-column
               prop="paymentInstruction"
@@ -172,6 +179,8 @@
     </article>
     <!-- print dialog -->
     <dialog-component ref="dialogComponentref" />
+    <!-- bill detail -->
+    <bill-detail ref="billDetail" />
   </div>
 </template>
 <script>
@@ -181,11 +190,13 @@ import DialogComponent from './components/DialogComponent'
 import { GetOrderAndInvoiceHistory, GetPaymentDue } from '@/api/user-page'
 import moment from 'moment'
 import axios from 'axios'
+import billDetail from '../bill-detail'
 export default {
   name: '',
   components: {
     Sider,
-    DialogComponent
+    DialogComponent,
+    billDetail
   },
   props: {},
   data() {
@@ -218,6 +229,10 @@ export default {
   },
   beforeDestroy() {},
   methods: {
+    openInvoice(row) {
+      console.log('row', row)
+      this.$refs.billDetail.getData(row)
+    },
     handleInvoiceCurrentPage(val) {
       this.invoiceCurrentPage = val
       this.$refs.invoicetableDataRef.bodyWrapper.scrollTop = 0

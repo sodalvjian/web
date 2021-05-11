@@ -33,7 +33,7 @@
     <entity-relation ref="entityRelationref" />
     <!-- General Settings dialog -->
     <el-dialog
-      title="Select visable entities"
+      title="Select visible entities"
       center
       :visible.sync="dialogVisible"
       width="38%"

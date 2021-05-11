@@ -30,7 +30,7 @@
               >
                 <el-input
                   v-model="formData.name"
-                  minlength="6"
+                  minlength="1"
                   maxlength="256"
                   placeholder="Input your job name"
                 ></el-input>
@@ -336,10 +336,10 @@ export default {
   filters: {},
   data() {
     const validateProjectName = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('Please enter 6 characters to 256 characters'))
+      if (value.length < 1) {
+        callback(new Error('Please enter 1 characters to 256 characters'))
       } else if (value.length > 256) {
-        callback(new Error('Please enter 6 characters to 256 characters'))
+        callback(new Error('Please enter 1 characters to 256 characters'))
       } else {
         callback()
       }

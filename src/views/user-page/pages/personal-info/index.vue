@@ -4,10 +4,9 @@
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
-          <router-link
-            to="/"
-            class="color-main f19"
-          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
+          <router-link to="/" class="color-main f19"
+            ><i class="mr-10 el-icon-arrow-left fb"></i
+          ></router-link>
           Payment Information
         </strong>
       </nav>
@@ -146,7 +145,7 @@
                 <el-form-item label="Address 2" prop="apartment">
                   <el-input
                     v-model="formData.apartment"
-                    placeholder="Apartment,suite,unit,building,floor,etc"
+                    placeholder="Apartment, suite, unit, building, floor, etc. "
                     type="test"
                     autocomplete="off"
                   ></el-input>
@@ -178,7 +177,12 @@
                     v-model="formData.postalCode"
                     type="test"
                     placeholder="Example: 12345"
-                    @keyup.native="formData.postalCode=formData.postalCode.replace(/[^\d]/g,'')"
+                    @keyup.native="
+                      formData.postalCode = formData.postalCode.replace(
+                        /[^\d]/g,
+                        ''
+                      )
+                    "
                   ></el-input>
                 </el-form-item>
               </el-col>
@@ -188,7 +192,8 @@
                 type="primary"
                 :loading="btnLoading"
                 @click="submitForm('formData')"
-              >Confirm</el-button>
+                >Confirm</el-button
+              >
               <el-button @click="resetForm('formData')">Reset</el-button>
             </el-form-item>
           </div>
@@ -224,7 +229,8 @@
                         <small
                           v-if="item.metadata.default == '1'"
                           class="user-card-default"
-                        >Default</small>
+                          >Default</small
+                        >
                       </el-col>
                     </el-row>
                     <div class="user-card-line"></div>
@@ -285,7 +291,9 @@
                         'Error getting public key, please refresh the page'
                     "
                     class="card-add-btn cp"
-                    :style="!publicKey && 'cursor: not-allowed;grayscale(100%);'"
+                    :style="
+                      !publicKey && 'cursor: not-allowed;grayscale(100%);'
+                    "
                     @click.native="publicKey ? handleAddCard() : ''"
                   >
                     <div class="tc mt-50">

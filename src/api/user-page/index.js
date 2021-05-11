@@ -34,11 +34,10 @@ export function GetBillingSummary() {
 }
 
 // Get Bill Details
-export function GetBillDetails(data) {
+export function GetBillDetails(id) {
   return request({
-    url: `account/user/get/bill/details`,
-    method: 'post',
-    data
+    url: `acc/billdetail/${id}`,
+    method: 'get'
   })
 }
 // Get Cost Dashboard

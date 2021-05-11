@@ -19,6 +19,10 @@
 #nprogress .peg {
   box-shadow: 0 0 10px #34dcae, 0 0 5px #06ce97;
 }
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+}
 .container {
   margin-right: auto;
   margin-left: auto;

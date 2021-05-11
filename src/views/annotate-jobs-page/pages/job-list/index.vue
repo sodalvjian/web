@@ -1,15 +1,14 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="mt-10 fl f16 w50"
-        >
+      <strong class="mt-10 fl f16 w50">
         <!-- <hamburger
           v-if="router.indexOf('user') === -1"
           :is-active="sidebar.opened"
           class="hamburger-container"
           @toggleClick="toggleSideBar"
         /> -->
-        Analyze Jobs</strong
+        Batch Analysis</strong
       >
       <div class="fr w50 tl">
         <el-button
@@ -124,7 +123,11 @@
               <el-tooltip
                 v-if="scope.row.passFileCount"
                 placement="top"
-                :content="`${scope.row.passFileCount} files exceeded the limit`"
+                :content="
+                  `${scope.row.passFileCount} file${
+                    scope.row.passFileCount !== 1 ? 's' : ''
+                  } exceeded the limit`
+                "
                 ><i
                   style="margin-left:-5px;margin-top:2px"
                   class="el-icon-info f15 color-yellow"

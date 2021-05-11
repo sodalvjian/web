@@ -10,7 +10,7 @@ export default [
         name: 'annotateJobs',
         component: () => import('@/views/annotate-jobs-page'),
         meta: {
-          title: 'Analysis Jobs',
+          title: 'Batch Analysis',
           icon: '#iconAnnotatejobs'
         }
       }, {
@@ -19,7 +19,7 @@ export default [
         component: () => import('@/views/annotate-jobs-page/pages/job-details'),
         hidden: true,
         meta: {
-          title: 'Batch Analysis',
+          title: 'Job Details',
           keepAlive: false,
           icon: '#icon-A18'
         }
