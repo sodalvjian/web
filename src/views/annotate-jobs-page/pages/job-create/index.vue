@@ -45,7 +45,7 @@
           <el-col :span="12">
             <div class="p20">
               <el-form-item
-                label="Type pipeline"
+                label="Pipeline"
                 prop="pipelineId"
                 :rules="{ required: true }"
               >

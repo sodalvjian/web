@@ -20,7 +20,7 @@
           label-width="150px"
           label-position="right"
         >
-          <el-form-item prop="account" label="Account:">
+          <el-form-item prop="account" label="Username:">
             <el-input
               ref="account"
               v-model="formData.account"
@@ -32,15 +32,15 @@
           </el-form-item>
           <el-form-item
             prop="oldPassword"
-            label="Primary password:"
+            label="Current password:"
             :rules="{
               required: true,
-              message: 'Please enter primary password.'
+              message: 'Please enter current password.'
             }"
           >
             <el-input
               v-model="formData.oldPassword"
-              placeholder="Primary password"
+              placeholder="Current password"
               size="medium"
               type="password"
               autocomplete="off"
@@ -62,7 +62,7 @@
           <el-form-item
             prop="checkPass"
             class="mt-30"
-            label="Password again:"
+            label="Confirm password:"
             :rules="{ validator: validateCheckPass }"
           >
             <el-input

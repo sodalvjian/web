@@ -7,7 +7,7 @@
           <router-link to="/" class="color-main f19"
             ><i class="mr-10 el-icon-arrow-left fb"></i
           ></router-link>
-          Orders and Invoices
+          Payments
         </strong>
       </nav>
       <section class="mt-10 p25 w">
@@ -150,6 +150,9 @@
               align="center"
               min-width="180"
             >
+              <template slot-scope="scope">
+                $ {{ scope.row.transactionAmount }}
+              </template>
             </el-table-column>
           </el-table>
         </div>
@@ -191,7 +194,7 @@ export default {
       historyLoading: false,
       btnDisabled: true,
       btnLoading: false,
-      monthRange: [],
+      monthRange: [moment().startOf('year'), moment()],
       summaryData: [],
       tableData: [],
       multipleSelection: [],
