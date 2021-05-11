@@ -83,6 +83,16 @@ const actions = {
     })
   },
 
+  setUserInfo({ commit }, userInfo) {
+    return new Promise((resolve, reject) => {
+      commit('SET_USER_INFO', JSON.stringify(userInfo))
+      // Cookies.set('userRoles', data.additionalInformation.privs)
+
+      // commit('SET_ROLE', data.additionalInformation.privs)
+      resolve(userInfo)
+    })
+  },
+
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {

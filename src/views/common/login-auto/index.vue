@@ -2,6 +2,8 @@
   <div class=""></div>
 </template>
 <script>
+import { GetUserInfo } from '@/api/user-page'
+import Cookies from 'js-cookie'
 export default {
   name: '',
   components: {},
@@ -22,12 +24,12 @@ export default {
   methods: {
     autoLogin() {
       console.log('token', this.token)
+      Cookies.remove('userInfo')
+      sessionStorage.clear()
       this.$store
         .dispatch('user/loginAuto', this.token)
         .then(res => {
-          console.log('为什么过不去', res)
-          location.href = '/'
-          this.loading = false
+          this.getUserInfo()
         })
         .catch(err => {
           console.log('error', err)
@@ -37,6 +39,20 @@ export default {
           location.href = '/'
           this.loading = false
         })
+    },
+    getUserInfo() {
+      GetUserInfo()
+        .then(res => {
+          if (res.success) {
+            this.$store.dispatch('user/setUserInfo', res.data)
+            console.log('为什么过不去', res)
+            location.href = '/'
+            this.loading = false
+          } else {
+            this.$message.error(res.msg)
+          }
+        })
+        .catch(() => {})
     }
   }
 }
