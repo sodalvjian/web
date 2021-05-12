@@ -1,5 +1,5 @@
 // 深拷贝
-const deepClone = function (obj) {
+const deepClone = function(obj) {
   if (Array.isArray(obj)) {
     return obj.map(deepClone)
   } else if (obj && typeof obj === 'object') {
@@ -15,7 +15,7 @@ const deepClone = function (obj) {
   }
 }
 // 数组去重
-const unique = function (arr) {
+const unique = function(arr) {
   if (!Array.isArray(arr)) {
     console.log('type error!')
     return
@@ -23,12 +23,12 @@ const unique = function (arr) {
   return Array.from(new Set(arr))
 }
 // 根据开始结束位置查找字符
-const findText = function (str, begin, end) {
+const findText = function(str, begin, end) {
   return str.substr(begin, end - begin)
 }
 
 // base64转file
-const dataURLtoBlob = function (dataurl) {
+const dataURLtoBlob = function(dataurl) {
   var arr = dataurl.split(',')
   var mime = arr[0].match(/:(.*?);/)[1]
   var bstr = atob(arr[1])
@@ -41,7 +41,7 @@ const dataURLtoBlob = function (dataurl) {
 }
 
 // 对象根据value值排序
-const objvalueSort = function (obj) {
+const objvalueSort = function(obj) {
   var keyArr = []
   var valArr = []
   for (var key in obj) {
@@ -68,9 +68,9 @@ const objvalueSort = function (obj) {
   return newobj
 }
 // 防抖
-const debounce = (function () {
+const debounce = (function() {
   let timer = 0
-  return function (callback, ms) {
+  return function(callback, ms) {
     clearTimeout(timer)
     timer = setTimeout(callback, ms)
   }

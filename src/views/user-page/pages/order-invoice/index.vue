@@ -4,9 +4,10 @@
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
-          <router-link to="/" class="color-main f19"
-            ><i class="mr-10 el-icon-arrow-left fb"></i
-          ></router-link>
+          <router-link
+            to="/"
+            class="color-main f19"
+          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
           Payments
         </strong>
       </nav>
@@ -48,9 +49,11 @@
             </el-table-column>
             <el-table-column prop="actions" label="Actions" width="180">
               <template>
-                <el-button size="medium" class="color-red" type="text"
-                  >Contact us</el-button
-                >
+                <el-button
+                  size="medium"
+                  class="color-red"
+                  type="text"
+                >Contact us</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -58,9 +61,9 @@
         <nav class="mt-40">
           <el-row class="w">
             <el-col :span="6">
-              <strong class="color-black f15"
-                >Order and Invoice History ({{ tableData.length }})</strong
-              >
+              <strong
+                class="color-black f15"
+              >Order and Invoice History ({{ tableData.length }})</strong>
             </el-col>
             <el-col :span="18" align="right">
               <el-date-picker
@@ -83,8 +86,7 @@
                 :loading="btnLoading"
                 :disabled="btnDisabled"
                 @click="downloadCSV"
-                >Download CSV</el-button
-              >
+              >Download CSV</el-button>
               <el-button
                 size="small"
                 plain
@@ -92,8 +94,7 @@
                 :disabled="btnDisabled"
                 icon="el-icon-printer"
                 @click="openPrint"
-                >Print</el-button
-              >
+              >Print</el-button>
             </el-col>
           </el-row>
         </nav>

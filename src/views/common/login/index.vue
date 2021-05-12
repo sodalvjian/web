@@ -52,13 +52,15 @@
               type="success"
               style="width:100%;height:40px"
               @click.native.prevent="handleLogin"
-              >Sign in</el-button
-            >
+            >Sign in</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button class="w" plain type="primary" @click="handleRegister"
-              >Create a new account</el-button
-            >
+            <el-button
+              class="w"
+              plain
+              type="primary"
+              @click="handleRegister"
+            >Create a new account</el-button>
           </el-form-item>
           <el-row :gutter="10" class="f12 login-content-right-footer">
             <el-col :span="12" class="color-main" align="left">

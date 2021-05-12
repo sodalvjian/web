@@ -1,10 +1,10 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="mt-10 fl nav-title f16"
-        ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong
-      >
+      <strong
+        class="mt-10 fl nav-title f16"
+      ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong>
     </nav>
     <el-form
       ref="formData"
@@ -92,8 +92,7 @@
                 </el-input> -->
               </el-form-item>
             </div>
-          </el-col></el-row
-        >
+          </el-col></el-row>
       </section>
       <section
         v-loading="pageLoading"
@@ -288,20 +287,19 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
             </div>
-          </el-col></el-row
-        >
+          </el-col></el-row>
       </section>
       <el-form-item class="mt-40 tc">
-        <el-button size="medium" @click="$emit('close-dialog')"
-          >Cancel</el-button
-        >
+        <el-button
+          size="medium"
+          @click="$emit('close-dialog')"
+        >Cancel</el-button>
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-          >Confirm</el-button
-        >
+        >Confirm</el-button>
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -486,7 +484,9 @@ export default {
               this.showIconStatus = false
               this.messageData = res.message
             } else {
-              this.$message.warning('Verity failed, Please authorize.')
+              this.$message.warning(
+                'Verification failed, Please grant Mercury NLP the read and write permissions to verify your S3 bucket.'
+              )
               this.needAuthor = true
             }
             this.formData.output = res.data ? res.data.output : ''
@@ -539,8 +539,8 @@ export default {
 
         this.pipelineData = pipelineObj
           ? this.analysisChildTypeOptions.find(
-              item => item.params === pipelineObj.params
-            )
+            item => item.params === pipelineObj.params
+          )
           : {}
         this.inRegion = inRegion
         const inRegionLabel = s3List.find(item => inRegion === item.value)

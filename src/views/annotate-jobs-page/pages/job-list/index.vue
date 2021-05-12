@@ -8,8 +8,7 @@
           class="hamburger-container"
           @toggleClick="toggleSideBar"
         /> -->
-        Batch Analysis</strong
-      >
+        Batch Analysis</strong>
       <div class="fr w50 tl">
         <el-button
           class="shadow filter-item"
@@ -18,8 +17,7 @@
           size="medium"
           icon="el-icon-plus"
           @click="createData"
-          >Create a job</el-button
-        >
+        >Create a job</el-button>
       </div>
     </nav>
     <section class="p20">
@@ -84,14 +82,12 @@
                       scope.row.reqStatus === 'STOPPED' ||
                       scope.row.reqStatus === 'STOPPING'
                   "
-                  ><span
-                    v-if="
-                      scope.row.subStatus === 'FAILED_TASK_LIMIT' ||
-                        scope.row.subStatus === 'FAILED_QUOTA_LIMIT'
-                    "
-                    ><i class="el-icon-warning color-yellow f18"></i></span
-                  ><span v-else>--</span></span
-                >
+                ><span
+                  v-if="
+                    scope.row.subStatus === 'FAILED_TASK_LIMIT' ||
+                      scope.row.subStatus === 'FAILED_QUOTA_LIMIT'
+                  "
+                ><i class="el-icon-warning color-yellow f18"></i></span><span v-else>--</span></span>
 
                 <div
                   v-else-if="
@@ -104,8 +100,7 @@
                     :stroke-width="7"
                     :percentage="setProcessData(scope.row)"
                     class="w"
-                  ></el-progress
-                  ><i
+                  ></el-progress><i
                     style="right:14%"
                     class="progress-running-icon el-icon-loading"
                   ></i>
@@ -128,11 +123,10 @@
                     scope.row.passFileCount !== 1 ? 's' : ''
                   } exceeded the limit`
                 "
-                ><i
-                  style="margin-left:-5px;margin-top:2px"
-                  class="el-icon-info f15 color-yellow"
-                ></i
-              ></el-tooltip>
+              ><i
+                style="margin-left:-5px;margin-top:2px"
+                class="el-icon-info f15 color-yellow"
+              ></i></el-tooltip>
             </el-col>
           </template>
         </el-table-column>
@@ -328,15 +322,15 @@ export default {
         return row.processedErrCount > 0
           ? 'warning'
           : processNum
-          ? Math.round(processNum * 100) >= 100
-            ? 'success'
-            : ''
-          : 'exception'
+            ? Math.round(processNum * 100) >= 100
+              ? 'success'
+              : ''
+            : 'exception'
       }
     },
     // 查看job detail
     viewDetail(row, column, event) {
-      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId } })
+      this.$router.push({ path: '/jobDetails', query: { bizId: row.bizId }})
       // sessionStorage.patientListData = JSON.stringify(row)
     },
     setRole(val) {

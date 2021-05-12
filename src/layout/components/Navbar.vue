@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
-    <router-link to="/"
-      ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt=""/></span
-    ></router-link>
+    <router-link
+      to="/"
+    ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt="" /></span></router-link>
     <!-- <hamburger
       v-if="router.indexOf('user') === -1"
       :is-active="sidebar.opened"
@@ -42,8 +42,7 @@
               class="mr-10 fl header-avatar"
               :src="avatarSrc"
             ></el-avatar> -->
-            <span class="f16 fl">{{ userName }}</span></span
-          >
+            <span class="f16 fl">{{ userName }}</span></span>
           <i class=" f16 cp header-menu el-icon-arrow-down fb"></i>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">

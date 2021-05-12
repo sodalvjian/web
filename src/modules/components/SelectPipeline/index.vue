@@ -14,8 +14,7 @@
       >
         <template slot-scope="{ data }">
           <span>{{ data.showName }}</span>
-        </template></el-cascader
-      >
+        </template></el-cascader>
     </el-col>
     <el-col :span="4">
       <el-tooltip

@@ -23,8 +23,7 @@
               type="primary"
               icon="el-icon-data-line"
               @click="handleAnalysis(false)"
-              >Analyze</el-button
-            >
+            >Analyze</el-button>
           </el-col>
         </el-row>
       </nav>

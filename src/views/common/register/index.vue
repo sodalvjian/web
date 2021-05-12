@@ -105,13 +105,15 @@
               type="success"
               style="width:100%;height:40px"
               @click.native.prevent="handleRegister"
-              >Sign up</el-button
-            >
+            >Sign up</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button plain type="primary" class="w" @click="handleLogin"
-              >Sign in to an exiting account</el-button
-            >
+            <el-button
+              plain
+              type="primary"
+              class="w"
+              @click="handleLogin"
+            >Sign in to an exiting account</el-button>
           </el-form-item>
           <el-row :gutter="10" class="f12 register-content-right-footer">
             <!-- <el-col :span="12" class="color-main" align="left">

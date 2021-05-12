@@ -55,16 +55,16 @@
         </el-col>
       </el-row>
       <div class="mt-40 mb-20 tc">
-        <el-button size="small" @click="dialogVisible = false"
-          >Cancel</el-button
-        >
+        <el-button
+          size="small"
+          @click="dialogVisible = false"
+        >Cancel</el-button>
         <el-button
           size="small"
           :loading="btnLoading"
           type="primary"
           @click="submitForm('dialogForm')"
-          >Confirm</el-button
-        >
+        >Confirm</el-button>
       </div>
     </el-form>
   </el-dialog>

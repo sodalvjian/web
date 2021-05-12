@@ -4,9 +4,10 @@
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
-          <router-link to="/" class="color-main f19"
-            ><i class="mr-10 el-icon-arrow-left fb"></i
-          ></router-link>
+          <router-link
+            to="/"
+            class="color-main f19"
+          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
           Payment Information
         </strong>
       </nav>
@@ -192,8 +193,7 @@
                 type="primary"
                 :loading="btnLoading"
                 @click="submitForm('formData')"
-                >Confirm</el-button
-              >
+              >Confirm</el-button>
               <el-button @click="resetForm('formData')">Reset</el-button>
             </el-form-item>
           </div>
@@ -229,8 +229,7 @@
                         <small
                           v-if="item.metadata.default == '1'"
                           class="user-card-default"
-                          >Default</small
-                        >
+                        >Default</small>
                       </el-col>
                     </el-row>
                     <div class="user-card-line"></div>

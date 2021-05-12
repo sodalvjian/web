@@ -6,8 +6,8 @@
 <script>
 export default {
   name: '',
-  props: {},
   components: {},
+  props: {},
   data() {
     return {
       dialogVisible: false
@@ -15,14 +15,14 @@ export default {
   },
   computed: {},
   watch: {},
+  created() {},
+  mounted() {},
+  beforeDestroy() {},
   methods: {
     openDialog() {
       this.dialogVisible = true
     }
-  },
-  created() {},
-  mounted() {},
-  beforeDestroy() {}
+  }
 }
 </script>
 <style lang="scss" scoped></style>

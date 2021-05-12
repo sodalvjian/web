@@ -9,8 +9,7 @@
           size="mini"
           icon="el-icon-document-copy"
           @click="createJobAgain"
-          >Clone job</el-button
-        >
+        >Clone job</el-button>
       </div>
     </nav>
     <section v-loading="pageLoading" class="bg-color-gray mt-15 bd-1">
@@ -51,8 +50,7 @@
                     detailData.subStatus === 'FAILED_TASK_LIMIT' ||
                       detailData.subStatus === 'FAILED_QUOTA_LIMIT'
                   "
-                  ><i class="el-icon-warning color-yellow f18"></i></span
-                ><span v-else>--</span>
+                ><i class="el-icon-warning color-yellow f18"></i></span><span v-else>--</span>
               </el-tooltip>
 
               <el-tooltip
@@ -70,8 +68,7 @@
                     class="w"
                     :stroke-width="7"
                     :percentage="setProcessData(detailData)"
-                  ></el-progress
-                  ><i
+                  ></el-progress><i
                     style="right:1%"
                     class="progress-running-icon el-icon-loading"
                   ></i>
@@ -93,15 +90,13 @@
                     detailData.passFileCount !== 1 ? 's' : ''
                   } exceeded the limit`
                 "
-                ><i class="el-icon-info f17 color-yellow"></i
-              ></el-tooltip>
+              ><i class="el-icon-info f17 color-yellow"></i></el-tooltip>
             </el-col>
           </el-row>
         </el-col>
         <el-col :span="8" class="tc">
           Updated Time: <strong> {{ detailData.update | setHourDate }}</strong>
-        </el-col> </el-row
-      ><el-row :gutter="15" class="p20">
+        </el-col> </el-row><el-row :gutter="15" class="p20">
         <el-col :span="8" class="tc">
           <el-card shadow="never">
             <div class="f18">Ducuments</div>
@@ -125,13 +120,11 @@
         <el-col :span="24" class="tl">
           Input location:
           <strong class="job-detail-location"> {{ detailData.input }}</strong>
-          <span
-            ><i
-              v-clipboard:copy="detailData.input"
-              v-clipboard:success="copySuccess"
-              class="ml-5 el-icon-document-copy cp"
-            ></i
-          ></span>
+          <span><i
+            v-clipboard:copy="detailData.input"
+            v-clipboard:success="copySuccess"
+            class="ml-5 el-icon-document-copy cp"
+          ></i></span>
         </el-col>
       </el-row>
       <el-divider class="m-0"></el-divider>
@@ -139,21 +132,17 @@
         <el-col :span="24" class="tl">
           Output location:
           <strong class="job-detail-location"> {{ detailData.output }}</strong>
-          <span
-            ><i
-              v-clipboard:copy="detailData.output"
-              v-clipboard:success="copySuccess"
-              class="ml-5 el-icon-document-copy cp"
-            ></i
-          ></span>
-        </el-col> </el-row
-      ><el-divider class="m-0"></el-divider>
+          <span><i
+            v-clipboard:copy="detailData.output"
+            v-clipboard:success="copySuccess"
+            class="ml-5 el-icon-document-copy cp"
+          ></i></span>
+        </el-col> </el-row><el-divider class="m-0"></el-divider>
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Cost:
           <strong class="f20 color-main">
-            <small> $</small> {{ costData }}</strong
-          >
+            <small> $</small> {{ costData }}</strong>
         </el-col>
       </el-row>
     </section>
@@ -275,10 +264,10 @@ export default {
         return this.detailData.processedErrCount > 0
           ? 'warning'
           : processNum
-          ? Math.round(processNum * 100) >= 100
-            ? 'success'
-            : ''
-          : 'exception'
+            ? Math.round(processNum * 100) >= 100
+              ? 'success'
+              : ''
+            : 'exception'
       }
     },
     setTooltipContent() {

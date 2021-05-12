@@ -14,15 +14,14 @@
         <h3 class="color-main">
           {{
             type === 'login'
-              ? 'Login successfully'
+              ? 'Login Successfully. Welcome to Mercury NLP.'
               : 'Times reached Upper limit'
           }}
         </h3>
         <p v-if="type === 'login'">
-          {{ userName }} Go to personal center You have not set up the credit
-          card information, we suggest you go to
-          <strong class="disinblock"> [ Personal Center ] </strong> as soon as
-          possible to supplement information, so as not to affect your service
+          You have five free uses of Real-time Analysis. We recommend that you
+          add payment information to your Account to continue when your free
+          uses are up.
         </p>
         <p v-else>
           You have reached your free limit usage. Please complete payment
@@ -31,9 +30,11 @@
         </p>
       </section>
       <footer class="tc">
-        <el-button class=" mb-40" type="primary" @click="goToPersonal"
-          >Go to personal center</el-button
-        >
+        <el-button
+          class=" mb-40"
+          type="primary"
+          @click="goToPersonal"
+        >Go to Account Settings</el-button>
       </footer>
     </div>
   </el-dialog>

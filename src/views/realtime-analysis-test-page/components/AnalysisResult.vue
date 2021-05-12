@@ -17,8 +17,7 @@
             :disabled="generalDisabled"
             class="mt-5"
             @click="openSetting"
-            >Display Filter<i class="el-icon-s-tools el-icon--right f18"></i
-          ></el-button>
+          >Display Filter<i class="el-icon-s-tools el-icon--right f18"></i></el-button>
         </el-col>
       </el-row>
     </nav>
@@ -64,9 +63,9 @@
           </el-col>
           <el-col :span="12" align="center">
             <el-switch
-              @change="handleSingle"
               v-model="item.switch"
               active-color="#13ce66"
+              @change="handleSingle"
             >
             </el-switch>
           </el-col>
@@ -112,12 +111,15 @@
         </el-table> -->
       </div>
       <span v-if="bratData.length !== 0" slot="footer" class="dialog-footer">
-        <el-button size="small" @click="dialogVisible = false"
-          >Cancel</el-button
-        >
-        <el-button size="small" type="primary" @click="handleSetBrat"
-          >Confirm</el-button
-        >
+        <el-button
+          size="small"
+          @click="dialogVisible = false"
+        >Cancel</el-button>
+        <el-button
+          size="small"
+          type="primary"
+          @click="handleSetBrat"
+        >Confirm</el-button>
       </span>
     </el-dialog>
   </div>

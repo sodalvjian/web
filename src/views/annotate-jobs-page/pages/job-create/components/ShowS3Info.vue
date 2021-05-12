@@ -1,15 +1,16 @@
 <template>
-  <el-dialog title="Verity S3" :visible.sync="dialogVisible" width="40%">
+  <el-dialog title="Verify S3" :visible.sync="dialogVisible" width="40%">
     <article>
       <el-row :gutter="15">
         <el-col v-for="(item, index) in verityList" :key="index" :span="24">
           <header>
-            <h3>{{ title }}</h3>
             <p>
-              Please copy the information to
-              <a class="color-main" :href="item.url" target="_blank"
-                ><u> S3 authorization</u></a
-              >
+              Please copy the following configuration information and it to your
+              <a
+                class="color-main"
+                :href="item.url"
+                target="_blank"
+              ><u> AWS S3 Bucket policy</u></a>.
             </p>
             <div>
               <el-button
@@ -19,8 +20,7 @@
                 type="primary"
                 size="mini"
                 icon="el-icon-document-copy"
-                >Copy</el-button
-              >
+              >Copy</el-button>
             </div>
           </header>
           <section class="mt-20 pb-20">
