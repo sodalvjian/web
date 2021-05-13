@@ -18,11 +18,7 @@
           </el-table-column>
           <el-table-column prop="type" align="center" label="Type" width="100">
           </el-table-column>
-          <el-table-column label="Time Created" align="center" min-width="180">
-            <template slot-scope="scope">
-              {{ scope.row.date }}
-            </template>
-          </el-table-column>
+
           <el-table-column
             prop="amount"
             align="center"
@@ -33,6 +29,7 @@
           </el-table-column>
         </el-table>
         <el-table
+          v-if="tableCouponData.length > 0"
           v-loading="tableLoading"
           :data="tableCouponData"
           border
@@ -49,11 +46,7 @@
           </el-table-column>
           <el-table-column prop="type" align="center" label="Type" width="100">
           </el-table-column>
-          <el-table-column label="Time Created" align="center" min-width="180">
-            <template slot-scope="scope">
-              {{ scope.row.date }}
-            </template>
-          </el-table-column>
+
           <el-table-column
             prop="amount"
             align="center"
