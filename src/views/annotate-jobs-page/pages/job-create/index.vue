@@ -396,7 +396,7 @@ export default {
       formData: {
         name: '',
         pipelineId: '',
-        encryption: '',
+        encryption: false,
         input: '',
         output: ''
       },

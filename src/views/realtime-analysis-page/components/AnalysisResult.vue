@@ -17,7 +17,8 @@
             :disabled="generalDisabled"
             class="mt-5"
             @click="openSetting"
-          >Display Filter<i class="el-icon-s-tools el-icon--right f18"></i></el-button>
+            >Display Filter<i class="el-icon-s-tools el-icon--right f18"></i
+          ></el-button>
         </el-col>
       </el-row>
     </nav>
@@ -36,6 +37,7 @@
       title="Select visible entities"
       center
       :visible.sync="dialogVisible"
+      @close="closeDialog"
       width="38%"
     >
       <div class="mt-20 mb-30">
@@ -80,15 +82,12 @@
         <no-data v-if="bratData.length === 0" />
       </div>
       <span v-if="bratData.length !== 0" slot="footer" class="dialog-footer">
-        <el-button
-          size="small"
-          @click="dialogVisible = false"
-        >Cancel</el-button>
-        <el-button
-          size="small"
-          type="primary"
-          @click="handleSetBrat"
-        >Confirm</el-button>
+        <el-button size="small" @click="dialogVisible = false"
+          >Cancel</el-button
+        >
+        <el-button size="small" type="primary" @click="handleSetBrat"
+          >Confirm</el-button
+        >
       </span>
     </el-dialog>
   </div>
@@ -124,7 +123,8 @@ export default {
         {
           name: 'Determination (12)'
         }
-      ]
+      ],
+      copyBratData: []
     }
   },
   computed: {},
@@ -215,6 +215,8 @@ export default {
         }
       })
 
+      this.copyBratData = deepClone(this.bratData)
+
       console.log('selectData', selectDataArr)
 
       this.bratFileData.entities.map((item, index) => {
@@ -250,6 +252,17 @@ export default {
     },
     openSetting() {
       this.dialogVisible = true
+    },
+    closeDialog() {
+      console.log('this.copyBratData', this.copyBratData)
+      if (this.copyBratData.length > 0) {
+        this.bratData = deepClone(this.copyBratData)
+      } else {
+        this.bratData.map(item => {
+          item.switch = true
+        })
+        this.selectAll = true
+      }
     }
   }
 }
