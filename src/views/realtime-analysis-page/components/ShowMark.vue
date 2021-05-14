@@ -214,10 +214,12 @@ export default {
                 this.$emit('success-data')
                 this.setBratData(data, true)
               } else {
-                this.$message.warning('数据为空')
+                this.$message.warning('Empty Data.')
                 // this.$emit('setNext', null);
                 // this.$emit('setPre', null);
               }
+            } else {
+              this.$message.warning(res.message)
             }
             globalBus.$emit('set-analysis-loading-false')
           })
@@ -227,6 +229,8 @@ export default {
             //   this.loading = false
             //   this.noDataShow = true
             // }
+            this.$message.warning(res.message)
+            this.noDataShow = true
             globalBus.$emit('set-analysis-loading-false')
             this.loading = false
           })
