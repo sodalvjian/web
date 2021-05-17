@@ -4,10 +4,9 @@
     <article class="user-container bg-color-white w">
       <nav class="p25 bb-1">
         <strong class="f18 color-black">
-          <router-link
-            to="/"
-            class="color-main f19"
-          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
+          <router-link to="/" class="color-main f19"
+            ><i class="mr-10 el-icon-arrow-left fb"></i
+          ></router-link>
           Bills & Credits
         </strong>
       </nav>
@@ -61,14 +60,14 @@
         <nav class="mt-40">
           <el-row class="w">
             <el-col :span="16">
-              <strong
-                class="color-black f15"
-              >Month-to-Date Spend By Service</strong>
+              <strong class="color-black f15"
+                >Month-to-Date Spend By Service</strong
+              >
             </el-col>
             <el-col :span="8" align="right">
-              <strong
-                class="color-black mr-15 f15"
-              >$ {{ totalCharges }}</strong>
+              <strong class="color-black mr-15 f15"
+                >$ {{ totalCharges }}</strong
+              >
               <!-- <el-button size="small" type="primary" @click="openBillDetail"
                 >Bill Details</el-button
               > -->
@@ -136,11 +135,7 @@
               min-width="180"
             >
               <template slot-scope="scope">
-                {{
-                  scope.row.aliasPipeline && scope.row.aliasPipelinev
-                    ? `${scope.row.aliasPipeline}:${scope.row.aliasPipelinev}`
-                    : scope.row.analysisType
-                }}
+                {{ scope.row.aliasPipeline | emptyShow }}
               </template>
             </el-table-column>
             <el-table-column
@@ -163,7 +158,9 @@
               align="center"
               min-width="180"
             >
-              <template slot-scope="scope"> $ {{ scope.row.cost }} </template>
+              <template slot-scope="scope">
+                $ {{ scope.row.cost }}
+              </template>
             </el-table-column>
           </el-table>
         </div>
@@ -173,13 +170,12 @@
               <el-col :span="21">
                 <strong class="f16">Monthly maximum limit</strong>
               </el-col>
-              <el-col
-                :span="3"
-                align="right"
-              ><i
-                class="el-icon-edit cp f20 color-main"
-                @click="handleConnect"
-              ></i></el-col>
+              <el-col :span="3" align="right"
+                ><i
+                  class="el-icon-edit cp f20 color-main"
+                  @click="handleConnect"
+                ></i
+              ></el-col>
               <el-col :span="24" class="mt-15">
                 <strong class="f26">$ {{ quotaSetting.QUOTA.val }}</strong>
               </el-col>
@@ -188,13 +184,12 @@
               <el-col :span="21">
                 <strong class="f16">Maximum single task limit</strong>
               </el-col>
-              <el-col
-                :span="3"
-                align="right"
-              ><i
-                class="el-icon-edit cp f20 color-main"
-                @click="handleConnect"
-              ></i></el-col>
+              <el-col :span="3" align="right"
+                ><i
+                  class="el-icon-edit cp f20 color-main"
+                  @click="handleConnect"
+                ></i
+              ></el-col>
               <el-col :span="24" class="mt-15">
                 <strong class="f26">$ {{ quotaSetting.TASK_QUOTA.val }}</strong>
               </el-col>
@@ -300,7 +295,9 @@ export default {
         <div class="fl w10">
         <i class="el-icon-warning color-yellow f26 mr-15"></i></div>
         <div class="fl w90">
-        <strong>To change your limit, contact us at <a class="color-red" href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
+        <strong>To change your limit, contact us at <a class="color-red" href=mailto:${
+          this.quotaSetting.MAIL_TO_USER.val
+        }>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
         </div>
         </div>
         `,

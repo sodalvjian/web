@@ -1,15 +1,15 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong
-        class="mt-10 fl nav-title f16"
-      ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong>
+      <strong class="mt-10 fl nav-title f16"
+        ><span class="color-gray"> Job details > </span>
+        <small>New job</small></strong
+      >
     </nav>
     <el-form
       ref="formData"
       label-position="top"
-      :status-icon="showIconStatus"
+      :status-icon="!needAuthor"
       :model="formData"
       label-width="80px"
     >
@@ -92,7 +92,8 @@
                 </el-input> -->
               </el-form-item>
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <section
         v-loading="pageLoading"
@@ -287,19 +288,20 @@
                 S3 region: <strong>{{ outRegionName }}</strong>
               </div> -->
             </div>
-          </el-col></el-row>
+          </el-col></el-row
+        >
       </section>
       <el-form-item class="mt-40 tc">
-        <el-button
-          size="medium"
-          @click="$emit('close-dialog')"
-        >Cancel</el-button>
+        <el-button size="medium" @click="$emit('close-dialog')"
+          >Cancel</el-button
+        >
         <el-button
           size="medium"
           type="primary"
           :loading="btnLoading"
           @click="onSubmit"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -313,7 +315,7 @@
 </template>
 
 <script>
-import { GetAnalysisType, AddData, CheckData } from '@/api/annotate-jobs-page'
+import { AddData, CheckData } from '@/api/annotate-jobs-page'
 import DialogShowInfo from '@/components/DialogShowInfo'
 import ChooseResource from './components/ChooseResource'
 import ShowS3Info from './components/ShowS3Info'
@@ -370,7 +372,6 @@ export default {
       analysisChildTypeOptions: [],
       pageLoading: false,
       verityInput: false,
-      showIconStatus: true,
       verityOutput: false,
       inputHasVerity: false,
       outputHasVerity: false,
@@ -413,8 +414,6 @@ export default {
 
   created() {},
   mounted() {
-    // this.getAnalysisType()
-    console.log('123')
     this.showIconStatus = true
     this.messageData = ''
   },
@@ -481,7 +480,6 @@ export default {
             if (res.code !== 200) {
               this.$message.warning(res.message)
               this.needAuthor = false
-              this.showIconStatus = false
               this.messageData = res.message
             } else {
               this.$message.warning(
@@ -522,12 +520,13 @@ export default {
       } = copyJobData
       if (copyStatus) {
         console.log('pipeline', this.analysisChildTypeOptions)
-        const pipelineObj = this.analysisChildTypeOptions.find(
-          item => item.params === pipeline
-        )
-        console.log('pipelineObj', pipelineObj)
-        console.log('copyencryption', encryption)
         this.$nextTick(() => {
+          const pipelineObj = this.analysisChildTypeOptions.find(
+            item => item.params === pipeline
+          )
+          console.log('pipelineObj', pipelineObj)
+          console.log('copyencryption', encryption)
+
           this.formData = {
             name: name,
             pipelineId: pipelineObj ? pipelineObj.params : '',
@@ -535,33 +534,35 @@ export default {
             input: input,
             output: output
           }
+          this.pipelineData = pipelineObj
+            ? this.analysisChildTypeOptions.find(
+                item => item.params === pipelineObj.params
+              )
+            : {}
+          this.inRegion = inRegion
+          const inRegionLabel = s3List.find(item => inRegion === item.value)
+          this.inRegionName = `${inRegionLabel.label}(${inRegionLabel.value})`
+          this.inRegionLabel = inRegionLabel.label
+          this.outRegion = outRegion
+          const outRegionLabel = s3List.find(item => outRegion === item.value)
+          this.outRegionName = `${outRegionLabel.label}(${
+            outRegionLabel.value
+          })`
+          this.outRegionLabel = outRegionLabel.label
+          if (encryption) {
+            if (encryption === 'AES-256') {
+              this.encryptionRadio = 'AES-256'
+              this.encryptionHandle = ''
+            } else {
+              this.encryptionRadio = ''
+              this.encryptionHandle = encryption
+            }
+            this.encryption = true
+          } else {
+            this.encryption = false
+          }
         })
 
-        this.pipelineData = pipelineObj
-          ? this.analysisChildTypeOptions.find(
-            item => item.params === pipelineObj.params
-          )
-          : {}
-        this.inRegion = inRegion
-        const inRegionLabel = s3List.find(item => inRegion === item.value)
-        this.inRegionName = `${inRegionLabel.label}(${inRegionLabel.value})`
-        this.inRegionLabel = inRegionLabel.label
-        this.outRegion = outRegion
-        const outRegionLabel = s3List.find(item => outRegion === item.value)
-        this.outRegionName = `${outRegionLabel.label}(${outRegionLabel.value})`
-        this.outRegionLabel = outRegionLabel.label
-        if (encryption) {
-          if (encryption === 'AES-256') {
-            this.encryptionRadio = 'AES-256'
-            this.encryptionHandle = ''
-          } else {
-            this.encryptionRadio = ''
-            this.encryptionHandle = encryption
-          }
-          this.encryption = true
-        } else {
-          this.encryption = false
-        }
         this.$nextTick(() => {
           this.verifyS3Data('read')
         })
@@ -596,7 +597,7 @@ export default {
         if (valid) {
           const { name, input, output, encryption } = this.formData
           if (this.verityInput) {
-            // this.btnLoading = true
+            this.btnLoading = true
             const params = {
               userId: this.userId,
               name: name,
@@ -714,31 +715,16 @@ export default {
         .map(item => item.version)
         .flat(Infinity) // 将自己版本数据拉平
 
-      this.formData.pipelineId = this.analysisChildTypeOptions[0].params
+      this.$nextTick(() => {
+        this.formData.pipelineId = this.analysisChildTypeOptions[0].params
+      })
+
       const copyStatus = this.$route.query.copy
       if (copyStatus) {
         this.getCopyData()
       }
 
       this.pageLoading = false
-    },
-    getAnalysisType() {
-      this.pageLoading = true
-      GetAnalysisType().then(res => {
-        if (res.code === 200) {
-          this.analysisTypeOptions = res.data
-          this.analysisChildTypeOptions = res.data
-            .map(item => item.version)
-            .flat(Infinity) // 将自己版本数据拉平
-          this.formData.pipelineId = this.analysisChildTypeOptions[0].params
-          const copyStatus = this.$route.query.copy
-          if (copyStatus) {
-            this.getCopyData()
-          }
-
-          this.pageLoading = false
-        }
-      })
     }
   }
 }

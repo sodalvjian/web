@@ -10,7 +10,7 @@
         >
           <no-data-table slot="empty"></no-data-table>
           <el-table-column
-            prop="name"
+            prop="aliasPipeline"
             align="center"
             label="Pipeline"
             min-width="180"
