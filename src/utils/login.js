@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { message as Message } from '@/utils/resetMessage'
 // import store from '@/store'
 
 export function loginReq(params) {

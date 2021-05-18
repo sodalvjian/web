@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { message as Message } from '@/utils/resetMessage'
 import store from '@/store'
 // import { getToken } from '@/utils/auth'
 
@@ -57,7 +57,7 @@ service.interceptors.response.use(
           type: 'error',
           message: 'Login expired please login again'
         })
-        setTimeout(async() => {
+        setTimeout(async () => {
           await store.dispatch('user/logout')
           location.href = '/login'
         }, 1000)

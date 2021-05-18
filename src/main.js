@@ -6,6 +6,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 import '@/modules/components' // 自定义组件
+import { message } from '@/utils/resetMessage'
 
 import NoData from '@/components/NoData'
 Vue.use(NoData)
@@ -29,6 +30,8 @@ import * as filters from './filters' // global filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
+
+Vue.prototype.$message = message
 
 import '@/icons' // icon
 import '@/permission' // permission control
