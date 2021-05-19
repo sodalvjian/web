@@ -53,10 +53,8 @@ service.interceptors.response.use(
       if (res.code === 200 || res.success) {
         return Promise.resolve(res)
       } else if (res.code === 800004) {
-        Message({
-          type: 'error',
-          message: 'Login expired please login again'
-        })
+        Message.error('Login expired please login again')
+
         setTimeout(async () => {
           await store.dispatch('user/logout')
           location.href = '/login'
@@ -65,10 +63,7 @@ service.interceptors.response.use(
         return Promise.reject(res)
       } else {
         if (res.message || res.msg) {
-          Message({
-            type: 'error',
-            message: res.message || res.msg
-          })
+          Message.error(res.message || res.msg)
         }
 
         // return Promise.reject(res)

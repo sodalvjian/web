@@ -224,12 +224,12 @@ export default {
             globalBus.$emit('set-analysis-loading-false')
           })
           .catch(res => {
-            // if (res.code === 800008) {
-            //   this.$refs.dialogShowInfoRef.openDialog('nlp')
-            //   this.loading = false
-            //   this.noDataShow = true
-            // }
-            this.$message.warning(res.message)
+            if (res.code === 800008) {
+              this.$refs.dialogShowInfoRef.openDialog('nlp')
+              this.loading = false
+              this.noDataShow = true
+            }
+            // this.$message.warning(res.message)
             this.noDataShow = true
             globalBus.$emit('set-analysis-loading-false')
             this.loading = false
@@ -589,9 +589,7 @@ export default {
       // GET /task/update/entity/{fileId}/{entityId}/{newSem}
       this.loading = true
       this.$http.get(
-        `task/update/entity/${this.id}/${this.entitySelectionId}/${
-          this.candidateEntityLabelsStr
-        }`,
+        `task/update/entity/${this.id}/${this.entitySelectionId}/${this.candidateEntityLabelsStr}`,
         {},
         res => {
           this.loading = false

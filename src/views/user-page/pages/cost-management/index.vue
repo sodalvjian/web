@@ -158,9 +158,7 @@
               align="center"
               min-width="180"
             >
-              <template slot-scope="scope">
-                $ {{ scope.row.cost }}
-              </template>
+              <template slot-scope="scope"> $ {{ scope.row.cost }} </template>
             </el-table-column>
           </el-table>
         </div>
@@ -258,7 +256,7 @@ export default {
       barData: {},
       monthRange: [
         moment()
-          .startOf('year')
+          .add(-1, 'years')
           .format('yyyy-MM'),
         moment().format('yyyy-MM')
       ],
@@ -295,9 +293,7 @@ export default {
         <div class="fl w10">
         <i class="el-icon-warning color-yellow f26 mr-15"></i></div>
         <div class="fl w90">
-        <strong>To change your limit, contact us at <a class="color-red" href=mailto:${
-          this.quotaSetting.MAIL_TO_USER.val
-        }>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
+        <strong>To change your limit, contact us at <a class="color-red" href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
         </div>
         </div>
         `,
