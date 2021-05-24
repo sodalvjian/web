@@ -2,12 +2,12 @@ import ECharts from 'vue-echarts'
 
 var colorArr = [
   {
-    top: '#155dee', // 紫色
-    bottom: '#155dee'
+    top: '#2B3067', // 紫色
+    bottom: '#2B3067'
   },
   {
-    top: '#155dee', // 红色
-    bottom: '#155dee'
+    top: '#2B3067', // 红色
+    bottom: '#2B3067'
   }
 ]
 export const barOption = {

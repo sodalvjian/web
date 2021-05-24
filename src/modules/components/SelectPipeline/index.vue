@@ -30,7 +30,7 @@
           <br />
           Description: {{ selectPipeline.description }}
         </div>
-        <i class="mt-8 ml-20 el-icon-info f18 color-main cp"></i>
+        <i class="mt-8 ml-20 el-icon-info f18 color-hui cp"></i>
       </el-tooltip>
     </el-col>
   </el-row>

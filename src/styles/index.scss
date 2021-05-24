@@ -7,7 +7,7 @@
 
 body {
   height: 100%;
-  background-color: #f7f7f7;
+  background-color: #f4f7fe;
   color: #313436;
   font-size: 14px;
   -moz-osx-font-smoothing: grayscale;
@@ -81,7 +81,7 @@ div:focus {
 .vital-container {
   background-color: #fff;
   padding: 20px 25px;
-  border-radius: 5px;
+  // border-radius: 5px;
 }
 .color-main {
   color: $mainColor;

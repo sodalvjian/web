@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
-    <router-link
-      to="/"
-    ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt="" /></span></router-link>
+    <router-link to="/"
+      ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt=""/></span
+    ></router-link>
     <!-- <hamburger
       v-if="router.indexOf('user') === -1"
       :is-active="sidebar.opened"
@@ -42,7 +42,8 @@
               class="mr-10 fl header-avatar"
               :src="avatarSrc"
             ></el-avatar> -->
-            <span class="f16 fl">{{ userName }}</span></span>
+            <span class="f16 fl">{{ userName }}</span></span
+          >
           <i class=" f16 cp header-menu el-icon-arrow-down fb"></i>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -165,16 +166,16 @@ export default {
   vertical-align: top;
 }
 .navbar {
-  height: 65px;
+  height: 50px;
   overflow: hidden;
   position: relative;
-  background: #fff;
-  border-radius: 5px;
+  background: #2b3067;
   .navbar-logo {
     float: left;
-    line-height: 65px;
+    line-height: 50px;
     img {
-      width: 245px;
+      width: 215px;
+      margin-left: 15px;
     }
   }
 
@@ -200,10 +201,15 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 65px;
+    line-height: 45px;
 
     &:focus {
       outline: none;
+    }
+    .el-dropdown,
+    .el-dropdown-menu__item,
+    .el-message .el-message__content {
+      color: #fff;
     }
 
     .right-menu-item {

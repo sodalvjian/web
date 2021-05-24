@@ -22,6 +22,7 @@
         <el-input
           v-model="formData.text"
           type="textarea"
+          class="analysis-textarea"
           show-word-limit
           maxlength="4096"
           :rows="12"
@@ -36,7 +37,8 @@
             type="primary"
             icon="el-icon-data-line"
             @click="handleAnalysis(false)"
-          >Analyze</el-button>
+            >Analyze</el-button
+          >
         </p>
       </section>
       <!-- Analyze result -->
@@ -130,6 +132,11 @@ export default {
 </style>
 <style lang="scss">
 @import '@/styles/variables.scss';
+.analysis-textarea {
+  textarea {
+    background-color: #f1f4fc;
+  }
+}
 #realtime-select-pipeline {
   width: 130px !important;
   padding-right: 10px;
