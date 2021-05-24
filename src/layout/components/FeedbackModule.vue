@@ -2,8 +2,11 @@
   <div>
     <!-- 问题反馈 -->
     <el-tooltip class="item" effect="dark" content="Feedback" placement="top">
-      <footer class="problem-feedback cp bg-color-main" @click="openFeedback">
-        <i class="el-icon-question color-white f28"></i>
+      <footer
+        class="problem-feedback cp bg-color-main color-white fb"
+        @click="openFeedback"
+      >
+        ?
       </footer>
     </el-tooltip>
 
@@ -19,13 +22,18 @@
           ref="formData"
           label-position="top"
           :model="formData"
-          class="demo-form-inline"
-        ><el-form-item>
-           <strong
-             class="f15 color-black lh1-5 disinblock"
-           >● The content will be sent to our team, please do not send HPI or
-             other sensitive information…</strong>
-         </el-form-item>
+          class="feedback-form-inline"
+          ><el-form-item>
+            <el-alert
+              type="warning"
+              class="mt-20"
+              :closable="false"
+              description="The content will be sent to our team, please do not send HPI or
+              other sensitive information…"
+              show-icon
+            >
+            </el-alert>
+          </el-form-item>
           <el-form-item
             label="Question"
             prop="qDesc"
@@ -70,17 +78,17 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button
-          size="small"
-          @click="dialogVisible = false"
-        >Cancel</el-button>
+        <el-button size="small" @click="dialogVisible = false"
+          >Cancel</el-button
+        >
         <el-button
           size="small"
           :disabled="!imgSuccess"
           :loading="btnLoading"
           type="primary"
           @click="handleConfirm"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </span>
     </el-dialog>
     <el-dialog :visible.sync="dialogImgVisible">
@@ -215,5 +223,21 @@ export default {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   z-index: 9998;
+  box-shadow: 0 0 5px #727ad2;
+}
+</style>
+<style lang="scss">
+.feedback-form-inline {
+  .el-alert__icon {
+    font-size: 20px;
+    width: 20px;
+  }
+  .el-alert__description {
+    font-size: 14px;
+    color: #666 !important;
+    line-height: 1.5;
+    font-weight: 500;
+    margin: 5px 0 0 0;
+  }
 }
 </style>

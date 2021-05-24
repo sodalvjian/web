@@ -9,7 +9,10 @@
     <div :class="{ 'fixed-header': true }">
       <navbar />
     </div>
-    <div class="main-container" :style="hideSidebar || 'margin-left:0'">
+    <div
+      class="main-container"
+      :style="hideSidebar || 'margin-left:0;padding:0'"
+    >
       <app-main />
     </div>
 

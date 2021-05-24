@@ -1,7 +1,7 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="mt-10 fl nav-title f16">Job details</strong>
+      <strong class="fl nav-title f16">Job details</strong>
       <div class="fr">
         <el-button
           class="shadow filter-item"
@@ -9,27 +9,28 @@
           size="mini"
           icon="el-icon-document-copy"
           @click="createJobAgain"
-        >Clone job</el-button>
+          >Clone job</el-button
+        >
       </div>
     </nav>
     <section v-loading="pageLoading" class="bg-color-gray mt-15 bd-1">
       <el-row :gutter="15" class="p20">
-        <el-col :span="8" class="tc">
+        <el-col :span="6" align="left">
           Job Name: <strong> {{ detailData.name }}</strong>
         </el-col>
-        <el-col :span="8" class="tc">
+        <el-col :span="6" align="left">
           Pipeline:<strong> {{ detailData.pipeline }}</strong>
         </el-col>
-        <el-col :span="8" class="tc">
+        <el-col :span="6" align="left">
           Job ID: <strong>{{ detailData.bizId }}</strong>
         </el-col>
       </el-row>
       <el-divider class="m-0"></el-divider>
       <el-row :gutter="15" class="p20">
-        <el-col :span="8" class="tc">
+        <el-col :span="6" align="left">
           Created Time: <strong> {{ detailData.date | setHourDate }}</strong>
         </el-col>
-        <el-col :span="8" class="tc">
+        <el-col :span="6" align="left">
           <el-row :gutter="5">
             <el-col :span="5" align="right">
               Status:
@@ -50,7 +51,8 @@
                     detailData.subStatus === 'FAILED_TASK_LIMIT' ||
                       detailData.subStatus === 'FAILED_QUOTA_LIMIT'
                   "
-                ><i class="el-icon-warning color-yellow f18"></i></span><span v-else>--</span>
+                  ><i class="el-icon-warning color-yellow f18"></i></span
+                ><span v-else>--</span>
               </el-tooltip>
 
               <el-tooltip
@@ -68,7 +70,8 @@
                     class="w"
                     :stroke-width="7"
                     :percentage="setProcessData(detailData)"
-                  ></el-progress><i
+                  ></el-progress
+                  ><i
                     style="right:1%"
                     class="progress-running-icon el-icon-loading"
                   ></i>
@@ -90,27 +93,29 @@
                     detailData.passFileCount !== 1 ? 's' : ''
                   } exceeded the limit`
                 "
-              ><i class="el-icon-info f17 color-yellow"></i></el-tooltip>
+                ><i class="el-icon-info f17 color-yellow"></i
+              ></el-tooltip>
             </el-col>
           </el-row>
         </el-col>
-        <el-col :span="8" class="tc">
+        <el-col :span="6" align="left">
           Updated Time: <strong> {{ detailData.update | setHourDate }}</strong>
-        </el-col> </el-row><el-row :gutter="15" class="p20">
-        <el-col :span="8" class="tc">
-          <el-card shadow="never">
+        </el-col> </el-row
+      ><el-row :gutter="15" class="p20">
+        <el-col :span="6" align="left">
+          <el-card shadow="never" class="job-detail-count">
             <div class="f18">Ducuments</div>
             <div class="mt-20 fb f32">{{ detailData.processedCount }}</div>
           </el-card>
         </el-col>
-        <el-col :span="8" class="tc">
-          <el-card shadow="never">
+        <el-col :span="6" align="left">
+          <el-card shadow="never" class="job-detail-entities">
             <div class="f18">Entities</div>
             <div class="mt-20 fb f32">{{ detailData.processedEntities }}</div>
           </el-card>
         </el-col>
-        <el-col :span="8" class="tc">
-          <el-card shadow="never">
+        <el-col :span="6" align="left">
+          <el-card shadow="never" class="job-detail-relations">
             <div class="f18">Relations</div>
             <div class="mt-20 fb f32">{{ detailData.processedRelations }}</div>
           </el-card>
@@ -120,32 +125,35 @@
         <el-col :span="24" class="tl">
           Input location:
           <strong class="job-detail-location"> {{ detailData.input }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.input"
-            v-clipboard:success="copySuccess"
-            class="ml-5 el-icon-document-copy cp"
-          ></i></span>
+          <span
+            ><i
+              v-clipboard:copy="detailData.input"
+              v-clipboard:success="copySuccess"
+              class="ml-5 el-icon-document-copy cp color-light-blue"
+            ></i
+          ></span>
         </el-col>
       </el-row>
-      <el-divider class="m-0"></el-divider>
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Output location:
           <strong class="job-detail-location"> {{ detailData.output }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.output"
-            v-clipboard:success="copySuccess"
-            class="ml-5 el-icon-document-copy cp"
-          ></i></span>
-        </el-col> </el-row><el-divider class="m-0"></el-divider>
-      <el-row :gutter="15" class="p20">
-        <el-col :span="24" class="tl">
-          Cost:
-          <strong class="f20 color-main">
-            <small> $</small> {{ costData }}</strong>
+          <span
+            ><i
+              v-clipboard:copy="detailData.output"
+              v-clipboard:success="copySuccess"
+              class="ml-5 el-icon-document-copy cp color-light-blue"
+            ></i
+          ></span>
         </el-col>
       </el-row>
     </section>
+    <div class="mt-20">
+      Cost:
+      <strong class="f20 color-light-blue">
+        <small> $</small> {{ costData }}</strong
+      >
+    </div>
     <!-- <section class="mt-40">
       <h3 class="mb-0">Application integration</h3>
       <div class="mt-10">
@@ -264,10 +272,10 @@ export default {
         return this.detailData.processedErrCount > 0
           ? 'warning'
           : processNum
-            ? Math.round(processNum * 100) >= 100
-              ? 'success'
-              : ''
-            : 'exception'
+          ? Math.round(processNum * 100) >= 100
+            ? 'success'
+            : ''
+          : 'exception'
       }
     },
     setTooltipContent() {
@@ -345,5 +353,26 @@ export default {
 <style lang="scss" scoped>
 .job-detail-location {
   color: #2d5b82;
+}
+.job-detail-count {
+  background-image: url('../../../../assets/img/ducuments.png');
+  background-repeat: no-repeat;
+  background-position-x: 85%;
+  background-size: 25%;
+  background-position-y: 20px;
+}
+.job-detail-entities {
+  background-image: url('../../../../assets/img/entities.png');
+  background-repeat: no-repeat;
+  background-position-x: 85%;
+  background-size: 25%;
+  background-position-y: 20px;
+}
+.job-detail-relations {
+  background-image: url('../../../../assets/img/relation.png');
+  background-repeat: no-repeat;
+  background-position-x: 85%;
+  background-size: 25%;
+  background-position-y: 20px;
 }
 </style>

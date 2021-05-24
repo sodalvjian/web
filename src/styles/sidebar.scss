@@ -13,7 +13,7 @@
     // background-color: #fff;
     height: 100%;
     position: fixed;
-    padding: 50px 0 0;
+    padding: 60px 0 0;
     font-size: 0px;
     top: 0;
     bottom: 0;
@@ -66,9 +66,7 @@
       border: none;
       height: 100%;
       width: 100% !important;
-      padding: 10px;
-      border-radius: 5px;
-      margin-top: 5px;
+      margin-top: 10px;
     }
 
     // menu hover
@@ -76,7 +74,6 @@
     .el-submenu__title {
       &:hover {
         background-color: $menuHover !important;
-        border-radius: 5px;
       }
     }
 
@@ -118,7 +115,6 @@
       }
     }
     .el-menu {
-      padding: 6px;
       .el-menu-item {
         text-align: center;
         svg {
@@ -231,13 +227,33 @@
   background-color: #f1f1f1;
 }
 
-.el-menu-item.is-active{
+.el-menu-item.is-active {
   font-weight: bold;
+  background-color: $menuHover;
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background-color: #2b3066;
+    left: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    width: 19px;
+    height: 19px;
+
+    background: linear-gradient(to left, #ffffff5c, transparent);
+    left: 20px;
+    top: 19px;
+  }
 }
-.side-title{
+.side-title {
   vertical-align: top;
   font-weight: bold;
 }
-.side-svg{
+.side-svg {
   margin-top: 19px;
 }

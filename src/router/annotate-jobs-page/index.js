@@ -11,7 +11,7 @@ export default [
         component: () => import('@/views/annotate-jobs-page'),
         meta: {
           title: 'Batch Analysis',
-          icon: '#iconAnnotatejobs'
+          icon: '#icon-Subtract'
         }
       }, {
         path: '/jobDetails',
@@ -21,7 +21,7 @@ export default [
         meta: {
           title: 'Job Details',
           keepAlive: false,
-          icon: '#icon-A18'
+          icon: '#icon-Vector'
         }
       }
     ]

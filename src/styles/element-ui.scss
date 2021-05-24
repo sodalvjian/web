@@ -184,3 +184,14 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .el-table th {
   background-color: #f1f4fc;
 }
+
+.el-dialog__header {
+  padding: 15px 20px;
+  text-align: left;
+  background-color: #f7f8fa;
+  border-radius: 5px 5px 0 0;
+}
+
+.el-dialog__footer {
+  text-align: right;
+}

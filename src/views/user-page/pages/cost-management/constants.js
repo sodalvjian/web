@@ -2,12 +2,12 @@ import ECharts from 'vue-echarts'
 
 var colorArr = [
   {
-    top: '#2B3067', // 紫色
-    bottom: '#2B3067'
+    top: '#3688FF', // 紫色
+    bottom: '#3688FF'
   },
   {
-    top: '#2B3067', // 红色
-    bottom: '#2B3067'
+    top: '#3688FF', // 红色
+    bottom: '#3688FF'
   }
 ]
 export const barOption = {
@@ -127,7 +127,7 @@ export const barOption = {
           fontSize: 14,
           fontWeight: 'bold',
           formatter: '${c}',
-          color: '#333',
+          color: '#2B3067',
           position: 'top'
         }
       }

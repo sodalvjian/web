@@ -12,7 +12,7 @@ export default [
         meta: {
           title: 'API',
           keepAlive: false,
-          icon: '#iconAPI1'
+          icon: '#icon-API'
         }
       }
     ]

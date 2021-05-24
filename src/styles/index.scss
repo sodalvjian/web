@@ -91,16 +91,18 @@ div:focus {
 }
 .nav-title {
   position: relative;
-  padding-left: 20px;
-  &:before {
-    content: '';
-    width: 10px;
-    height: 20px;
-    background-color: $mainColor;
-    position: absolute;
-    left: 0;
-    top: -2px;
-  }
+  color: $mainColor;
+  font-weight: bold;
+  // padding-left: 20px;
+  // &:before {
+  //   content: '';
+  //   width: 10px;
+  //   height: 20px;
+  //   background-color: $mainColor;
+  //   position: absolute;
+  //   left: 0;
+  //   top: -2px;
+  // }
 }
 .search-input {
   width: 250px;
@@ -149,22 +151,24 @@ div:focus {
 // user page style
 .user-container {
   float: left;
-  padding-left: 310px;
+  padding-left: 240px;
 }
 .user-sider {
-  width: 310px;
+  width: 240px;
   position: fixed;
   float: left;
   height: calc(100% - 50px);
+  border-right: 10px solid #f4f7fe;
   // i {
   //   color: #f75a7f;
   // }
   .user-sider-mean {
     li {
-      padding: 15px 17px;
+      padding: 15px 25px;
       cursor: pointer;
       &.active {
-        border-right: 3px solid $mainColor;
+        border-left: 4px solid #2b3067;
+        background-color: #e3ebfe;
       }
     }
   }

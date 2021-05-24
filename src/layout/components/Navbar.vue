@@ -166,16 +166,17 @@ export default {
   vertical-align: top;
 }
 .navbar {
-  height: 50px;
+  height: 60px;
   overflow: hidden;
   position: relative;
   background: #2b3067;
   .navbar-logo {
     float: left;
-    line-height: 50px;
+    line-height: 60px;
     img {
-      width: 215px;
+      width: 230px;
       margin-left: 15px;
+      margin-top: 3px;
     }
   }
 
@@ -201,7 +202,7 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 45px;
+    line-height: 55px;
 
     &:focus {
       outline: none;

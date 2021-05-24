@@ -14,6 +14,7 @@
         <sidebar-item
           v-for="route in permission_routes"
           :key="route.path"
+          class="mt-5"
           :item="route"
           :base-path="route.path"
         />

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <nav class="mt-20">
+    <nav>
       <el-row>
         <el-col :span="12">
-          <h3>Visualization</h3>
+          <h3 class="color-main">Visualization</h3>
         </el-col>
         <el-col :span="12" align="right">
           <!-- <input
@@ -15,10 +15,11 @@
           <el-button
             type="text"
             :disabled="generalDisabled"
-            class="mt-5"
+            class="mt-5 color-light-blue"
             @click="openSetting"
-            >Display Filter<i class="el-icon-s-tools el-icon--right f18"></i
-          ></el-button>
+            icon="el-icon-s-tools"
+            >Display Filter</el-button
+          >
         </el-col>
       </el-row>
     </nav>
@@ -38,7 +39,7 @@
       center
       :visible.sync="dialogVisible"
       @close="closeDialog"
-      width="38%"
+      width="35%"
     >
       <div class="mt-20 mb-30">
         <el-row>
@@ -48,12 +49,13 @@
           <el-col :span="12" align="center">
             <el-switch
               v-model="selectAll"
-              active-color="#13ce66"
+              active-color="#3688FF"
               @change="handleSelectAll"
             >
             </el-switch>
           </el-col>
         </el-row>
+
         <el-scrollbar
           class="visable-entities-container mt-5"
           style="height: 380px; overflow: visible; overflow-x: hidden"
@@ -70,7 +72,7 @@
               <el-col :span="12" align="center">
                 <el-switch
                   v-model="item.switch"
-                  active-color="#13ce66"
+                  active-color="#3688FF"
                   @change="handleSingle"
                 >
                 </el-switch>
@@ -275,6 +277,8 @@ export default {
 }
 .visable-entities-container {
   height: 400px;
+  border-top: 1px solid #f1f1f1;
+  margin-top: 22px;
 }
 </style>
 <style lang="scss">

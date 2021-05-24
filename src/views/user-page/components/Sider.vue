@@ -1,5 +1,5 @@
 <template>
-  <aside class="user-sider br-1 bg-color-white">
+  <aside class="user-sider bg-color-white">
     <ul class="user-sider-mean">
       <router-link
         to="/user/cost"

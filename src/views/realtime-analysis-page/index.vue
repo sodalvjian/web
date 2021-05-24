@@ -1,14 +1,16 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="fl f16">Real-time analysis</strong>
+      <strong class="fl f16 color-main">Real-time analysis</strong>
     </nav>
     <div class="vital-container realtime-top-content">
       <nav>
         <el-row type="flex">
-          <el-col :span="8">
-            <h4>Select NLP pipeline:</h4>
+          <el-col :span="24">
+            <span class="fl f16 fb mt-5 mr-10">Select NLP pipeline:</span>
             <select-pipeline
+              class="fl"
+              style="min-width:300px"
               v-model="formData.pipeline"
               size="small"
               @get-complete-data="getCompleteData"
@@ -17,8 +19,8 @@
           </el-col>
         </el-row>
       </nav>
-      <section class="mt-15">
-        <h4>Input text:</h4>
+      <section class="mt-30">
+        <h3 class="color-main">Input text:</h3>
         <el-input
           v-model="formData.text"
           type="textarea"
@@ -35,12 +37,15 @@
             :loading="analysisLoading"
             size="small"
             type="primary"
-            icon="el-icon-data-line"
+            icon="iconfont icon-Analyze"
             @click="handleAnalysis(false)"
-            >Analyze</el-button
+          >
+            Analyze</el-button
           >
         </p>
       </section>
+    </div>
+    <div class="vital-container analysis-content">
       <!-- Analyze result -->
       <analysis-result ref="analysisResultRef" />
     </div>
@@ -128,6 +133,9 @@ export default {
 .realtime-top-content {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.analysis-content {
+  border-top: 15px solid #f5f7fe;
 }
 </style>
 <style lang="scss">

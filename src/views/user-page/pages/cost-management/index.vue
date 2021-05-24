@@ -2,7 +2,7 @@
   <div class="">
     <sider />
     <article class="user-container bg-color-white w">
-      <nav class="p25 bb-1">
+      <nav class="p20 bb-1">
         <strong class="f18 color-black">
           <router-link to="/" class="color-main f19"
             ><i class="mr-10 el-icon-arrow-left fb"></i
@@ -34,21 +34,30 @@
               class="mt-20"
             >
               <el-row :gutter="10">
-                <el-col :span="2">
-                  <i class="el-icon-s-ticket color-main f40"></i>
+                <el-col :span="4" align="center">
+                  <svg class="icon f80" aria-hidden="true">
+                    <use xlink:href="#icon-1" />
+                  </svg>
                 </el-col>
-                <el-col :span="10">
-                  <div class="mt-3 ">
-                    <strong class="f24">$ {{ item.quota }}</strong>
+                <el-col :span="8">
+                  <div class="mt-10">
+                    <strong class="f32 color-main">$ {{ item.quota }}</strong>
                   </div>
 
                   <div class="mt-10 color-8">
                     Expiration date：{{ item.expireDate | setNormalDate }}
                   </div>
                 </el-col>
-                <el-col :span="9">
-                  <div class="mt-3 ">
-                    <strong class="f24">$ {{ item.remaining }}</strong>
+                <el-col :span="4" align="center">
+                  <svg class="icon f80" aria-hidden="true">
+                    <use xlink:href="#icon-2" />
+                  </svg>
+                </el-col>
+                <el-col :span="8">
+                  <div class="mt-10">
+                    <strong class="f32 color-main"
+                      >$ {{ item.remaining }}</strong
+                    >
                   </div>
 
                   <div class="mt-10 color-8">Remaining balance</div>
@@ -162,38 +171,44 @@
             </el-table-column>
           </el-table>
         </div>
-        <section v-loading="feeLoading" class="mt-30 p20">
-          <el-row :gutter="20">
-            <el-col :span="12">
-              <el-col :span="21">
-                <strong class="f16">Monthly maximum limit</strong>
-              </el-col>
-              <el-col :span="3" align="right"
-                ><i
-                  class="el-icon-edit cp f20 color-main"
-                  @click="handleConnect"
-                ></i
-              ></el-col>
-              <el-col :span="24" class="mt-15">
-                <strong class="f26">$ {{ quotaSetting.QUOTA.val }}</strong>
-              </el-col>
+      </section>
+      <section
+        v-loading="feeLoading"
+        class="mt-30 p20"
+        style="border-top: 10px solid #f5f7fe;"
+      >
+        <el-row :gutter="20" class="mt-10">
+          <el-col :span="12">
+            <el-col :span="24" align="center">
+              <strong class="f16">Monthly maximum limit</strong
+              ><i
+                class="el-icon-edit cp f18 color-light-blue ml-10"
+                @click="handleConnect"
+              ></i>
             </el-col>
-            <el-col :span="12">
-              <el-col :span="21">
-                <strong class="f16">Maximum single task limit</strong>
-              </el-col>
-              <el-col :span="3" align="right"
-                ><i
-                  class="el-icon-edit cp f20 color-main"
-                  @click="handleConnect"
-                ></i
-              ></el-col>
-              <el-col :span="24" class="mt-15">
-                <strong class="f26">$ {{ quotaSetting.TASK_QUOTA.val }}</strong>
-              </el-col>
+
+            <el-col :span="24" class="mt-20" align="center">
+              <strong class="f26 color-main"
+                >$ {{ quotaSetting.QUOTA.val }}</strong
+              >
             </el-col>
-          </el-row>
-        </section>
+          </el-col>
+          <el-col :span="12">
+            <el-col :span="24" align="center">
+              <strong class="f16">Maximum single task limit</strong
+              ><i
+                class="el-icon-edit cp f18 color-light-blue ml-10"
+                @click="handleConnect"
+              ></i>
+            </el-col>
+
+            <el-col :span="24" class="mt-20" align="center">
+              <strong class="f26 color-main"
+                >$ {{ quotaSetting.TASK_QUOTA.val }}</strong
+              >
+            </el-col>
+          </el-col>
+        </el-row>
       </section>
     </article>
   </div>
@@ -289,17 +304,19 @@ export default {
   methods: {
     handleConnect() {
       this.$alert(
-        `<div class="cb">
-        <div class="fl w10">
-        <i class="el-icon-warning color-yellow f26 mr-15"></i></div>
-        <div class="fl w90">
-        <strong>To change your limit, contact us at <a class="color-red" href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
+        `
+        <div class="w100 tc">
+        <svg class="icon f80" aria-hidden="true">
+                    <use xlink:href="#icon-contact" />
+                  </svg>
         </div>
+        <div class="w100 mt-15 mb-15">
+        <strong>To change your limit, contact us at <a class="color-light-blue" href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
         </div>
         `,
         {
-          confirmButtonText: 'OK',
           center: true,
+          closeOnClickModal: true,
           dangerouslyUseHTMLString: true,
           customClass: 'show-connect-info'
         }
