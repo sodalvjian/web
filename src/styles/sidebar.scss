@@ -117,6 +117,7 @@
     .el-menu {
       .el-menu-item {
         text-align: center;
+
         svg {
           margin-right: 0 !important;
         }
@@ -227,6 +228,11 @@
   background-color: #f1f1f1;
 }
 
+.el-menu-item {
+  height: 50px !important;
+  line-height: 50px !important;
+}
+
 .el-menu-item.is-active {
   font-weight: bold;
   background-color: $menuHover;
@@ -255,5 +261,5 @@
   font-weight: bold;
 }
 .side-svg {
-  margin-top: 19px;
+  margin-top: 16px;
 }

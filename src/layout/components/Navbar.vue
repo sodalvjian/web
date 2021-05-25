@@ -38,10 +38,9 @@
             <use xlink:href="#icon-A19" />
           </svg> -->
           <span class="mr-15 header-title fl cb cp">
-            <!-- <el-avatar
-              class="mr-10 fl header-avatar"
-              :src="avatarSrc"
-            ></el-avatar> -->
+            <el-avatar size="small" class="mr-15 fl header-avatar">
+              {{ userName | setUserName }}
+            </el-avatar>
             <span class="f16 fl">{{ userName }}</span></span
           >
           <i class=" f16 cp header-menu el-icon-arrow-down fb"></i>
@@ -84,6 +83,11 @@ export default {
     // Hamburger,
     DialogShowInfo
     // ErrorLog
+  },
+  filters: {
+    setUserName(val) {
+      return val.substr(0, 1)
+    }
   },
   data() {
     return {
@@ -135,7 +139,8 @@ export default {
 </script>
 <style lang="scss">
 .header-avatar {
-  margin-top: 10px;
+  margin-top: 15px;
+  background-color: #3688ff !important;
 }
 .dialog-show-info {
   .el-dialog__header {

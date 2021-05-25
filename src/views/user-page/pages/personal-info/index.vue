@@ -2,8 +2,8 @@
   <div class="">
     <sider />
     <article class="user-container bg-color-white w">
-      <nav class="p25 bb-1">
-        <strong class="f18 color-black">
+      <nav class="p15 bb-10 bt-10">
+        <strong class="f18 color-main">
           <router-link
             to="/"
             class="color-main f19"
@@ -11,6 +11,7 @@
           Payment Information
         </strong>
       </nav>
+
       <section class="mt-10 p25 w">
         <el-form
           ref="formData"
@@ -541,14 +542,14 @@ export default {
   .user-card-item {
     &:nth-child(even) {
       .user-card {
-        background-color: #ff7e84;
+        background-color: #8f4e51;
       }
     }
   }
 }
 .user-card {
   color: #fff;
-  background-color: #8c7eff;
+  background-color: #443f70;
   border: none;
   border-radius: 5px;
   max-height: 195px;

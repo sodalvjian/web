@@ -54,25 +54,27 @@
       </vue-markdown> -->
       <article style="padding-right:80px">
         <h2 style="padding-left:102px"><strong>Mercury NLP APIs</strong></h2>
-        <div style="padding-left:102px" class="mb-20 bb-1">
+        <div style="padding-left:102px" class="mb-20">
           <strong>Api key:</strong> <small>{{ apiKey }}</small>
           <el-tooltip class="item" effect="dark" content="Copy" placement="top">
             <el-button
               v-clipboard:copy="apiKey"
               v-clipboard:success="copySuccess"
-              class="ml-10 f15"
+              class="ml-10 f15 color-light-blue"
               type="text"
               icon="el-icon-document-copy"
             ></el-button>
           </el-tooltip>
         </div>
-        <iframe
-          width="100%"
-          style="height:60vh"
-          src="/static/api.html"
-          frameborder="0"
-        ></iframe>
       </article>
+    </section>
+    <section class="bg-color-white p25 bt-10">
+      <iframe
+        width="100%"
+        style="height:60vh"
+        src="/static/api.html"
+        frameborder="0"
+      ></iframe>
     </section>
   </div>
 </template>

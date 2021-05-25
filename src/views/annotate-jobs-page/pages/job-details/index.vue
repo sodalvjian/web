@@ -68,7 +68,7 @@
                 <div class="progress-running">
                   <el-progress
                     class="w"
-                    :stroke-width="7"
+                    :stroke-width="8"
                     :percentage="setProcessData(detailData)"
                   ></el-progress
                   ><i
@@ -80,7 +80,7 @@
               <el-progress
                 v-else
                 :percentage="progressNum"
-                :stroke-width="7"
+                :stroke-width="8"
                 :status="setStatus"
               ></el-progress>
             </el-col>

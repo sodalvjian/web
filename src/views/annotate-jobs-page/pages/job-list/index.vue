@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="mt-10 fl f16 w50">
+      <strong class="mt-10 fl f16 w50 color-main">
         <!-- <hamburger
           v-if="router.indexOf('user') === -1"
           :is-active="sidebar.opened"
@@ -101,7 +101,7 @@
                   class="progress-running"
                 >
                   <el-progress
-                    :stroke-width="7"
+                    :stroke-width="8"
                     :percentage="setProcessData(scope.row)"
                     class="w"
                   ></el-progress
@@ -112,7 +112,7 @@
                 </div>
                 <el-progress
                   v-else
-                  :stroke-width="7"
+                  :stroke-width="8"
                   :percentage="setPercent(scope.row)"
                   :status="setStatus(scope.row)"
                 ></el-progress>

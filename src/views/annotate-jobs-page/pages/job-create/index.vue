@@ -164,7 +164,7 @@
             <el-switch
               v-model="formData.encryption"
               class="mr-20 fr mt-15 job-create-switch"
-              active-color="#13ce66"
+              active-color="#409EFF"
               inactive-text="Encryption"
             >
             </el-switch>

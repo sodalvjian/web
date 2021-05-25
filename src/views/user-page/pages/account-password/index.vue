@@ -2,15 +2,15 @@
   <div>
     <sider />
     <article class="user-container bg-color-white w">
-      <nav class="p25 bb-1">
-        <strong class="f18 color-black">
-          <router-link
-            to="/"
-            class="color-main f19"
-          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
+      <nav class="p15 bb-10 bt-10">
+        <strong class="f18 color-main">
+          <router-link to="/" class="color-main f19"
+            ><i class="mr-10 el-icon-arrow-left fb"></i
+          ></router-link>
           Account Security
         </strong>
       </nav>
+
       <section class="mt-10 p25 w">
         <el-form
           ref="formData"
@@ -80,7 +80,8 @@
               size="small"
               type="primary"
               @click.native.prevent="handleSave"
-            >Save</el-button>
+              >Save</el-button
+            >
           </el-form-item>
         </el-form>
       </section>

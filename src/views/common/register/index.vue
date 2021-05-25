@@ -102,7 +102,7 @@
             <el-button
               :loading="loading"
               class="mt-25"
-              type="success"
+              type="primary"
               style="width:100%;height:40px"
               @click.native.prevent="handleRegister"
             >Sign up</el-button>

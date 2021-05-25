@@ -2,107 +2,132 @@
   <div class="">
     <sider />
     <article class="user-container bg-color-white w">
-      <nav class="p20 bb-1">
-        <strong class="f18 color-black">
+      <nav class="p15 bb-10 bt-10">
+        <strong class="f18 color-main">
           <router-link to="/" class="color-main f19"
             ><i class="mr-10 el-icon-arrow-left fb"></i
           ></router-link>
           Bills & Credits
         </strong>
       </nav>
-
-      <section class="p25 w">
-        <nav>
-          <el-row class="w">
-            <el-col :span="16">
-              <strong class="color-black f15"> Vouchers</strong>
-            </el-col>
-          </el-row>
-        </nav>
-        <div v-loading="couponLoading" class="mt-15 coupon-container">
-          <div
-            v-if="couponData.length === 0"
-            class="mt-20 mb-40 pt-50 tc color-hui bbs-1 bts-1 pb-50"
+      <el-row>
+        <el-col :span="11">
+          <section
+            v-loading="couponLoading"
+            class="p20 bill-top-content has-border"
           >
-            No Voucher
-          </div>
-          <div v-else>
-            <el-card
-              v-for="(item, index) in couponData"
-              :key="index"
-              shadow="hover"
-              class="mt-20"
+            <strong class="color-main f15"> Vouchers</strong>
+            <el-carousel
+              :autoplay="false"
+              indicator-position="outside"
+              arrow="always"
+              :loop="false"
+              height="125px"
             >
-              <el-row :gutter="10">
-                <el-col :span="4" align="center">
-                  <svg class="icon f80" aria-hidden="true">
-                    <use xlink:href="#icon-1" />
-                  </svg>
-                </el-col>
-                <el-col :span="8">
-                  <div class="mt-10">
-                    <strong class="f32 color-main">$ {{ item.quota }}</strong>
-                  </div>
+              <el-carousel-item
+                v-for="(item, index) in couponData"
+                :key="index"
+              >
+                <el-row :gutter="10" class="mt-50">
+                  <el-col :span="4" align="center">
+                    <svg class="icon f60" aria-hidden="true">
+                      <use xlink:href="#icon-3" />
+                    </svg>
+                  </el-col>
+                  <el-col :span="9">
+                    <div class="mt-10">
+                      <strong class="f32 color-main">$ {{ item.quota }}</strong>
+                    </div>
 
-                  <div class="mt-10 color-8">
-                    Expiration date：{{ item.expireDate | setNormalDate }}
-                  </div>
-                </el-col>
-                <el-col :span="4" align="center">
-                  <svg class="icon f80" aria-hidden="true">
-                    <use xlink:href="#icon-2" />
+                    <div class="mt-10 color-8">
+                      Expiration date：{{ item.expireDate | setNormalDate }}
+                    </div>
+                  </el-col>
+                  <el-col :span="4" align="center">
+                    <svg class="icon f60" aria-hidden="true">
+                      <use xlink:href="#icon-4" />
+                    </svg>
+                  </el-col>
+                  <el-col :span="7">
+                    <div class="mt-10">
+                      <strong class="f32 color-main"
+                        >$ {{ item.remaining }}</strong
+                      >
+                    </div>
+
+                    <div class="mt-10 color-8">Remaining balance</div>
+                  </el-col>
+                </el-row>
+              </el-carousel-item>
+            </el-carousel>
+          </section>
+        </el-col>
+        <el-col :span="13">
+          <section v-loading="billingLoading" class="p20 bill-top-content">
+            <strong class="color-main f15 tl">
+              Month-to-Date Spend By Service</strong
+            >
+            <el-row :gutter="10" class="mt-20">
+              <el-col :span="8">
+                <el-col :span="8" align="center">
+                  <svg class="icon f60" aria-hidden="true">
+                    <use xlink:href="#icon-5" />
                   </svg>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="16">
                   <div class="mt-10">
                     <strong class="f32 color-main"
-                      >$ {{ item.remaining }}</strong
+                      >$ {{ summaryData.charges }}</strong
                     >
                   </div>
 
-                  <div class="mt-10 color-8">Remaining balance</div>
+                  <div class="mt-10 color-8">
+                    Charges
+                  </div>
                 </el-col>
-              </el-row>
-            </el-card>
-          </div>
-        </div>
+              </el-col>
+              <el-col :span="8">
+                <el-col :span="8" align="center">
+                  <svg class="icon f60" aria-hidden="true">
+                    <use xlink:href="#icon-2" />
+                  </svg>
+                </el-col>
+                <el-col :span="16">
+                  <div class="mt-10">
+                    <strong class="f32 color-main"
+                      >$ {{ summaryData.tax }}</strong
+                    >
+                  </div>
+
+                  <div class="mt-10 color-8">TAX*</div>
+                </el-col>
+              </el-col>
+              <el-col :span="8">
+                <el-col :span="8" align="center">
+                  <svg class="icon f60" aria-hidden="true">
+                    <use xlink:href="#icon-2" />
+                  </svg>
+                </el-col>
+                <el-col :span="16">
+                  <div class="mt-10">
+                    <strong class="f32 color-main"
+                      >$ {{ summaryData.totalCharges }}</strong
+                    >
+                  </div>
+
+                  <div class="mt-10 color-8">Summary</div>
+                </el-col>
+              </el-col>
+            </el-row>
+          </section>
+        </el-col>
+      </el-row>
+
+      <section class="p25 w">
         <nav class="mt-40">
           <el-row class="w">
             <el-col :span="16">
-              <strong class="color-black f15"
-                >Month-to-Date Spend By Service</strong
-              >
-            </el-col>
-            <el-col :span="8" align="right">
-              <strong class="color-black mr-15 f15"
-                >$ {{ totalCharges }}</strong
-              >
-              <!-- <el-button size="small" type="primary" @click="openBillDetail"
-                >Bill Details</el-button
-              > -->
-            </el-col>
-          </el-row>
-        </nav>
-        <div class="mt-15">
-          <el-table
-            v-loading="billingLoading"
-            :data="summaryData"
-            border
-            style="width: 100%"
-          >
-            <el-table-column prop="name" label="Summary" width="180">
-            </el-table-column>
-            <el-table-column align="right" label="" min-width="180">
-              <template slot-scope="scope">
-                <span class="mr-30">$ {{ scope.row.cost }}</span>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-        <nav class="mt-40">
-          <el-row class="w">
-            <el-col :span="16">
-              <strong class="color-black f15">Bill History</strong>
+              <strong class="color-main f15">Bill History</strong>
             </el-col>
             <el-col :span="8" align="right">
               <el-date-picker
@@ -167,7 +192,9 @@
               align="center"
               min-width="180"
             >
-              <template slot-scope="scope"> $ {{ scope.row.cost }} </template>
+              <template slot-scope="scope">
+                $ {{ scope.row.cost }}
+              </template>
             </el-table-column>
           </el-table>
         </div>
@@ -182,7 +209,7 @@
             <el-col :span="24" align="center">
               <strong class="f16">Monthly maximum limit</strong
               ><i
-                class="el-icon-edit cp f18 color-light-blue ml-10"
+                class="ml-10 el-icon-edit cp f18 color-light-blue"
                 @click="handleConnect"
               ></i>
             </el-col>
@@ -197,7 +224,7 @@
             <el-col :span="24" align="center">
               <strong class="f16">Maximum single task limit</strong
               ><i
-                class="el-icon-edit cp f18 color-light-blue ml-10"
+                class="ml-10 el-icon-edit cp f18 color-light-blue"
                 @click="handleConnect"
               ></i>
             </el-col>
@@ -276,7 +303,7 @@ export default {
         moment().format('yyyy-MM')
       ],
       totalCharges: 0,
-      summaryData: [],
+      summaryData: {},
       tableData: [],
       dashboardData: {
         minYearMonth: '',
@@ -306,12 +333,14 @@ export default {
       this.$alert(
         `
         <div class="w100 tc">
-        <svg class="icon f80" aria-hidden="true">
+        <svg class="icon f60" aria-hidden="true">
                     <use xlink:href="#icon-contact" />
                   </svg>
         </div>
         <div class="w100 mt-15 mb-15">
-        <strong>To change your limit, contact us at <a class="color-light-blue" href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
+        <strong>To change your limit, contact us at <a class="color-light-blue" href=mailto:${
+          this.quotaSetting.MAIL_TO_USER.val
+        }>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
         </div>
         `,
         {
@@ -375,17 +404,7 @@ export default {
       GetBillingSummary().then(res => {
         this.billingLoading = false
         const resultData = res.data
-        this.totalCharges = resultData.totalCharges
-        this.summaryData = [
-          {
-            name: 'Charges',
-            cost: resultData.charges
-          },
-          {
-            name: 'TAX*',
-            cost: resultData.tax
-          }
-        ]
+        this.summaryData = resultData
       })
     }
   }
@@ -394,5 +413,31 @@ export default {
 <style lang="scss" scoped>
 .coupon-container {
   min-height: 150px;
+}
+</style>
+<style lang="scss">
+.bill-top-content {
+  height: 170px;
+  border-bottom: 10px solid #f4f7fe;
+  .el-carousel {
+    margin-top: -30px;
+  }
+  .el-carousel__arrow {
+    height: 20px !important;
+    width: 20px !important;
+  }
+  .el-carousel__arrow--left {
+    right: 40px !important;
+    left: auto !important;
+    top: 20px !important;
+  }
+  .el-carousel__arrow--right {
+    right: 10px !important;
+    left: auto !important;
+    top: 20px !important;
+  }
+  &.has-border {
+    border-right: 10px solid #f4f7fe;
+  }
 }
 </style>
