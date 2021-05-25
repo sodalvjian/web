@@ -192,9 +192,7 @@
               align="center"
               min-width="180"
             >
-              <template slot-scope="scope">
-                $ {{ scope.row.cost }}
-              </template>
+              <template slot-scope="scope"> $ {{ scope.row.cost }} </template>
             </el-table-column>
           </el-table>
         </div>
@@ -299,6 +297,7 @@ export default {
       monthRange: [
         moment()
           .add(-1, 'years')
+          .add(1, 'months')
           .format('yyyy-MM'),
         moment().format('yyyy-MM')
       ],
@@ -338,9 +337,7 @@ export default {
                   </svg>
         </div>
         <div class="w100 mt-15 mb-15">
-        <strong>To change your limit, contact us at <a class="color-light-blue" href=mailto:${
-          this.quotaSetting.MAIL_TO_USER.val
-        }>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
+        <strong>To change your limit, contact us at <a class="color-light-blue" href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
         </div>
         `,
         {

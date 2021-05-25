@@ -16,8 +16,8 @@
             type="text"
             :disabled="generalDisabled"
             class="mt-5 color-light-blue"
-            @click="openSetting"
             icon="el-icon-s-tools"
+            @click="openSetting"
             >Display Filter</el-button
           >
         </el-col>
@@ -38,15 +38,15 @@
       title="Select visible entities"
       center
       :visible.sync="dialogVisible"
+      width="440px"
       @close="closeDialog"
-      width="35%"
     >
-      <div class="mt-20 mb-30">
+      <div class="mt-20 mb-30" style="padding:0 10px 0 30px">
         <el-row>
-          <el-col :span="12" align="center">
+          <el-col :span="12" align="left">
             <strong>ALL</strong>
           </el-col>
-          <el-col :span="12" align="center">
+          <el-col :span="12" align="right" class="pr-20">
             <el-switch
               v-model="selectAll"
               active-color="#3688FF"
@@ -66,10 +66,10 @@
               :key="index"
               class="mt-25"
             >
-              <el-col :span="12" align="center">
+              <el-col :span="12" align="left">
                 {{ item.type }}
               </el-col>
-              <el-col :span="12" align="center">
+              <el-col :span="12" align="right" class="pr-20">
                 <el-switch
                   v-model="item.switch"
                   active-color="#3688FF"
