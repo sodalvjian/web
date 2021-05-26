@@ -1,7 +1,14 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="fl nav-title f16">Job details</strong>
+      <strong class="f17 color-main">
+        <router-link
+          to="/"
+          class="color-main f17"
+        ><i class="el-icon-arrow-left fb"></i>
+          <span class="color-hui">Batch Analysis</span></router-link>
+        <span class="ml-5 mr-5" >/</span> Job details
+      </strong>
       <div class="fr">
         <el-button
           class="shadow filter-item"
@@ -9,8 +16,7 @@
           size="mini"
           icon="el-icon-document-copy"
           @click="createJobAgain"
-          >Clone job</el-button
-        >
+        >Clone job</el-button>
       </div>
     </nav>
     <section v-loading="pageLoading" class="bg-color-gray mt-15 bd-1">
@@ -18,7 +24,7 @@
         <el-col :span="6" align="left">
           Job Name: <strong> {{ detailData.name }}</strong>
         </el-col>
-        <el-col :span="6" align="left">
+        <el-col :span="8" align="left">
           Pipeline:<strong> {{ detailData.pipeline }}</strong>
         </el-col>
         <el-col :span="6" align="left">
@@ -30,59 +36,59 @@
         <el-col :span="6" align="left">
           Created Time: <strong> {{ detailData.date | setHourDate }}</strong>
         </el-col>
-        <el-col :span="6" align="left">
+        <el-col :span="8" align="left">
           <el-row :gutter="5">
-            <el-col :span="5" align="right">
+            <el-col :span="5" align="left">
               Status:
             </el-col>
             <el-col :span="17">
-              <el-tooltip
-                v-if="
-                  detailData.status === 'STOPPED' ||
-                    detailData.reqStatus === 'STOPPED' ||
-                    detailData.reqStatus === 'STOPPING'
-                "
-                :content="setTooltipContent"
-                class="cp"
-                placement="top"
-              >
-                <span
+              <span class="pr-10">
+                <el-tooltip
                   v-if="
-                    detailData.subStatus === 'FAILED_TASK_LIMIT' ||
-                      detailData.subStatus === 'FAILED_QUOTA_LIMIT'
+                    detailData.status === 'STOPPED' ||
+                      detailData.reqStatus === 'STOPPED' ||
+                      detailData.reqStatus === 'STOPPING'
                   "
-                  ><i class="el-icon-warning color-yellow f18"></i></span
-                ><span v-else>--</span>
-              </el-tooltip>
+                  :content="setTooltipContent"
+                  class="cp"
+                  placement="top"
+                >
+                  <span
+                    v-if="
+                      detailData.subStatus === 'FAILED_TASK_LIMIT' ||
+                        detailData.subStatus === 'FAILED_QUOTA_LIMIT'
+                    "
+                  ><i class="el-icon-warning color-yellow f18"></i></span><span v-else>--</span>
+                </el-tooltip>
 
-              <el-tooltip
-                v-else-if="
-                  detailData.status === 'STARTED' ||
-                    detailData.status === 'STARTING'
-                "
-                class="cp"
-                effect="dark"
-                :content="setTooltipContent"
-                placement="top"
-              >
-                <div class="progress-running">
-                  <el-progress
-                    class="w"
-                    :stroke-width="8"
-                    :percentage="setProcessData(detailData)"
-                  ></el-progress
-                  ><i
-                    style="right:1%"
-                    class="progress-running-icon el-icon-loading"
-                  ></i>
-                </div>
-              </el-tooltip>
-              <el-progress
-                v-else
-                :percentage="progressNum"
-                :stroke-width="8"
-                :status="setStatus"
-              ></el-progress>
+                <el-tooltip
+                  v-else-if="
+                    detailData.status === 'STARTED' ||
+                      detailData.status === 'STARTING'
+                  "
+                  class="cp"
+                  effect="dark"
+                  :content="setTooltipContent"
+                  placement="top"
+                >
+                  <div class="progress-running">
+                    <el-progress
+                      class="w"
+                      :stroke-width="8"
+                      :percentage="setProcessData(detailData)"
+                    ></el-progress><i
+                      style="right:1%"
+                      class="progress-running-icon el-icon-loading"
+                    ></i>
+                  </div>
+                </el-tooltip>
+                <el-progress
+                  v-else
+                  :percentage="progressNum"
+                  :stroke-width="8"
+                  :status="setStatus"
+                ></el-progress>
+              </span>
             </el-col>
             <el-col :span="2">
               <el-tooltip
@@ -93,15 +99,13 @@
                     detailData.passFileCount !== 1 ? 's' : ''
                   } exceeded the limit`
                 "
-                ><i class="el-icon-info f17 color-yellow"></i
-              ></el-tooltip>
+              ><i class="el-icon-info f17 color-yellow"></i></el-tooltip>
             </el-col>
           </el-row>
         </el-col>
         <el-col :span="6" align="left">
           Updated Time: <strong> {{ detailData.update | setHourDate }}</strong>
-        </el-col> </el-row
-      ><el-row :gutter="15" class="p20">
+        </el-col> </el-row><el-row :gutter="15" class="p20">
         <el-col :span="6" align="left">
           <el-card shadow="never" class="job-detail-count">
             <div class="f18">Ducuments</div>
@@ -125,34 +129,29 @@
         <el-col :span="24" class="tl">
           Input location:
           <strong class="job-detail-location"> {{ detailData.input }}</strong>
-          <span
-            ><i
-              v-clipboard:copy="detailData.input"
-              v-clipboard:success="copySuccess"
-              class="ml-5 el-icon-document-copy cp color-light-blue"
-            ></i
-          ></span>
+          <span><i
+            v-clipboard:copy="detailData.input"
+            v-clipboard:success="copySuccess"
+            class="ml-5 el-icon-document-copy cp color-light-blue"
+          ></i></span>
         </el-col>
       </el-row>
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Output location:
           <strong class="job-detail-location"> {{ detailData.output }}</strong>
-          <span
-            ><i
-              v-clipboard:copy="detailData.output"
-              v-clipboard:success="copySuccess"
-              class="ml-5 el-icon-document-copy cp color-light-blue"
-            ></i
-          ></span>
+          <span><i
+            v-clipboard:copy="detailData.output"
+            v-clipboard:success="copySuccess"
+            class="ml-5 el-icon-document-copy cp color-light-blue"
+          ></i></span>
         </el-col>
       </el-row>
     </section>
     <div class="mt-20">
       Cost:
       <strong class="f20 color-light-blue">
-        <small> $</small> {{ costData }}</strong
-      >
+        <small> $</small> {{ costData }}</strong>
     </div>
     <!-- <section class="mt-40">
       <h3 class="mb-0">Application integration</h3>
@@ -272,10 +271,10 @@ export default {
         return this.detailData.processedErrCount > 0
           ? 'warning'
           : processNum
-          ? Math.round(processNum * 100) >= 100
-            ? 'success'
-            : ''
-          : 'exception'
+            ? Math.round(processNum * 100) >= 100
+              ? 'success'
+              : ''
+            : 'exception'
       }
     },
     setTooltipContent() {
@@ -358,21 +357,21 @@ export default {
   background-image: url('../../../../assets/img/ducuments.png');
   background-repeat: no-repeat;
   background-position-x: 85%;
-  background-size: 25%;
-  background-position-y: 20px;
+  background-size: 70px;
+  background-position-y: 22px;
 }
 .job-detail-entities {
   background-image: url('../../../../assets/img/entities.png');
   background-repeat: no-repeat;
   background-position-x: 85%;
-  background-size: 25%;
-  background-position-y: 20px;
+  background-size: 70px;
+  background-position-y: 22px;
 }
 .job-detail-relations {
   background-image: url('../../../../assets/img/relation.png');
   background-repeat: no-repeat;
   background-position-x: 85%;
-  background-size: 25%;
-  background-position-y: 20px;
+  background-size: 70px;
+  background-position-y: 22px;
 }
 </style>

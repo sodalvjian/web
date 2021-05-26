@@ -298,6 +298,7 @@
         <el-button
           size="medium"
           type="primary"
+          class="button-shadow"
           :loading="btnLoading"
           @click="onSubmit"
           >Confirm</el-button

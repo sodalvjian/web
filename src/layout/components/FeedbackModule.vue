@@ -26,7 +26,7 @@
           ><el-form-item>
             <el-alert
               type="warning"
-              class="mt-20"
+              class="mt-20 feedback-alert"
               :closable="false"
               description="The content will be sent to our team, please do not send HPI or
               other sensitive information…"
@@ -86,6 +86,7 @@
           :disabled="!imgSuccess"
           :loading="btnLoading"
           type="primary"
+          class="button-shadow"
           @click="handleConfirm"
           >Confirm</el-button
         >
@@ -227,14 +228,27 @@ export default {
 }
 </style>
 <style lang="scss">
+.feedback-alert {
+  padding: 12px 16px;
+  border: 1px solid #fbc04a;
+  .el-alert__content {
+    padding: 0 3px;
+  }
+  .el-alert__description {
+    margin-top: 0 !important;
+  }
+  i {
+    font-size: 21px !important;
+  }
+}
 .feedback-form-inline {
   .el-alert__icon {
     font-size: 20px;
     width: 20px;
   }
   .el-alert__description {
-    font-size: 14px;
-    color: #666 !important;
+    font-size: 13px !important;
+    color: #323232 !important;
     line-height: 1.5;
     font-weight: 500;
     margin: 5px 0 0 0;

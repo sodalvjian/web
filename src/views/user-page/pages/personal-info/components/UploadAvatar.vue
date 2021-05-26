@@ -47,6 +47,7 @@
       <el-button
         size="small"
         type="primary"
+        class="button-shadow"
         :loading="btnLoading"
         @click="confirmAvatar"
       >Confirm</el-button>

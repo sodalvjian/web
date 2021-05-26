@@ -18,8 +18,7 @@
             class="mt-5 color-light-blue"
             icon="el-icon-s-tools"
             @click="openSetting"
-            >Display Filter</el-button
-          >
+          >Display Filter</el-button>
         </el-col>
       </el-row>
     </nav>
@@ -84,12 +83,16 @@
         <no-data v-if="bratData.length === 0" />
       </div>
       <span v-if="bratData.length !== 0" slot="footer" class="dialog-footer">
-        <el-button size="small" @click="dialogVisible = false"
-          >Cancel</el-button
-        >
-        <el-button size="small" type="primary" @click="handleSetBrat"
-          >Confirm</el-button
-        >
+        <el-button
+          size="small"
+          @click="dialogVisible = false"
+        >Cancel</el-button>
+        <el-button
+          size="small"
+          class="button-shadow"
+          type="primary"
+          @click="handleSetBrat"
+        >Confirm</el-button>
       </span>
     </el-dialog>
   </div>

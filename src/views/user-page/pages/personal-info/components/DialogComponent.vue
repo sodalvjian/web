@@ -62,6 +62,7 @@
         <el-button
           size="small"
           :loading="btnLoading"
+          class="button-shadow"
           type="primary"
           @click="submitForm('dialogForm')"
         >Confirm</el-button>

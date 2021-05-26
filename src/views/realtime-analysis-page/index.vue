@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="fl f16 color-main">Real-time analysis</strong>
+      <strong class="fl f17 color-main">Real-time analysis</strong>
     </nav>
     <div class="vital-container realtime-top-content">
       <nav>

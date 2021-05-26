@@ -151,11 +151,12 @@ div:focus {
 // user page style
 .user-container {
   float: left;
-  padding-left: 240px;
+  padding-left: 210px;
 }
 .user-sider {
-  width: 240px;
+  width: 210px;
   position: fixed;
+  font-weight: bold;
   float: left;
   height: calc(100% - 50px);
   border-right: 10px solid #f4f7fe;

@@ -139,7 +139,7 @@ export default {
 </script>
 <style lang="scss">
 .header-avatar {
-  margin-top: 15px;
+  margin-top: 10px;
   background-color: #3688ff !important;
 }
 .dialog-show-info {
@@ -171,17 +171,17 @@ export default {
   vertical-align: top;
 }
 .navbar {
-  height: 60px;
+  height: 50px;
   overflow: hidden;
   position: relative;
   background: #2b3067;
   .navbar-logo {
     float: left;
-    line-height: 60px;
+    line-height: 50px;
     img {
-      width: 230px;
-      margin-left: 15px;
-      margin-top: 3px;
+      width: 220px;
+      margin-left: 5px;
+      margin-top: -1px;
     }
   }
 
@@ -207,7 +207,7 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 55px;
+    line-height: 45px;
 
     &:focus {
       outline: none;

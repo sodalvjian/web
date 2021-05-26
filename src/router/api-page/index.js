@@ -1,13 +1,13 @@
 import Layout from '@/layout'
 export default [
   {
-    path: '/api',
+    path: '/handleApi',
     component: Layout,
     roles: [''],
     children: [
       {
-        path: '/api',
-        name: 'api',
+        path: '/handleApi',
+        name: 'apiPage',
         component: () => import('@/views/api-page'),
         meta: {
           title: 'API',

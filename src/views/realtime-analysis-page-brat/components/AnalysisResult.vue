@@ -118,6 +118,7 @@
         <el-button
           size="small"
           type="primary"
+          class="button-shadow"
           @click="handleSetBrat"
         >Confirm</el-button>
       </span>

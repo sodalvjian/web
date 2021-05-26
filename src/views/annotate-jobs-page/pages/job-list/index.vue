@@ -1,26 +1,42 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="mt-10 fl f16 w50 color-main">
-        <!-- <hamburger
+      <el-row>
+        <el-col :span="6">
+          <strong class="f16 color-main">
+            <!-- <hamburger
           v-if="router.indexOf('user') === -1"
           :is-active="sidebar.opened"
           class="hamburger-container"
           @toggleClick="toggleSideBar"
         /> -->
-        Batch Analysis</strong
-      >
-      <div class="fr w50 tl">
-        <el-button
-          class="shadow filter-item"
-          type="primary"
-          style="margin-left:-71px"
-          size="medium"
-          icon="el-icon-plus"
-          @click="createData"
-          >Create a job</el-button
-        >
-      </div>
+            Batch Analysis</strong
+          >
+        </el-col>
+        <el-col :span="18" align="right">
+          <el-input
+            v-model="filterData.name"
+            style="width:220px"
+            size="small"
+            placeholder="Please input job name"
+            @keyup.enter.native="handleCurrentChange(1)"
+          >
+            <i
+              slot="suffix"
+              class="el-input__icon el-icon-search cp"
+              @click="handleCurrentChange(1)"
+            ></i>
+          </el-input>
+          <el-button
+            class="button-shadow filter-item ml-10"
+            type="primary"
+            size="small"
+            icon="el-icon-circle-plus"
+            @click="createData"
+            >Create a job</el-button
+          >
+        </el-col>
+      </el-row>
     </nav>
     <section class="p20">
       <el-table
@@ -212,7 +228,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Hamburger from '@/components/Hamburger'
+// import Hamburger from '@/components/Hamburger'
 import {
   DelData,
   // GET_USER_LIST
@@ -222,7 +238,7 @@ export default {
   name: 'InlineEditTable',
   filters: {},
   components: {
-    Hamburger
+    // Hamburger
   },
   data() {
     return {
@@ -234,7 +250,10 @@ export default {
       pageSize: 10,
       total: 0,
       propData: 'date',
-      orderData: 'desc'
+      orderData: 'desc',
+      filterData: {
+        name: ''
+      }
     }
   },
   computed: {
@@ -383,7 +402,7 @@ export default {
         orderData: this.orderData
       }
       const params = {
-        name: this.$route.query.jobName || ''
+        name: this.filterData.name
       }
       GetList(paramsOptions, params)
         .then(res => {

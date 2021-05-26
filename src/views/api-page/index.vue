@@ -1,60 +1,11 @@
 <template>
   <div class="">
-    <!-- <nav class="vital-container cb bb-1">
-      <strong class="mt-10 fl f16">API</strong>
-      <div class="fr">
-        <el-button
-          class="shadow filter-item"
-          type="primary"
-          size="small"
-          icon="el-icon-document-copy"
-          >Download</el-button
-        >
-      </div>
-    </nav> -->
-    <!-- <div class="pt-20 api-header tc fb pb-30">
-      <h2 class="color-white" style="white-space: pre;">Implement NLP     Empower clinical application</h2>
-      <el-row :gutter="20" class="mt-30 color-white" style="max-width: 1000px;margin: 0 auto;">
-        <el-col :span="6">
-          <div>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#iconneiye" />
-            </svg>
-          </div>
-          <div>Quality measurement</div>
-        </el-col>
-        <el-col :span="6">
-          <div>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icongouxuan" />
-            </svg>
-          </div>
-          <div>Precision medicine</div>
-        </el-col>
-        <el-col :span="6">
-          <div>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#iconguangdie" />
-            </svg>
-          </div>
-          <div>Phenotyping</div>
-        </el-col>
-        <el-col :span="6">
-          <div>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icongongwen" />
-            </svg>
-          </div>
-          <div>Drug repurposing</div>
-        </el-col>
-      </el-row>
-    </div> -->
     <section v-loading="pageLoading" class="bg-color-white p25 api-container">
       <!-- <vue-markdown v-html="mercuryApi">
       </vue-markdown> -->
       <article style="padding-right:80px">
-        <h2 style="padding-left:102px"><strong>Mercury NLP APIs</strong></h2>
-        <div style="padding-left:102px" class="mb-20">
+        <strong class="color-main f17">Mercury NLP APIs</strong>
+        <div>
           <strong>Api key:</strong> <small>{{ apiKey }}</small>
           <el-tooltip class="item" effect="dark" content="Copy" placement="top">
             <el-button
