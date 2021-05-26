@@ -4,10 +4,9 @@
     <article class="user-container bg-color-white w">
       <nav class="p15 bb-10 bt-10">
         <strong class="f17 color-main">
-          <router-link
-            to="/"
-            class="color-main f19"
-          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
+          <router-link to="/" class="color-main f19"
+            ><i class="mr-10 el-icon-arrow-left fb"></i
+          ></router-link>
           Bills & Credits
         </strong>
       </nav>
@@ -24,6 +23,10 @@
               :loop="false"
               height="150px"
             >
+              <div class="pt-40 tc" v-if="couponData.length === 0">
+                <img class="w50" src="@/assets/img/no_data.png" alt="" />
+                <div class="color-hui mt-10">No data</div>
+              </div>
               <el-carousel-item
                 v-for="(item, index) in couponData"
                 :key="index"
@@ -51,9 +54,9 @@
                   </el-col>
                   <el-col :span="7">
                     <div class="mt-10">
-                      <strong
-                        class="f32 color-main"
-                      >$ {{ item.remaining }}</strong>
+                      <strong class="f32 color-main"
+                        >$ {{ item.remaining }}</strong
+                      >
                     </div>
 
                     <div class="mt-10 color-8">Remaining balance</div>
@@ -66,7 +69,8 @@
         <el-col :span="13">
           <section v-loading="billingLoading" class="p20 bill-top-content">
             <strong class="color-main f15 tl">
-              Month-to-Date Spend By Service</strong>
+              Month-to-Date Spend By Service</strong
+            >
             <el-row :gutter="10" class="mt-20">
               <el-col :span="8">
                 <el-col :span="9" align="center">
@@ -76,9 +80,9 @@
                 </el-col>
                 <el-col :span="15">
                   <div class="mt-10">
-                    <strong
-                      class="f32 color-main"
-                    >$ {{ summaryData.charges }}</strong>
+                    <strong class="f32 color-main"
+                      >$ {{ summaryData.charges }}</strong
+                    >
                   </div>
 
                   <div class="mt-10 color-8">
@@ -94,9 +98,9 @@
                 </el-col>
                 <el-col :span="15">
                   <div class="mt-10">
-                    <strong
-                      class="f32 color-main"
-                    >$ {{ summaryData.tax }}</strong>
+                    <strong class="f32 color-main"
+                      >$ {{ summaryData.tax }}</strong
+                    >
                   </div>
 
                   <div class="mt-10 color-8">TAX*</div>
@@ -110,9 +114,9 @@
                 </el-col>
                 <el-col :span="15">
                   <div class="mt-10">
-                    <strong
-                      class="f32 color-main"
-                    >$ {{ summaryData.totalCharges }}</strong>
+                    <strong class="f32 color-main"
+                      >$ {{ summaryData.totalCharges }}</strong
+                    >
                   </div>
 
                   <div class="mt-10 color-8">Summary</div>
@@ -192,9 +196,7 @@
               align="center"
               min-width="180"
             >
-              <template slot-scope="scope">
-                $ {{ scope.row.cost }}
-              </template>
+              <template slot-scope="scope"> $ {{ scope.row.cost }} </template>
             </el-table-column>
           </el-table>
         </div>
@@ -207,30 +209,32 @@
         <el-row :gutter="20" class="mt-10">
           <el-col :span="12">
             <el-col :span="24" align="center">
-              <strong class="f16">Monthly maximum limit</strong><i
+              <strong class="f16">Monthly maximum limit</strong
+              ><i
                 class="ml-10 el-icon-edit cp f18 color-light-blue"
                 @click="handleConnect"
               ></i>
             </el-col>
 
             <el-col :span="24" class="mt-20" align="center">
-              <strong
-                class="f26 color-main"
-              >$ {{ quotaSetting.QUOTA.val }}</strong>
+              <strong class="f26 color-main"
+                >$ {{ quotaSetting.QUOTA.val }}</strong
+              >
             </el-col>
           </el-col>
           <el-col :span="12">
             <el-col :span="24" align="center">
-              <strong class="f16">Maximum single task limit</strong><i
+              <strong class="f16">Maximum single task limit</strong
+              ><i
                 class="ml-10 el-icon-edit cp f18 color-light-blue"
                 @click="handleConnect"
               ></i>
             </el-col>
 
             <el-col :span="24" class="mt-20" align="center">
-              <strong
-                class="f26 color-main"
-              >$ {{ quotaSetting.TASK_QUOTA.val }}</strong>
+              <strong class="f26 color-main"
+                >$ {{ quotaSetting.TASK_QUOTA.val }}</strong
+              >
             </el-col>
           </el-col>
         </el-row>
@@ -337,9 +341,7 @@ export default {
                   </svg>
         </div>
         <div class="w100 mt-15 mb-15">
-        <strong>To change your limit, contact us at <a class="color-light-blue" href=mailto:${
-  this.quotaSetting.MAIL_TO_USER.val
-}>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
+        <strong>To change your limit, contact us at <a class="color-light-blue" href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
         </div>
         `,
         {
@@ -372,7 +374,8 @@ export default {
       GetVoucher(params).then(res => {
         this.couponLoading = false
         if (res.code === 200) {
-          this.couponData = res.data
+          // this.couponData = res.data
+          this.couponData = []
         }
       })
     },

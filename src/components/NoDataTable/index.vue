@@ -1,5 +1,5 @@
 <template>
-  <div class="tc color-8 mt-35 mb-25">
+  <div class="tc color-hui mt-35 mb-25">
     <div class="no-data-table">
       <img src="../../assets/img/no-data_table.png" alt="">
     </div>

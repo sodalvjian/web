@@ -3,7 +3,7 @@
     <nav class="cb">
       <strong class="f17 color-main">
         <router-link
-          to="/"
+          to="/annotateJobs"
           class="color-main f17"
         ><i class="el-icon-arrow-left fb"></i>
           <span class="color-hui">Batch Analysis</span></router-link>
@@ -24,10 +24,10 @@
         <el-col :span="6" align="left">
           Job Name: <strong> {{ detailData.name }}</strong>
         </el-col>
-        <el-col :span="8" align="left">
+        <el-col :span="10" align="left">
           Pipeline:<strong> {{ detailData.pipeline }}</strong>
         </el-col>
-        <el-col :span="6" align="left">
+        <el-col :span="8" align="left">
           Job ID: <strong>{{ detailData.bizId }}</strong>
         </el-col>
       </el-row>
@@ -36,7 +36,7 @@
         <el-col :span="6" align="left">
           Created Time: <strong> {{ detailData.date | setHourDate }}</strong>
         </el-col>
-        <el-col :span="8" align="left">
+        <el-col :span="10" align="left">
           <el-row :gutter="5">
             <el-col :span="5" align="left">
               Status:
@@ -103,22 +103,22 @@
             </el-col>
           </el-row>
         </el-col>
-        <el-col :span="6" align="left">
+        <el-col :span="8" align="left">
           Updated Time: <strong> {{ detailData.update | setHourDate }}</strong>
         </el-col> </el-row><el-row :gutter="15" class="p20">
-        <el-col :span="6" align="left">
+        <el-col :span="7" align="left">
           <el-card shadow="never" class="job-detail-count">
             <div class="f18">Ducuments</div>
             <div class="mt-20 fb f32">{{ detailData.processedCount }}</div>
           </el-card>
         </el-col>
-        <el-col :span="6" align="left">
+        <el-col :span="7" align="left">
           <el-card shadow="never" class="job-detail-entities">
             <div class="f18">Entities</div>
             <div class="mt-20 fb f32">{{ detailData.processedEntities }}</div>
           </el-card>
         </el-col>
-        <el-col :span="6" align="left">
+        <el-col :span="7" align="left">
           <el-card shadow="never" class="job-detail-relations">
             <div class="f18">Relations</div>
             <div class="mt-20 fb f32">{{ detailData.processedRelations }}</div>
@@ -357,21 +357,21 @@ export default {
   background-image: url('../../../../assets/img/ducuments.png');
   background-repeat: no-repeat;
   background-position-x: 85%;
-  background-size: 70px;
-  background-position-y: 22px;
+  background-size: 65px;
+  background-position-y: 25px;
 }
 .job-detail-entities {
   background-image: url('../../../../assets/img/entities.png');
   background-repeat: no-repeat;
   background-position-x: 85%;
-  background-size: 70px;
-  background-position-y: 22px;
+  background-size: 65px;
+  background-position-y: 25px;
 }
 .job-detail-relations {
   background-image: url('../../../../assets/img/relation.png');
   background-repeat: no-repeat;
   background-position-x: 85%;
-  background-size: 70px;
-  background-position-y: 22px;
+  background-size: 65px;
+  background-position-y: 25px;
 }
 </style>
