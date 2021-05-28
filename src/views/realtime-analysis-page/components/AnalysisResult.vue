@@ -3,7 +3,7 @@
     <nav>
       <el-row>
         <el-col :span="12">
-          <h3 class="color-main">Visualization</h3>
+          <h3 class="color-main">Results</h3>
         </el-col>
         <el-col :span="12" align="right">
           <!-- <input
@@ -18,7 +18,8 @@
             class="mt-5 color-light-blue"
             icon="el-icon-s-tools"
             @click="openSetting"
-          >Display Filter</el-button>
+            >Display Filter</el-button
+          >
         </el-col>
       </el-row>
     </nav>
@@ -29,9 +30,8 @@
         @success-data="generalDisabled = false"
       />
     </section>
-    <h3 class="mt-40">Results</h3>
 
-    <entity-relation ref="entityRelationref" />
+    <entity-relation class="mt-30" ref="entityRelationref" />
     <!-- General Settings dialog -->
     <el-dialog
       title="Select visible entities"
@@ -83,16 +83,16 @@
         <no-data v-if="bratData.length === 0" />
       </div>
       <span v-if="bratData.length !== 0" slot="footer" class="dialog-footer">
-        <el-button
-          size="small"
-          @click="dialogVisible = false"
-        >Cancel</el-button>
+        <el-button size="small" @click="dialogVisible = false"
+          >Cancel</el-button
+        >
         <el-button
           size="small"
           class="button-shadow"
           type="primary"
           @click="handleSetBrat"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </span>
     </el-dialog>
   </div>

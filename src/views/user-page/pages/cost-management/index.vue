@@ -211,7 +211,7 @@
             <el-col :span="24" align="center">
               <strong class="f16">Monthly maximum limit</strong
               ><i
-                class="ml-10 el-icon-edit cp f18 color-light-blue"
+                class="ml-10 el-icon-info cp f18 color-light-blue"
                 @click="handleConnect"
               ></i>
             </el-col>
@@ -226,7 +226,7 @@
             <el-col :span="24" align="center">
               <strong class="f16">Maximum single task limit</strong
               ><i
-                class="ml-10 el-icon-edit cp f18 color-light-blue"
+                class="ml-10 el-icon-info cp f18 color-light-blue"
                 @click="handleConnect"
               ></i>
             </el-col>

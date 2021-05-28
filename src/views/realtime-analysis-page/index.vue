@@ -7,11 +7,11 @@
       <nav>
         <el-row type="flex">
           <el-col :span="24">
-            <span class="fl f16 fb mt-5 mr-10">Select NLP pipeline:</span>
+            <div class="f16 fb mt-5 color-main">Select NLP pipeline:</div>
             <select-pipeline
-              class="fl"
-              style="min-width:300px"
               v-model="formData.pipeline"
+              style="width:400px"
+              class="mt-10"
               size="small"
               @get-complete-data="getCompleteData"
               @get-complete-options="getCompleteOptions"
@@ -27,7 +27,7 @@
           class="analysis-textarea"
           show-word-limit
           maxlength="4096"
-          :rows="12"
+          :rows="8"
           placeholder="Please enter"
         >
         </el-input>

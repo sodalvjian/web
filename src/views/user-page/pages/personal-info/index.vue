@@ -301,7 +301,7 @@
                       <i class="el-icon-circle-plus-outline f22"></i>
                     </div>
                     <div class="tc color-gray card-add-btn-text">
-                      Add bank card
+                      Add credit card
                     </div>
                   </el-card>
                 </el-form-item>

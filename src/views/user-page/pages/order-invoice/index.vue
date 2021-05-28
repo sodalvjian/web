@@ -60,7 +60,7 @@
           <el-row class="w">
             <el-col :span="6">
               <strong class="color-black f15"
-                >Order and Invoice History ({{ tableData.length }})</strong
+                >Order and Payment History </strong
               >
             </el-col>
             <el-col :span="18" align="right">
@@ -132,7 +132,7 @@
             </el-table-column>
             <el-table-column
               prop="paymentInstruction"
-              label="Payment instruction"
+              label="Payment Period"
               align="center"
               min-width="180"
             >
@@ -154,7 +154,7 @@
             <el-table-column
               prop="transactionAmount"
               fixed="right"
-              label="Transaction Amount"
+              label="Amount"
               align="center"
               min-width="180"
             >
@@ -264,7 +264,7 @@ export default {
               type:
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'
             }),
-            `Order and invoice history ${nowTime}.csv`
+            `Order and Payment history ${nowTime}.csv`
           )
         })
     },
