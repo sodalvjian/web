@@ -13,9 +13,66 @@
       <el-row>
         <el-col :span="11">
           <section
-            v-loading="couponLoading"
+            v-loading="billingLoading"
             class="p20 bill-top-content has-border"
           >
+            <strong class="color-main f15 tl"> Month-to-Date Spend</strong>
+            <el-row :gutter="10" class="mt-20">
+              <!-- <el-col :span="8">
+                <el-col :span="9" align="center">
+                  <svg class="icon f60" aria-hidden="true">
+                    <use xlink:href="#icon-3" />
+                  </svg>
+                </el-col>
+                <el-col :span="15">
+                  <div class="mt-10">
+                    <strong class="f32 color-main"
+                      >$ {{ summaryData.charges }}</strong
+                    >
+                  </div>
+
+                  <div class="mt-10 color-8">
+                    Charges
+                  </div>
+                </el-col>
+              </el-col>
+              <el-col :span="8">
+                <el-col :span="9" align="center">
+                  <svg class="icon f60" aria-hidden="true">
+                    <use xlink:href="#icon-4" />
+                  </svg>
+                </el-col>
+                <el-col :span="15">
+                  <div class="mt-10">
+                    <strong class="f32 color-main"
+                      >$ {{ summaryData.tax }}</strong
+                    >
+                  </div>
+
+                  <div class="mt-10 color-8">TAX*</div>
+                </el-col>
+              </el-col> -->
+              <el-col :span="24">
+                <el-col :span="5" align="center">
+                  <svg class="icon f60" aria-hidden="true">
+                    <use xlink:href="#icon-5" />
+                  </svg>
+                </el-col>
+                <el-col :span="15">
+                  <div class="mt-10">
+                    <strong class="f32 color-main"
+                      >$ {{ summaryData.totalCharges }}</strong
+                    >
+                  </div>
+
+                  <div class="mt-10 color-8">Total</div>
+                </el-col>
+              </el-col>
+            </el-row>
+          </section>
+        </el-col>
+        <el-col :span="13">
+          <section v-loading="couponLoading" class="p20 bill-top-content">
             <strong class="color-main f15"> Vouchers</strong>
             <el-carousel
               :autoplay="false"
@@ -23,9 +80,9 @@
               :loop="false"
               height="150px"
             >
-              <div class="pt-40 tc" v-if="couponData.length === 0">
-                <img class="w50" src="@/assets/img/no_data.png" alt="" />
-                <div class="color-hui mt-10">No data</div>
+              <div v-if="couponData.length === 0" class="pt-40 tc">
+                <img width="100px" src="@/assets/img/no_data.png" alt="" />
+                <div class="mt-10 color-hui">No data</div>
               </div>
               <el-carousel-item
                 v-for="(item, index) in couponData"
@@ -66,69 +123,10 @@
             </el-carousel>
           </section>
         </el-col>
-        <el-col :span="13">
-          <section v-loading="billingLoading" class="p20 bill-top-content">
-            <strong class="color-main f15 tl">
-              Month-to-Date Spend By Service</strong
-            >
-            <el-row :gutter="10" class="mt-20">
-              <el-col :span="8">
-                <el-col :span="9" align="center">
-                  <svg class="icon f60" aria-hidden="true">
-                    <use xlink:href="#icon-3" />
-                  </svg>
-                </el-col>
-                <el-col :span="15">
-                  <div class="mt-10">
-                    <strong class="f32 color-main"
-                      >$ {{ summaryData.charges }}</strong
-                    >
-                  </div>
-
-                  <div class="mt-10 color-8">
-                    Charges
-                  </div>
-                </el-col>
-              </el-col>
-              <el-col :span="8">
-                <el-col :span="9" align="center">
-                  <svg class="icon f60" aria-hidden="true">
-                    <use xlink:href="#icon-4" />
-                  </svg>
-                </el-col>
-                <el-col :span="15">
-                  <div class="mt-10">
-                    <strong class="f32 color-main"
-                      >$ {{ summaryData.tax }}</strong
-                    >
-                  </div>
-
-                  <div class="mt-10 color-8">TAX*</div>
-                </el-col>
-              </el-col>
-              <el-col :span="8">
-                <el-col :span="9" align="center">
-                  <svg class="icon f60" aria-hidden="true">
-                    <use xlink:href="#icon-5" />
-                  </svg>
-                </el-col>
-                <el-col :span="15">
-                  <div class="mt-10">
-                    <strong class="f32 color-main"
-                      >$ {{ summaryData.totalCharges }}</strong
-                    >
-                  </div>
-
-                  <div class="mt-10 color-8">Summary</div>
-                </el-col>
-              </el-col>
-            </el-row>
-          </section>
-        </el-col>
       </el-row>
 
       <section class="p25 w">
-        <nav class="mt-40">
+        <nav>
           <el-row class="w">
             <el-col :span="16">
               <strong class="color-main f15">Bill History</strong>
@@ -160,13 +158,14 @@
             autoresize
           />
         </div>
-        <div class="mt-40">
+        <div class="mt-50">
           <el-table
             v-loading="costLoading"
             :data="tableData"
             border
             style="width: 100%"
           >
+            <no-data-table slot="empty"></no-data-table>
             <el-table-column
               prop="analysisType"
               label="Pipeline"
@@ -196,14 +195,16 @@
               align="center"
               min-width="180"
             >
-              <template slot-scope="scope"> $ {{ scope.row.cost }} </template>
+              <template slot-scope="scope">
+                $ {{ scope.row.cost }}
+              </template>
             </el-table-column>
           </el-table>
         </div>
       </section>
       <section
         v-loading="feeLoading"
-        class="mt-30 p20 mb-20"
+        class="mb-20 mt-30 p20"
         style="border-top: 10px solid #f5f7fe;"
       >
         <el-row :gutter="20" class="mt-10">
@@ -341,11 +342,14 @@ export default {
                   </svg>
         </div>
         <div class="w100 mt-15 mb-15">
-        <strong>To change your limit, contact us at <a class="color-light-blue" href=mailto:${this.quotaSetting.MAIL_TO_USER.val}>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
+        <strong>To change your limit, contact us at <a class="color-light-blue" href=mailto:${
+          this.quotaSetting.MAIL_TO_USER.val
+        }>${this.quotaSetting.MAIL_TO_USER.val}</a></strong>
         </div>
         `,
         {
           center: true,
+          showConfirmButton: false,
           closeOnClickModal: true,
           dangerouslyUseHTMLString: true,
           customClass: 'show-connect-info'
@@ -374,8 +378,8 @@ export default {
       GetVoucher(params).then(res => {
         this.couponLoading = false
         if (res.code === 200) {
-          // this.couponData = res.data
-          this.couponData = []
+          this.couponData = res.data
+          // this.couponData = []
         }
       })
     },

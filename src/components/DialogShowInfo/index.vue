@@ -8,7 +8,7 @@
     custom-class="dialog-show-info"
     :visible.sync="dialogVisible"
   >
-    <div v-loading="pageLoading">
+    <div>
       <img src="@/assets/img/dialog_top.png" class="w" alt="" />
       <section class="p20 tc">
         <h3 class="color-main">
@@ -51,8 +51,7 @@ export default {
       dialogVisible: false,
       userName: store.getters.userInfo.accountName,
       type: 'login',
-      FREE_CALL_API_LIMIT: 5,
-      pageLoading: false
+      FREE_CALL_API_LIMIT: 5
     }
   },
   computed: {},
@@ -67,9 +66,7 @@ export default {
       this.getSystemInfo()
     },
     getSystemInfo() {
-      this.pageLoading = true
       GetQuotaSettings().then(res => {
-        this.pageLoading = false
         this.FREE_CALL_API_LIMIT = res.data.FREE_CALL_API_LIMIT.val
       })
     },

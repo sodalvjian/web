@@ -1,87 +1,116 @@
 <template>
-  <div class="login-container">
-    <div class="login-content">
-      <div class="login-content-left p30"></div>
-      <div class="login-content-right">
-        <el-form
-          ref="loginForm"
-          :model="loginForm"
-          :rules="loginRules"
-          class="login-form"
-          auto-complete="on"
-          label-position="left"
-        >
-          <div class="title-container">
-            <nav class="title">Welcome to Mercury NLP</nav>
-          </div>
+  <div class="login-container pr">
+    <div class="login-content pr">
+      <img class="mt-20 top-icon" src="../../../assets/img/Group.png" alt="" />
+      <img class="mt-20 bottom-icon" src="../../../assets/img/bac.png" alt="" />
+      <el-row>
+        <el-col :span="10">
+          <el-form
+            ref="loginForm"
+            :model="loginForm"
+            :rules="loginRules"
+            class="login-form"
+            auto-complete="on"
+            label-position="left"
+          >
+            <div>
+              <router-link to="/">
+                <img
+                  width="200px"
+                  src="../../../assets/img/logo_color.png"
+                  alt=""
+                />
+              </router-link>
+            </div>
+            <div class="mt-40 title-container">
+              <nav class="title color-main fb f24">Welcome to Mercury NLP</nav>
+              <div class="mt-10 color-gray f13">
+                Fast,secure,cloud-based clinical NLP with high precision and
+                accuracy based on the award-winning CLAMP system from Melax
+                Technologies!
+              </div>
+              <h2 class="mt-30 color-main pr">
+                Sign in
+                <img
+                  class="nlp-img-icon"
+                  src="../../../assets/img/NLP.png"
+                  alt=""
+                />
+              </h2>
+            </div>
 
-          <el-form-item prop="username">
-            <el-input
-              ref="username"
-              v-model="loginForm.username"
-              placeholder="Email address or account name"
-              name="username"
-              type="text"
-              tabindex="1"
-              auto-complete="off"
-            />
-          </el-form-item>
-
-          <el-form-item prop="password">
-            <el-input
-              :key="passwordType"
-              ref="password"
-              v-model="loginForm.password"
-              :type="passwordType"
-              placeholder="Password"
-              name="password"
-              tabindex="2"
-              auto-complete="off"
-              @keyup.enter.native="handleLogin"
-            />
-            <span class="show-pwd" @click="showPwd">
-              <svg-icon
-                :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+            <el-form-item
+              prop="username"
+              label="Email address or accountt name"
+            >
+              <el-input
+                ref="username"
+                v-model="loginForm.username"
+                placeholder="Email address or account name"
+                name="username"
+                type="text"
+                tabindex="1"
+                auto-complete="off"
               />
-            </span>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              :loading="loading"
-              class="mt-25"
-              type="primary"
-              style="width:100%;height:40px"
-              @click.native.prevent="handleLogin"
-            >Sign in</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              class="w"
-              plain
-              type="primary"
-              @click="handleRegister"
-            >Create a new account</el-button>
-          </el-form-item>
-          <el-row :gutter="10" class="f12 login-content-right-footer">
-            <el-col :span="12" class="color-main" align="left">
-              <router-link to="/forgetPassword">Forget password</router-link>
-            </el-col>
-            <el-col :span="12" align="right" class="color-main">
-              <span class=" cp" @click="openPrivacyPolicy">Privacy Policy</span>
-            </el-col>
-          </el-row>
-        </el-form>
-        <!-- <footer class="login-content-right-footer tc f12">
-          <u>Privacy Policy</u>
-        </footer> -->
-      </div>
+            </el-form-item>
+
+            <el-form-item prop="password" label="Password">
+              <el-input
+                :key="passwordType"
+                ref="password"
+                v-model="loginForm.password"
+                :type="passwordType"
+                placeholder="Password"
+                name="password"
+                tabindex="2"
+                auto-complete="off"
+                @keyup.enter.native="handleLogin"
+              />
+              <span class="show-pwd color-main" @click="showPwd">
+                <svg-icon
+                  :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+                />
+              </span>
+            </el-form-item>
+            <el-form-item>
+              <el-button
+                :loading="loading"
+                class="mt-25 btn-confirm"
+                type="primary"
+                style="width:100%;height:40px"
+                @click.native.prevent="handleLogin"
+                >Sign in</el-button
+              >
+            </el-form-item>
+            <el-row :gutter="10" class="mt-20 f12">
+              <el-col :span="12" class="color-light-blue" align="left">
+                <router-link to="/forgetPassword">Forget password</router-link>
+              </el-col>
+              <el-col :span="12" align="right">
+                <span class="color-light-blue cp" @click="handleRegister"
+                  >Create a new account</span
+                >
+              </el-col>
+            </el-row>
+            <div class=" f12 color-gray bottom-privacy">
+              If you click authorize, you will agree and authorize
+              <span class="color-light-blue cp" @click="openPrivacyPolicy"
+                >Privacy Policy</span
+              >
+            </div>
+          </el-form>
+        </el-col>
+        <el-col :span="14" align="right" class="pl-20">
+          <img
+            width="95%"
+            class="login-right-login-img"
+            src="../../../assets/img/login_right.jpg"
+            alt=""
+          />
+        </el-col>
+      </el-row>
     </div>
 
-    <!-- login-left -->
-    <div class="login-left"></div>
-    <!-- login-right -->
-    <div class="login-right"></div>
-    <!-- Privacy Policy -->
     <privacy-policy ref="privacyPolicy" />
   </div>
 </template>
@@ -191,154 +220,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss">
-/* 修复input 背景不协调 和光标变色 */
-/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
-
-$bg: #283443;
-$light_gray: #757575;
-$cursor: #757575;
-
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .login-container .el-input input {
-    color: $cursor;
-  }
-}
-
-/* reset element-ui css */
-.login-container {
-  text-align: center;
-  .login-left {
-    background-image: url('../../../assets/img/login_left.png');
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    background-size: 100%;
-    bottom: 0;
-  }
-  .login-right {
-    background-image: url('../../../assets/img/login_right.png');
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    background-size: 100%;
-    right: 0;
-    bottom: 0;
-  }
-  .login-content {
-    width: 80%;
-    max-width: 900px;
-    position: relative;
-    z-index: 9;
-    top: 10%;
-    transform: translateY(-50%);
-    left: 50%;
-    transform: translateX(-50%);
-
-    .login-content-left {
-      float: left;
-      width: 40%;
-      height: 500px;
-      background-size: 100%;
-      box-shadow: 0 0 20px #0000001c;
-      background-image: url('../../../assets/img/login_content.jpg');
-    }
-    .login-content-right {
-      float: left;
-      height: 500px;
-      position: relative;
-      width: 60%;
-      background-color: #ffffff;
-      box-shadow: 0 0 20px #0000001c;
-      .login-form {
-        padding: 0 65px;
-      }
-      .login-content-right-footer {
-        margin-top: -10px;
-      }
-    }
-  }
-  .el-input {
-    display: inline-block;
-    // height: 40px;
-    // width: 85%;
-
-    input {
-      // background: transparent;
-      // border: 0px;
-      // -webkit-appearance: none;
-      // border-radius: 10px;
-      // padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 40px;
-      caret-color: $cursor;
-
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px #efefef inset !important;
-      }
-    }
-  }
-
-  // .el-form-item {
-  //   border: 1px solid rgba(255, 255, 255, 0.1);
-  //   background: #efefef;
-  //   border-radius: 50px;
-  //   color: #454545;
-  // }
-}
-</style>
-
-<style lang="scss" scoped>
-$bg: #f5f5f5;
-$dark_gray: #333333;
-$light_gray: #333333;
-
-.login-container {
-  height: 100%;
-  width: 100%;
-  background-color: $bg;
-  background-size: 100%;
-
-  .tips {
-    font-size: 14px;
-    color: #3a3a3a;
-    margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
-    }
-  }
-
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: $dark_gray;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
-  }
-
-  .title-container {
-    position: relative;
-
-    .title {
-      font-size: 26px;
-      color: $light_gray;
-      margin: 50px auto 50px auto;
-      text-align: center;
-    }
-  }
-
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 16px;
-    color: $dark_gray;
-    cursor: pointer;
-    user-select: none;
-  }
-}
+@import '@/styles/login-register.scss';
 </style>

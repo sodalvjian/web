@@ -2,15 +2,14 @@
   <div class="forget-password-container">
     <div class="register-content bg-color-white">
       <header class="tl cb p20">
-        <a
-          href="/"
-        ><img
-          src="@/assets/img/Logo.png"
-          class="fl"
-          width="250px"
-          alt=""
+        <a href="/"
+          ><img
+            src="@/assets/img/logo_color.png"
+            class="fl"
+            width="200px"
+            alt=""
         /></a>
-        <div class="mt-20 fl f18">
+        <div class="ml-20 fl f18">
           <span> | &nbsp; &nbsp;</span> <strong>Password Reset</strong>
         </div>
       </header>
@@ -22,7 +21,8 @@
       <section class="w60 bc pb-70">
         <nav class="mt-50 f15 lh1-5">
           <span v-if="step === 1">
-            Please enter the email address associated with your account.</span>
+            Please enter the email address associated with your account.</span
+          >
           <span v-if="step === 2">
             If you no longer use the email address associated with your account.
             Please contact customer service
@@ -116,15 +116,16 @@
               type="primary"
               style="width:100%;height:40px"
               @click.native.prevent="handleNext"
-            >{{ step === 3 ? 'Confirm' : 'Next' }}</el-button>
-          </el-form-item></el-form>
+              >{{ step === 3 ? 'Confirm' : 'Next' }}</el-button
+            >
+          </el-form-item></el-form
+        >
         <div v-if="step === 1" class="f13 mt-50 lh2">
           If you no longer use the email address associated with your account.
           Please contact customer service &lt;
-          <a
-            class="color-main"
-            href="mailto:support@melaxtech.com"
-          >support@melaxtech.com</a>
+          <a class="color-main" href="mailto:support@melaxtech.com"
+            >support@melaxtech.com</a
+          >
           &gt; to help restore access to your account.
         </div>
       </section>
@@ -283,7 +284,26 @@ export default {
               .then(res => {
                 if (res.code === 200) {
                   this.loading = false
-                  this.$message.success('Please check your email.')
+                  this.$alert(
+                    `
+        <div class="w100 tc">
+        <svg class="icon f60" aria-hidden="true">
+                    <use xlink:href="#icon-youjian1" />
+                  </svg>
+        </div>
+        <div class="w100 mt-15 mb-15">
+        <strong>Email verification succeeded, please check your email.</strong>
+        </div>
+        `,
+                    {
+                      center: true,
+                      showClose: false,
+                      closeOnClickModal: false,
+                      showConfirmButton: false,
+                      dangerouslyUseHTMLString: true,
+                      customClass: 'show-email-info'
+                    }
+                  )
                 }
               })
               .catch(() => {
@@ -346,10 +366,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .forget-header-title {
   background: #8da5c2;
   color: white;
+}
+.show-email-info {
+  width: 300px;
 }
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */

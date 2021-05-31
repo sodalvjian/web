@@ -26,17 +26,22 @@
             class="bd-1"
             style="width: 100%"
           >
+            <no-data-table slot="empty"></no-data-table>
             <el-table-column
               prop="invoiceDate"
               label="Invoice Date"
               width="180"
             >
             </el-table-column>
-            <el-table-column label="Invoice ID" width="100">
+            <el-table-column label="Invoice ID" width="150">
               <template slot-scope="scope">
-                <el-button type="text" @click="openInvoice(scope.row)">{{
-                  scope.row.invoiceID
-                }}</el-button>
+                <el-button
+                  type="text"
+                  style="text-decoration: underline;"
+                  class="color-light-blue"
+                  @click="openInvoice(scope.row)"
+                  >{{ scope.row.invoiceID }}</el-button
+                >
               </template>
             </el-table-column>
             <el-table-column prop="type" label="Type" width="100">
@@ -49,9 +54,11 @@
             </el-table-column>
             <el-table-column prop="actions" label="Actions" width="180">
               <template>
-                <el-button size="medium" class="color-red" type="text"
-                  >Contact us</el-button
-                >
+                <router-link to="/user/personalInfo">
+                  <el-button size="medium" class="color-red" type="text"
+                    >Update payment</el-button
+                  >
+                </router-link>
               </template>
             </el-table-column>
           </el-table>
@@ -60,8 +67,8 @@
           <el-row class="w">
             <el-col :span="6">
               <strong class="color-black f15"
-                >Order and Payment History </strong
-              >
+                >Order and Payment History
+              </strong>
             </el-col>
             <el-col :span="18" align="right">
               <el-date-picker
@@ -107,6 +114,7 @@
             style="width: 100%"
             @selection-change="handleSelectionChange"
           >
+            <no-data-table slot="empty"></no-data-table>
             <el-table-column align="center" type="selection" fixed width="45">
             </el-table-column>
             <el-table-column
@@ -125,9 +133,13 @@
               min-width="280"
             >
               <template slot-scope="scope">
-                <el-button type="text" @click="openInvoice(scope.row)">{{
-                  scope.row.invoiceID
-                }}</el-button>
+                <el-button
+                  type="text"
+                  style="text-decoration: underline;"
+                  class="color-light-blue"
+                  @click="openInvoice(scope.row)"
+                  >{{ scope.row.invoiceID }}</el-button
+                >
               </template>
             </el-table-column>
             <el-table-column

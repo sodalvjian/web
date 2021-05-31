@@ -1,9 +1,9 @@
 <template>
-  <div class="tc color-hui mt-35 mb-25">
+  <div class="mb-40 tc color-hui mt-35">
     <div class="no-data-table">
-      <img src="../../assets/img/no-data_table.png" alt="">
+      <img class="mt-15" src="../../assets/img/no-data_table.png" alt="">
     </div>
-    <div class="fb">No data</div>
+    <div>No data</div>
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .no-data-table {
-  height: 180px;
+  height: 160px;
   img {
     width: 200px;
     opacity: .7;

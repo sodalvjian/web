@@ -10,41 +10,23 @@
         >
           <no-data-table slot="empty"></no-data-table>
           <el-table-column
-            prop="aliasPipeline"
-            align="center"
-            label="Pipeline"
-            min-width="180"
-          >
-          </el-table-column>
-          <el-table-column prop="type" align="center" label="Type" width="100">
-          </el-table-column>
-
-          <el-table-column
-            prop="amount"
-            align="center"
-            label="Amount"
-            min-width="180"
-          >
-            <template slot-scope="scope"> $ {{ scope.row.amount }} </template>
-          </el-table-column>
-        </el-table>
-        <el-table
-          v-if="tableCouponData.length > 0"
-          v-loading="tableLoading"
-          :data="tableCouponData"
-          border
-          class="mt-20"
-          style="width: 100%"
-        >
-          <no-data-table slot="empty"></no-data-table>
-          <el-table-column
             prop="name"
             align="center"
             label="Pipeline"
             min-width="180"
           >
+            <template slot-scope="scope">
+              <span :class="scope.row.type === 'COUPON' ? 'color-red' : ''">
+                {{ scope.row.name | emptyShow }}
+              </span>
+            </template>
           </el-table-column>
           <el-table-column prop="type" align="center" label="Type" width="100">
+            <template slot-scope="scope">
+              <span :class="scope.row.type === 'COUPON' ? 'color-red' : ''">
+                {{ scope.row.type }}
+              </span>
+            </template>
           </el-table-column>
 
           <el-table-column
@@ -53,7 +35,16 @@
             label="Amount"
             min-width="180"
           >
-            <template slot-scope="scope"> $ {{ scope.row.amount }} </template>
+            <template slot-scope="scope">
+              <span :class="scope.row.type === 'COUPON' ? 'color-red' : ''">
+                $
+                {{
+                  scope.row.type === 'COUPON'
+                    ? `- ${scope.row.amount}`
+                    : scope.row.amount
+                }}
+              </span>
+            </template>
           </el-table-column>
         </el-table>
       </section>
@@ -98,15 +89,15 @@ export default {
         const resultData = []
         const couponData = []
 
-        res.data.map(item => {
-          if (item.type === 'COUPON') {
-            couponData.push(item)
-          } else {
-            resultData.push(item)
-          }
-        })
-        this.tableData = resultData
-        this.tableCouponData = couponData
+        // res.data.map(item => {
+        //   if (item.type === 'COUPON') {
+        //     couponData.push(item)
+        //   } else {
+        //     resultData.push(item)
+        //   }
+        // })
+        this.tableData = res.data
+        // this.tableCouponData = couponData
       })
     }
   }

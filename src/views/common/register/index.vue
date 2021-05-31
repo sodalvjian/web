@@ -1,140 +1,147 @@
 <template>
-  <div class="register-container">
-    <div class="register-content">
-      <div class="register-content-left p30"></div>
-      <div class="register-content-right">
-        <el-form
-          ref="formData"
-          :model="formData"
-          class="register-form"
-          align="left"
-          auto-complete="on"
-          label-position="left"
-        >
-          <div class="title-container">
-            <nav class="title">Create a Mercury NLP account</nav>
-          </div>
-
-          <el-form-item
-            prop="email"
-            :rules="[
-              {
-                validator: validateEmail,
-
-                trigger: ['blur', 'change']
-              }
-            ]"
+  <div class="login-container pr">
+    <div class="login-content pr">
+      <img class="mt-20 top-icon" src="../../../assets/img/Group.png" alt="" />
+      <img class="mt-20 bottom-icon" src="../../../assets/img/bac.png" alt="" />
+      <el-row>
+        <el-col :span="10">
+          <el-form
+            ref="formData"
+            :model="formData"
+            class="login-form"
+            align="left"
+            auto-complete="on"
+            label-position="left"
           >
-            <el-input
-              ref="email"
-              v-model="formData.email"
-              placeholder="Email address"
-              name="email"
-              type="text"
-            />
-          </el-form-item>
-          <!-- <el-form-item prop="verificationCode">
-            <el-row :gutter="20">
-              <el-col :span="8">
-                <el-button
-                  :disabled="getCodeDisable"
-                  :loading="btnLoading"
-                  type="danger"
-                  class="w"
-                  @click="getCode"
-                  >{{ getCodeText }}</el-button
+            <div>
+              <router-link to="/">
+                <img
+                  width="200px"
+                  src="../../../assets/img/logo_color.png"
+                  alt=""
+                />
+              </router-link>
+            </div>
+            <div class="mt-40 title-container">
+              <nav class="title color-main fb f24">Welcome to Mercury NLP</nav>
+              <div class="mt-10 color-gray f13">
+                Fast,secure,cloud-based clinical NLP with high precision and
+                accuracy based on the award-winning CLAMP system from Melax
+                Technologies!
+              </div>
+              <h2 class="mt-30 color-main pr">
+                Sign up
+                <img
+                  class="nlp-img-icon"
+                  src="../../../assets/img/NLP.png"
+                  alt=""
+                />
+              </h2>
+            </div>
+
+            <el-form-item
+              prop="email"
+              label="Email address"
+              :rules="[
+                {
+                  required: true,
+                  validator: validateEmail,
+                  trigger: ['blur', 'change']
+                }
+              ]"
+            >
+              <el-input
+                ref="email"
+                v-model="formData.email"
+                placeholder="Email address"
+                name="email"
+                type="text"
+              />
+            </el-form-item>
+
+            <el-form-item
+              prop="password"
+              label="Password"
+              :rules="{
+                required: true,
+                validator: validatePass
+              }"
+            >
+              <el-input
+                v-model="formData.password"
+                placeholder="Password"
+                type="password"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+            <el-form-item
+              prop="checkPass"
+              class="mt-35"
+              :rules="{ validator: validateCheckPass }"
+            >
+              <el-input
+                v-model="formData.checkPass"
+                type="password"
+                placeholder="Confirm password"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+            <el-form-item
+              label="account name"
+              prop="accountName"
+              :rules="{ required: true, message: 'Please enter account' }"
+            >
+              <el-input
+                v-model="formData.accountName"
+                placeholder="Account name"
+                type="text"
+              />
+            </el-form-item>
+            <el-form-item prop="invitationCode" label="Invitation code">
+              <el-input
+                v-model="formData.invitationCode"
+                :maxlength="64"
+                placeholder="Invitation code"
+                type="text"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button
+                :loading="loading"
+                class="mt-25 btn-confirm"
+                type="primary"
+                style="width:100%;height:40px"
+                @click.native.prevent="handleRegister"
+                >Sign up</el-button
+              >
+            </el-form-item>
+            <el-row :gutter="10" class="mt-20 f12">
+              <el-col :offset="12" :span="12" align="right" class="color-main">
+                <span class="color-light-blue cp" @click="handleLogin"
+                  >Already have an account?</span
                 >
               </el-col>
-              <el-col :span="16">
-                <el-input
-                  v-model="formData.verificationCode"
-                  placeholder="Verification code case sensitive"
-                  type="text"
-                />
-              </el-col>
             </el-row>
-          </el-form-item> -->
 
-          <el-form-item
-            prop="password"
-            :rules="{
-              validator: validatePass
-            }"
-          >
-            <el-input
-              v-model="formData.password"
-              placeholder="Password"
-              type="password"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-          <el-form-item
-            prop="checkPass"
-            class="mt-35"
-            :rules="{ validator: validateCheckPass }"
-          >
-            <el-input
-              v-model="formData.checkPass"
-              type="password"
-              placeholder="Confirm password"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-          <el-form-item
-            prop="accountName"
-            :rules="{ required: true, message: 'Please enter account' }"
-          >
-            <el-input
-              v-model="formData.accountName"
-              placeholder="Account name"
-              type="text"
-            />
-          </el-form-item>
-          <el-form-item prop="invitationCode">
-            <el-input
-              v-model="formData.invitationCode"
-              :maxlength="64"
-              placeholder="Invitation code"
-              type="text"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              :loading="loading"
-              class="mt-25"
-              type="primary"
-              style="width:100%;height:40px"
-              @click.native.prevent="handleRegister"
-            >Sign up</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              plain
-              type="primary"
-              class="w"
-              @click="handleLogin"
-            >Sign in to an exiting account</el-button>
-          </el-form-item>
-          <el-row :gutter="10" class="f12 register-content-right-footer">
-            <!-- <el-col :span="12" class="color-main" align="left">
-              Forget password
-            </el-col> -->
-            <el-col :span="24" align="right" class="color-main">
-              <span class=" cp" @click="openPrivacyPolicy">Privacy Policy</span>
-            </el-col>
-          </el-row>
-        </el-form>
-        <!-- <footer class="register-content-right-footer tc f12">
-          <u>Privacy Policy</u>
-        </footer> -->
-      </div>
+            <div class="mt-50 f12 color-gray">
+              If you click authorize, you will agree and authorize
+              <span class="color-light-blue cp" @click="openPrivacyPolicy"
+                >Privacy Policy</span
+              >
+            </div>
+          </el-form>
+        </el-col>
+        <el-col :span="14" align="right" class="pl-20">
+          <img
+            width="95%"
+            class="login-right-register-img"
+            src="../../../assets/img/login_right.jpg"
+            alt=""
+          />
+        </el-col>
+      </el-row>
     </div>
 
-    <!-- register-left -->
-    <div class="register-left"></div>
-    <!-- register-right -->
-    <div class="register-right"></div>
-    <!-- Privacy Policy -->
     <privacy-policy ref="privacyPolicy" />
   </div>
 </template>
@@ -299,153 +306,5 @@ export default {
 </script>
 
 <style lang="scss">
-/* 修复input 背景不协调 和光标变色 */
-/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
-
-$bg: #283443;
-$light_gray: #757575;
-$cursor: #757575;
-
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .register-container .el-input input {
-    color: $cursor;
-  }
-}
-
-/* reset element-ui css */
-.register-container {
-  text-align: center;
-  .register-left {
-    background-image: url('../../../assets/img/login_left.png');
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    background-size: 100%;
-    bottom: 0;
-  }
-  .register-right {
-    background-image: url('../../../assets/img/login_right.png');
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    background-size: 100%;
-    right: 0;
-    bottom: 0;
-  }
-  .register-content {
-    width: 80%;
-    max-width: 900px;
-    position: relative;
-    z-index: 9;
-    top: 10%;
-    transform: translateY(-50%);
-    left: 50%;
-    transform: translateX(-50%);
-
-    .register-content-left {
-      float: left;
-      width: 40%;
-      height: 500px;
-      background-size: 100%;
-      box-shadow: 0 0 20px #0000001c;
-      background-image: url('../../../assets/img/login_content.jpg');
-    }
-    .register-content-right {
-      float: left;
-      height: 680px;
-      margin-top: -55px;
-      position: relative;
-      width: 60%;
-      background-color: #ffffff;
-      box-shadow: 0 0 20px #0000001c;
-      .register-form {
-        padding: 0 65px;
-      }
-      .register-content-right-footer {
-        margin-top: -10px;
-      }
-    }
-  }
-  .el-input {
-    display: inline-block;
-    // height: 40px;
-    // width: 85%;
-
-    input {
-      // background: transparent;
-      // border: 0px;
-      // -webkit-appearance: none;
-      // border-radius: 10px;
-      // padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 40px;
-      caret-color: $cursor;
-
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px #efefef inset !important;
-      }
-    }
-  }
-
-  // .el-form-item {
-  //   border: 1px solid rgba(255, 255, 255, 0.1);
-  //   background: #efefef;
-  //   border-radius: 50px;
-  //   color: #454545;
-  // }
-}
-</style>
-
-<style lang="scss" scoped>
-$bg: #f5f5f5;
-$dark_gray: #333333;
-$light_gray: #333333;
-
-.register-container {
-  height: 100%;
-  width: 100%;
-  background-color: $bg;
-  background-size: 100%;
-
-  .tips {
-    font-size: 14px;
-    color: #3a3a3a;
-    margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
-    }
-  }
-
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: $dark_gray;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
-  }
-
-  .title-container {
-    position: relative;
-
-    .title {
-      font-size: 26px;
-      color: $light_gray;
-      margin: 40px auto 40px auto;
-      text-align: center;
-    }
-  }
-
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    font-size: 16px;
-    color: $dark_gray;
-    cursor: pointer;
-    user-select: none;
-  }
-}
+@import '@/styles/login-register.scss';
 </style>

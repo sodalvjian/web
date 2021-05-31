@@ -197,7 +197,7 @@
                   <el-tooltip
                     class="item"
                     effect="dark"
-                    content="Verity again"
+                    content="Verify again"
                     placement="top"
                   >
                     <el-button
@@ -634,7 +634,7 @@ export default {
               })
           } else {
             this.$message.warning(
-              this.messageData || 'Please verity the input data.'
+              this.messageData || 'Please verify the input data.'
             )
           }
 
