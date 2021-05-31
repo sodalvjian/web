@@ -1,6 +1,6 @@
 <template>
   <div class="forget-password-container">
-    <div class="register-content bg-color-white">
+    <div class="shadow register-content bg-color-white">
       <header class="tl cb p20">
         <a href="/"
           ><img
@@ -130,16 +130,10 @@
         </div>
       </section>
     </div>
-
-    <!-- register-left -->
-    <div class="register-left"></div>
-    <!-- register-right -->
-    <div class="register-right"></div>
   </div>
 </template>
 
 <script>
-// import { validUsername } from '@/utils/validate'
 import {
   GetCode,
   SendVerification,
@@ -150,13 +144,6 @@ import { passwordReg, passwordMsg } from '@/utils/method'
 export default {
   name: 'Login',
   data() {
-    // const validateUsername = (rule, value, callback) => {
-    //   if (!validUsername(value)) {
-    //     callback(new Error('Please enter the correct user name'))
-    //   } else {
-    //     callback()
-    //   }
-    // }
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('Please enter the password'))
@@ -402,8 +389,7 @@ $cursor: #757575;
     bottom: 0;
   }
   .register-content {
-    width: 80%;
-    max-width: 900px;
+    width: 500px;
     z-index: 9;
     margin: 5% auto;
 
@@ -469,7 +455,7 @@ $light_gray: #333333;
 .forget-password-container {
   height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-color: #fff;
   background-size: 100%;
   overflow: hidden;
 

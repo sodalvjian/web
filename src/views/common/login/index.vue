@@ -75,7 +75,7 @@
             <el-form-item>
               <el-button
                 :loading="loading"
-                class="mt-25 btn-confirm"
+                class="mt-25"
                 type="primary"
                 style="width:100%;height:40px"
                 @click.native.prevent="handleLogin"
