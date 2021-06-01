@@ -1,134 +1,154 @@
 <template>
   <div class="forget-password-container">
-    <div class="shadow register-content bg-color-white">
-      <header class="tl cb p20">
-        <a href="/"
-          ><img
-            src="@/assets/img/logo_color.png"
-            class="fl"
-            width="200px"
-            alt=""
-        /></a>
-        <div class="ml-20 fl f18">
-          <span> | &nbsp; &nbsp;</span> <strong>Password Reset</strong>
+    <div class="forget-content">
+      <header class="tl cb">
+        <div class="fl">
+          <img width="90px" src="../../../assets/img/Group.png" alt="" />
         </div>
+        <a href="/" class="mt-20 ml-20 fl"
+          ><img src="@/assets/img/logo_color.png" width="200px" alt=""
+        /></a>
       </header>
-      <nav class="f18 forget-header-title p20 fb">
-        <span v-if="step === 1">Request Password Reset</span>
-        <span v-if="step === 2">E-mail verification</span>
-        <span v-if="step === 3">Password Reset</span>
-      </nav>
-      <section class="w60 bc pb-70">
-        <nav class="mt-50 f15 lh1-5">
-          <span v-if="step === 1">
-            Please enter the email address associated with your account.</span
-          >
-          <span v-if="step === 2">
-            If you no longer use the email address associated with your account.
-            Please contact customer service
-            <a href="mailto:support@melaxtech.com">support@melaxtech.com</a>
-            to help restore access to your account.
-          </span>
-          <span v-if="step === 3">
-            Please set a new password. It is recommended to use a combination of
-            numbers, letters and characters to improve the password security.
-          </span>
-        </nav>
-        <el-form
-          ref="formData"
-          :model="formData"
-          class="register-form mt-50"
-          auto-complete="on"
-          align="left"
-          label-position="left"
-          @submit.native.prevent
-        >
-          <el-form-item
-            v-if="step === 1"
-            prop="email"
-            :rules="[
-              { required: true, message: 'Please enter email.' },
-              {
-                type: 'email',
-                message: 'Please enter the correct email address',
-                trigger: ['blur', 'change']
-              }
-            ]"
-          >
-            <el-input
-              ref="email"
-              v-model="formData.email"
-              placeholder="Email address"
-              name="email"
-              type="text"
-              @keyup.enter.native="handleNext"
-            />
-          </el-form-item>
-          <el-form-item
-            v-if="step === 2"
-            prop="verificationCode"
-            :rules="[
-              { required: true, message: 'Please enter verification code.' }
-            ]"
-          >
-            <el-row :gutter="20">
-              <el-col :span="24">
+      <div class="register-content p30 bg-color-white">
+        <section v-if="step === 2" class="tc p30">
+          <div class="f24">Message sent</div>
+          <div class="mt-20 f13 p20 lh1-5">
+            Email has been sent to your email
+            <span class="color-light-blue">{{ formData.email }}</span><br> Check the
+            mail
+          </div>
+          <div class="mt-40 w p15 color-white bg-color-main">
+            Message sent <i class="el-icon-check"></i>
+          </div>
+          <div class="mt-40 color-light-blue cp tc f13">
+            <router-link to="/">Back to login</router-link>
+          </div>
+        </section>
+        <section v-else>
+          <nav class="f22 forget-header-title fb color-main">
+            <span v-if="step === 1">Request Password Reset</span>
+            <span v-if="step === 3">Password Reset</span>
+          </nav>
+          <section class="pb-30">
+            <nav class="mt-20 f13 color-gray">
+              <span v-if="step === 1">
+                Please enter the email address associated with your
+                account.</span
+              >
+              <span v-if="step === 2">
+                If you no longer use the email address associated with your
+                account. Please contact customer service
+                <a href="mailto:mercurynlp@melaxtech.com"
+                  >mercurynlp@melaxtech.com</a
+                >
+                to help restore access to your account.
+              </span>
+              <span v-if="step === 3">
+                Please set a new password. It is recommended to use a
+                combination of numbers, letters and characters to improve the
+                password security.
+              </span>
+            </nav>
+            <el-form
+              ref="formData"
+              :model="formData"
+              class="register-form mt-50"
+              auto-complete="on"
+              align="left"
+              label-position="left"
+              @submit.native.prevent
+            >
+              <el-form-item
+                v-if="step === 1"
+                prop="email"
+                :rules="[
+                  { required: true, message: 'Please enter email.' },
+                  {
+                    type: 'email',
+                    message: 'Please enter the correct email address',
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
                 <el-input
-                  v-model="formData.verificationCode"
-                  placeholder="Verification code case sensitive"
+                  ref="email"
+                  v-model="formData.email"
+                  placeholder="Email address"
+                  name="email"
                   type="text"
                   @keyup.enter.native="handleNext"
                 />
-              </el-col>
-            </el-row>
-          </el-form-item>
-          <el-form-item
-            v-if="step === 3"
-            prop="password"
-            :rules="{ validator: validatePass }"
-          >
-            <el-input
-              v-model="formData.password"
-              placeholder="Password"
-              type="password"
-              autocomplete="off"
-              @keyup.enter.native="handleNext"
-            ></el-input>
-          </el-form-item>
-          <el-form-item
-            v-if="step === 3"
-            class="mt-35"
-            prop="checkPass"
-            :rules="{ validator: validateCheckPass }"
-          >
-            <el-input
-              v-model="formData.checkPass"
-              type="password"
-              placeholder="Confirm password"
-              autocomplete="off"
-              @keyup.enter.native="handleNext"
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              :loading="loading"
-              class="mt-5"
-              type="primary"
-              style="width:100%;height:40px"
-              @click.native.prevent="handleNext"
-              >{{ step === 3 ? 'Confirm' : 'Next' }}</el-button
+              </el-form-item>
+              <el-form-item
+                v-if="step === 2"
+                prop="verificationCode"
+                :rules="[
+                  { required: true, message: 'Please enter verification code.' }
+                ]"
+              >
+                <el-row :gutter="20">
+                  <el-col :span="24">
+                    <el-input
+                      v-model="formData.verificationCode"
+                      placeholder="Verification code case sensitive"
+                      type="text"
+                      @keyup.enter.native="handleNext"
+                    />
+                  </el-col>
+                </el-row>
+              </el-form-item>
+              <el-form-item
+                v-if="step === 3"
+                prop="password"
+                :rules="{ validator: validatePass }"
+              >
+                <el-input
+                  v-model="formData.password"
+                  placeholder="Password"
+                  type="password"
+                  autocomplete="off"
+                  @keyup.enter.native="handleNext"
+                ></el-input>
+              </el-form-item>
+              <el-form-item
+                v-if="step === 3"
+                class="mt-35"
+                prop="checkPass"
+                :rules="{ validator: validateCheckPass }"
+              >
+                <el-input
+                  v-model="formData.checkPass"
+                  type="password"
+                  placeholder="Confirm password"
+                  autocomplete="off"
+                  @keyup.enter.native="handleNext"
+                ></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button
+                  :loading="loading"
+                  class="mt-5"
+                  type="primary"
+                  style="width:100%;height:40px"
+                  @click.native.prevent="handleNext"
+                  >{{ step === 3 ? 'Confirm' : 'Next' }}</el-button
+                >
+              </el-form-item></el-form
             >
-          </el-form-item></el-form
-        >
-        <div v-if="step === 1" class="f13 mt-50 lh2">
-          If you no longer use the email address associated with your account.
-          Please contact customer service &lt;
-          <a class="color-main" href="mailto:support@melaxtech.com"
-            >support@melaxtech.com</a
-          >
-          &gt; to help restore access to your account.
-        </div>
-      </section>
+            <div class="color-light-blue cp tc f13">
+              <router-link to="/">Back to login</router-link>
+            </div>
+            <div v-if="step === 1" class="f13 mt-50 color-gray lh1-5">
+              If you no longer use the email address associated with your
+              account. Please contact customer service &lt;
+              <a class="color-light-blue" href="mailto:mercurynlp@melaxtech.com"
+                >mercurynlp@melaxtech.com</a
+              >
+              &gt; to help restore access to your account.
+            </div>
+          </section>
+        </section>
+      </div>
     </div>
   </div>
 </template>
@@ -271,26 +291,7 @@ export default {
               .then(res => {
                 if (res.code === 200) {
                   this.loading = false
-                  this.$alert(
-                    `
-        <div class="w100 tc">
-        <svg class="icon f60" aria-hidden="true">
-                    <use xlink:href="#icon-youjian1" />
-                  </svg>
-        </div>
-        <div class="w100 mt-15 mb-15">
-        <strong>Email verification succeeded, please check your email.</strong>
-        </div>
-        `,
-                    {
-                      center: true,
-                      showClose: false,
-                      closeOnClickModal: false,
-                      showConfirmButton: false,
-                      dangerouslyUseHTMLString: true,
-                      customClass: 'show-email-info'
-                    }
-                  )
+                  this.step = 2
                 }
               })
               .catch(() => {
@@ -354,10 +355,6 @@ export default {
 </script>
 
 <style lang="scss">
-.forget-header-title {
-  background: #8da5c2;
-  color: white;
-}
 .show-email-info {
   width: 300px;
 }
@@ -370,51 +367,20 @@ $cursor: #757575;
 
 /* reset element-ui css */
 .forget-password-container {
-  text-align: center;
-  .register-left {
-    background-image: url('../../../assets/img/login_left.png');
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    background-size: 100%;
-    bottom: 0;
-  }
-  .register-right {
-    background-image: url('../../../assets/img/login_right.png');
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    background-size: 100%;
-    right: 0;
-    bottom: 0;
+  .forget-content {
+    width: 1024px;
+    margin: 0 auto;
+    header {
+      margin-left: -120px;
+    }
   }
   .register-content {
     width: 500px;
     z-index: 9;
-    margin: 5% auto;
-
-    .register-content-left {
-      float: left;
-      width: 40%;
-      height: 500px;
-      background-size: 100%;
-      box-shadow: 0 0 20px #0000001c;
-      background-image: url('../../../assets/img/login_content.jpg');
-    }
-    .register-content-right {
-      float: left;
-      height: 615px;
-      margin-top: -55px;
-      position: relative;
-      width: 60%;
-      background-color: #ffffff;
-      box-shadow: 0 0 20px #0000001c;
-      .register-form {
-        padding: 0 65px;
-      }
-      .register-content-right-footer {
-        margin-top: -10px;
-      }
+    margin: 20px auto;
+    box-shadow: 0px 0px 39px 0px #155dee0f;
+    .el-input__inner {
+      border: 1px solid #e4e4e4;
     }
   }
   .el-input {

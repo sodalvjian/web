@@ -245,6 +245,9 @@ export default {
       immediate: true
     }
   },
+  mounted() {
+    this.$refs.privacyPolicy.openDialog()
+  },
   methods: {
     openPrivacyPolicy() {
       this.$refs.privacyPolicy.openDialog()

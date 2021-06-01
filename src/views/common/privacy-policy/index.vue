@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Privacy Policy" :visible.sync="dialogVisible" width="30%">
+  <el-dialog title="Privacy Policy" :visible.sync="dialogVisible" width="40%">
     <p>This is Privacy Policy</p>
   </el-dialog>
 </template>
