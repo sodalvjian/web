@@ -87,9 +87,9 @@
               ></el-input>
             </el-form-item>
             <el-form-item
-              label="account name"
+              label="Account name"
               prop="accountName"
-              :rules="{ required: true, message: 'Please enter account' }"
+              :rules="{ required: true, message: 'Please enter account name' }"
             >
               <el-input
                 v-model="formData.accountName"
@@ -101,9 +101,12 @@
               <el-input
                 v-model="formData.invitationCode"
                 :maxlength="64"
-                placeholder="Invitation code"
+                placeholder="Invitation code ( optional )"
                 type="text"
               />
+            </el-form-item>
+            <el-form-item prop="invitationCode" label="">
+              <el-checkbox v-model="checked">Agreen Privacy Policy</el-checkbox>
             </el-form-item>
             <el-form-item>
               <el-button
@@ -116,19 +119,18 @@
               >
             </el-form-item>
             <el-row :gutter="10" class="mt-20 f12">
-              <el-col :offset="12" :span="12" align="right" class="color-main">
+              <el-col :span="12" align="left" class="color-main">
+                <span class="color-light-blue cp" @click="openPrivacyPolicy"
+                  >Privacy Policy</span
+                >
+              </el-col>
+
+              <el-col :span="12" align="right" class="color-main">
                 <span class="color-light-blue cp" @click="handleLogin"
                   >Already have an account?</span
                 >
               </el-col>
             </el-row>
-
-            <div class="mt-50 f12 color-gray">
-              If you click authorize, you will agree and authorize
-              <span class="color-light-blue cp" @click="openPrivacyPolicy"
-                >Privacy Policy</span
-              >
-            </div>
           </el-form>
         </el-col>
         <el-col :span="14" align="right" class="pl-20">
@@ -217,6 +219,7 @@ export default {
         checkPass: '',
         verificationCode: ''
       },
+      checked: false,
       loginRules: {
         username: [
           // { required: true, trigger: 'blur', validator: validateUsername }
@@ -243,11 +246,14 @@ export default {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
+    },
+    checked(val) {
+      if (val) {
+        this.$refs.privacyPolicy.openDialog()
+      }
     }
   },
-  mounted() {
-    this.$refs.privacyPolicy.openDialog()
-  },
+  mounted() {},
   methods: {
     openPrivacyPolicy() {
       this.$refs.privacyPolicy.openDialog()
@@ -268,10 +274,15 @@ export default {
     handleRegister() {
       this.$refs.formData.validate(valid => {
         if (valid) {
+          if (!this.checked) {
+            this.$message.warning('Please agreen the Privacy Policy.')
+            return
+          }
           this.loading = true
           const params = Object.assign(this.formData)
           console.log('params', params)
           delete params.checkPass
+
           RegisterAccount(params)
             .then(res => {
               // this.$router.push('/')

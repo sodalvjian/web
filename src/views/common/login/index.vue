@@ -39,10 +39,7 @@
               </h2>
             </div>
 
-            <el-form-item
-              prop="username"
-              label="Email address or accountt name"
-            >
+            <el-form-item prop="username" label="Email address or account name">
               <el-input
                 ref="username"
                 v-model="loginForm.username"
@@ -79,24 +76,25 @@
                 type="primary"
                 style="width:100%;height:40px"
                 @click.native.prevent="handleLogin"
-                >Sign in</el-button
-              >
+              >Sign in</el-button>
             </el-form-item>
             <el-row :gutter="10" class="mt-20 f12">
               <el-col :span="12" class="color-light-blue" align="left">
                 <router-link to="/forgetPassword">Forget password</router-link>
               </el-col>
               <el-col :span="12" align="right">
-                <span class="color-light-blue cp" @click="handleRegister"
-                  >Create a new account</span
-                >
+                <span
+                  class="color-light-blue cp"
+                  @click="handleRegister"
+                >Create a new account</span>
               </el-col>
             </el-row>
             <div class=" f12 color-gray bottom-privacy">
               If you click authorize, you will agree and authorize
-              <span class="color-light-blue cp" @click="openPrivacyPolicy"
-                >Privacy Policy</span
-              >
+              <span
+                class="color-light-blue cp"
+                @click="openPrivacyPolicy"
+              >Privacy Policy</span>
             </div>
           </el-form>
         </el-col>
@@ -147,7 +145,11 @@ export default {
       loginRules: {
         username: [
           // { required: true, trigger: 'blur', validator: validateUsername }
-          { required: true, trigger: 'blur' }
+          {
+            required: true,
+            trigger: 'blur',
+            message: 'Please enter account name'
+          }
         ],
         password: [
           { required: true, trigger: 'blur', validator: validatePassword }

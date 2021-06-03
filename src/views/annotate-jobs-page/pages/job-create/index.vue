@@ -391,7 +391,7 @@ export default {
       btnOutputLoading: false,
       needAuthor: false,
       projectNameRules: [
-        { required: true },
+        { required: true, message: 'Job name is required' },
         { validator: validateProjectName }
       ],
       s3Rules: [{ required: true }, { validator: validateS3 }],
@@ -546,9 +546,7 @@ export default {
           this.inRegionLabel = inRegionLabel.label
           this.outRegion = outRegion
           const outRegionLabel = s3List.find(item => outRegion === item.value)
-          this.outRegionName = `${outRegionLabel.label}(${
-            outRegionLabel.value
-          })`
+          this.outRegionName = `${outRegionLabel.label}(${outRegionLabel.value})`
           this.outRegionLabel = outRegionLabel.label
           if (encryption) {
             if (encryption === 'AES-256') {

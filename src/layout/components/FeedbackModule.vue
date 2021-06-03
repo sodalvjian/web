@@ -28,7 +28,7 @@
               type="warning"
               class="mt-20 feedback-alert"
               :closable="false"
-              description="The content will be sent to our team, please do not send HPI or
+              description="The content will be sent to our team, please do not send PHI or
               other sensitive information…"
               show-icon
             >
@@ -62,6 +62,7 @@
               ref="upload"
               :action="`https://${s3Data.bucket}.s3.amazonaws.com`"
               list-type="picture-card"
+              accept=".png,.jpg,.jepg,.bmp,.git"
               :data="s3Data"
               :auto-upload="false"
               :multiple="false"
