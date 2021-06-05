@@ -17,7 +17,7 @@
             class="p20 bill-top-content has-border"
           >
             <strong class="color-main f15 tl"> Month-to-Date Spend</strong>
-            <el-row :gutter="10" class="mt-20">
+            <el-row :gutter="10" class="mt-25">
               <!-- <el-col :span="8">
                 <el-col :span="9" align="center">
                   <svg class="icon f60" aria-hidden="true">
@@ -89,7 +89,7 @@
                 :key="index"
                 :label="index + 1"
               >
-                <el-row :gutter="10" class="mt-50">
+                <el-row :gutter="10" class="mt-55">
                   <el-col :span="4" align="center">
                     <svg class="icon f60" aria-hidden="true">
                       <use xlink:href="#icon-1" />

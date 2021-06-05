@@ -28,7 +28,9 @@
               </span>
             </template>
           </el-table-column>
-
+          <el-table-column prop="count" align="center" label="Number of files" width="150">
+            
+          </el-table-column>
           <el-table-column
             prop="amount"
             align="center"
@@ -89,15 +91,17 @@ export default {
         const resultData = []
         const couponData = []
 
-        // res.data.map(item => {
-        //   if (item.type === 'COUPON') {
-        //     couponData.push(item)
-        //   } else {
-        //     resultData.push(item)
-        //   }
-        // })
-        this.tableData = res.data
-        // this.tableCouponData = couponData
+        res.data.map(item => {
+          if (item.type === 'COUPON') {
+            couponData.push(item)
+          } else {
+            resultData.push(item)
+          }
+        })
+        console.log('couponData', couponData)
+        const totalData = resultData.concat(couponData)
+        this.tableData = totalData
+        // // this.tableCouponData = couponData
       })
     }
   }

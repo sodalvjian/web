@@ -31,14 +31,14 @@
       />
     </section>
 
-    <entity-relation class="mt-30" ref="entityRelationref" />
+    <entity-relation class="mt-50" ref="entityRelationref" />
     <!-- General Settings dialog -->
     <el-dialog
       title="Select visible entities"
       center
       :visible.sync="dialogVisible"
       width="440px"
-      @close="closeDialog"
+      @closed="closeDialog"
     >
       <div class="mt-20 mb-30" style="padding:0 10px 0 30px">
         <el-row>
@@ -56,7 +56,7 @@
         </el-row>
 
         <el-scrollbar
-          class="visable-entities-container mt-5"
+          class="mt-5 visable-entities-container"
           style="height: 380px; overflow: visible; overflow-x: hidden"
         >
           <section>
