@@ -20,6 +20,6 @@ upload:
     # - docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}
     - docker run --rm  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_US -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_US -e AWS_REGION=$AWS_REGION   newbielj/melaxtechcloud:aws sh -c 'aws ecr get-login-password --region us-east-2 ' | docker login --username AWS --password-stdin $ECR_URL
     # - docker login -u ${MELAX_REPO_U} -p "${MELAX_REPO_PWD}" ${MELAX_REPO}
-    - docker build -t "newbielj/melax:mercury-web-$CI_COMMIT_REF_NAME"  .  && docker push newbielj/melax:mercury-web-$CI_COMMIT_REF_NAME
+    - docker build -t "$US_REPO:mercury-web-$CI_COMMIT_REF_NAME"  .  && docker push $US_REPO:mercury-web-$CI_COMMIT_REF_NAME
     - docker run --rm  -e EKS_CLUSTER=mercury-test -e AWS_REGION=${AWS_REGION} -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID_US} -e  AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY_US} newbielj/melaxtechcloud:aws   kc.sh -r app-web
 
