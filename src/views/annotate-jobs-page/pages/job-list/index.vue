@@ -3,7 +3,7 @@
     <nav class="vital-container cb bb-1">
       <el-row>
         <el-col :span="6">
-          <strong class="f16 color-main">
+          <strong class="f17 color-main">
             <!-- <hamburger
           v-if="router.indexOf('user') === -1"
           :is-active="sidebar.opened"
@@ -69,7 +69,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          width="240px"
+          min-width="200px"
           show-overflow-tooltip
           align="left"
           sortable="custom"
@@ -81,6 +81,36 @@
           </template>
         </el-table-column>
 
+        <el-table-column width="120px" label="Status">
+          <template slot-scope="scope">
+            {{
+              scope.row.reqStatus !== 'UNKNOWN' && scope.row.reqStatus
+                ? scope.row.reqStatus
+                : scope.row.status
+            }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          min-width="190px"
+          align="center"
+          sortable="custom"
+          label="Created Time"
+          prop="date"
+        >
+          <template slot-scope="scope">
+            <span>{{ scope.row.date | setHourDate }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          width="190px"
+          sortable="custom"
+          label="Updated Time"
+          prop="update"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.update | setHourDate }}
+          </template>
+        </el-table-column>
         <el-table-column width="250px" align="left">
           <template slot-scope="scope">
             <el-col
@@ -97,6 +127,7 @@
                 <span
                   v-if="
                     scope.row.status === 'STOPPED' ||
+                      scope.row.status === 'CANCELED' ||
                       scope.row.reqStatus === 'STOPPED' ||
                       scope.row.reqStatus === 'STOPPING'
                   "
@@ -150,36 +181,6 @@
                 ></i
               ></el-tooltip>
             </el-col>
-          </template>
-        </el-table-column>
-        <el-table-column width="120px" label="Status">
-          <template slot-scope="scope">
-            {{
-              scope.row.reqStatus !== 'UNKNOWN' && scope.row.reqStatus
-                ? scope.row.reqStatus
-                : scope.row.status
-            }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          width="190px"
-          align="center"
-          sortable="custom"
-          label="Created Time"
-          prop="date"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.date | setHourDate }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          width="190px"
-          sortable="custom"
-          label="Updated Time"
-          prop="update"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.update | setHourDate }}
           </template>
         </el-table-column>
 

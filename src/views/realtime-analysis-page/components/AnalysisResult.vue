@@ -3,7 +3,7 @@
     <nav>
       <el-row>
         <el-col :span="12">
-          <h3 class="color-main">Results</h3>
+          <div class="color-main mt-15 f16 fb">Results</div>
         </el-col>
         <el-col :span="12" align="right">
           <!-- <input

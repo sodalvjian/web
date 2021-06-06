@@ -11,7 +11,7 @@
             <select-pipeline
               v-model="formData.pipeline"
               style="width:400px"
-              class="mt-10"
+              class="mt-15"
               size="small"
               @get-complete-data="getCompleteData"
               @get-complete-options="getCompleteOptions"
@@ -20,7 +20,7 @@
         </el-row>
       </nav>
       <section class="mt-30">
-        <h3 class="color-main">Input text:</h3>
+        <div class="color-main mt-15 mb-15 f16 fb">Input text:</div>
         <el-input
           v-model="formData.text"
           type="textarea"

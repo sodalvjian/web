@@ -20,7 +20,8 @@ export const barOption = {
   },
   tooltip: {
     trigger: 'axis',
-    padding: 10
+    padding: 10,
+    formatter: '{b}<br/>$ {c}'
   },
   dataZoom: [
     {

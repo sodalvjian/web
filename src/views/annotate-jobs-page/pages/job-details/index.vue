@@ -1,14 +1,13 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="f17 color-main">
-        <router-link
-          to="/annotateJobs"
-          class="color-main f17"
-        ><i class="el-icon-arrow-left fb"></i>
-          <span class="color-hui">Batch Analysis</span></router-link>
-        <span class="ml-5 mr-5" >/</span> Job details
-      </strong>
+      <div class="f17 color-main">
+        <router-link to="/annotateJobs" class="color-main f17"
+          ><i class="el-icon-arrow-left fb"></i>
+          <span class="color-hui">Batch Analysis</span></router-link
+        >
+        <span class="ml-5 mr-5">/</span> Job details
+      </div>
       <div class="fr">
         <el-button
           class="shadow filter-item"
@@ -16,36 +15,36 @@
           size="mini"
           icon="el-icon-document-copy"
           @click="createJobAgain"
-        >Clone job</el-button>
+          >Clone job</el-button
+        >
       </div>
     </nav>
     <section v-loading="pageLoading" class="bg-color-gray mt-15 bd-1">
       <el-row :gutter="15" class="p20">
-        <el-col :span="6" align="left">
+        <el-col :span="7" align="left">
           Job Name: <strong> {{ detailData.name }}</strong>
         </el-col>
         <el-col :span="10" align="left">
           Pipeline:<strong> {{ detailData.pipeline }}</strong>
         </el-col>
-        <el-col :span="8" align="left">
+        <el-col :span="7" align="left">
           Job ID: <strong>{{ detailData.bizId }}</strong>
         </el-col>
       </el-row>
       <el-divider class="m-0"></el-divider>
       <el-row :gutter="15" class="p20">
-        <el-col :span="6" align="left">
+        <el-col :span="7" align="left">
           Created Time: <strong> {{ detailData.date | setHourDate }}</strong>
         </el-col>
         <el-col :span="10" align="left">
           <el-row :gutter="5">
-            <el-col :span="5" align="left">
-              Status:
-            </el-col>
-            <el-col :span="17">
-              <span class="pr-10">
+            <el-col :span="22">
+              <span style="width:55px" class="fl">Status:</span>
+              <span style="width: calc(100% - 70px);float: left;" class="pr-10">
                 <el-tooltip
                   v-if="
                     detailData.status === 'STOPPED' ||
+                      detailData.status === 'CANCELED' ||
                       detailData.reqStatus === 'STOPPED' ||
                       detailData.reqStatus === 'STOPPING'
                   "
@@ -58,7 +57,8 @@
                       detailData.subStatus === 'FAILED_TASK_LIMIT' ||
                         detailData.subStatus === 'FAILED_QUOTA_LIMIT'
                     "
-                  ><i class="el-icon-warning color-yellow f18"></i></span><span v-else>--</span>
+                    ><i class="el-icon-warning color-yellow f18"></i></span
+                  ><span v-else>--</span>
                 </el-tooltip>
 
                 <el-tooltip
@@ -76,7 +76,8 @@
                       class="w"
                       :stroke-width="8"
                       :percentage="setProcessData(detailData)"
-                    ></el-progress><i
+                    ></el-progress
+                    ><i
                       style="right:1%"
                       class="progress-running-icon el-icon-loading"
                     ></i>
@@ -89,8 +90,6 @@
                   :status="setStatus"
                 ></el-progress>
               </span>
-            </el-col>
-            <el-col :span="2">
               <el-tooltip
                 v-if="detailData.passFileCount"
                 placement="top"
@@ -99,13 +98,19 @@
                     detailData.passFileCount !== 1 ? 's' : ''
                   } exceeded the limit`
                 "
-              ><i class="el-icon-info f17 color-yellow"></i></el-tooltip>
+                ><i
+                  style="margin-left:-20px"
+                  class="el-icon-info f17 color-yellow"
+                ></i
+              ></el-tooltip>
             </el-col>
+            <el-col :span="2"> </el-col>
           </el-row>
         </el-col>
-        <el-col :span="8" align="left">
+        <el-col :span="7" align="left">
           Updated Time: <strong> {{ detailData.update | setHourDate }}</strong>
-        </el-col> </el-row><el-row :gutter="15" class="p20">
+        </el-col> </el-row
+      ><el-row :gutter="15" class="p20">
         <el-col :span="7" align="left">
           <el-card shadow="never" class="job-detail-count">
             <div class="f18">Ducuments</div>
@@ -129,29 +134,34 @@
         <el-col :span="24" class="tl">
           Input location:
           <strong class="job-detail-location"> {{ detailData.input }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.input"
-            v-clipboard:success="copySuccess"
-            class="ml-5 el-icon-document-copy cp color-light-blue"
-          ></i></span>
+          <span
+            ><i
+              v-clipboard:copy="detailData.input"
+              v-clipboard:success="copySuccess"
+              class="ml-5 el-icon-document-copy cp color-light-blue"
+            ></i
+          ></span>
         </el-col>
       </el-row>
       <el-row :gutter="15" class="p20">
         <el-col :span="24" class="tl">
           Output location:
           <strong class="job-detail-location"> {{ detailData.output }}</strong>
-          <span><i
-            v-clipboard:copy="detailData.output"
-            v-clipboard:success="copySuccess"
-            class="ml-5 el-icon-document-copy cp color-light-blue"
-          ></i></span>
+          <span
+            ><i
+              v-clipboard:copy="detailData.output"
+              v-clipboard:success="copySuccess"
+              class="ml-5 el-icon-document-copy cp color-light-blue"
+            ></i
+          ></span>
         </el-col>
       </el-row>
     </section>
     <div class="mt-20">
       Cost:
       <strong class="f20 color-light-blue">
-        <small> $</small> {{ costData }}</strong>
+        <small> $</small> {{ costData }}</strong
+      >
     </div>
     <!-- <section class="mt-40">
       <h3 class="mb-0">Application integration</h3>
@@ -271,10 +281,10 @@ export default {
         return this.detailData.processedErrCount > 0
           ? 'warning'
           : processNum
-            ? Math.round(processNum * 100) >= 100
-              ? 'success'
-              : ''
-            : 'exception'
+          ? Math.round(processNum * 100) >= 100
+            ? 'success'
+            : ''
+          : 'exception'
       }
     },
     setTooltipContent() {
