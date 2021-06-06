@@ -1,10 +1,13 @@
 <template>
   <div class="vital-container">
     <nav class="cb">
-      <strong class="mt-10 fl nav-title f16"
-        ><span class="color-gray"> Job details > </span>
-        <small>New job</small></strong
-      >
+      <div class="f17 color-main">
+        <router-link to="/annotateJobs" class="color-main f17"
+          ><i class="el-icon-arrow-left fb"></i>
+          <span class="color-hui">Batch Analysis</span></router-link
+        >
+        <span class="ml-5 mr-5">/</span> New job
+      </div>
     </nav>
     <el-form
       ref="formData"
@@ -546,7 +549,9 @@ export default {
           this.inRegionLabel = inRegionLabel.label
           this.outRegion = outRegion
           const outRegionLabel = s3List.find(item => outRegion === item.value)
-          this.outRegionName = `${outRegionLabel.label}(${outRegionLabel.value})`
+          this.outRegionName = `${outRegionLabel.label}(${
+            outRegionLabel.value
+          })`
           this.outRegionLabel = outRegionLabel.label
           if (encryption) {
             if (encryption === 'AES-256') {

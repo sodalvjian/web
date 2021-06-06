@@ -1,11 +1,11 @@
 <template>
   <div class="">
-    <section v-loading="pageLoading" class="bg-color-white p25 api-container">
+    <section v-loading="pageLoading" class="bg-color-white p20-25 api-container">
       <!-- <vue-markdown v-html="mercuryApi">
       </vue-markdown> -->
       <article style="padding-right:80px">
         <strong class="color-main f17">Mercury NLP APIs</strong>
-        <div>
+        <div class="mt-10">
           <strong>Api key:</strong> <small>{{ apiKey }}</small>
           <el-tooltip class="item" effect="dark" content="Copy" placement="top">
             <el-button
@@ -22,7 +22,7 @@
     <section class="bg-color-white p25 bt-10">
       <iframe
         width="100%"
-        style="height:60vh"
+        style="height:67vh"
         src="/static/api.html"
         frameborder="0"
       ></iframe>

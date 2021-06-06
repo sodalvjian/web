@@ -11,7 +11,7 @@
       ref="dialogForm"
       v-loading="pageLoading"
       :model="dialogForm"
-      class="tl mt-30"
+      class="tl mt-15"
       label-position="top"
       size="small"
       status-icon
@@ -45,27 +45,31 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="Default payment" prop="defaultPayment">
-            <el-switch
-              v-model="dialogForm.defaultPayment"
-              :active-value="1"
-              :inactive-value="0"
-            >
-            </el-switch>
           </el-form-item>
+        </el-col>
+        <el-col :span="12" align="right">
+          <el-switch
+            v-model="dialogForm.defaultPayment"
+            class="mt-5"
+            :active-value="1"
+            active-color="#409EFF"
+            :inactive-value="0"
+          >
+          </el-switch>
         </el-col>
       </el-row>
       <div class="mt-40 mb-20 tc">
-        <el-button
-          size="small"
-          @click="dialogVisible = false"
-        >Cancel</el-button>
+        <el-button size="small" @click="dialogVisible = false"
+          >Cancel</el-button
+        >
         <el-button
           size="small"
           :loading="btnLoading"
           class="button-shadow"
           type="primary"
           @click="submitForm('dialogForm')"
-        >Confirm</el-button>
+          >Confirm</el-button
+        >
       </div>
     </el-form>
   </el-dialog>
@@ -142,7 +146,7 @@ export default {
             this.btnLoading = false
           } else {
             console.log('result', result)
-            this.$message.success('Add card success.')
+            this.$message.success('Add card successfully.')
             this.complateCard(result.setupIntent)
           }
         })
