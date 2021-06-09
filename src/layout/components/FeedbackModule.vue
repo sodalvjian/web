@@ -28,8 +28,9 @@
               type="warning"
               class="mt-20 feedback-alert"
               :closable="false"
-              description="The content will be sent to our team, please do not send PHI or
-              other sensitive information…"
+              description="If you find any anomalies or problems, please feel free to send feedback to our team. Do not send PHI, confidential content, and sensitive information. Our team will continue to improve and update the product based on user feedback.
+
+However, we do not respond to questions reported on this page. If you need immediate technical assistance, send your question to: mercurynlp@melaxtech.com. We will respond within 2 business days. Thank you very much."
               show-icon
             >
             </el-alert>
@@ -39,7 +40,7 @@
             prop="qDesc"
             :rules="{
               required: true,
-              message: 'Please enter quertion description.'
+              message: 'Please use this space to describe your question.'
             }"
           >
             <el-input
@@ -49,20 +50,24 @@
               placeholder="Please describe your question here."
             ></el-input>
           </el-form-item>
-          <el-form-item label="Text">
+          <el-form-item
+            label="In this box, please insert the text that is not working as you expected."
+          >
             <el-input
               v-model="formData.tDesc"
               type="textarea"
               :rows="4"
-              placeholder="Please paste your text here (if any)."
+              placeholder="Example: During his hospitalization, the patient was seen initially as very depressed, withdrawn, some impulsive behavior observed, also oppositional behavior was displayed on the unit."
             ></el-input>
           </el-form-item>
-          <el-form-item label="Picture">
+          <el-form-item
+            label="Related screenshot less than 10MB (jpg/png/jpeg/bmp/pdf only)"
+          >
             <el-upload
               ref="upload"
               :action="`https://${s3Data.bucket}.s3.amazonaws.com`"
               list-type="picture-card"
-              accept=".png,.jpg,.jepg,.bmp,.git"
+              accept=".png,.jpg,.jepg,.bmp,.git.pdf"
               :data="s3Data"
               :auto-upload="false"
               :multiple="false"
@@ -101,7 +106,6 @@
 
 <script>
 import { UploadFile, UploadBind } from '@/api/user'
-import axios from 'axios'
 export default {
   name: '',
   components: {},
@@ -139,6 +143,16 @@ export default {
     onChange(file, fileList) {
       if (fileList.length - 1 === this.fileList.length) {
         console.log('文件', file)
+        if (file.size > 10 * 1024 * 1024) {
+          console.log('this.fileList', fileList)
+          this.$message.warning('The file is too large, please select again.')
+          fileList.map((item, index) => {
+            if (item.name === file.name) {
+              fileList.splice(index, 1)
+            }
+          })
+          return false
+        }
         console.log('fileList', fileList, this.fileList)
         const fileName = file.name
         const params = {
@@ -239,7 +253,8 @@ export default {
     margin-top: 0 !important;
   }
   i {
-    font-size: 21px !important;
+    font-size: 24px !important;
+    margin-right: 15px;
   }
 }
 .feedback-form-inline {

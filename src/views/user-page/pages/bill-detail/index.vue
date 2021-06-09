@@ -29,12 +29,12 @@
             </template>
           </el-table-column>
           <el-table-column prop="count" align="center" label="Number of files" width="150">
-            
+
           </el-table-column>
           <el-table-column
             prop="amount"
             align="center"
-            label="Amount"
+            label="Cost"
             min-width="180"
           >
             <template slot-scope="scope">
