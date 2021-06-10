@@ -188,7 +188,7 @@ export default {
     return {
       getCodeText: 'Get Code',
       getCodeDisable: false,
-      step: 2,
+      step: 1,
       btnLoading: false,
       codeCount: 30,
       validatePass,

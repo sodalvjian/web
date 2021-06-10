@@ -106,30 +106,36 @@
               />
             </el-form-item>
             <el-form-item prop="invitationCode" label="">
-              <el-checkbox v-model="checked" class="mr-5"></el-checkbox><span class="ml-10">User agreement</span>
+              <el-checkbox v-model="checked" class="mr-5"></el-checkbox
+              ><span
+                @click="$refs.userAgreement.openDialog()"
+                class="ml-10 cp"
+                style="text-decoration: underline;"
+                >User Agreement</span
+              >
             </el-form-item>
+
             <el-form-item>
+              <small>XXXXX</small>
               <el-button
                 :loading="loading"
-                class="mt-25"
                 type="primary"
                 style="width:100%;height:40px"
                 @click.native.prevent="handleRegister"
-              >Sign up</el-button>
+                >Sign up</el-button
+              >
             </el-form-item>
             <el-row :gutter="10" class="mt-20 f12">
               <el-col :span="12" align="left" class="color-main">
-                <span
-                  class="color-light-blue cp"
-                  @click="openPrivacyPolicy"
-                >Privacy Policy</span>
+                <span class="color-light-blue cp" @click="openPrivacyPolicy"
+                  >Privacy Policy</span
+                >
               </el-col>
 
               <el-col :span="12" align="right" class="color-main">
-                <span
-                  class="color-light-blue cp"
-                  @click="handleLogin"
-                >Already have an account?</span>
+                <span class="color-light-blue cp" @click="handleLogin"
+                  >Already have an account?</span
+                >
               </el-col>
             </el-row>
           </el-form>
@@ -139,19 +145,22 @@
     </div>
 
     <privacy-policy ref="privacyPolicy" />
+    <user-agreement ref="userAgreement" />
   </div>
 </template>
 
 <script>
 // import { validUsername } from '@/utils/validate'
 import PrivacyPolicy from '../privacy-policy'
+import UserAgreement from '../user-agreement'
 import { RegisterAccount } from '@/api/login-register'
 import { passwordReg, passwordMsg } from '@/utils/method'
 const mailReg = /^.+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
 export default {
   name: 'Login',
   components: {
-    PrivacyPolicy
+    PrivacyPolicy,
+    UserAgreement
   },
   data() {
     // const validateUsername = (rule, value, callback) => {
@@ -240,11 +249,6 @@ export default {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
-    },
-    checked(val) {
-      if (val) {
-        this.$refs.privacyPolicy.openDialog()
-      }
     }
   },
   mounted() {},
