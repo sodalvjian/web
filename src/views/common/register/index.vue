@@ -107,16 +107,19 @@
             </el-form-item>
             <el-form-item prop="invitationCode" label="">
               <el-checkbox v-model="checked" class="mr-5"></el-checkbox
-              ><span
-                @click="$refs.userAgreement.openDialog()"
-                class="ml-10 cp"
-                style="text-decoration: underline;"
-                >User Agreement</span
+              ><span class="ml-10"
+                >I have read and agree to the
+                <span
+                  class="cp"
+                  style="text-decoration: underline;"
+                  @click="$refs.userAgreement.openDialog()"
+                  >User Agreement</span
+                ></span
               >
             </el-form-item>
 
             <el-form-item>
-              <small>XXXXX</small>
+              <!-- <small>Please check the User Agreement</small> -->
               <el-button
                 :loading="loading"
                 type="primary"
@@ -140,7 +143,14 @@
             </el-row>
           </el-form>
         </el-col>
-        <el-col :span="14" align="right" class="pl-20 register-bg"> </el-col>
+        <el-col :span="14" align="right" class="pl-20">
+          <img
+            :style="registerRightStyle"
+            class="register-right"
+            src="../../../assets/img/login_right.jpg"
+            alt=""
+          />
+        </el-col>
       </el-row>
     </div>
 
@@ -214,6 +224,9 @@ export default {
       codeCount: 30,
       validatePass,
       validateCheckPass,
+      registerRightStyle: {
+        marginTop: '160px'
+      },
 
       formData: {
         email: '',
@@ -251,8 +264,22 @@ export default {
       immediate: true
     }
   },
-  mounted() {},
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
   methods: {
+    handleScroll() {
+      const scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop // 滚动条偏移量
+      const offsetTop = document.querySelector('.register-right').offsetTop // 要滚动到顶部吸附的元素的偏移量
+      if (scrollTop < 306 && scrollTop > 160) {
+        this.registerRightStyle = {
+          marginTop: scrollTop + 'px'
+        }
+      }
+    },
     openPrivacyPolicy() {
       this.$refs.privacyPolicy.openDialog()
     },
@@ -273,7 +300,7 @@ export default {
       this.$refs.formData.validate(valid => {
         if (valid) {
           if (!this.checked) {
-            this.$message.warning('Please agreen the Privacy Policy.')
+            this.$message.warning('Please agreen the User Agreement.')
             return
           }
           this.loading = true
@@ -317,12 +344,8 @@ export default {
 
 <style lang="scss">
 @import '@/styles/login-register.scss';
-.register-bg {
-  background-image: url('../../../assets/img/login_right.jpg');
-  height: 750px;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: 72% 60%;
-  background-size: 520px;
+.register-right {
+  width: 520px;
+  margin-top: 160px;
 }
 </style>

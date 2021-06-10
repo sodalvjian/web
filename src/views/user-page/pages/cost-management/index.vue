@@ -288,7 +288,7 @@ export default {
             onClick(picker) {
               const end = new Date()
               const start = new Date()
-              start.setMonth(start.getMonth() - 6)
+              start.setMonth(start.getMonth() - 5)
               picker.$emit('pick', [start, end])
             }
           }
