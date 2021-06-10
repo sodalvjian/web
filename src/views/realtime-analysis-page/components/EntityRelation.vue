@@ -220,7 +220,6 @@ export default {
       relationsArr.map(item => {
         copyEntitiesData.map(child => {
           if (item.fromEnt === child.keyName) {
-            console.log('测试bug', item, entitiesObj)
             if (entitiesObj[item.toEnt]) {
               entitiesObj[item.toEnt].dataId = uuidv1()
               entitiesObj[item.toEnt].relationData = item.semanticTag

@@ -9,14 +9,10 @@
     :visible.sync="dialogVisible"
   >
     <div>
-      <img src="@/assets/img/dialog_top.png" class="w" alt="" />
+      <img src="@/assets/img/dialog_top.svg" class="w" alt="" />
       <section class="p20 tc">
         <h3 class="color-main">
-          {{
-            type === 'login'
-              ? 'Login Successfully. Welcome to Mercury NLP.'
-              : 'Times reached Upper limit'
-          }}
+          {{ messageTitle }}
         </h3>
         <p v-if="type === 'login'">
           {{
@@ -25,16 +21,14 @@
           uses are up.`
           }}
         </p>
-        <p v-else>
-          You have reached your free limit usage. Please complete payment
-          information in
-          <strong class="disinblock"> [Account Settings]</strong> to continue.
-        </p>
+        <p v-else v-html="messageDescript"></p>
       </section>
       <footer class="tc">
-        <el-button class="mb-40 " type="primary" @click="goToPersonal"
-          >Go to Account Settings</el-button
-        >
+        <el-button
+          class="mb-40 "
+          type="primary"
+          @click="goToPersonal"
+        >Go to Account Settings</el-button>
       </footer>
     </div>
   </el-dialog>
@@ -42,6 +36,7 @@
 <script>
 import store from '@/store'
 import { GetQuotaSettings } from '@/api/user-page'
+import { errorCode } from './constants'
 export default {
   name: '',
   components: {},
@@ -54,7 +49,17 @@ export default {
       FREE_CALL_API_LIMIT: 5
     }
   },
-  computed: {},
+  computed: {
+    messageTitle() {
+      const message = errorCode.find(item => item.type === this.type).title
+      return message
+    },
+    messageDescript() {
+      const message = errorCode.find(item => item.type === this.type)
+        .description
+      return message
+    }
+  },
   watch: {},
   created() {},
   mounted() {},

@@ -16,8 +16,8 @@
             <div>
               <router-link to="/">
                 <img
-                  width="200px"
-                  src="../../../assets/img/logo_color.png"
+                  width="45px"
+                  src="../../../assets/img/logo_single.png"
                   alt=""
                 />
               </router-link>
@@ -106,7 +106,7 @@
               />
             </el-form-item>
             <el-form-item prop="invitationCode" label="">
-              <el-checkbox v-model="checked">Agreen Privacy Policy</el-checkbox>
+              <el-checkbox v-model="checked" class="mr-5"></el-checkbox><span class="ml-10">User agreement</span>
             </el-form-item>
             <el-form-item>
               <el-button
@@ -115,32 +115,26 @@
                 type="primary"
                 style="width:100%;height:40px"
                 @click.native.prevent="handleRegister"
-                >Sign up</el-button
-              >
+              >Sign up</el-button>
             </el-form-item>
             <el-row :gutter="10" class="mt-20 f12">
               <el-col :span="12" align="left" class="color-main">
-                <span class="color-light-blue cp" @click="openPrivacyPolicy"
-                  >Privacy Policy</span
-                >
+                <span
+                  class="color-light-blue cp"
+                  @click="openPrivacyPolicy"
+                >Privacy Policy</span>
               </el-col>
 
               <el-col :span="12" align="right" class="color-main">
-                <span class="color-light-blue cp" @click="handleLogin"
-                  >Already have an account?</span
-                >
+                <span
+                  class="color-light-blue cp"
+                  @click="handleLogin"
+                >Already have an account?</span>
               </el-col>
             </el-row>
           </el-form>
         </el-col>
-        <el-col :span="14" align="right" class="pl-20">
-          <img
-            width="95%"
-            class="login-right-register-img"
-            src="../../../assets/img/login_right.jpg"
-            alt=""
-          />
-        </el-col>
+        <el-col :span="14" align="right" class="pl-20 register-bg"> </el-col>
       </el-row>
     </div>
 
@@ -288,9 +282,7 @@ export default {
               // this.$router.push('/')
               this.loading = false
               if (res.code === 200) {
-                this.$message.success(
-                  'Register success, please check your email.'
-                )
+                this.$router.push('/sendEmailSuccess')
               }
             })
             .catch(() => {
@@ -321,4 +313,12 @@ export default {
 
 <style lang="scss">
 @import '@/styles/login-register.scss';
+.register-bg {
+  background-image: url('../../../assets/img/login_right.jpg');
+  height: 750px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: 72% 60%;
+  background-size: 520px;
+}
 </style>

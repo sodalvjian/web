@@ -3,7 +3,7 @@
     <div class="login-content pr">
       <img class="mt-20 top-icon" src="../../../assets/img/Group.png" alt="" />
       <img class="mt-20 bottom-icon" src="../../../assets/img/bac.png" alt="" />
-      <el-row>
+      <el-row class="pt-30">
         <el-col :span="10">
           <el-form
             ref="loginForm"
@@ -16,8 +16,8 @@
             <div>
               <router-link to="/">
                 <img
-                  width="200px"
-                  src="../../../assets/img/logo_color.png"
+                  width="45px"
+                  src="../../../assets/img/logo_single.png"
                   alt=""
                 />
               </router-link>
@@ -100,7 +100,7 @@
         </el-col>
         <el-col :span="14" align="right" class="pl-20">
           <img
-            width="95%"
+            width="520px"
             class="login-right-login-img"
             src="../../../assets/img/login_right.jpg"
             alt=""

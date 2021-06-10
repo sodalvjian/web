@@ -341,9 +341,9 @@ export default {
   data() {
     const validateProjectName = (rule, value, callback) => {
       if (value.length < 1) {
-        callback(new Error('Please enter 1 characters to 256 characters'))
-      } else if (value.length > 256) {
-        callback(new Error('Please enter 1 characters to 256 characters'))
+        callback(new Error('Please enter 1 characters to 100 characters'))
+      } else if (value.length > 100) {
+        callback(new Error('Please enter 1 characters to 100 characters'))
       } else {
         callback()
       }
@@ -397,7 +397,10 @@ export default {
         { required: true, message: 'Job name is required' },
         { validator: validateProjectName }
       ],
-      s3Rules: [{ required: true }, { validator: validateS3 }],
+      s3Rules: [
+        { required: true, message: 'S3 location is required' },
+        { validator: validateS3 }
+      ],
       formData: {
         name: '',
         pipelineId: '',
@@ -625,7 +628,7 @@ export default {
               .catch(res => {
                 this.btnLoading = false
                 if (res.code === 800008) {
-                  this.$refs.dialogShowInfoRef.openDialog('nlp')
+                  this.$refs.dialogShowInfoRef.openDialog('job')
                   this.loading = false
                   this.noDataShow = true
                 }

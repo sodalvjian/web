@@ -26,7 +26,6 @@
             class="bd-1"
             style="width: 100%"
           >
-            <no-data-table slot="empty"></no-data-table>
             <el-table-column
               prop="invoiceDate"
               label="Invoice Date"

@@ -14,7 +14,8 @@
       >
         <template slot-scope="{ data }">
           <span>{{ data.showName }}</span>
-        </template></el-cascader>
+        </template></el-cascader
+      >
     </el-col>
     <el-col :span="4">
       <el-tooltip
@@ -24,9 +25,8 @@
         placement="top"
       >
         <div slot="content">
-          Pricing: ${{
-            (selectPipeline.unitPrice * 100).toFixed(3)
-          }}/unit; 100byte/unit
+          Pricing: ${{ (selectPipeline.unitPrice * 100).toFixed(3) }}/unit;
+          100byte/unit
           <br />
           Description: {{ selectPipeline.description }}
         </div>
@@ -119,7 +119,6 @@ export default {
         if (res.code === 200) {
           const resultData = res.data
           resultData.map(item => {
-            item.params = item.lamdaName
             item.showName = item.lamdaName
             item.children = item.version
             item.version.map(child => {
@@ -138,7 +137,9 @@ export default {
       console.log('完整数据', val)
       const analysisChildTypeOptions = val
         .map(item => item.version)
-        .flat(Infinity) // 将自己版本数据拉平
+        .flat(Infinity)
+      // .flat(Infinity) // 将自己版本数据拉平
+      console.log('analysisChildTypeOptions', analysisChildTypeOptions)
 
       this.selectPipeline = analysisChildTypeOptions[0]
     }

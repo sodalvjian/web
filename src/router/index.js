@@ -33,6 +33,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/sendEmailSuccess',
+    component: () => import('@/views/common/send-email-success/index'),
+    hidden: true
+  },
+  {
     path: '/test-nlp',
     component: () => import('@/views/realtime-analysis-page-brat'),
     hidden: true

@@ -5,17 +5,22 @@
         <div class="fl">
           <img width="90px" src="../../../assets/img/Group.png" alt="" />
         </div>
-        <a href="/" class="mt-20 ml-20 fl"
-          ><img src="@/assets/img/logo_color.png" width="200px" alt=""
+        <a
+          href="/"
+          class="mt-20 ml-20 fl"
+        ><img
+          src="@/assets/img/logo_color.png"
+          width="200px"
+          alt=""
         /></a>
       </header>
       <div class="register-content p30 bg-color-white">
-        <section v-if="step === 2" class="tc p30">
+        <section class="tc p30">
           <div class="f24">Message sent</div>
           <div class="mt-20 f13 p20 lh1-5">
             Email has been sent to your email
-            <span class="color-light-blue">{{ formData.email }}</span><br> Check the
-            mail
+            <span class="color-light-blue">{{ formData.email }}</span><br />
+            Check the mail
           </div>
           <div class="mt-30 w p15 color-white bg-color-main">
             Message sent <i class="el-icon-check"></i>
@@ -23,130 +28,6 @@
           <div class="mt-40 color-light-blue cp tc f13">
             <router-link to="/">Back to login</router-link>
           </div>
-        </section>
-        <section v-else>
-          <nav class="f22 forget-header-title fb color-main">
-            <span v-if="step === 1">Request Password Reset</span>
-            <span v-if="step === 3">Password Reset</span>
-          </nav>
-          <section class="pb-30">
-            <nav class="mt-20 f13 color-gray">
-              <span v-if="step === 1">
-                Please enter the email address associated with your
-                account.</span
-              >
-              <span v-if="step === 2">
-                If you no longer use the email address associated with your
-                account. Please contact customer service
-                <a href="mailto:mercurynlp@melaxtech.com"
-                  >mercurynlp@melaxtech.com</a
-                >
-                to help restore access to your account.
-              </span>
-              <span v-if="step === 3">
-                Please set a new password. It is recommended to use a
-                combination of numbers, letters and characters to improve the
-                password security.
-              </span>
-            </nav>
-            <el-form
-              ref="formData"
-              :model="formData"
-              class="register-form mt-50"
-              auto-complete="on"
-              align="left"
-              label-position="left"
-              @submit.native.prevent
-            >
-              <el-form-item
-                v-if="step === 1"
-                prop="email"
-                :rules="[
-                  { required: true, message: 'Please enter email.' },
-                  {
-                    type: 'email',
-                    message: 'Please enter the correct email address',
-                    trigger: ['blur', 'change']
-                  }
-                ]"
-              >
-                <el-input
-                  ref="email"
-                  v-model="formData.email"
-                  placeholder="Email address"
-                  name="email"
-                  type="text"
-                  @keyup.enter.native="handleNext"
-                />
-              </el-form-item>
-              <el-form-item
-                v-if="step === 2"
-                prop="verificationCode"
-                :rules="[
-                  { required: true, message: 'Please enter verification code.' }
-                ]"
-              >
-                <el-row :gutter="20">
-                  <el-col :span="24">
-                    <el-input
-                      v-model="formData.verificationCode"
-                      placeholder="Verification code case sensitive"
-                      type="text"
-                      @keyup.enter.native="handleNext"
-                    />
-                  </el-col>
-                </el-row>
-              </el-form-item>
-              <el-form-item
-                v-if="step === 3"
-                prop="password"
-                :rules="{ validator: validatePass }"
-              >
-                <el-input
-                  v-model="formData.password"
-                  placeholder="Password"
-                  type="password"
-                  autocomplete="off"
-                  @keyup.enter.native="handleNext"
-                ></el-input>
-              </el-form-item>
-              <el-form-item
-                v-if="step === 3"
-                class="mt-35"
-                prop="checkPass"
-                :rules="{ validator: validateCheckPass }"
-              >
-                <el-input
-                  v-model="formData.checkPass"
-                  type="password"
-                  placeholder="Confirm password"
-                  autocomplete="off"
-                  @keyup.enter.native="handleNext"
-                ></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button
-                  :loading="loading"
-                  class="mt-5"
-                  type="primary"
-                  style="width:100%;height:40px"
-                  @click.native.prevent="handleNext"
-                  >{{ step === 3 ? 'Confirm' : 'Next' }}</el-button
-                >
-              </el-form-item></el-form
-            >
-            <div class="color-light-blue cp tc f13">
-              <router-link to="/">Back to login</router-link>
-            </div>
-            <div v-if="step === 1" class="f13 mt-50 color-gray lh1-5">
-              If you no longer use the email address associated with your
-              account. Please contact customer service &lt;
-              <a class="color-light-blue" href="mailto:mercurynlp@melaxtech.com"
-                >mercurynlp@melaxtech.com</a
-              >
-              &gt; to help restore access to your account.
-            </div>
-          </section>
         </section>
       </div>
     </div>

@@ -96,8 +96,10 @@ export default {
         .map(item => item.version)
         .flat(Infinity) // 将自己版本数据拉平
       console.log('analysisChildTypeOptions', analysisChildTypeOptions)
-      this.formData.pipeline = analysisChildTypeOptions[0].params
-      this.selectPipeline = analysisChildTypeOptions[0]
+      this.$nextTick(() => {
+        this.formData.pipeline = analysisChildTypeOptions[0].params
+        this.selectPipeline = analysisChildTypeOptions[0]
+      })
     },
     getCompleteData(val) {
       console.log('val', val)
