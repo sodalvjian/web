@@ -480,7 +480,7 @@ export default {
           this.messageData = ''
           if (res.data && res.data.pass) {
             this.verityInput = true
-            this.$message.success('Verify input success.')
+            this.$message.success('Authorization checks successfully completed.')
             this.needAuthor = false
             this.formData.output = res.data.output
           } else {
@@ -490,7 +490,7 @@ export default {
               this.messageData = res.message
             } else {
               this.$message.warning(
-                'Verification failed, Please grant Mercury NLP the read and write permissions to verify your S3 bucket.'
+                'Authorization error. Please check the path of your S3 folder and grant Mercury NLP permissions to verify your S3 Bucket.'
               )
               this.needAuthor = true
             }

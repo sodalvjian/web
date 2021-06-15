@@ -5,13 +5,18 @@ Vue.use(Router)
 
 import userPage from './user-page'
 // import rolesPage from './roles-page'
-// import dashboard from './dashboard-page'
+import document from './document-page'
 import apiPage from './api-page'
 import annotateJobsPage from './annotate-jobs-page'
 import realtimeAnalysis from './realtime-analysis-page'
 import realtimeAnalysisTest from './realtime-analysis-test-page'
 
 export const constantRoutes = [
+  {
+    path: '/',
+    component: () => import('@/views/home'),
+    hidden: true
+  },
   {
     path: '/login',
     component: () => import('@/views/common/login/index'),
@@ -59,7 +64,8 @@ export const asyncRoutes = [
   ...realtimeAnalysis,
   ...annotateJobsPage,
   ...apiPage,
-  ...realtimeAnalysisTest
+  ...realtimeAnalysisTest,
+  ...document
 ]
 
 const createRouter = () =>

@@ -32,6 +32,11 @@ input::-ms-reveal {
     max-width: 540px;
   }
 }
+@media (max-width: 445px) {
+  .container {
+    max-width: 90%;
+  }
+}
 @media (min-width: 768px) {
   .container {
     max-width: 720px;
@@ -762,6 +767,9 @@ li {
 
 .mt-40 {
   margin-top: 40px;
+}
+.mt-45 {
+  margin-top: 45px;
 }
 
 .mt-50 {

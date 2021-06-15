@@ -25,7 +25,7 @@
             <div class="mt-40 title-container">
               <nav class="title color-main fb f24">Welcome to Mercury NLP</nav>
               <div class="mt-10 color-gray f13">
-                Fast,secure,cloud-based clinical NLP with high precision and
+                Fast, secure, cloud-based clinical NLP with high precision and
                 accuracy based on the award-winning CLAMP system from Melax
                 Technologies!
               </div>
@@ -76,25 +76,24 @@
                 type="primary"
                 style="width:100%;height:40px"
                 @click.native.prevent="handleLogin"
-              >Sign in</el-button>
+                >Sign in</el-button
+              >
             </el-form-item>
             <el-row :gutter="10" class="mt-20 f12">
               <el-col :span="12" class="color-light-blue" align="left">
                 <router-link to="/forgetPassword">Forget password</router-link>
               </el-col>
               <el-col :span="12" align="right">
-                <span
-                  class="color-light-blue cp"
-                  @click="handleRegister"
-                >Create a new account</span>
+                <span class="color-light-blue cp" @click="handleRegister"
+                  >Create a new account</span
+                >
               </el-col>
             </el-row>
             <div class=" f12 color-gray bottom-privacy">
               If you click authorize, you will agree and authorize
-              <span
-                class="color-light-blue cp"
-                @click="openPrivacyPolicy"
-              >Privacy Policy</span>
+              <span class="color-light-blue cp" @click="openPrivacyPolicy"
+                >Privacy Policy</span
+              >
             </div>
           </el-form>
         </el-col>
@@ -132,7 +131,11 @@ export default {
     // }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(
+          new Error(
+            'Password does not meet minimum requirements. Your password cannot be less than 6 alphanumeric characters'
+          )
+        )
       } else {
         callback()
       }
@@ -148,7 +151,7 @@ export default {
           {
             required: true,
             trigger: 'blur',
-            message: 'Please enter account name'
+            message: 'Invalid email address or account name.'
           }
         ],
         password: [
@@ -203,7 +206,7 @@ export default {
             .dispatch('user/login', userInfo)
             .then(res => {
               console.log('为什么过不去', res)
-              location.href = '/'
+              location.href = '/realtimeAnalysis'
               this.loading = false
             })
             .catch(err => {

@@ -188,7 +188,7 @@ export default {
           UploadBind(params)
             .then(res => {
               if (res.code === 200) {
-                this.$message.success('Submit success')
+                this.$message.success('Thank you! Your feedback was successfully submitted.')
                 this.resetData()
                 this.btnLoading = false
               }

@@ -4,9 +4,10 @@
     <article class="user-container bg-color-white w">
       <nav class="p15 bb-10 bt-10">
         <strong class="f17 color-main">
-          <router-link to="/" class="color-main f19"
-            ><i class="mr-10 el-icon-arrow-left fb"></i
-          ></router-link>
+          <router-link
+            to="/"
+            class="color-main f19"
+          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
           Account Security
         </strong>
       </nav>
@@ -35,7 +36,7 @@
             label="Current password:"
             :rules="{
               required: true,
-              message: 'Please enter current password.'
+              message: 'Enter current password.'
             }"
           >
             <el-input
@@ -61,7 +62,7 @@
           </el-form-item>
           <el-form-item
             prop="checkPass"
-            class="mt-30"
+            class="mt-35"
             label="Confirm password:"
             :rules="{ validator: validateCheckPass }"
           >
@@ -80,8 +81,7 @@
               size="small"
               type="primary"
               @click.native.prevent="handleSave"
-              >Save</el-button
-            >
+            >Save</el-button>
           </el-form-item>
         </el-form>
       </section>
@@ -104,7 +104,7 @@ export default {
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please enter the password'))
+        callback(new Error('Enter new password.'))
       } else if (!passwordReg.test(value)) {
         callback(new Error(passwordMsg))
       } else {
@@ -116,9 +116,9 @@ export default {
     }
     var validateCheckPass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please enter the password again'))
+        callback(new Error('Confirm new password.'))
       } else if (value !== this.formData.password) {
-        callback(new Error('The two passwords are inconsistent!'))
+        callback(new Error('Confirmed password does not match the new password. '))
       } else {
         callback()
       }
@@ -178,7 +178,7 @@ export default {
 
 <style lang="scss" scoped>
 .user-account-form {
-  width: 500px;
+  width: 680px;
   margin-left: 20px;
   .el-button {
     width: 30%;

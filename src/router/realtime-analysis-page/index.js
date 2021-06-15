@@ -1,12 +1,12 @@
 import Layout from '@/layout'
 export default [
   {
-    path: '/',
+    path: '/realtimeAnalysis',
     component: Layout,
     roles: [''],
     children: [
       {
-        path: '/',
+        path: '/realtimeAnalysis',
         name: 'realtimeAnalysis',
         component: () => import('@/views/realtime-analysis-page'),
         meta: {

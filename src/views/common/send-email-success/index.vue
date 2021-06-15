@@ -61,7 +61,7 @@ export default {
       if (value === '') {
         callback(new Error('Please enter the password again'))
       } else if (value !== this.formData.password) {
-        callback(new Error('The two passwords are inconsistent!'))
+        callback(new Error('Confirmed password does not match the new password. '))
       } else {
         callback()
       }

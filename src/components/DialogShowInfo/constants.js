@@ -19,7 +19,7 @@ export const errorCode = [
   },
   {
     type: 'job',
-    title: 'Please binding credit card.',
+    title: 'Please binding credit card',
     description: `Go to personal center You have not set up the credit
     card information.`,
     buttonShow: true

@@ -36,7 +36,7 @@ export default {
           if (err.code === 404) {
             this.$message.error(err.msg)
           }
-          location.href = '/'
+          location.href = '/realtimeAnalysis'
           this.loading = false
         })
     },
@@ -46,7 +46,7 @@ export default {
           if (res.success) {
             this.$store.dispatch('user/setUserInfo', res.data)
             console.log('为什么过不去', res)
-            location.href = '/'
+            location.href = '/realtimeAnalysis'
             this.loading = false
           } else {
             this.$message.error(res.msg)

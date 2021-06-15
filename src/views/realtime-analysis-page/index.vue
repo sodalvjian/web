@@ -113,7 +113,7 @@ export default {
         this.$message.warning('Please select pipeline.')
         return false
       } else if (!text) {
-        this.$message.warning('Please enter content.')
+        this.$message.warning('Input text is missing.')
         return false
       }
       const params = {

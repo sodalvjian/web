@@ -25,7 +25,7 @@
             <div class="mt-40 title-container">
               <nav class="title color-main fb f24">Welcome to Mercury NLP</nav>
               <div class="mt-10 color-gray f13">
-                Fast,secure,cloud-based clinical NLP with high precision and
+                Fast, secure, cloud-based clinical NLP with high precision and
                 accuracy based on the award-winning CLAMP system from Melax
                 Technologies!
               </div>
@@ -76,7 +76,7 @@
             </el-form-item>
             <el-form-item
               prop="checkPass"
-              class="mt-35"
+              class="mt-40"
               :rules="{ validator: validateCheckPass }"
             >
               <el-input
@@ -89,7 +89,7 @@
             <el-form-item
               label="Account name"
               prop="accountName"
-              :rules="{ required: true, message: 'Please enter account name' }"
+              :rules="{ required: true, message: 'Please enter an account name' }"
             >
               <el-input
                 v-model="formData.accountName"
@@ -108,7 +108,7 @@
             <el-form-item prop="invitationCode" label="">
               <el-checkbox v-model="checked" class="mr-5"></el-checkbox
               ><span class="ml-10"
-                >I have read and agree to the
+                >I agree with the
                 <span
                   class="cp"
                   style="text-decoration: underline;"
@@ -182,7 +182,7 @@ export default {
     // }
     var validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please enter the password'))
+        callback(new Error('Please enter a password'))
       } else if (!passwordReg.test(value)) {
         callback(new Error(passwordMsg))
       } else {
@@ -195,16 +195,16 @@ export default {
     }
     var validateCheckPass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please enter the password again'))
+        callback(new Error('Confirm password'))
       } else if (value !== this.formData.password) {
-        callback(new Error('The two passwords are inconsistent!'))
+        callback(new Error('Confirmed password does not match the new password. '))
       } else {
         callback()
       }
     }
     var validateEmail = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please enter email.'))
+        callback(new Error('Please enter an email address.'))
       } else {
         if (value !== '') {
           if (!mailReg.test(value)) {
@@ -300,7 +300,9 @@ export default {
       this.$refs.formData.validate(valid => {
         if (valid) {
           if (!this.checked) {
-            this.$message.warning('Please agreen the User Agreement.')
+            this.$message.warning(
+              'Before proceeding you must review and acknowledge the User Agreement.'
+            )
             return
           }
           this.loading = true
