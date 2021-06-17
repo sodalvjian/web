@@ -89,7 +89,10 @@
             <el-form-item
               label="Account name"
               prop="accountName"
-              :rules="{ required: true, message: 'Please enter an account name' }"
+              :rules="{
+                required: true,
+                message: 'Please enter an account name'
+              }"
             >
               <el-input
                 v-model="formData.accountName"
@@ -197,7 +200,9 @@ export default {
       if (value === '') {
         callback(new Error('Confirm password'))
       } else if (value !== this.formData.password) {
-        callback(new Error('Confirmed password does not match the new password. '))
+        callback(
+          new Error('Confirmed password does not match the new password. ')
+        )
       } else {
         callback()
       }
@@ -294,7 +299,7 @@ export default {
       })
     },
     handleLogin() {
-      this.$router.push('/login')
+      location.href = '/login'
     },
     handleRegister() {
       this.$refs.formData.validate(valid => {

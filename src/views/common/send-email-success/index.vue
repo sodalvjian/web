@@ -5,28 +5,38 @@
         <div class="fl">
           <img width="90px" src="../../../assets/img/Group.png" alt="" />
         </div>
-        <a
-          href="/"
-          class="mt-20 ml-20 fl"
-        ><img
-          src="@/assets/img/logo_color.png"
-          width="200px"
-          alt=""
+        <a href="/" class="mt-20 ml-20 fl"
+          ><img src="@/assets/img/logo_color.png" width="200px" alt=""
         /></a>
       </header>
-      <div class="register-content p30 bg-color-white">
+      <div v-if="!registerFail" class="register-content p30 bg-color-white">
         <section class="tc p30">
           <div class="f24">Message sent</div>
           <div class="mt-20 f13 p20 lh1-5">
             Email has been sent to your email
-            <span class="color-light-blue">{{ formData.email }}</span><br />
+            <span class="color-light-blue">{{ formData.email }}</span
+            ><br />
             Check the mail
           </div>
           <div class="mt-30 w p15 color-white bg-color-main">
             Message sent <i class="el-icon-check"></i>
           </div>
           <div class="mt-40 color-light-blue cp tc f13">
-            <router-link to="/">Back to login</router-link>
+            <router-link to="/login">Back to login</router-link>
+          </div>
+        </section>
+      </div>
+      <div v-else class="register-content p30 bg-color-white">
+        <section class="tc p30">
+          <div class="f24">Error</div>
+          <div class="mt-20 f14 p20 lh1-5">
+            We are very sorry. This link is no longer valid.
+          </div>
+          <div class="mt-30 w p15 color-white bg-color-red">
+            <i class="el-icon-close"></i>
+          </div>
+          <div class="mt-40 color-light-blue cp tc f13">
+            <router-link to="/register">Back to Sign up</router-link>
           </div>
         </section>
       </div>
@@ -35,203 +45,18 @@
 </template>
 
 <script>
-import {
-  GetCode,
-  SendVerification,
-  DoVerificationForUpdatePassword,
-  UpdatePasswordAfterVerification
-} from '@/api/login-register'
-import { passwordReg, passwordMsg } from '@/utils/method'
 export default {
   name: 'Login',
   data() {
-    var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('Please enter the password'))
-      } else if (!passwordReg.test(value)) {
-        callback(new Error(passwordMsg))
-      } else {
-        if (this.formData.checkPass !== '') {
-          this.$refs.formData.validateField('checkPass')
-        }
-        callback()
-      }
-    }
-    var validateCheckPass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('Please enter the password again'))
-      } else if (value !== this.formData.password) {
-        callback(new Error('Confirmed password does not match the new password. '))
-      } else {
-        callback()
-      }
-    }
     return {
-      getCodeText: 'Get Code',
-      getCodeDisable: false,
-      step: 2,
-      btnLoading: false,
-      codeCount: 30,
-      validatePass,
-      validateCheckPass,
-
+      registerFail: this.$route.query.registerFail,
       formData: {
-        email: '',
-        accountName: '',
-        password: '',
-        checkPass: '',
-        verificationCode: ''
-      },
-      loginRules: {
-        username: [
-          // { required: true, trigger: 'blur', validator: validateUsername }
-          { required: true, trigger: 'blur' }
-        ],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
-      },
-      loading: false,
-      passwordType: 'password',
-      redirect: undefined,
-      uid: this.$route.query.uid,
-      token: this.$route.query.token
+        email: ''
+      }
     }
   },
-  watch: {
-    $route: {
-      handler: function(route) {
-        if (this.uid) {
-          this.step = 3
-        }
-      },
-      immediate: true
-    }
-  },
-  methods: {
-    getCode() {
-      const mailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
-
-      if (!this.formData.email) {
-        this.$message.warning('Please enter email')
-        return false
-      } else if (!mailReg.test(this.formData.email)) {
-        this.$message.warning('Please enter the correct email address')
-        return false
-      }
-      const params = {
-        email: this.formData.email
-      }
-      this.btnLoading = true
-      GetCode(params)
-        .then(res => {
-          console.log(res)
-          setTimeout(() => {
-            this.btnLoading = false
-          }, 1000)
-
-          if (res.success) {
-            var countDown = setInterval(() => {
-              if (this.codeCount < 1) {
-                this.getCodeDisable = false
-                this.getCodeText = 'Get Code'
-                this.codeCount = 30
-                clearInterval(countDown)
-              } else {
-                this.getCodeDisable = true
-                this.getCodeText = this.codeCount-- + ' s'
-              }
-            }, 1000)
-            this.$message.success(res.msg)
-          }
-        })
-        .catch(() => {
-          this.btnLoading = false
-        })
-    },
-    showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
-      } else {
-        this.passwordType = 'password'
-      }
-      this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
-    },
-    handleLogin() {
-      this.$router.push('/login')
-    },
-    handleNext() {
-      this.$refs.formData.validate(valid => {
-        if (valid) {
-          if (this.step === 1) {
-            const params = {
-              email: this.formData.email
-            }
-            this.loading = true
-            SendVerification(params)
-              .then(res => {
-                if (res.code === 200) {
-                  this.loading = false
-                  this.step = 2
-                }
-              })
-              .catch(() => {
-                this.loading = false
-              })
-          } else if (this.step === 2) {
-            const params = {
-              email: this.formData.email,
-              verificationCode: this.formData.verificationCode
-            }
-            this.loading = true
-            DoVerificationForUpdatePassword(params)
-              .then(res => {
-                if (res.success) {
-                  this.loading = false
-                  this.step = 3
-                }
-              })
-              .catch(() => {
-                this.loading = false
-              })
-          } else if (this.step === 3) {
-            const params = {
-              password: this.formData.password,
-              token: this.token,
-              uid: this.uid
-            }
-            this.loading = true
-            UpdatePasswordAfterVerification(params)
-              .then(res => {
-                this.loading = false
-                if (res.code === 200) {
-                  this.$message.success(res.message)
-
-                  setTimeout(() => {
-                    this.$router.push('/login')
-                  }, 1000)
-                }
-              })
-              .catch(() => {
-                this.loading = false
-              })
-          }
-          // this.loading = true
-          // const params = Object.assign(this.formData)
-          // RegisterAccount(params)
-          //   .then(res => {
-          //     this.$router.push('/')
-          //   })
-          //   .catch(() => {
-          //     this.loading = false
-          //   })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    }
-  }
+  watch: {},
+  methods: {}
 }
 </script>
 

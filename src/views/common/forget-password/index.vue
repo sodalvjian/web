@@ -21,7 +21,7 @@
             Message sent <i class="el-icon-check"></i>
           </div>
           <div class="mt-40 color-light-blue cp tc f13">
-            <router-link to="/">Back to login</router-link>
+            <router-link to="/login">Back to login</router-link>
           </div>
         </section>
         <section v-else>
@@ -136,7 +136,7 @@
               </el-form-item></el-form
             >
             <div class="color-light-blue cp tc f13">
-              <router-link to="/">Back to login</router-link>
+              <router-link to="/login">Back to login</router-link>
             </div>
             <div v-if="step === 1" class="f13 mt-50 color-gray lh1-5">
               If you no longer use the email address associated with your

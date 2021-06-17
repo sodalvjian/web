@@ -18,7 +18,11 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    this.autoLogin()
+    if (this.$route.query.code === '800011') {
+      this.$router.push('/sendEmailSuccess?registerFail=true')
+    } else {
+      this.autoLogin()
+    }
   },
   beforeDestroy() {},
   methods: {
