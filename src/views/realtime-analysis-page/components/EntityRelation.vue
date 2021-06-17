@@ -78,7 +78,7 @@
           ></a>
         </template>
         <template slot-scope="scope">
-          {{ scope.row.cui }}
+          {{ scope.row.cui | emptyShow}}
         </template>
       </el-table-column>
     </el-table>
