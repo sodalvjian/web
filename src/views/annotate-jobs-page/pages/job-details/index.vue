@@ -297,7 +297,7 @@ export default {
         this.detailData.subStatus === 'FAILED_TASK_LIMIT' ||
         this.detailData.subStatus === 'FAILED_QUOTA_LIMIT'
       ) {
-        return `Out of limit, please contact us.`
+        return `You have exceeded your account limit, please contact us.`
       } else if (
         this.detailData.status === 'STARTED' ||
         this.detailData.status === 'STARTING'

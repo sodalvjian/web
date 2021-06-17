@@ -318,7 +318,7 @@ export default {
         row.subStatus === 'FAILED_TASK_LIMIT' ||
         row.subStatus === 'FAILED_QUOTA_LIMIT'
       ) {
-        return `Out of limit, please contact us.`
+        return `You have exceeded your account limit, please contact us.`
       }
     },
     setPercent(row) {
