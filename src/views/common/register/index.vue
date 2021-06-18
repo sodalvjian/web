@@ -14,7 +14,8 @@
             label-position="left"
           >
             <div>
-              <router-link to="/">
+              <router-link
+            to="/realtimeAnalysis">
                 <img
                   width="45px"
                   src="../../../assets/img/logo_single.png"

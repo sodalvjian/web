@@ -1,8 +1,10 @@
 <template>
   <div class="navbar">
-    <router-link to="/"
-      ><span class="navbar-logo"><img src="@/assets/img/mercury_logo_beta.svg" alt=""/></span
-    ></router-link>
+    <router-link
+      to="/realtimeAnalysis"
+    ><span
+      class="navbar-logo"
+    ><img src="@/assets/img/mercury_logo_beta.svg" alt="" /></span></router-link>
     <!-- <hamburger
       v-if="router.indexOf('user') === -1"
       :is-active="sidebar.opened"
@@ -41,8 +43,7 @@
             <el-avatar size="small" class="mr-15 fl header-avatar">
               {{ userName | setUserName }}
             </el-avatar>
-            <span class="f16 fl">{{ userName }}</span></span
-          >
+            <span class="f16 fl">{{ userName }}</span></span>
           <i class=" f16 cp header-menu el-icon-arrow-down fb"></i>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">

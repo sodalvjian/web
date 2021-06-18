@@ -4,7 +4,8 @@
     <article class="user-container bg-color-white w">
       <nav class="p15 bb-10 bt-10">
         <strong class="f17 color-main">
-          <router-link to="/" class="color-main f19"
+          <router-link
+            to="/realtimeAnalysis" class="color-main f19"
             ><i class="mr-10 el-icon-arrow-left fb"></i
           ></router-link>
           Payments
