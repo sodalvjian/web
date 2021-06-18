@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <router-link to="/"
-      ><span class="navbar-logo"><img src="@/assets/img/Logo.png" alt=""/></span
+      ><span class="navbar-logo"><img src="@/assets/img/mercury_logo_beta.svg" alt=""/></span
     ></router-link>
     <!-- <hamburger
       v-if="router.indexOf('user') === -1"
@@ -180,8 +180,8 @@ export default {
     line-height: 50px;
     img {
       width: 220px;
-      margin-left: 5px;
-      margin-top: -1px;
+      margin-left: 17px;
+      margin-top: 17px;
     }
   }
 
