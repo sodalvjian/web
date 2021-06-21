@@ -14,7 +14,7 @@
         >
           <svg
             v-if="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-            class="icon mr-10 f19 side-svg color-black"
+            class="mr-10 icon f19 side-svg color-black"
             aria-hidden="true"
           >
             <use :xlink:href="onlyOneChild.meta.icon" />
@@ -31,7 +31,7 @@
       popper-append-to-body
     >
       <template slot="title">
-        <svg class="icon mr-10 f19 side-svg color-black" aria-hidden="true">
+        <svg class="mr-10 icon f19 side-svg color-black" aria-hidden="true">
           <use :xlink:href="item.meta.icon" />
         </svg>
         <item v-if="item.meta" :title="item.meta.title" />
