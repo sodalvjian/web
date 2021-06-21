@@ -71,6 +71,9 @@ export default {
       return !this.sidebar.opened
     }
   },
+  mounted() {
+    console.log('permission_routes', this.permission_routes)
+  },
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')

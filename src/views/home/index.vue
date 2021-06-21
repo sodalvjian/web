@@ -111,9 +111,9 @@
                 </svg>
               </div>
               <h2>Fast</h2>
-              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
                 Give me some copywriting
-              </div>
+              </div> -->
             </el-card>
           </el-col>
           <el-col :sm="6">
@@ -128,9 +128,9 @@
                 </svg>
               </div>
               <h2>ACCURATE</h2>
-              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
                 Give me some copywriting
-              </div>
+              </div> -->
             </el-card>
           </el-col>
           <el-col :sm="6">
@@ -145,9 +145,9 @@
                 </svg>
               </div>
               <h2>SECURE</h2>
-              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
                 Give me some copywriting
-              </div>
+              </div> -->
             </el-card>
           </el-col>
           <el-col :sm="6">
@@ -162,9 +162,9 @@
                 </svg>
               </div>
               <h2>AFFORDABLE</h2>
-              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
                 Give me some copywriting
-              </div>
+              </div> -->
             </el-card>
           </el-col>
         </el-row>

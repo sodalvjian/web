@@ -31,20 +31,51 @@
       popper-append-to-body
     >
       <template slot="title">
-        <item
-          v-if="item.meta"
-          :icon="item.meta && item.meta.icon"
-          :title="item.meta.title"
-        />
+        <svg class="icon mr-10 f19 side-svg color-black" aria-hidden="true">
+          <use :xlink:href="item.meta.icon" />
+        </svg>
+        <item v-if="item.meta" :title="item.meta.title" />
       </template>
-      <sidebar-item
+      <el-menu-item index="2">
+        <a href="/document#Overview" title="Overview"> <span slot="title">Overview</span></a>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <a href="/document#Login" title="Login"> <span slot="title">Login</span></a>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <a class="text-short" title="User Account and Password Management" href="/document#Account-management">
+          <span slot="title">User Account and Password Management</span></a
+        >
+      </el-menu-item>
+      <el-menu-item index="5">
+        <a class="text-short" title="Feedback" href="/document#Feedback">
+          <span slot="title"> Feedback</span></a
+        >
+      </el-menu-item>
+      <el-menu-item index="6">
+        <a class="text-short" title="Clinical Real-Time Analysis" href="/document#Real-time">
+          <span slot="title"
+            >Clinical Real-Time Analysis</span
+          ></a
+        >
+      </el-menu-item>
+      <el-menu-item index="7">
+        <a class="text-short" title="Clinical Batch Analysis" href="/document#Batch">
+          <span slot="title"
+            >Clinical Batch Analysis</span
+          ></a
+        >
+      </el-menu-item>
+      <el-menu-item index="8" title="API Use">
+        <a href="/document#API"> <span slot="title">API Use</span></a>
+      </el-menu-item>
+      <!-- <sidebar-item
         v-for="child in item.children"
         :key="child.key"
-        :is-nest="true"
         :item="child"
         :base-path="resolvePath(child.path)"
         class="nest-menu"
-      />
+      /> -->
     </el-submenu>
   </div>
 </template>
@@ -83,15 +114,18 @@ export default {
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
+      console.log('children', children)
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false
         } else {
           // Temp set(will be used if only has one showing child)
           this.onlyOneChild = item
+          console.log('this.onlyOneChild', this.onlyOneChild)
           return true
         }
       })
+      console.log('showingChildren啊啊啊啊.', showingChildren)
 
       // When there is only one child router, the child router is displayed by default
       if (showingChildren.length === 1) {

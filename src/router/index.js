@@ -65,7 +65,7 @@ export const asyncRoutes = [
   ...annotateJobsPage,
   ...apiPage,
   ...realtimeAnalysisTest,
-  ...document
+  document
 ]
 
 const createRouter = () =>
