@@ -403,8 +403,8 @@
     <h1 id="MercuryNLP-MercuryNLP-Feedback">
       <a name="Feedback" class="target-fix"></a>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
-        ><span><span id="MercuryNLP-Feedback"></span></span
-        >Mercury NLP - Feedback</span
+        ><span><span id="MercuryNLP-Feedback"></span></span>Mercury NLP -
+        Feedback</span
       >
     </h1>
 
@@ -474,8 +474,8 @@
     <h1 id="MercuryNLP-MercuryNLP-ClinicalBatchAnalysis">
       <a name="Batch" class="target-fix"></a>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
-        ><span><span id="MercuryNLP-Batch"></span></span>Mercury NLP
-        - Clinical Batch Analysis</span
+        ><span><span id="MercuryNLP-Batch"></span></span>Mercury NLP - Clinical
+        Batch Analysis</span
       >
     </h1>
 
@@ -567,7 +567,14 @@ export default {
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+    this.$nextTick(() => {
+      const target = location.pathname + location.hash
+      setTimeout(() => {
+        location.href = target
+      }, 300)
+    })
+  },
   activited() {},
   update() {},
   beforeRouteUpdate() {},
