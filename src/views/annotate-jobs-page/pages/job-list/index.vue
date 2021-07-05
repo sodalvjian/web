@@ -18,7 +18,7 @@
             v-model="filterData.name"
             style="width:220px"
             size="small"
-            placeholder="Please input job name"
+            placeholder="Search for a job"
             @keyup.enter.native="handleCurrentChange(1)"
           >
             <i

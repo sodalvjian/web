@@ -22,7 +22,7 @@
       <section class="mt-30">
         <div class="color-main mt-15 mb-15 f16 fb">Input text:</div>
         <el-input
-          v-model="formData.text"
+          v-model.trim="formData.text"
           type="textarea"
           class="analysis-textarea"
           show-word-limit
@@ -90,6 +90,18 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    onPaste(evt) {
+      setTimeout(() => {
+        console.log('onPaste', evt)
+        const text = evt.target.value
+        console.log('text', text.length)
+        if (text.length > 4096) {
+          this.$message.warning(
+            'You have reached the allowable character limit. Data has been truncated message'
+          )
+        }
+      }, 100)
+    },
     getCompleteOptions(val) {
       console.log('完整数据', val)
       const analysisChildTypeOptions = val

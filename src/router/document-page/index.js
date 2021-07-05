@@ -5,7 +5,7 @@ export default {
   roles: [''],
   name: 'document',
   meta: {
-    title: 'Document',
+    title: 'Documentation',
     icon: '#icon-wendang'
   },
   children: [

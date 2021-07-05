@@ -6,7 +6,7 @@
       <article style="padding-right:80px">
         <strong class="color-main f17">Mercury NLP APIs</strong>
         <div class="mt-10">
-          <strong>Api key:</strong> <small>{{ apiKey }}</small>
+          <strong>API key:</strong> <small>{{ apiKey }}</small>
           <el-tooltip class="item" effect="dark" content="Copy" placement="top">
             <el-button
               v-clipboard:copy="apiKey"

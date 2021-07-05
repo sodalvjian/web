@@ -196,7 +196,7 @@
                 class="button-shadow"
                 @click="submitForm('formData')"
               >Confirm</el-button>
-              <el-button @click="resetForm('formData')">Reset</el-button>
+              <el-button @click="resetForm('formData')">Clear</el-button>
             </el-form-item>
           </div>
 
