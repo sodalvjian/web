@@ -14,8 +14,7 @@
             label-position="left"
           >
             <div>
-              <router-link
-            to="/realtimeAnalysis">
+              <router-link to="/realtimeAnalysis">
                 <img
                   width="45px"
                   src="../../../assets/img/logo_single.png"
@@ -53,7 +52,7 @@
             >
               <el-input
                 ref="email"
-                v-model="formData.email"
+                v-model.trim="formData.email"
                 placeholder="Email address"
                 name="email"
                 type="text"
@@ -69,7 +68,7 @@
               }"
             >
               <el-input
-                v-model="formData.password"
+                v-model.trim="formData.password"
                 placeholder="Password"
                 type="password"
                 autocomplete="off"
@@ -81,7 +80,7 @@
               :rules="{ validator: validateCheckPass }"
             >
               <el-input
-                v-model="formData.checkPass"
+                v-model.trim="formData.checkPass"
                 type="password"
                 placeholder="Confirm password"
                 autocomplete="off"
@@ -96,14 +95,14 @@
               }"
             >
               <el-input
-                v-model="formData.accountName"
+                v-model.trim="formData.accountName"
                 placeholder="Account name"
                 type="text"
               />
             </el-form-item>
             <el-form-item prop="invitationCode" label="Invitation code">
               <el-input
-                v-model="formData.invitationCode"
+                v-model.trim="formData.invitationCode"
                 :maxlength="64"
                 placeholder="Invitation code ( optional )"
                 type="text"
