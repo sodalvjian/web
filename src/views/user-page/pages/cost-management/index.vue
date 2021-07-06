@@ -105,7 +105,7 @@
                       Expiration date：{{ item.expireDate | setNormalDate }}
                     </div>
                   </el-col>
-                  <el-col :span="4" align="center">
+                  <!-- <el-col :span="4" align="center">
                     <svg class="icon f60" aria-hidden="true">
                       <use xlink:href="#icon-4" />
                     </svg>
@@ -118,7 +118,7 @@
                     </div>
 
                     <div class="mt-10 color-8">Remaining balance</div>
-                  </el-col>
+                  </el-col> -->
                 </el-row>
               </el-carousel-item>
             </el-carousel>

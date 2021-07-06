@@ -24,6 +24,7 @@
         <el-input
           v-model.trim="formData.text"
           type="textarea"
+          @paste.native="onPaste"
           class="analysis-textarea"
           show-word-limit
           maxlength="4096"
@@ -91,16 +92,12 @@ export default {
   beforeRouteUpdate() {},
   methods: {
     onPaste(evt) {
-      setTimeout(() => {
-        console.log('onPaste', evt)
-        const text = evt.target.value
-        console.log('text', text.length)
-        if (text.length > 4096) {
-          this.$message.warning(
-            'You have reached the allowable character limit. Data has been truncated message'
-          )
-        }
-      }, 100)
+      const text = evt.clipboardData.getData('text')
+      if (text.length > 4096) {
+        this.$message.warning(
+          'You have reached the allowable character limit. Data has been truncated.'
+        )
+      }
     },
     getCompleteOptions(val) {
       console.log('完整数据', val)

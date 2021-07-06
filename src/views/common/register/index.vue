@@ -168,6 +168,7 @@ import PrivacyPolicy from '../privacy-policy'
 import UserAgreement from '../user-agreement'
 import { RegisterAccount } from '@/api/login-register'
 import { passwordReg, passwordMsg } from '@/utils/method'
+import xss from 'xss'
 const mailReg = /^.+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
 export default {
   name: 'Login',
@@ -313,8 +314,8 @@ export default {
           this.loading = true
           const params = Object.assign(this.formData)
           console.log('params', params)
+          params.email = xss(params.email)
           delete params.checkPass
-
           RegisterAccount(params)
             .then(res => {
               // this.$router.push('/')

@@ -4,10 +4,9 @@
     <article class="user-container bg-color-white w">
       <nav class="p15 bb-10 bt-10">
         <strong class="f17 color-main">
-          <router-link
-            to="/realtimeAnalysis"
-            class="color-main f19"
-          ><i class="mr-10 el-icon-arrow-left fb"></i></router-link>
+          <router-link to="/realtimeAnalysis" class="color-main f19"
+            ><i class="mr-10 el-icon-arrow-left fb"></i
+          ></router-link>
           Payment Information
         </strong>
       </nav>
@@ -193,9 +192,11 @@
               <el-button
                 type="primary"
                 :loading="btnLoading"
+                :disabled="confirmDisabled"
                 class="button-shadow"
                 @click="submitForm('formData')"
-              >Confirm</el-button>
+                >Confirm</el-button
+              >
               <el-button @click="resetForm('formData')">Clear</el-button>
             </el-form-item>
           </div>
@@ -231,7 +232,8 @@
                         <small
                           v-if="item.metadata.default == '1'"
                           class="user-card-default"
-                        >Default</small>
+                          >Default</small
+                        >
                       </el-col>
                     </el-row>
                     <div class="user-card-line"></div>
@@ -354,6 +356,7 @@ export default {
       btnLoading: false,
       personalLoading: false,
       cardLoading: false,
+      confirmDisabled: true,
       cardList: [],
       formData: {
         userId: store.getters.userInfo.userId,
@@ -375,7 +378,14 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    formData: {
+      handler(val, oldVal) {
+        this.confirmDisabled = false
+      },
+      deep: true
+    }
+  },
   created() {},
   mounted() {
     if (!document.getElementById('stripe')) {
@@ -482,6 +492,9 @@ export default {
         .then(res => {
           this.formData = res.data
           this.personalLoading = false
+          this.$nextTick(() => {
+            this.confirmDisabled = true
+          })
         })
         .catch(() => {
           this.personalLoading = false
