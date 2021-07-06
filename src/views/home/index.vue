@@ -98,7 +98,7 @@
     <section class="container">
       <div class="mercury-why">
         <h1 class="tc">Why MERCURY NLP</h1>
-        <el-row class="mt-50" :gutter="20">
+        <el-row class="mt-80 why-nlp-container" :gutter="20">
           <el-col :sm="6">
             <el-card
               :body-style="{ padding: '30px' }"
@@ -106,9 +106,7 @@
               class="bordernone tc"
             >
               <div>
-                <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#icon-fast" />
-                </svg>
+                <img src="@/assets/img/home/fast.svg" alt="" />
               </div>
               <h2>Fast</h2>
               <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
@@ -123,9 +121,7 @@
               class="bordernone tc"
             >
               <div>
-                <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#icon-ACCURATE" />
-                </svg>
+                <img src="@/assets/img/home/ACCURATE.svg" alt="" />
               </div>
               <h2>ACCURATE</h2>
               <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
@@ -140,9 +136,7 @@
               class="bordernone tc"
             >
               <div>
-                <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#icon-SECURE" />
-                </svg>
+                <img src="@/assets/img/home/SECURE.svg" alt="" />
               </div>
               <h2>SECURE</h2>
               <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
@@ -157,9 +151,7 @@
               class="bordernone tc"
             >
               <div>
-                <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#icon-AFFORDABLE" />
-                </svg>
+                <img src="@/assets/img/home/AFFORDABLE.svg" alt="" />
               </div>
               <h2>AFFORDABLE</h2>
               <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
@@ -222,6 +214,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.why-nlp-container {
+  img {
+    width: 150px;
+  }
+}
 .home-logo {
   width: 280px;
 }
