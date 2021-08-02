@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="fl f17 color-main">Real-time analysis</strong>
+      <strong class="fl f17 color-main">Real-Time analysis</strong>
     </nav>
     <div class="vital-container realtime-top-content">
       <nav>
@@ -22,8 +22,9 @@
       <section class="mt-30">
         <div class="color-main mt-15 mb-15 f16 fb">Input text:</div>
         <el-input
-          v-model.trim="formData.text"
+          v-model="formData.text"
           type="textarea"
+          @keyup.native="formData.text = formData.text.replace(/^\s/, '')"
           @paste.native="onPaste"
           class="analysis-textarea"
           show-word-limit
@@ -127,7 +128,7 @@ export default {
       }
       const params = {
         pipeline: pipeline,
-        text: text,
+        text: text.trim(),
         frontFlag: true
       }
       this.analysisLoading = true

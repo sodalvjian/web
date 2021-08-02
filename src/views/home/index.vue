@@ -1,8 +1,8 @@
 <template>
   <div class="bg-color-white">
-    <header class="container pt-20">
+    <header class="container">
       <a href="https://melaxtech.com/">
-        <img class="home-logo" src="../../assets/img/melax_logo.png" alt=""
+        <img class="home-logo mt-20" src="../../assets/img/melax_logo.png" alt=""
       /></a>
     </header>
     <section class="mercury-banner">
@@ -11,12 +11,12 @@
           <h1><img src="../../assets/img/logo_mercury.png" alt="" /></h1>
           <div class="mt-30 f18 lh2">
             Mercury Natural Language Processing makes quick work of your medical
-            data e×traction projects-- accurately and at a fraction of the cost
+            data extraction projects-- accurately and at a fraction of the cost
             of other web-based products.
           </div>
           <div class="mt-50">
             <router-link to="/realtimeAnalysis">
-              <el-button type="danger" class="f16 mercury-try-it">
+              <el-button type="danger" class="f16 mercury-try-it" :style="'background:#4ebebf;border:1px solid #4ebebf'">
                 Try it now
               </el-button></router-link
             >
@@ -71,9 +71,9 @@
             </div>
             <div
               class="mt-15 color-gray f15 lh2 mercury-nav-content"
-              title="Real-time analysist"
+              title="Real-Time analysist"
             >
-              Real-time analysis
+              Real-Time analysis
             </div>
           </el-card>
         </el-col>
@@ -108,7 +108,7 @@
               <div>
                 <img src="@/assets/img/home/fast.svg" alt="" />
               </div>
-              <h2>Fast</h2>
+              <h2>FAST</h2>
               <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
                 Give me some copywriting
               </div> -->
@@ -224,7 +224,7 @@ export default {
 }
 .mercury-banner {
   height: 720px;
-  margin-top: -80px;
+  margin-top: -100px;
   padding-top: 200px;
   background-image: url('../../assets/img/mercury_banner.png');
   background-size: cover;

@@ -53,7 +53,7 @@
         >
       </el-menu-item>
       <el-menu-item index="6">
-        <a class="text-short" title="Clinical Real-Time Analysis" href="/document#Real-time">
+        <a class="text-short" title="Clinical Real-Time Analysis" href="/document#Real-Time">
           <span slot="title"
             >Clinical Real-Time Analysis</span
           ></a

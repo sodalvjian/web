@@ -93,7 +93,7 @@
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span></span
       ><span lang="EN-US" style='font-family:"Arial",sans-serif'
-        ><a href="#Real-time">Clinical Real-Time Analysis</a></span
+        ><a href="#Real-Time">Clinical Real-Time Analysis</a></span
       >
     </p>
 
@@ -429,9 +429,9 @@
     </p>
 
     <h1 id="MercuryNLP-MercuryNLPClinicalReal-TimeAnalysis">
-      <a name="Real-time" class="target-fix"></a>
+      <a name="Real-Time" class="target-fix"></a>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
-        ><span><span id="MercuryNLP-Real-time"></span></span>Mercury NLP
+        ><span><span id="MercuryNLP-Real-Time"></span></span>Mercury NLP
         Clinical Real-Time Analysis</span
       >
     </h1>

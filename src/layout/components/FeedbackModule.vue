@@ -6,7 +6,7 @@
         class="problem-feedback cp bg-color-main color-white fb"
         @click="openFeedback"
       >
-        ?
+        <i class="el-icon-message"></i>
       </footer>
     </el-tooltip>
 

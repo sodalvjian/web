@@ -4,7 +4,7 @@
       <!-- <vue-markdown v-html="mercuryApi">
       </vue-markdown> -->
       <article style="padding-right:80px">
-        <strong class="color-main f17">Mercury NLP APIs</strong>
+        <strong class="color-main f17">Mercury NLP API</strong>
         <div class="mt-10">
           <strong>API key:</strong> <small>{{ apiKey }}</small>
           <el-tooltip class="item" effect="dark" content="Copy" placement="top">

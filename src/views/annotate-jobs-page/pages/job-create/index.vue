@@ -480,7 +480,9 @@ export default {
           this.messageData = ''
           if (res.data && res.data.pass) {
             this.verityInput = true
-            this.$message.success('Authorization checks successfully completed.')
+            this.$message.success(
+              'Authorization checks successfully completed.'
+            )
             this.needAuthor = false
             this.formData.output = res.data.output
           } else {
@@ -621,7 +623,7 @@ export default {
             AddData(params)
               .then(res => {
                 if (res.code === 200) {
-                  this.$message.success(res.message)
+                  this.$message.success(`Batch Analysis <${name}> started`)
                   this.$emit('close-dialog')
                 }
               })

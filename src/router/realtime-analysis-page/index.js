@@ -10,7 +10,7 @@ export default [
         name: 'realtimeAnalysis',
         component: () => import('@/views/realtime-analysis-page'),
         meta: {
-          title: 'Real-time Analysis',
+          title: 'Real-Time Analysis',
           icon: '#icon-Vector',
           keepAlive: true
         }

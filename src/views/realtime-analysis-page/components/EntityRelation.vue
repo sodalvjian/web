@@ -2,7 +2,7 @@
   <div>
     <nav class="mb-10 tr">
       <el-row :gutter="20">
-        <el-col :span="10">
+        <el-col :span="9">
           <el-input
             v-model="tableSearchData"
             size="small"
@@ -12,7 +12,7 @@
             <i slot="prefix" class="el-input__icon el-icon-search"></i
           ></el-input>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="3">
           <el-select
             v-model="dataType"
             clearable
@@ -29,13 +29,16 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="12" style="overflow-x:auto">
           <el-pagination
             background
             :page-size="pageSize"
+            :pager-count="5"
             :current-page="currentPage"
-            layout="prev, pager, next, total"
+            :page-sizes="[5, 10, 20, 50]"
+            layout="sizes,prev, pager, next, total"
             :total="total"
+            @size-change="handleSizeChange"
             @current-change="handleCurrentPage"
           >
           </el-pagination>
@@ -78,7 +81,7 @@
           ></a>
         </template>
         <template slot-scope="scope">
-          {{ scope.row.cui | emptyShow}}
+          {{ scope.row.cui | emptyShow }}
         </template>
       </el-table-column>
     </el-table>
@@ -161,6 +164,10 @@ export default {
 
       this.tableData = filterTable
       this.total = filterTable.length
+    },
+    handleSizeChange(val) {
+      this.pageSize = val
+      this.$refs.tableDataRef.bodyWrapper.scrollTop = 0
     },
     handleCurrentPage(val) {
       this.currentPage = val

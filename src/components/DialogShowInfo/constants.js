@@ -10,7 +10,7 @@ export const errorCode = [
 
   {
     type: 'login',
-    title: 'Login Successfully. Welcome to Mercury NLP.',
+    title: 'Welcome to Mercury NLP.',
     description: `Go to personal center You have not set up the credit
     card information, we suggest you go to
     <strong class="disinblock"> [ Account Setting ] </strong> as soon as
@@ -19,9 +19,8 @@ export const errorCode = [
   },
   {
     type: 'job',
-    title: 'Please binding credit card',
-    description: `Go to personal center You have not set up the credit
-    card information.`,
+    title: 'Set up payment information',
+    description: `Performing Batch Analysis requires your credit card information for payment. Please set this up in Account Settings before proceeding.`,
     buttonShow: true
   }
 ]

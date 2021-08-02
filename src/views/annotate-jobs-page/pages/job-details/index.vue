@@ -113,7 +113,7 @@
       ><el-row :gutter="15" class="p20">
         <el-col :span="7" align="left">
           <el-card shadow="never" class="job-detail-count">
-            <div class="f18">Ducuments</div>
+            <div class="f18">Documents</div>
             <div class="mt-20 fb f32">{{ detailData.processedCount }}</div>
           </el-card>
         </el-col>

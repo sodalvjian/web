@@ -16,8 +16,8 @@
         </h3>
         <p v-if="type === 'login'">
           {{
-            `You have ${FREE_CALL_API_LIMIT} free uses of Real-time Analysis. We recommend that you
-          add payment information to your Account to continue when your free
+            `You have ${FREE_CALL_API_LIMIT} free uses of Real-Time Analysis. We recommend that you
+          add payment information to your account to continue when your free
           uses are up.`
           }}
         </p>
