@@ -17,7 +17,7 @@
               <router-link
             to="/realtimeAnalysis">
                 <img
-                  width="45px"
+                  width="60px"
                   src="../../../assets/img/logo_single.png"
                   alt=""
                 />
@@ -28,7 +28,7 @@
               <div class="mt-10 color-gray f13">
                 Fast, secure, cloud-based clinical NLP with high precision and
                 accuracy based on the award-winning CLAMP system from Melax
-                Technologies!
+                Tech!
               </div>
               <h2 class="mt-30 color-main pr">
                 Sign in
@@ -82,7 +82,7 @@
             </el-form-item>
             <el-row :gutter="10" class="mt-20 f12">
               <el-col :span="12" class="color-light-blue" align="left">
-                <router-link to="/forgetPassword">Forget password</router-link>
+                <router-link to="/forgetPassword">Forgot password</router-link>
               </el-col>
               <el-col :span="12" align="right">
                 <span class="color-light-blue cp" @click="handleRegister"
@@ -90,12 +90,12 @@
                 >
               </el-col>
             </el-row>
-            <div class=" f12 color-gray bottom-privacy">
+            <!-- <div class=" f12 color-gray bottom-privacy">
               If you click authorize, you will agree and authorize
               <span class="color-light-blue cp" @click="openPrivacyPolicy"
                 >Privacy Policy</span
               >
-            </div>
+            </div> -->
           </el-form>
         </el-col>
         <el-col :span="14" align="right" class="pl-20">

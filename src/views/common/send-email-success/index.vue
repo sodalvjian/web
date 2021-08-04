@@ -13,14 +13,13 @@
         <section class="tc p30">
           <div class="f24">Message sent</div>
           <div class="mt-20 f13 p20 lh1-5">
-            Email has been sent to your email
-            <span class="color-light-blue">{{ formData.email }}</span
-            ><br />
-            Check the mail
+            Check your email
+            <!-- <span class="color-light-blue">{{ formData.email }}</span> -->
+            for a verification message.<br />
           </div>
-          <div class="mt-30 w p15 color-white bg-color-main">
+          <!-- <div class="mt-30 w p15 color-white bg-color-main">
             Message sent <i class="el-icon-check"></i>
-          </div>
+          </div> -->
           <div class="mt-40 color-light-blue cp tc f13">
             <router-link to="/login">Back to login</router-link>
           </div>

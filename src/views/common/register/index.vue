@@ -16,7 +16,7 @@
             <div>
               <router-link to="/realtimeAnalysis">
                 <img
-                  width="45px"
+                  width="60px"
                   src="../../../assets/img/logo_single.png"
                   alt=""
                 />
@@ -27,7 +27,7 @@
               <div class="mt-10 color-gray f13">
                 Fast, secure, cloud-based clinical NLP with high precision and
                 accuracy based on the award-winning CLAMP system from Melax
-                Technologies!
+                Tech!
               </div>
               <h2 class="mt-30 color-main pr">
                 Sign up
@@ -100,7 +100,17 @@
                 type="text"
               />
             </el-form-item>
-            <el-form-item prop="invitationCode" label="Invitation code">
+            <el-form-item prop="invitationCode" class="invitation-code">
+              <div class="invitation-code-label" slot="label">
+                <span>Invitation code</span>
+                <el-tooltip
+                  effect="dark"
+                  content="If you enter a valid invitation code, you will receive a voucher in your account. "
+                  placement="top"
+                >
+                  <i class="el-icon-info cp ml-3"></i>
+                </el-tooltip>
+              </div>
               <el-input
                 v-model.trim="formData.invitationCode"
                 :maxlength="64"
@@ -111,7 +121,7 @@
             <el-form-item prop="invitationCode" label="">
               <el-checkbox v-model="checked" class="mr-5"></el-checkbox
               ><span class="ml-10"
-                >I agree with the
+                >I agree to the
                 <span
                   class="cp"
                   style="text-decoration: underline;"
@@ -355,5 +365,14 @@ export default {
 .register-right {
   width: 520px;
   margin-top: 160px;
+}
+.invitation-code {
+  padding-top: 40px;
+  position: relative;
+  label {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }
 </style>

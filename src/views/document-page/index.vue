@@ -9,22 +9,22 @@
 
     <p>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >Mercury NLP is a cloud-based version of the Melax Technologies Clinical
-        Language Annotation Modeling and Processing (CLAMP) toolkit. Mercury NLP
-        allows users to initiate real-time and batch clinical analysis against
-        preset Natural Language Processing (NLP) pipelines, monitor and manage
-        service provider billing and payment information, and perform password
+        >Mercury NLP is a cloud-based version of Melax Tech’s Clinical Language
+        Annotation Modeling and Processing (CLAMP) toolkit. Mercury NLP allows
+        users to initiate real-time and batch clinical analysis against pre-set
+        Natural Language Processing (NLP) pipelines, monitor and manage service
+        provider billing and payment information, and perform password
         management. Mercury NLP seamlessly integrates with either a client or
-        Melax Technologies Inc. supplied cloud solution.</span
+        MELAX Tech. supplied cloud solution.</span
       >
     </p>
 
     <p>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >Melax Technologies Inc. offers evaluation and licensed tier usage
-        options for this product. The evaluation tier features a free Mercury
-        NLP trial period. However, a license is required to ensure uninterrupted
-        access to Mercury NLP.</span
+        >Melax Tech offers evaluation and licensed tier usage options for this
+        product. The evaluation tier allows users a free evaluation of Mercury
+        NLP features for a trial period. However, a license is required to
+        ensure uninterrupted access to Mercury NLP.</span
       >
     </p>
 
@@ -39,9 +39,9 @@
 
     <p>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >The purpose of the Mercury NLP User Guide is to provide an overview of
-        features, navigational tips and UI familiarity. Browse through the
-        topics tree below for further information.</span
+        >The purpose of this guide is to provide an overview of features,
+        navigational tips and UI familiarity. Browse through the topics tree
+        below for further information.</span
       >
     </p>
 
@@ -126,8 +126,9 @@
     </h1>
 
     <p>
-      The Mercury NLP login and account creation screens offer ease of input and
-      navigation experience.
+      The purpose of this guide is to provide an overview of features,
+      navigational tips and UI familiarity. Browse through the topics tree below
+      for further information.
     </p>
     <h4>Existing Users</h4>
     <p>
@@ -259,15 +260,15 @@
 
     <p>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >The Mercury NLP User Account and Password Management feature offers a
-        convenient way to manage and monitor service providers month-to-date and
+        >The Mercury NLP User Account and Password Management features offer
+        convenient ways to manage and monitor service provider month-todate and
         historical billing, service provider voucher credits, and user payment
-        information. This feature also allows users to manage their passwords.
-        Navigating to the User Account and Password Management screens entails
-        either selecting the “Go to Account Settings” button in the “Welcome to
-        Mercury NLP” dialog or by clicking on the displayed account name,
-        followed by the selection of the “Accounts Setting” option from the
-        displayed drop-down list.</span
+        information. This feature also provides users the ability to manage
+        their passwords. Navigating to the User Account and Password Management
+        screens entails selecting the “Go to Account Settings” button located on
+        the “Welcome to Mercury NLP” dialog or from clicking on the displayed
+        account name, followed by the selection of the “Accounts Setting” option
+        from the displayed drop-down list.</span
       >
     </p>
 
@@ -283,8 +284,8 @@
         >The Mercury NLP Bills & Credits functionality offers users the
         capability to monitor month-to-date service usage costs, voucher
         credits, preset NLP pipeline costs and a search function to view current
-        and historical billing history.</span
-      >
+        and historical billing history.
+      </span>
     </p>
 
     <p class="MsoNormal">
@@ -335,9 +336,9 @@
     <p>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
         >Users are encouraged to provide payment information to facilitate
-        uninterrupted access to Mercury NLP. Users may “opt-in” into automatic
+        uninterrupted access to Mercury NLP. Users can “opt-in” into automatic
         payments, which would result in a monthly usage charge applied to the
-        specified credit card. Demographic and credit card information is
+        specified credit card. Demographic and credit card information are
         managed and stored according to Personal Identifiable Identification
         (PII) and Payment Card Industry (PCI) industry standards.</span
       >
@@ -367,8 +368,8 @@
     <p>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
         >Mercury NLP offers users the capability to change passwords to enforce
-        users' personal password aging policy.</span
-      >
+        users' personal password aging policy.
+      </span>
     </p>
 
     <p class="MsoNormal">
@@ -396,23 +397,15 @@
         information shall be used to improve the product and will not establish
         a dialogue between the Mercury NLP team and the user. Users are
         encouraged to thoroughly review their feedback and ensure that it does
-        not contain
-        <strong
-          ><span style='font-family:"Arial",sans-serif'
-            >Protected Health Information (PHI)</span
-          ></strong
-        >
-        or any sensitive data.
+        not contain Protected Health Information (PHI) or any sensitive data.
+        Selecting the question mark icon located on the bottom right on any
+        Mercury NLP screen initiates the feedback process. Users can provide
+        scenario information which can include a query and/or observation. A
+        user can paste a copy of generated results from a real-time or batch
+        analysis execution in text format or a snapshot.
         <p>
           Users requiring support from the Mercury NLP team should establish
           contact through their designated support channel.
-        </p>
-        <p>
-          Selecting the question mark icon located on the bottom right on any
-          Mercury NLP screen initiates the feedback process. Users can provide
-          scenario information which can include a query and/or observation. A
-          user can paste a copy of generated results from a real-time or batch
-          analysis execution in text format or a snapshot.
         </p>
       </span>
     </p>
@@ -439,7 +432,7 @@
     <p>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
         >The Mercury NLP clinical real-time analysis interface offers an
-        intuitive layout and ease-of-use experience. After selecting the
+        intuitive layout that is easy to learn and use. After selecting the
         appropriate NLP pipeline and copying input from the desired source, a
         user then clicks the “Analysis” button to generate annotated results. A
         user can select desired visible entities within the annotated results
@@ -469,11 +462,11 @@
 
     <p>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >The Mercury NLP Clinical Batch Analysis function offers convenience for
-        authorized users to customize aspects of their experience. Clinical
-        Batch Analysis is geared toward users with flexible time constraints or
-        those desiring the ability to specify source and destination targets for
-        input text and annotated text results respectively.
+        >The Mercury NLP clinical batch analysis function offers convenience for
+        users wishing to customize permissible aspects of their experience.
+        Clinical Batch Analysis is geared toward users with flexible time
+        constraints and those looking to specify source and destination targets
+        for input text and annotated text results, respectively.
       </span>
     </p>
     <p class="MsoNormal">
@@ -555,7 +548,8 @@
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span></span
       ><span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >Once the bucket location is entered, a message will confirm that authorization was successful. 
+        >Once the bucket location is entered, a message will confirm that
+        authorization was successful.
       </span>
     </p>
     <p style="margin-left:36.0pt;text-indent:-18.0pt">
@@ -564,7 +558,10 @@
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span></span
       ><span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >If authorization fails, grant access to the AWS S3 location by copying and pasting and saving the JSON code provided to the AWS S3 bucket policy Permissions section. Go back to the Mercury NLP New Job screen and click verify again.
+        >If authorization fails, grant access to the AWS S3 location by copying
+        and pasting and saving the JSON code provided to the AWS S3 bucket
+        policy Permissions section. Go back to the Mercury NLP New Job screen
+        and click verify again.
       </span>
     </p>
     <p style="margin-left:36.0pt;text-indent:-18.0pt">
@@ -589,7 +586,11 @@
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span></span
       ><span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >Select the “Confirm” button. The selected pipeline will start to process the files in the provided “Input Data” S3 location and the output will be populated by Mercury NLP to the “Output Data” S3 location, which is read-only. The completed batch will be saved to the same S3 bucket like the one selected for the batch job. 
+        >Select the “Confirm” button. The selected pipeline will start to
+        process the files in the provided “Input Data” S3 location and the
+        output will be populated by Mercury NLP to the “Output Data” S3
+        location, which is read-only. The completed batch will be saved to the
+        same S3 bucket like the one selected for the batch job.
       </span>
     </p>
     <p style="margin-left:36.0pt;text-indent:-18.0pt">
@@ -623,7 +624,9 @@
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span></span
       ><span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >The job details page provides information about the job’s progress and will provide detail if any of the files in the batch exceeded limits (10MB). The cost of the batch job also shows on this page.
+        >The job details page provides information about the job’s progress and
+        will provide detail if any of the files in the batch exceeded limits
+        (10MB). The cost of the batch job also shows on this page.
       </span>
     </p>
     <h4>Search a Batch Job</h4>
@@ -633,7 +636,9 @@
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span></span
       ><span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >Enter the desired “batch job” name into the search field and select the magnifying glass to initiate a search. When the job is found, the “Batch Analysis” screen will populate. 
+        >Enter the desired “batch job” name into the search field and select the
+        magnifying glass to initiate a search. When the job is found, the “Batch
+        Analysis” screen will populate.
       </span>
     </p>
     <p style="margin-left:36.0pt;text-indent:-18.0pt">
@@ -651,7 +656,9 @@
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span></span
       ><span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >By clicking on a completed job users will see batch detail, including cost and errors if any. For example, files exceeding 10MB cannot be processed.
+        >By clicking on a completed job users will see batch detail, including
+        cost and errors if any. For example, files exceeding 10MB cannot be
+        processed.
       </span>
     </p>
 
@@ -664,7 +671,10 @@
 
     <p>
       <span lang="EN-US" style='font-family:"Arial",sans-serif'
-        >Authorized users are able to integrate clinical analysis functionality into their applications through the use of the Mercury NLP API. Users are encouraged to thoroughly reviewed the available documentation to ensure an optimal user experience.</span
+        >Authorized users are able to integrate clinical analysis functionality
+        into their applications through the use of the Mercury NLP API. Users
+        are encouraged to thoroughly review the available documentation to
+        ensure an optimal experience.</span
       >
     </p>
 
