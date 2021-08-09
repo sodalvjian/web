@@ -2,7 +2,10 @@
   <div class="bg-color-white">
     <header class="container">
       <a href="https://melaxtech.com/">
-        <img class="home-logo mt-20" src="../../assets/img/melax_logo.png" alt=""
+        <img
+          class="home-logo mt-20"
+          src="../../assets/img/melax_logo.png"
+          alt=""
       /></a>
     </header>
     <section class="mercury-banner">
@@ -16,7 +19,11 @@
           </div>
           <div class="mt-50">
             <router-link to="/realtimeAnalysis">
-              <el-button type="danger" class="f16 mercury-try-it" :style="'background:#4ebebf;border:1px solid #4ebebf'">
+              <el-button
+                type="danger"
+                class="f16 mercury-try-it"
+                :style="'background:#4ebebf;border:1px solid #4ebebf'"
+              >
                 Try it now
               </el-button></router-link
             >
@@ -32,15 +39,14 @@
               <svg class="icon f22" aria-hidden="true">
                 <use xlink:href="#icon-price" />
               </svg>
-              <span class="ml-10 fb f20">Price</span>
+              <span class="ml-10 fb f20">Affordable</span>
             </div>
             <div
               class="mt-15 color-gray f15 lh2 mercury-nav-content"
               title=" Pricing to allow you to get large amounts of data processed within
               budget"
             >
-              Pricing to allow you to get large amounts of data processed within
-              budget
+              Process large amounts of data inexpensively
             </div>
           </el-card>
         </el-col>
@@ -50,14 +56,14 @@
               <svg class="icon f22" aria-hidden="true">
                 <use xlink:href="#icon-pipelines" />
               </svg>
-              <span class="ml-10 fb f20">More pipelines</span>
+              <span class="ml-10 fb f20">More Pipelines</span>
             </div>
             <div
               class="mt-15 color-gray f15 lh2 mercury-nav-content"
               title="More pipelines - with six medical pipelines and more added regularly extract only the data you need"
             >
-              More pipelines - with six medical pipelines and more added
-              regularly extract only the data you need
+              Six medical pipelines and more added regularly to extract only the
+              data you need
             </div>
           </el-card>
         </el-col>
@@ -73,7 +79,7 @@
               class="mt-15 color-gray f15 lh2 mercury-nav-content"
               title="Real-Time analysist"
             >
-              Real-Time analysis
+              Save time and frustration with real-time analysis
             </div>
           </el-card>
         </el-col>
@@ -83,19 +89,19 @@
               <svg class="icon f22" aria-hidden="true">
                 <use xlink:href="#icon-Deploy" />
               </svg>
-              <span class="ml-10 fb f20">Deploy</span>
+              <span class="ml-10 fb f20">Security</span>
             </div>
             <div
               class="mt-15 color-gray f15 lh2 mercury-nav-content"
               title="The option of deploying on your own server"
             >
-              The option of deploying on your own server
+              Deploy Mercury NLP on your own server
             </div>
           </el-card>
         </el-col>
       </el-row>
     </section>
-    <section class="container">
+    <!-- <section class="container">
       <div class="mercury-why">
         <h1 class="tc">Why MERCURY NLP</h1>
         <el-row class="mt-80 why-nlp-container" :gutter="20">
@@ -109,9 +115,9 @@
                 <img src="@/assets/img/home/fast.svg" alt="" />
               </div>
               <h2>FAST</h2>
-              <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
                 Give me some copywriting
-              </div> -->
+              </div>
             </el-card>
           </el-col>
           <el-col :sm="6">
@@ -124,9 +130,9 @@
                 <img src="@/assets/img/home/ACCURATE.svg" alt="" />
               </div>
               <h2>ACCURATE</h2>
-              <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
                 Give me some copywriting
-              </div> -->
+              </div>
             </el-card>
           </el-col>
           <el-col :sm="6">
@@ -139,9 +145,9 @@
                 <img src="@/assets/img/home/SECURE.svg" alt="" />
               </div>
               <h2>SECURE</h2>
-              <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
                 Give me some copywriting
-              </div> -->
+              </div>
             </el-card>
           </el-col>
           <el-col :sm="6">
@@ -154,14 +160,14 @@
                 <img src="@/assets/img/home/AFFORDABLE.svg" alt="" />
               </div>
               <h2>AFFORDABLE</h2>
-              <!-- <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+               <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
                 Give me some copywriting
-              </div> -->
+              </div> 
             </el-card>
           </el-col>
         </el-row>
       </div>
-    </section>
+    </section> -->
     <section class="mercury-color-block"></section>
     <section class="container mercury-color-description">
       <el-card

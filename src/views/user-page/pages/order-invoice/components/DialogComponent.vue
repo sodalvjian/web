@@ -38,12 +38,12 @@
             <tr class="firstRow">
               <td valign="top" width="312" align="left" height="35">
                 <span style="color: rgb(89, 89, 89); font-size: 15px;">
-                  <strong>Account number:</strong>
+                  <strong>Account:</strong>
                 </span>
               </td>
               <td valign="top" height="35" rowspan="1" colspan="2">
                 <span style="color: rgb(89, 89, 89); font-size: 15px;"
-                  ><strong>Melax Technologies,Inc</strong></span
+                  ><strong>Melax Technologies, Inc</strong></span
                 >
               </td>
             </tr>
@@ -64,31 +64,8 @@
                   </strong>
                 </span>
               </td>
-              <td
-                valign="top"
-                colspan="2"
-                rowspan="1"
-                height="50"
-                style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); word-break: break-all;"
-              >
-                <span style="color: rgb(89, 89, 89); font-size: 13px;"
-                  >Email or talk to us about your account or bill visit
-                  melaxtech.com/index.php/about-us/contact
-                </span>
-              </td>
             </tr>
             <tr>
-              <td
-                valign="top"
-                colspan="1"
-                rowspan="1"
-                width="312"
-                style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255);"
-              >
-                <span style="color: rgb(89, 89, 89); font-size: 15px;">
-                  <strong>Bill to Address:</strong>
-                </span>
-              </td>
               <td
                 valign="top"
                 colspan="1"
@@ -102,18 +79,6 @@
               </td>
             </tr>
             <tr>
-              <td
-                valign="middle"
-                colspan="1"
-                rowspan="1"
-                width="312"
-                style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); word-break: break-all;"
-              >
-                <span style="color: rgb(89, 89, 89);"
-                  >ATTN: {{ printData.firstname }}
-                  {{ printData.lastname }}</span
-                >
-              </td>
               <td
                 valign="middle"
                 colspan="1"
@@ -149,19 +114,6 @@
                 colspan="1"
                 rowspan="1"
                 height="30"
-                width="312"
-                style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255);"
-              >
-                <span style="color: rgb(89, 89, 89);"
-                  >{{ printData.apartment || '--' }}
-                  {{ printData.street || '--' }}</span
-                >
-              </td>
-              <td
-                valign="top"
-                colspan="1"
-                rowspan="1"
-                height="30"
                 width="486"
                 style="border-left-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); word-break: break-all;"
               >
@@ -181,16 +133,6 @@
               </td>
             </tr>
             <tr>
-              <td
-                valign="top"
-                width="312"
-                style="word-break: break-all; border-color: rgb(255, 255, 255);"
-              >
-                <span style="color: rgb(89, 89, 89);"
-                  >{{ printData.city }} , {{ printData.state }} ,
-                  {{ printData.countryRegion }}</span
-                >
-              </td>
               <td
                 valign="top"
                 width="486"
@@ -215,28 +157,7 @@
             </tr>
           </tbody>
         </table>
-        <p style="text-align: center; margin-top:40px;font-size:15px">
-          <strong
-            >This invoice is for the billing period
-            {{ printData.periodEndDate | setDate }}
-          </strong>
-        </p>
-        <p style="text-align: center; margin-top:20px">
-          <span
-            style="color: rgb(136, 136, 136); font-size: 13px; text-align: center; background-color: rgb(255, 255, 255);"
-            >Greetings from Amazon Web Services, were writing to provide you
-            with an electronic invoice for your use of AWS services.</span
-          >
-        </p>
-        <p style="text-align: center;margin-top:-8px">
-          <span
-            style="color: rgb(136, 136, 136); font-size: 13px; text-align: center; background-color: rgb(255, 255, 255);"
-          >
-            Additional information about your bill, individual service charge
-            details, and your account history are available on the Account
-            Activity Page.</span
-          >
-        </p>
+
         <table
           data-sort="sortDisabled"
           border="0"
@@ -293,7 +214,7 @@
                 height="40"
                 width="671"
               >
-                <span style="padding:20px">Credits</span>
+                <span style="padding:20px">Voucher</span>
               </td>
               <td
                 valign="middle"
@@ -365,31 +286,11 @@
                 <div
                   style="color: rgb(96, 98, 102); padding:20px;line-height: 1.6;font-size:13px"
                 >
-                  May include estimated US sales tax, VAT, ST GST an CT Amazon
-                  Web Services, Inc, is registered under the Sing apore GST
-                  Overseas Vendor Registration Pay-Only Regime and GST
-                  registration number is M903730 09E AWS, Inc is aRegistered
-                  Foreign Supplier under Jap anese Consumption Tax Law and
-                  therefore AWS Inc, is required to declare and pay consumption
-                  tax in respect of this transaction (as aDigital Service)o the
-                  Japan Tax Authority
-
-                  <p>
-                    This is not a VAT. ST or GST invoice. Related ax invoices
-                    can be accessed by going to le Bills page on your Billing
-                    Management Cons ole **** Please reference the tax invoice
-                    for a breakut of the Canadian taxes by pe Usage and recuming
-                    charges for this statement perio amount of your actual
-                    charges for this statement perioc may differ from the
-                    charges shown on this will be charged on your next billing
-                    date. The page. The charges shown on this page do not
-                    include Iny additional usage charges accrued during this
-                    statement period after the date you are viewing this pa ge.
-                    Also, one-time fees and subscription charges are assessed
-                    separately, on the date that they occur . All charges and
-                    prices are in US Dollars All AWS Services are sold by Amazon
-                    Web Services.Inc.
-                  </p>
+                  Visit your Account Settings page to manage your billing
+                  details. See the Mercury NLP Terms of Service for the terms
+                  that apply to your purchase. All fees are listed in USD and
+                  are subject to Sales Tax (as applicable). If you have any
+                  questions , please contact us at contact@melaxtech.com.
                 </div>
               </td>
             </tr>

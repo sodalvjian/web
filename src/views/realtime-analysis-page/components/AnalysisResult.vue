@@ -157,7 +157,6 @@ export default {
         this.selectAll = true
       }
     },
-    // 上传文件
     openFile($event) {
       console.log('$event', $event)
       var input = $event.target
@@ -257,6 +256,7 @@ export default {
     },
     openSetting() {
       this.dialogVisible = true
+      this.selectAll = this.bratData.every(item => item.switch)
     },
     closeDialog() {
       console.log('this.copyBratData', this.copyBratData)

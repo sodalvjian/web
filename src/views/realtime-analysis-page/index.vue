@@ -21,23 +21,30 @@
       </nav>
       <section class="mt-30">
         <div class="color-main mt-15 mb-15 f16 fb">Input text:</div>
-        <el-input
-          v-model="formData.text"
-          type="textarea"
-          @keyup.native="formData.text = formData.text.replace(/^\s/, '')"
-          @paste.native="onPaste"
-          class="analysis-textarea"
-          show-word-limit
-          maxlength="4096"
-          :rows="8"
-          placeholder="Please enter"
-        >
-        </el-input>
+        <div class="pr">
+          <el-input
+            v-model="formData.text"
+            type="textarea"
+            :class="{ 'input-limit-container-error': inputLimit }"
+            @keyup.native="onKeyupInput"
+            @paste.native="onPaste"
+            class="analysis-textarea"
+            show-word-limit
+            :rows="8"
+            placeholder="Please enter"
+          >
+          </el-input>
+          <span class="input-limit-container"
+            >{{ formData.text.length }}/4096</span
+          >
+        </div>
+
         <p>
           <el-button size="small" @click="clearData">Clear</el-button>
           <el-button
             :loading="analysisLoading"
             size="small"
+            :disabled="inputLimit"
             type="primary"
             icon="iconfont icon-Analyze"
             @click="handleAnalysis(false)"
@@ -58,6 +65,7 @@
 import analysisResult from './components/AnalysisResult'
 import { globalBus } from '@/utils/globalBus'
 import { demoText } from '@/utils/demo-text'
+import { message as Message } from '@/utils/resetMessage'
 export default {
   name: '',
   components: {
@@ -70,6 +78,7 @@ export default {
       analysisTypeOptions: [],
       pipelineLoading: false,
       analysisLoading: false,
+      inputLimit: false,
       selectPipeline: {},
 
       formData: {
@@ -92,12 +101,26 @@ export default {
   update() {},
   beforeRouteUpdate() {},
   methods: {
+    onKeyupInput() {
+      this.formData.text = this.formData.text.replace(/^\s/, '')
+      if (this.formData.text.length > 4096) {
+        this.inputLimit = true
+        Message.error(
+          'The length of your input text exceeds the limit of 4096. So it is truncated. Please use Batch Analysis or API to process the long notes.'
+        )
+      } else {
+        this.inputLimit = false
+      }
+    },
     onPaste(evt) {
       const text = evt.clipboardData.getData('text')
       if (text.length > 4096) {
-        this.$message.warning(
+        Message.error(
           'You have reached the allowable character limit. Data has been truncated.'
         )
+        this.inputLimit = true
+      } else {
+        this.inputLimit = false
       }
     },
     getCompleteOptions(val) {
@@ -142,6 +165,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.input-limit-container {
+  position: absolute;
+  bottom: -20px;
+  width: 200px;
+  right: 0;
+  text-align: right;
+  font-size: 12px;
+  color: #7492b5;
+}
 .realtime-top-content {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -152,6 +184,17 @@ export default {
 </style>
 <style lang="scss">
 @import '@/styles/variables.scss';
+.input-limit-container-error {
+  textarea {
+    border: 2px solid #ff8888;
+    &:hover {
+      border: 2px solid #db3535;
+    }
+    &:focus {
+      border: 2px solid #db3535;
+    }
+  }
+}
 .analysis-textarea {
   textarea {
     background-color: #f1f4fc;
