@@ -13046,467 +13046,482 @@ div#notebook {
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
     <!-- End of mathjax configuration --></head>
-<body>
-  <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
-
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2>Mercury NLP API</h2><p>This page provides documentation for the Mercury NLP API operations. We provide REST API. You can embed our API in any of your own applications according to your preference. We also provide a Python library. If you are a Python enthusiast, enjoy it.</p>
-<p>This section provides the documentation for our Python library. If you want to learn more about the API, please contact us mercurynlp@melaxtech.com</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><hr></p>
-<h3>Prerequisites</h3><p>Install melaxtool.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install <span class="nv">melaxtool</span><span class="o">==</span><span class="m">0</span>.0.14
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><hr></p>
-<h3>Import the package and create a client</h3><p>Your API key is at the top of this page.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">melaxtool.melaxapi</span> <span class="k">import</span> <span class="n">MelaxClient</span>
-<span class="c1"># copy your key  to set env below</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;MELAX_TECH_KEY&#39;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;Put your key here&quot;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><hr></p>
-<h3>Request Methods</h3><p>For now, we only provide an invoke method.</p>
-<p><hr>
-invoke: Run a pipeline to process a string. Return an NLP result object. We can get all the sentences, entities, and relations from the object.</p>
-<h4>invoke(text: str, pipeline: str)</h4>
-<pre><code>text: string. The size of the text needs to be less than 512KB. 
-pipeline: string. This is the pipeline name. The pipeline names can be found in the pipeline dropdown list 
-in the Realtime Analysis page.</code></pre>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="s2">&quot;tf-medication-pipeline-container&quot;</span>
-<span class="n">textInput</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Sample Type / Medical Specialty:  Discharge Summary</span>
-<span class="s2">            Sample Name: Psychiatric Discharge Summary - 1</span>
-<span class="s2">            Description:  Discharge summary of a patient with mood swings and oppositional and defiant behavior.</span>
-<span class="s2">            (Medical Transcription Sample Report)</span>
-<span class="s2">            DISCHARGE SUMMARY</span>
-<span class="s2">            SUMMARY OF TREATMENT PLANNING:</span>
-<span class="s2">            Two major problems were identified at the admission of this adolescent:</span>
-<span class="s2">            1.   Mood swings.</span>
-<span class="s2">            2.   Oppositional and defiant behavior.</span>
-<span class="s2">            A developmentally appropriate group oriented therapy program was the primary treatment modality for this adolescent.  He participated in at least eight psychoeducational and activity groups.  The attending psychiatrist provided evaluation for and management of psychotropic medications and collaborated with the treatment team.  The clinical therapist facilitated individual, group, and family therapy at least twice per week.</span>
-<span class="s2">            COURSE IN HOSPITAL:  During his hospitalization, the patient was seen initially as very depressed, withdrawn, some impulsive behavior observed, also oppositional behavior was displayed on the unit.  The patient also talked with a therapist about his family conflicts.  He was initiated on an antidepressant medication, Zoloft, and he continued with Adderall.  He responded well to Zoloft, was less depressed.  He continued with behavior problems and mood swings.  A mood stabilizer was added to his treatment and with a positive response to it.</span>
-<span class="s2">            DIAGNOSTIC AND THERAPEUTIC TEST/EVALUATIONS:  Sleep-deprived EEG was done, which was reported as normal.  His last Depakote level was 57 as per 06/04/04.</span>
-<span class="s2">            His laboratory basic metabolic panel, CBC, TSH were reported within normal limits.</span>
-<span class="s2">            CONSULTATIONS:  He was seen by our medical consultant for a complete history and medical examination.  No major acute problems were reported, only the acne.  Treatment was initiated with face wash medication.</span>
-<span class="s2">            FINAL DIAGNOSIS:</span>
-<span class="s2">            AXIS    I:        ADHD (Attention Deficit Hyperactivity Disorder), rule out Bipolar Disorder and ODD (Oppositional Defiant Disorder).</span>
-<span class="s2">            AXIS   II:  Deferred.</span>
-<span class="s2">            AXIS  III:        Acne.</span>
-<span class="s2">            AXIS  IV:        Psychosocial stressors: Severe, family conflicts and educational problems.</span>
-<span class="s2">            AXIS   V:         GAF: 45 to 50.</span>
-<span class="s2">            CONDITIONS ON DISCHARGE:  The patient had appropriate mood and was not engaging in self-injurious behavior.  He denied suicidal or homicidal ideation.</span>
-<span class="s2">            Height: 5 foot 8 inches.  Weight: 134.  Blood pressure: 120/54.  Pulse: 104.  Respirations: 18.  Temperature: 99.</span>
-<span class="s2">            PROGNOSIS:   Guarded.</span>
-<span class="s2">            DISCHARGE PLAN:    As recommended by the treatment team, the patient was discharged to an RTC (Residential Treatment Center) Program to North Star RTC.  He was transferred by personal staff of that institution.</span>
-<span class="s2">            DISCHARGE INSTRUCTIONS/MEDICATIONS:  The patient is to continue treatment at North Star RTC.  Discharge medications are Adderall XR 30 mg p.o. q. a.m., Depakote 250 mg p.o. t.i.d., Zoloft 55 mg p.o. q. a.m.  The prescription was given to the patient&#39;s representative.  As other instructions, the patient may continue treatment at North Star RTC with at least once a week family session.  The patient&#39;s representative and the patient both acknowledged that they understand all the medications prescribed and how to administer them, and the importance of the next level of care and continuing treatment.  If he experiences any side effects or has any concerns regarding his behavior, safety, immediately contact North Star Hospital.</span>
-<span class="s2">        &quot;&quot;&quot;</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">MelaxClient</span><span class="p">()</span>
-<span class="n">nlpResultObj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">textInput</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><hr></p>
-<h3>Response Methods</h3><p>We can get different results by calling different methods in the returned NLP result object.</p>
-<p><hr></p>
-<h4>getAllSentence</h4>
-<pre><code>Get all sentences from the response.
-
-What is a sentence?
-Sentence 
-{
-    'begin': int,
-    'end': int,
-    'type': str,
-    'attrs': dict,
-    'entities': list
-}
-'begin': Start position of the sentence in the input string.
-'end': End position of the sentence in the input string.
-'type': 'Sentence' 
-'attrs': {}
-'entities': A list of entities in the sentence.</code></pre>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the sentences. The result is a list.</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllSentence</span><span class="p">()))</span>
-<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllSentence</span><span class="p">()[:</span><span class="mi">3</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>52
-{&#39;begin&#39;: 0, &#39;end&#39;: 50, &#39;type&#39;: &#39;Sentence&#39;, &#39;attrs&#39;: {}, &#39;entities&#39;: []}
-{&#39;begin&#39;: 51, &#39;end&#39;: 97, &#39;type&#39;: &#39;Sentence&#39;, &#39;attrs&#39;: {}, &#39;entities&#39;: []}
-{&#39;begin&#39;: 98, &#39;end&#39;: 197, &#39;type&#39;: &#39;Sentence&#39;, &#39;attrs&#39;: {}, &#39;entities&#39;: [{&#39;semantic&#39;: &#39;problem&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 180, &#39;end&#39;: 196, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}, &#39;relations&#39;: []}]}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><hr></p>
-<h4>getAllEntity</h4>
-<pre><code>Get all the entities from the response.
-
-Entity
-{
-    'semantic': str,
-    'umlsConcepts': list,
-    'begin': int,
-    'end': int,
-    'type': str,
-    'attrs': dict,
-    'relations': list
-}
-'semantic': The type or category of the entity.
-'umlsConcepts': A list of UMLS Concepts.
-    umlsConcept 
-        {
-            'code': Identification code for the entity ,
-            'preferredText': The most recognized word in the ranking for this concept
-        }
-'begin': Start position of the entity in the input string.
-'end': End position of the entity in the input string.
-'type': 'Entity'. 
-'attrs': 
-        {
-            'sentence_prob': The confidence/probability to identify the sentence,
-            'concept_prob': The confidence/probability to identify the concept
-        }</code></pre>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the entities. The result is a list</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllEntity</span><span class="p">()))</span>
-<span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllEntity</span><span class="p">()[:</span><span class="mi">3</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>67
-{&#39;semantic&#39;: &#39;problem&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 180, &#39;end&#39;: 196, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}, &#39;relations&#39;: []}
-{&#39;semantic&#39;: &#39;problem&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 285, &#39;end&#39;: 303, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}
-{&#39;semantic&#39;: &#39;test&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 637, &#39;end&#39;: 647, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><hr></p>
-<h4>getAllRelation</h4>
-<pre><code>Get all the relations from the response.
-
-Relation
-{
-    'semantic': str,
-    'fromEnt': dict,
-    'toEnt': dict,
-    'begin': int,
-    'end': int,
-    'type': str,
-    'attrs': dict
-}
-'semantic': The type of the relation.
-'fromEnt': The start entity.
-'toEnt': The end entity.
-'begin': The start position of the start entity.
-'end': The end position of the end entity.
-'type': 'Relation'.</code></pre>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the relations. The result is a list. </span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllRelation</span><span class="p">()))</span>
-<span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllRelation</span><span class="p">()[:</span><span class="mi">3</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">relation</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>12
-{&#39;semantic&#39;: &#39;hasAttr&#39;, &#39;fromEnt&#39;: {&#39;semantic&#39;: &#39;treatment&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 795, &#39;end&#39;: 809, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;toEnt&#39;: {&#39;semantic&#39;: &#39;temporal&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 819, &#39;end&#39;: 833, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;begin&#39;: 795, &#39;end&#39;: 833, &#39;type&#39;: &#39;Relation&#39;, &#39;attrs&#39;: {}}
-{&#39;semantic&#39;: &#39;hasAttr&#39;, &#39;fromEnt&#39;: {&#39;semantic&#39;: &#39;test&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 1478, &#39;end&#39;: 1501, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;toEnt&#39;: {&#39;semantic&#39;: &#39;temporal&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 1516, &#39;end&#39;: 1524, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;begin&#39;: 1478, &#39;end&#39;: 1524, &#39;type&#39;: &#39;Relation&#39;, &#39;attrs&#39;: {}}
-{&#39;semantic&#39;: &#39;hasAttr&#39;, &#39;fromEnt&#39;: {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;C1585327, RxNorm=[541365], Generic=[352398]&#39;}], &#39;begin&#39;: 2701, &#39;end&#39;: 2712, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;toEnt&#39;: {&#39;semantic&#39;: &#39;strength&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 2713, &#39;end&#39;: 2718, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;begin&#39;: 2701, &#39;end&#39;: 2718, &#39;type&#39;: &#39;Relation&#39;, &#39;attrs&#39;: {}}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><hr></p>
-<h4>getRawText</h4>
-<pre><code>Get the raw text from the response.
-The raw text is your input text.</code></pre>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the raw text. The result is string.</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getRawText</span><span class="p">()[:</span><span class="mi">500</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Sample Type / Medical Specialty: Discharge Summary
-Sample Name: Psychiatric Discharge Summary - 1
-Description: Discharge summary of a patient with mood swings and oppositional and defiant behavior.
-(Medical Transcription Sample Report)
-DISCHARGE SUMMARY
-SUMMARY OF TREATMENT PLANNING:
-Two major problems were identified at the admission of this adolescent:
-1. Mood swings.
-2. Oppositional and defiant behavior.
-A developmentally appropriate group oriented therapy program was the primary treatment mo
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><hr></p>
-<h4>visualization: display the result directly in Jupyter notebook.</h4><p>visualization(text: str, pipeline: str, **kwargs)</p>
-
-<pre><code>This is a method in MelaxClient. 
-text: string. The size of the text needs to be less than 512KB. 
-pipeline: string. This is the pipeline name. The pipeline names can be found in the pipeline dropdown list 
-in the Realtime Analysis page.
-kwargs: By default, the width is 1080, and the height is 600. You can also set it to the size of your preference. Such as "width=900, height=500". </code></pre>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">visualization</span><span class="p">(</span><span class="n">textInput</span><span class="p">,</span> <span class="s2">&quot;tf-labtest-pipeline-container&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-    <div class="output_png output_subarea ">
-<img style="width:100%" src="./img/nlp.png" />
-</div>
-
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><hr></p>
-<h3>Example</h3><p>This example shows you how to read text from 500 files and save the sentence result into 500 files. The size of the input text needs to be less than 512KB.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">melaxtool.melaxapi</span> <span class="k">import</span> <span class="n">MelaxClient</span>
-<span class="c1"># copy your key  to set env below</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;MELAX_TECH_KEY&#39;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;your key&quot;</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">MelaxClient</span><span class="p">()</span>
-<span class="n">failed</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">notesDir</span> <span class="o">=</span> <span class="s2">&quot;/path/to/your/notes/dir&quot;</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
-    <span class="n">inFileName</span> <span class="o">=</span> <span class="n">notesDir</span> <span class="o">+</span> <span class="s2">&quot;/notes/note_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span>
-    <span class="n">outFileName</span> <span class="o">=</span> <span class="n">notesDir</span> <span class="o">+</span> <span class="s2">&quot;/result/note_json_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.txt&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Progress: </span><span class="si">{:.1f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">50</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inFileName</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">inFile</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">outFileName</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outFile</span><span class="p">:</span>
-        <span class="n">textInput</span> <span class="o">=</span> <span class="n">inFile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">textInput</span><span class="p">,</span> <span class="s2">&quot;tf-labtest-pipeline-container&quot;</span><span class="p">)</span>
-            <span class="n">outFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">getAllSentence</span><span class="p">()))</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">failed</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">outFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">failed</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    </div>
-  </div>
-</body>
+    <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <h2>Mercury NLP API</h2><p>This page provides documentation for the Mercury NLP API operations. We also provide REST API. If you want to learn more about the API, please contact us at mercurynlp@melaxtech.com.</p>
+      
+      </div>
+      </div>
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <p><hr></p>
+      <h3>Prerequisites</h3><p>To get started, first install melaxtool.</p>
+      
+      </div>
+      </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+      <div class="jp-Cell-inputWrapper">
+      <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+           <div class="CodeMirror cm-s-jupyter">
+      <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install <span class="nv">melaxtool</span><span class="o">==</span><span class="m">0</span>.0.14
+      </pre></div>
+      
+           </div>
+      </div>
+      </div>
+      </div>
+      
+      </div>
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <p><hr></p>
+      <h3>Import the package and create a client</h3><p>Your API key is at the top of this page.</p>
+      
+      </div>
+      </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+      <div class="jp-Cell-inputWrapper">
+      <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+           <div class="CodeMirror cm-s-jupyter">
+      <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+      <span class="kn">from</span> <span class="nn">melaxtool.melaxapi</span> <span class="kn">import</span> <span class="n">MelaxClient</span>
+      <span class="c1"># copy your key  to set env below</span>
+      <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;MELAX_TECH_KEY&#39;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;Put your key here&quot;</span>
+      </pre></div>
+      
+           </div>
+      </div>
+      </div>
+      </div>
+      
+      </div>
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <p><hr></p>
+      <h3>Request Methods</h3><p>We provide two request methods: invoke and visualization.</p>
+      <hr>
+      
+      
+      <h4>invoke(text: str, pipeline: str)</h4>
+      <pre><code>Run a pipeline to process a string. Return an NLP result object. We can get all the sentences, entities, and relations from the object.
+      
+      text: string. The size of the text needs to be less than 10MB. 
+      pipeline: string. This is the pipeline name. The pipeline names can be found in the pipeline dropdown list 
+      in the Real-Time Analysis page.</code></pre>
+      
+      </div>
+      </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+      <div class="jp-Cell-inputWrapper">
+      <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+           <div class="CodeMirror cm-s-jupyter">
+      <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="s2">&quot;medication-signature-pipeline:v1.0.0&quot;</span>
+      <span class="n">textInput</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Sample Type / Medical Specialty:  Discharge Summary</span>
+      <span class="s2">Sample Name: Psychiatric Discharge Summary - 1</span>
+      <span class="s2">Description:  Discharge summary of a patient with mood swings and oppositional and defiant behavior.</span>
+      <span class="s2">(Medical Transcription Sample Report)</span>
+      <span class="s2">DISCHARGE SUMMARY</span>
+      <span class="s2">SUMMARY OF TREATMENT PLANNING:</span>
+      <span class="s2">Two major problems were identified at the admission of this adolescent:</span>
+      <span class="s2">1.   Mood swings.</span>
+      <span class="s2">2.   Oppositional and defiant behavior.</span>
+      <span class="s2">A developmentally appropriate group oriented therapy program was the primary treatment modality for this adolescent.  He participated in at least eight psychoeducational and activity groups.  The attending psychiatrist provided evaluation for and management of psychotropic medications and collaborated with the treatment team.  The clinical therapist facilitated individual, group, and family therapy at least twice per week.</span>
+      <span class="s2">COURSE IN HOSPITAL:  During his hospitalization, the patient was seen initially as very depressed, withdrawn, some impulsive behavior observed, also oppositional behavior was displayed on the unit.  The patient also talked with a therapist about his family conflicts.  He was initiated on an antidepressant medication, Zoloft, and he continued with Adderall.  He responded well to Zoloft, was less depressed.  He continued with behavior problems and mood swings.  A mood stabilizer was added to his treatment and with a positive response to it.</span>
+      <span class="s2">DIAGNOSTIC AND THERAPEUTIC TEST/EVALUATIONS:  Sleep-deprived EEG was done, which was reported as normal.  His last Depakote level was 57 as per 06/04/04.</span>
+      <span class="s2">His laboratory basic metabolic panel, CBC, TSH were reported within normal limits.</span>
+      <span class="s2">CONSULTATIONS:  He was seen by our medical consultant for a complete history and medical examination.  No major acute problems were reported, only the acne.  Treatment was initiated with face wash medication.</span>
+      <span class="s2">FINAL DIAGNOSIS:</span>
+      <span class="s2">AXIS    I:        ADHD (Attention Deficit Hyperactivity Disorder), rule out Bipolar Disorder and ODD (Oppositional Defiant Disorder).</span>
+      <span class="s2">AXIS   II:  Deferred.</span>
+      <span class="s2">AXIS  III:        Acne.</span>
+      <span class="s2">AXIS  IV:        Psychosocial stressors: Severe, family conflicts and educational problems.</span>
+      <span class="s2">AXIS   V:         GAF: 45 to 50.</span>
+      <span class="s2">CONDITIONS ON DISCHARGE:  The patient had appropriate mood and was not engaging in self-injurious behavior.  He denied suicidal or homicidal ideation.</span>
+      <span class="s2">Height: 5 foot 8 inches.  Weight: 134.  Blood pressure: 120/54.  Pulse: 104.  Respirations: 18.  Temperature: 99.</span>
+      <span class="s2">PROGNOSIS:   Guarded.</span>
+      <span class="s2">DISCHARGE PLAN:    As recommended by the treatment team, the patient was discharged to an RTC (Residential Treatment Center) Program to North Star RTC.  He was transferred by personal staff of that institution.</span>
+      <span class="s2">DISCHARGE INSTRUCTIONS/MEDICATIONS:  The patient is to continue treatment at North Star RTC.  Discharge medications are Adderall XR 30 mg p.o. q. a.m., Depakote 250 mg p.o. t.i.d., Zoloft 55 mg p.o. q. a.m.  The prescription was given to the patient&#39;s representative.  As other instructions, the patient may continue treatment at North Star RTC with at least once a week family session.  The patient&#39;s representative and the patient both acknowledged that they understand all the medications prescribed and how to administer them, and the importance of the next level of care and continuing treatment.  If he experiences any side effects or has any concerns regarding his behavior, safety, immediately contact North Star Hospital.&quot;&quot;&quot;</span>
+      <span class="n">client</span> <span class="o">=</span> <span class="n">MelaxClient</span><span class="p">()</span>
+      <span class="n">nlpResultObj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">textInput</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">)</span>
+      </pre></div>
+      
+           </div>
+      </div>
+      </div>
+      </div>
+      
+      </div>
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <hr>
+      
+      <h4>visualization(text: str, pipeline: str, **kwargs)</h4>
+      <pre><code>Display the result directly in Jupyter notebook.
+      
+      text: string. The size of the text needs to be less than 10MB. 
+      pipeline: string. This is the pipeline name. The pipeline names can be found in the pipeline dropdown list 
+      in the Realtime Analysis page.
+      kwargs: By default, the width is 1080, and the height is 600. You can also set it to the size of your preference. Such as "width=900, height=500". </code></pre>
+      
+      </div>
+      </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+      <div class="jp-Cell-inputWrapper">
+      <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+           <div class="CodeMirror cm-s-jupyter">
+      <div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">visualization</span><span class="p">(</span><span class="n">textInput</span><span class="p">,</span> <span class="s2">&quot;medication-signature-pipeline:v1.0.0&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+      </pre></div>
+      
+           </div>
+      </div>
+      </div>
+      </div>
+      
+      <div class="jp-Cell-outputWrapper">
+      
+      
+      <div class="jp-OutputArea jp-Cell-outputArea">
+      
+      <div class="jp-OutputArea-child">
+      
+          
+          <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+      
+      
+      
+      <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+      
+                <iframe
+                    width="1000"
+                    height="600"
+                    src="https://mercury.melaxtech.com/test-nlp?token=NC877434309693280256"
+                    frameborder="0"
+                    allowfullscreen
+                ></iframe>
+                
+      </div>
+      
+      </div>
+      
+      </div>
+      
+      </div>
+      
+      </div>
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <p><hr></p>
+      <h3>Response Methods</h3><p>We can get different results by calling different methods in the returned NLP result object.</p>
+      <p><hr></p>
+      <h4>getAllSentence()</h4>
+      <pre><code>Get all sentences from the response.
+      
+      What is a sentence?
+      Sentence 
+      {
+          'begin': int,
+          'end': int,
+          'type': str,
+          'attrs': dict,
+          'entities': list
+      }
+      'begin': Start position of the sentence in the input string.
+      'end': End position of the sentence in the input string.
+      'type': 'Sentence' 
+      'attrs': {}
+      'entities': [].</code></pre>
+      
+      </div>
+      </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+      <div class="jp-Cell-inputWrapper">
+      <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+           <div class="CodeMirror cm-s-jupyter">
+      <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the sentences. The result is a list.</span>
+      <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllSentence</span><span class="p">()))</span>
+      <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllSentence</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+      </pre></div>
+      
+           </div>
+      </div>
+      </div>
+      </div>
+      
+      <div class="jp-Cell-outputWrapper">
+      
+      
+      <div class="jp-OutputArea jp-Cell-outputArea">
+      
+      <div class="jp-OutputArea-child">
+      
+          
+          <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+      
+      
+      <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+      <pre>52
+      {&#39;begin&#39;: 0, &#39;end&#39;: 50, &#39;type&#39;: &#39;Sentence&#39;, &#39;attrs&#39;: {}, &#39;entities&#39;: []}
+      {&#39;begin&#39;: 51, &#39;end&#39;: 97, &#39;type&#39;: &#39;Sentence&#39;, &#39;attrs&#39;: {}, &#39;entities&#39;: []}
+      {&#39;begin&#39;: 98, &#39;end&#39;: 197, &#39;type&#39;: &#39;Sentence&#39;, &#39;attrs&#39;: {}, &#39;entities&#39;: []}
+      {&#39;begin&#39;: 198, &#39;end&#39;: 235, &#39;type&#39;: &#39;Sentence&#39;, &#39;attrs&#39;: {}, &#39;entities&#39;: []}
+      {&#39;begin&#39;: 236, &#39;end&#39;: 253, &#39;type&#39;: &#39;Sentence&#39;, &#39;attrs&#39;: {}, &#39;entities&#39;: []}
+      </pre>
+      </div>
+      </div>
+      
+      </div>
+      
+      </div>
+      
+      </div>
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <p><hr></p>
+      <h4>getAllEntity()</h4>
+      <pre><code>Get all the entities from the response.
+      
+      Entity
+      {
+          'semantic': str,
+          'umlsConcepts': list,
+          'begin': int,
+          'end': int,
+          'type': str,
+          'attrs': dict,
+          'relations': list
+      }
+      'semantic': The type or category of the entity.
+      'umlsConcepts': A list of UMLS Concepts.
+          umlsConcept 
+              {
+                  'code': Identification code for the entity ,
+                  'preferredText': The most recognized word in the ranking for this concept
+              }
+      'begin': Start position of the entity in the input string.
+      'end': End position of the entity in the input string.
+      'type': 'Entity'. 
+      'attrs': 
+              {
+                  'sentence_prob': The confidence/probability to identify the sentence,
+                  'concept_prob': The confidence/probability to identify the concept
+              }</code></pre>
+      
+      </div>
+      </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+      <div class="jp-Cell-inputWrapper">
+      <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+           <div class="CodeMirror cm-s-jupyter">
+      <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the entities. The result is a list</span>
+      <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllEntity</span><span class="p">()))</span>
+      <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllEntity</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+      </pre></div>
+      
+           </div>
+      </div>
+      </div>
+      </div>
+      
+      <div class="jp-Cell-outputWrapper">
+      
+      
+      <div class="jp-OutputArea jp-Cell-outputArea">
+      
+      <div class="jp-OutputArea-child">
+      
+          
+          <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+      
+      
+      <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+      <pre>17
+      {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;RxNorm=[8927], Generic=[8927]&#39;}], &#39;begin&#39;: 670, &#39;end&#39;: 694, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}, &#39;relations&#39;: []}
+      {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;RxNorm=[927], Generic=[927]&#39;}], &#39;begin&#39;: 1124, &#39;end&#39;: 1149, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}
+      {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;C0284660, RxNorm=[82728], Generic=[82728]&#39;}], &#39;begin&#39;: 1151, &#39;end&#39;: 1157, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}
+      {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;C0290795, RxNorm=[84815], Generic=[84815]&#39;}], &#39;begin&#39;: 1181, &#39;end&#39;: 1189, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}
+      {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;C0284660, RxNorm=[82728], Generic=[82728]&#39;}], &#39;begin&#39;: 1212, &#39;end&#39;: 1218, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}
+      </pre>
+      </div>
+      </div>
+      
+      </div>
+      
+      </div>
+      
+      </div>
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <p><hr></p>
+      <h4>getAllRelation()</h4>
+      <pre><code>Get all the relations from the response.
+      
+      Relation
+      {
+          'semantic': str,
+          'fromEnt': dict,
+          'toEnt': dict,
+          'begin': int,
+          'end': int,
+          'type': str,
+          'attrs': dict
+      }
+      'semantic': The type of the relation.
+      'fromEnt': The start entity.
+      'toEnt': The end entity.
+      'begin': The start position of the start entity.
+      'end': The end position of the end entity.
+      'type': 'Relation'.</code></pre>
+      
+      </div>
+      </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+      <div class="jp-Cell-inputWrapper">
+      <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+           <div class="CodeMirror cm-s-jupyter">
+      <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the relations. The result is a list. </span>
+      <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllRelation</span><span class="p">()))</span>
+      <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getAllRelation</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="n">relation</span><span class="p">)</span>
+      </pre></div>
+      
+           </div>
+      </div>
+      </div>
+      </div>
+      
+      <div class="jp-Cell-outputWrapper">
+      
+      
+      <div class="jp-OutputArea jp-Cell-outputArea">
+      
+      <div class="jp-OutputArea-child">
+      
+          
+          <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+      
+      
+      <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+      <pre>9
+      {&#39;semantic&#39;: &#39;hasAttr&#39;, &#39;fromEnt&#39;: {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;C1585327, RxNorm=[541365], Generic=[352398]&#39;}], &#39;begin&#39;: 2701, &#39;end&#39;: 2712, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;toEnt&#39;: {&#39;semantic&#39;: &#39;route&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 2719, &#39;end&#39;: 2723, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;begin&#39;: 2701, &#39;end&#39;: 2723, &#39;type&#39;: &#39;Relation&#39;, &#39;attrs&#39;: {}}
+      {&#39;semantic&#39;: &#39;hasAttr&#39;, &#39;fromEnt&#39;: {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;C1585327, RxNorm=[541365], Generic=[352398]&#39;}], &#39;begin&#39;: 2701, &#39;end&#39;: 2712, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;toEnt&#39;: {&#39;semantic&#39;: &#39;strength&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 2713, &#39;end&#39;: 2718, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;begin&#39;: 2701, &#39;end&#39;: 2718, &#39;type&#39;: &#39;Relation&#39;, &#39;attrs&#39;: {}}
+      {&#39;semantic&#39;: &#39;hasAttr&#39;, &#39;fromEnt&#39;: {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;C1585327, RxNorm=[541365], Generic=[352398]&#39;}], &#39;begin&#39;: 2701, &#39;end&#39;: 2712, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;toEnt&#39;: {&#39;semantic&#39;: &#39;frequency&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 2724, &#39;end&#39;: 2730, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;begin&#39;: 2701, &#39;end&#39;: 2730, &#39;type&#39;: &#39;Relation&#39;, &#39;attrs&#39;: {}}
+      {&#39;semantic&#39;: &#39;hasAttr&#39;, &#39;fromEnt&#39;: {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;C3153522, RxNorm=[1099564], Generic=[216459]&#39;}], &#39;begin&#39;: 2733, &#39;end&#39;: 2741, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;toEnt&#39;: {&#39;semantic&#39;: &#39;route&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 2749, &#39;end&#39;: 2753, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;begin&#39;: 2733, &#39;end&#39;: 2753, &#39;type&#39;: &#39;Relation&#39;, &#39;attrs&#39;: {}}
+      {&#39;semantic&#39;: &#39;hasAttr&#39;, &#39;fromEnt&#39;: {&#39;semantic&#39;: &#39;drug&#39;, &#39;umlsConcepts&#39;: [{&#39;code&#39;: &#39;C3153522, RxNorm=[1099564], Generic=[216459]&#39;}], &#39;begin&#39;: 2733, &#39;end&#39;: 2741, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;toEnt&#39;: {&#39;semantic&#39;: &#39;strength&#39;, &#39;umlsConcepts&#39;: [{}], &#39;begin&#39;: 2742, &#39;end&#39;: 2748, &#39;type&#39;: &#39;Entity&#39;, &#39;attrs&#39;: {}}, &#39;begin&#39;: 2733, &#39;end&#39;: 2748, &#39;type&#39;: &#39;Relation&#39;, &#39;attrs&#39;: {}}
+      </pre>
+      </div>
+      </div>
+      
+      </div>
+      
+      </div>
+      
+      </div>
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <p><hr></p>
+      <h4>getRawText()</h4>
+      <pre><code>Get the raw text from the response.
+      The raw text is your input text.</code></pre>
+      
+      </div>
+      </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+      <div class="jp-Cell-inputWrapper">
+      <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+           <div class="CodeMirror cm-s-jupyter">
+      <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the raw text. The result is string.</span>
+      <span class="nb">print</span><span class="p">(</span><span class="n">nlpResultObj</span><span class="o">.</span><span class="n">getRawText</span><span class="p">()[:</span><span class="mi">500</span><span class="p">])</span>
+      </pre></div>
+      
+           </div>
+      </div>
+      </div>
+      </div>
+      
+      <div class="jp-Cell-outputWrapper">
+      
+      
+      <div class="jp-OutputArea jp-Cell-outputArea">
+      
+      <div class="jp-OutputArea-child">
+      
+          
+          <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+      
+      
+      <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+      <pre>Sample Type / Medical Specialty: Discharge Summary
+      Sample Name: Psychiatric Discharge Summary - 1
+      Description: Discharge summary of a patient with mood swings and oppositional and defiant behavior.
+      (Medical Transcription Sample Report)
+      DISCHARGE SUMMARY
+      SUMMARY OF TREATMENT PLANNING:
+      Two major problems were identified at the admission of this adolescent:
+      1. Mood swings.
+      2. Oppositional and defiant behavior.
+      A developmentally appropriate group oriented therapy program was the primary treatment mo
+      </pre>
+      </div>
+      </div>
+      
+      </div>
+      
+      </div>
+      
+      </div>
+      <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+      </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <p><hr></p>
+      <h3>Example</h3><p>This example shows you how to read text from 500 files and save the sentence result into 500 files. The size of the input text needs to be less than 10MB.</p>
+      
+      </div>
+      </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+      <div class="jp-Cell-inputWrapper">
+      <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+           <div class="CodeMirror cm-s-jupyter">
+      <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+      <span class="kn">from</span> <span class="nn">melaxtool.melaxapi</span> <span class="kn">import</span> <span class="n">MelaxClient</span>
+      <span class="c1"># copy your key  to set env below</span>
+      <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;MELAX_TECH_KEY&#39;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;your key&quot;</span>
+      <span class="n">client</span> <span class="o">=</span> <span class="n">MelaxClient</span><span class="p">()</span>
+      <span class="n">failed</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">notesDir</span> <span class="o">=</span> <span class="s2">&quot;/path/to/your/notes/dir&quot;</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
+          <span class="n">inFileName</span> <span class="o">=</span> <span class="n">notesDir</span> <span class="o">+</span> <span class="s2">&quot;/notes/note_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span>
+          <span class="n">outFileName</span> <span class="o">=</span> <span class="n">notesDir</span> <span class="o">+</span> <span class="s2">&quot;/result/note_json_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.txt&quot;</span>
+          <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Progress: </span><span class="si">{:.1f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">50</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inFileName</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">inFile</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">outFileName</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outFile</span><span class="p">:</span>
+              <span class="n">textInput</span> <span class="o">=</span> <span class="n">inFile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+              <span class="k">try</span><span class="p">:</span>
+                  <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">textInput</span><span class="p">,</span> <span class="s2">&quot;tf-labtest-pipeline-container&quot;</span><span class="p">)</span>
+                  <span class="n">outFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">getAllSentence</span><span class="p">()))</span>
+              <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                  <span class="n">failed</span> <span class="o">+=</span> <span class="mi">1</span>
+                  <span class="n">outFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+      <span class="nb">print</span><span class="p">(</span><span class="n">failed</span><span class="p">)</span>
+      </pre></div>
+      
+           </div>
+      </div>
+      </div>
+      </div>
+      
+      </div>
+      </body>
 
  
 
