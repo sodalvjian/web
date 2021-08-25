@@ -26,6 +26,7 @@
             v-model="formData.text"
             type="textarea"
             :class="{ 'input-limit-container-error': inputLimit }"
+            @keydown.native="onKeyupInput"
             @keyup.native="onKeyupInput"
             @paste.native="onPaste"
             class="analysis-textarea"

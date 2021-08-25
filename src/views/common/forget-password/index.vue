@@ -112,7 +112,7 @@
               </el-form-item>
               <el-form-item
                 v-if="step === 3"
-                class="mt-35"
+                class="mt-45"
                 prop="checkPass"
                 :rules="{ validator: validateCheckPass }"
               >
