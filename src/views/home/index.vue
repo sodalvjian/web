@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-color-white">
+  <div class="bg-color-white mercury-home">
     <header class="container">
       <a href="https://melaxtech.com/">
         <img
@@ -42,7 +42,7 @@
               <span class="ml-10 fb f20">Affordable</span>
             </div>
             <div
-              class="mt-15 color-gray f15 lh2 mercury-nav-content"
+              class="mt-15 f15 lh2 mercury-nav-content"
               title=" Pricing to allow you to get large amounts of data processed within
               budget"
             >
@@ -59,7 +59,7 @@
               <span class="ml-10 fb f20">More Pipelines</span>
             </div>
             <div
-              class="mt-15 color-gray f15 lh2 mercury-nav-content"
+              class="mt-15 f15 lh2 mercury-nav-content"
               title="More pipelines - with six medical pipelines and more added regularly extract only the data you need"
             >
               Six medical pipelines and more added regularly to extract only the
@@ -76,7 +76,7 @@
               <span class="ml-10 fb f20">Analysis</span>
             </div>
             <div
-              class="mt-15 color-gray f15 lh2 mercury-nav-content"
+              class="mt-15 f15 lh2 mercury-nav-content"
               title="Real-Time analysist"
             >
               Save time and frustration with real-time analysis
@@ -92,7 +92,7 @@
               <span class="ml-10 fb f20">Security</span>
             </div>
             <div
-              class="mt-15 color-gray f15 lh2 mercury-nav-content"
+              class="mt-15 f15 lh2 mercury-nav-content"
               title="The option of deploying on your own server"
             >
               Deploy Mercury NLP on your own server
@@ -115,7 +115,7 @@
                 <img src="@/assets/img/home/fast.svg" alt="" />
               </div>
               <h2>FAST</h2>
-              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <div class="mt-15 f15 lh2 mercury-nav-content">
                 Give me some copywriting
               </div>
             </el-card>
@@ -130,7 +130,7 @@
                 <img src="@/assets/img/home/ACCURATE.svg" alt="" />
               </div>
               <h2>ACCURATE</h2>
-              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <div class="mt-15 f15 lh2 mercury-nav-content">
                 Give me some copywriting
               </div>
             </el-card>
@@ -145,7 +145,7 @@
                 <img src="@/assets/img/home/SECURE.svg" alt="" />
               </div>
               <h2>SECURE</h2>
-              <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+              <div class="mt-15 f15 lh2 mercury-nav-content">
                 Give me some copywriting
               </div>
             </el-card>
@@ -160,7 +160,7 @@
                 <img src="@/assets/img/home/AFFORDABLE.svg" alt="" />
               </div>
               <h2>AFFORDABLE</h2>
-               <div class="mt-15 color-gray f15 lh2 mercury-nav-content">
+               <div class="mt-15 f15 lh2 mercury-nav-content">
                 Give me some copywriting
               </div> 
             </el-card>
@@ -183,13 +183,13 @@
             price of our competitors. Your jobs are your business. Select
             privacy options and know your NLP job is secure and HIPAA compliant.
           </div>
-          <div>
+          <!-- <div>
             <img
               class="w mt-20"
               src="../../assets/img/bottom_quotation.jpg"
               alt=""
             />
-          </div>
+          </div> -->
         </main>
       </el-card>
     </section>
@@ -220,6 +220,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.mercury-home {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .why-nlp-container {
   img {
     width: 150px;
@@ -265,7 +268,7 @@ export default {
 }
 .mercury-color-block {
   height: 200px;
-  margin-top: 150px;
+  margin-top: 90px;
   background-color: #127f81;
 }
 .mercury-color-description {
