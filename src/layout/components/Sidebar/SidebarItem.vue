@@ -27,6 +27,7 @@
     <el-submenu
       v-else
       ref="subMenu"
+      popper-class="sider-item"
       :index="resolvePath(item.path)"
       popper-append-to-body
     >
@@ -37,13 +38,21 @@
         <item v-if="item.meta" :title="item.meta.title" />
       </template>
       <el-menu-item index="2">
-        <a href="/document#Overview" title="Overview"> <span slot="title">Overview</span></a>
+        <a href="/document#Overview" title="Overview">
+          <span slot="title">Overview</span></a
+        >
       </el-menu-item>
       <el-menu-item index="3">
-        <a href="/document#Login" title="Login"> <span slot="title">Login</span></a>
+        <a href="/document#Login" title="Login">
+          <span slot="title">Login</span></a
+        >
       </el-menu-item>
       <el-menu-item index="4">
-        <a class="text-short" title="User Account and Password Management" href="/document#Account-management">
+        <a
+          class="text-short"
+          title="User Account and Password Management"
+          href="/document#Account-management"
+        >
           <span slot="title">User Account and Password Management</span></a
         >
       </el-menu-item>
@@ -53,17 +62,21 @@
         >
       </el-menu-item>
       <el-menu-item index="6">
-        <a class="text-short" title="Clinical Real-Time Analysis" href="/document#Real-Time">
-          <span slot="title"
-            >Clinical Real-Time Analysis</span
-          ></a
+        <a
+          class="text-short"
+          title="Clinical Real-Time Analysis"
+          href="/document#Real-Time"
+        >
+          <span slot="title">Clinical Real-Time Analysis</span></a
         >
       </el-menu-item>
       <el-menu-item index="7">
-        <a class="text-short" title="Clinical Batch Analysis" href="/document#Batch">
-          <span slot="title"
-            >Clinical Batch Analysis</span
-          ></a
+        <a
+          class="text-short"
+          title="Clinical Batch Analysis"
+          href="/document#Batch"
+        >
+          <span slot="title">Clinical Batch Analysis</span></a
         >
       </el-menu-item>
       <el-menu-item index="8" title="API Use">
@@ -152,3 +165,11 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.sider-item {
+  a {
+    display: inline-block;
+    width: 100%;
+  }
+}
+</style>

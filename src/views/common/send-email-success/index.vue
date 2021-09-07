@@ -31,9 +31,7 @@
           <div class="mt-20 f14 p20 lh1-5">
             We are very sorry. This link is no longer valid.
           </div>
-          <div class="mt-30 w p15 color-white bg-color-red">
-            <i class="el-icon-close"></i>
-          </div>
+
           <div class="mt-40 color-light-blue cp tc f13">
             <router-link to="/register">Back to Sign up</router-link>
           </div>
