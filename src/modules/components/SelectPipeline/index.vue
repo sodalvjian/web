@@ -30,7 +30,7 @@
           <br />
           Description: {{ selectPipeline.description }}
         </div>
-        <i class="mt-8 ml-20 el-icon-info f18 color-hui cp"></i>
+        <span class="ml-20 f18 color-white cp icon-info">$</span>
       </el-tooltip>
     </el-col>
   </el-row>
@@ -146,4 +146,16 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.icon-info {
+  margin-top: 3px;
+  background-color: #424780;
+  border-radius: 50%;
+  width: 25px;
+  height: 24px;
+  display: inline-block;
+  font-size: 13px;
+  text-align: center;
+  line-height: 25px;
+}
+</style>
