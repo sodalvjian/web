@@ -8,9 +8,9 @@
         <el-row type="flex">
           <el-col :span="24">
             <div class="f16 fb mt-5 color-main">Select NLP pipeline:</div>
-            <select-pipeline
+            <select-pipeline-split
               v-model="formData.pipeline"
-              style="width:400px"
+              style="width:600px"
               class="mt-15"
               size="small"
               @get-complete-data="getCompleteData"
