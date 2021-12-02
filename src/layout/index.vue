@@ -5,7 +5,7 @@
       class="drawer-bg"
       @click="handleClickOutside"
     />
-    <sidebar v-if="hideSidebar" class="sidebar-container" />
+    <sidebar class="sidebar-container" />
     <div :class="{ 'fixed-header': true }">
       <navbar />
     </div>
@@ -53,7 +53,7 @@ export default {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
+        // mobile: this.device === 'mobile'
       }
     },
     hideSidebar() {
