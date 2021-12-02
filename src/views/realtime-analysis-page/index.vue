@@ -26,18 +26,18 @@
             v-model="formData.text"
             type="textarea"
             :class="{ 'input-limit-container-error': inputLimit }"
-            @keydown.native="onKeyupInput"
-            @keyup.native="onKeyupInput"
-            @paste.native="onPaste"
             class="analysis-textarea"
             show-word-limit
             :rows="8"
             placeholder="Please enter"
+            @keydown.native="onKeyupInput"
+            @keyup.native="onKeyupInput"
+            @paste.native="onPaste"
           >
           </el-input>
-          <span class="input-limit-container"
-            >{{ formData.text.length }}/4096</span
-          >
+          <span
+            class="input-limit-container"
+          >{{ formData.text.length }}/4096</span>
         </div>
 
         <p>
@@ -50,8 +50,7 @@
             icon="iconfont icon-Analyze"
             @click="handleAnalysis(false)"
           >
-            Analyze</el-button
-          >
+            Analyze</el-button>
         </p>
       </section>
     </div>

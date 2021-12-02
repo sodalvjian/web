@@ -1,26 +1,27 @@
 <template>
-  <el-row type="flex" :gutter="20">
-    <el-col :span="12">
-      <el-select
-        v-model="selectPipelineData"
-        class="w"
-        size="small"
-        placeholder="Select pipeline"
-        @change="onChangePipeline"
-      >
-        <el-option
-          v-for="(item, index) in optionsList"
-          :key="index"
-          :label="item.lamdaName"
-          :value="item.lamdaName"
+  <section>
+    <el-row type="flex" :gutter="20">
+      <el-col :span="12">
+        <el-select
+          v-model="selectPipelineData"
+          class="w"
+          size="small"
+          placeholder="Select pipeline"
+          @change="onChangePipeline"
         >
-          <!-- <span style="float: left">{{ item.label }}</span>
+          <el-option
+            v-for="(item, index) in optionsList"
+            :key="index"
+            :label="item.lamdaName"
+            :value="item.lamdaName"
+          >
+            <!-- <span style="float: left">{{ item.label }}</span>
           <span style="float: right; color: #8492a6; font-size: 13px">{{
             item.value
           }}</span> -->
-        </el-option>
-      </el-select>
-      <!-- <el-cascader
+          </el-option>
+        </el-select>
+        <!-- <el-cascader
         v-model="model"
         :options="optionsList"
         class="w"
@@ -35,33 +36,33 @@
           <span>{{ data.showName }}</span>
         </template></el-cascader
       > -->
-    </el-col>
-    <el-col :span="12">
-      <el-select
-        v-model="model"
-        class="w "
-        popper-class="select-version"
-        size="small"
-        placeholder="Select version"
-        @change="handleChange"
-      >
-        <el-option
-          v-for="item in versionList"
-          :key="item.id"
-          :label="item.version"
-          :value="item.params"
+      </el-col>
+      <el-col :span="12">
+        <el-select
+          v-model="model"
+          class="w "
+          popper-class="select-version"
+          size="small"
+          placeholder="Select version"
+          @change="handleChange"
         >
-          <div>{{ item.version }}</div>
-          <div
-            :title="item.description"
-            class="version-item-description"
-            style="color: #8492a6; font-size: 12px;margin-top:-10px"
+          <el-option
+            v-for="item in versionList"
+            :key="item.id"
+            :label="item.version"
+            :value="item.params"
           >
-            {{ item.description }}
-          </div>
-        </el-option>
-      </el-select>
-      <!-- <el-tooltip
+            <div>{{ item.version }}</div>
+            <div
+              :title="item.description"
+              class="version-item-description"
+              style="color: #8492a6; font-size: 12px;margin-top:-10px"
+            >
+              {{ item.description }}
+            </div>
+          </el-option>
+        </el-select>
+        <!-- <el-tooltip
         v-show="selectPipeline.unitPrice"
         class="item"
         effect="dark"
@@ -75,8 +76,24 @@
         </div>
         <span class="ml-20 f18 color-white cp icon-info">$</span>
       </el-tooltip> -->
-    </el-col>
-  </el-row>
+      </el-col>
+    </el-row>
+    <div class="color-main mt-20 mb-15 f16 fb">
+      Pipeline description & Price information:
+    </div>
+    <div>
+      <strong class="mr-10">Pricing:</strong>
+      {{
+        selectPipeline.unitPrice
+          ? (selectPipeline.unitPrice * 100).toFixed(3) + '/unit;100byte/unit'
+          : '--'
+      }}
+    </div>
+    <div class="mt-10" style="line-height: 1.7;">
+      <strong class="mr-10">Description:</strong>
+      {{ selectPipeline.description || '--' }}
+    </div>
+  </section>
 </template>
 
 <script>
@@ -109,7 +126,8 @@ export default {
       model: this.value,
       optionsList: [],
       selectPipeline: {
-        unitPrice: 0
+        unitPrice: 0,
+        description: ''
       },
       propsOption: {
         expandTrigger: 'hover',
@@ -150,6 +168,7 @@ export default {
       this.versionList = versionList
       this.model = ''
       console.log('versionList', versionList)
+      this.selectPipeline = this.$options.data().selectPipeline
       this.$emit('get-complete-data', {})
     },
     handleChange(val) {
@@ -159,8 +178,9 @@ export default {
       //   .map(item => item.version)
       //   .flat(Infinity) // 将自己版本数据拉平
       // const resultData = childOptions.find(item => item.params === selectData)
-      // this.selectPipeline = resultData
+
       const resultData = this.versionList.find(item => item.params === val)
+      this.selectPipeline = resultData
       this.$emit('get-complete-data', resultData)
     },
     // 下拉框出现时重新加载数据

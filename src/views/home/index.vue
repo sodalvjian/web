@@ -6,7 +6,7 @@
           class="home-logo mt-20"
           src="../../assets/img/melax_logo.png"
           alt=""
-        /></a>
+      /></a>
     </header>
     <section class="mercury-banner">
       <el-row class="container">
@@ -26,7 +26,8 @@
                 :style="'background:#4ebebf;border:1px solid #4ebebf'"
               >
                 Try it now
-              </el-button></router-link>
+              </el-button></router-link
+            >
           </div>
         </el-col>
       </el-row>
@@ -203,6 +204,92 @@
         </main>
       </el-card>
     </section>
+    <section class="container">
+      <h1 class="tc mt-100 mb-100">Pipeline list</h1>
+      <el-collapse class="home-collapse">
+        <el-collapse-item>
+          <template slot="title">
+            <i class="el-icon-caret-right mr-5"></i>Comprehensive Clinical
+            Information
+          </template>
+          <div>
+            This is the most comprehensive pipeline from Melax, which recognizes
+            four primary clinical entities from clinical notes: "medical
+            problems", "medications", "treatments", and "lab tests", as well as
+            their modifiers, including (1) "negation", "severity",
+            "uncertainty", "condition", "subject", and "body location" for
+            "medical problems", (2) "form", "dosage", "strength", "route",
+            "duration", and "frequency" for "medications"; (3) "negation" for
+            "treatments"; and (4) "negation" and "value" for "lab tests". All
+            "temporal information" associated with primary entities will be
+            extracted as well. Moreover, all extracted primary entities will be
+            mapped to standard codes in corresponding medical terminologies:
+            SNOMED-CT for "medical problems", RxNorm for "medications", ICD-10
+            PCS for "treatments", and LOINC for "lab tests".
+          </div>
+        </el-collapse-item>
+        <el-collapse-item>
+          <template slot="title">
+            <i class="el-icon-caret-right mr-5"></i>Diseases and Symptoms
+            (mapped to SNOMED-CT)
+          </template>
+          <div>
+            This pipeline extracts patients’ medical problems such as diseases
+            and symptoms, together with associated modifiers including
+            "negation", "severity", "uncertainty", "condition", "subject", and
+            "body location", from clinical reports. The recognized
+            diseases/symptoms will be mapped to SNOMED-CT concept IDs.
+          </div>
+        </el-collapse-item>
+        <el-collapse-item>
+          <template slot="title">
+            <i class="el-icon-caret-right mr-5"></i>Diseases (mapped to ICD-10)
+          </template>
+          <div>
+            This pipeline extracts disease mentions, together with associated
+            modifiers including "negation", "severity", "uncertainty",
+            "condition", "subject", and "body location" from clinical reports.
+            The recognized diseases will be mapped to ICD-10 CM codes.
+          </div>
+        </el-collapse-item>
+        <el-collapse-item>
+          <template slot="title">
+            <i class="el-icon-caret-right mr-5"></i>Lab Tests (mapped to LOINC)
+          </template>
+          <div>
+            This pipeline recognizes lab test-related information from clinical
+            reports. Examples of lab tests include panels and tests run on body
+            fluids, procedures performed on a patient, such as x-rays and
+            biopsies, and vital signs. It will extract numeric values associated
+            with lab tests as well. Extracted lab test entities will be mapped
+            to LOINC codes if applicable.
+          </div>
+        </el-collapse-item>
+        <el-collapse-item>
+          <template slot="title">
+            <i class="el-icon-caret-right mr-5"></i>Medication and Signature
+            Information (mapped to RxNorm)
+          </template>
+          <div>
+            This pipeline identifies mentions of medications as well as their
+            signature information including "form", "dosage", "strength",
+            "route", "duration", and "frequency", from clinical reports. It then
+            maps recognized medication/signature information to RxNorm codes.
+          </div>
+        </el-collapse-item>
+        <el-collapse-item>
+          <template slot="title">
+            <i class="el-icon-caret-right mr-5"></i>Procedures and Other
+            Treatments
+          </template>
+          <div>
+            This pipeline extracts procedures, as well as other non-medication
+            treatments for patients from clinical reports. Recognized entities
+            will be mapped to ICD-10 procedure codes.
+          </div>
+        </el-collapse-item>
+      </el-collapse>
+    </section>
     <footer class="mercury-footer tc">
       <div class="container">
         <el-row>
@@ -217,7 +304,7 @@
                 height="20"
                 src="https://melaxtech.com/wp-content/themes/melax-wordpress/assets/img/icon/twitter.webp"
                 alt="/"
-              /></a>
+            /></a>
             <a
               href="https://www.linkedin.com/company/melaxtech/"
               target="_blank"
@@ -227,7 +314,7 @@
                 height="20"
                 src="https://melaxtech.com/wp-content/themes/melax-wordpress/assets/img/icon/linkedin.webp"
                 alt="/"
-              /></a>
+            /></a>
           </el-col>
           <el-col
             :span="16"
@@ -333,5 +420,16 @@ export default {
   background-color: #343a40;
   color: #81868d;
   padding: 25px;
+}
+::v-deep .home-collapse {
+  .el-collapse-item__header {
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .el-collapse-item__content {
+    font-size: 16px;
+    padding-left: 20px;
+    line-height: 2;
+  }
 }
 </style>

@@ -659,7 +659,6 @@ li {
   padding: 20px 25px;
 }
 
-
 .p25 {
   padding: 25px;
 }
@@ -731,6 +730,34 @@ li {
 .disflex {
   display: flex;
   align-items: center;
+}
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+.space-around {
+  justify-content: space-around;
+}
+
+.align-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
 }
 
 .mt-3 {
