@@ -166,10 +166,13 @@ export default {
         this.optionsList.find(item => item.lamdaName === val) || {}
       ).version
       this.versionList = versionList
-      this.model = ''
+      // this.model = ''
       console.log('versionList', versionList)
-      this.selectPipeline = this.$options.data().selectPipeline
-      this.$emit('get-complete-data', {})
+      const [currentPipeline] = versionList
+      this.selectPipeline = currentPipeline
+      this.model = currentPipeline.params || ''
+      console.log('currentPipeline.params', currentPipeline.params)
+      this.$emit('get-complete-data', currentPipeline)
     },
     handleChange(val) {
       console.log('val', val)
