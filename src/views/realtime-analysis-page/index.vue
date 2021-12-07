@@ -1,13 +1,13 @@
 <template>
   <div>
     <nav class="vital-container cb bb-1">
-      <strong class="fl f17 color-main">Real-Time analysis</strong>
+      <strong class="fl f17 color-main">Real-Time Analysis</strong>
     </nav>
     <div class="vital-container realtime-top-content">
       <nav>
         <el-row type="flex">
           <el-col :span="24">
-            <div class="f16 fb mt-5 color-main">Select NLP pipeline:</div>
+            <div class="f16 fb mt-5 color-main">Select NLP Pipeline:</div>
             <select-pipeline-split
               v-model="formData.pipeline"
               style="width:600px"
@@ -20,7 +20,7 @@
         </el-row>
       </nav>
       <section class="mt-30">
-        <div class="color-main mt-15 mb-15 f16 fb">Input text:</div>
+        <div class="color-main mt-15 mb-15 f16 fb">Input Text:</div>
         <div class="pr">
           <el-input
             v-model="formData.text"

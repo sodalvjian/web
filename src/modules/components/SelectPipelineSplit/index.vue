@@ -5,8 +5,9 @@
         <el-select
           v-model="selectPipelineData"
           class="w"
-          size="small"
-          placeholder="Select pipeline"
+          :size="size"
+          filterable
+          placeholder="Select Pipeline"
           @change="onChangePipeline"
         >
           <el-option
@@ -15,34 +16,15 @@
             :label="item.lamdaName"
             :value="item.lamdaName"
           >
-            <!-- <span style="float: left">{{ item.label }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{
-            item.value
-          }}</span> -->
           </el-option>
         </el-select>
-        <!-- <el-cascader
-        v-model="model"
-        :options="optionsList"
-        class="w"
-        :props="propsOption"
-        :show-all-levels="false"
-        placeholder="Select pipeline"
-        :size="size"
-        @visible-change="visibleChange"
-        @change="handleChange"
-      >
-        <template slot-scope="{ data }">
-          <span>{{ data.showName }}</span>
-        </template></el-cascader
-      > -->
       </el-col>
       <el-col :span="12">
         <el-select
           v-model="model"
           class="w "
           popper-class="select-version"
-          size="small"
+          :size="size"
           placeholder="Select version"
           @change="handleChange"
         >
@@ -62,26 +44,12 @@
             </div>
           </el-option>
         </el-select>
-        <!-- <el-tooltip
-        v-show="selectPipeline.unitPrice"
-        class="item"
-        effect="dark"
-        placement="top"
-      >
-        <div slot="content">
-          Pricing: ${{ (selectPipeline.unitPrice * 100).toFixed(3) }}/unit;
-          100byte/unit
-          <br />
-          Description: {{ selectPipeline.description }}
-        </div>
-        <span class="ml-20 f18 color-white cp icon-info">$</span>
-      </el-tooltip> -->
       </el-col>
     </el-row>
-    <div class="color-main mt-20 mb-15 f16 fb">
-      Pipeline description & Price information:
+    <div class="color-main mt-20 f16 fb">
+      Pipeline Description & Pipeline Information:
     </div>
-    <div>
+    <div class="mt-10">
       <strong class="mr-10">Pricing:</strong>
       {{
         selectPipeline.unitPrice
@@ -98,6 +66,7 @@
 
 <script>
 import { GetAnalysisType } from '@/api/annotate-jobs-page'
+import { deepClone } from '@/utils/method'
 export default {
   name: 'SelectPipelineSplit',
   components: {},
@@ -125,6 +94,7 @@ export default {
       loading: false,
       model: this.value,
       optionsList: [],
+      isCopy: this.$route.query.copy,
       selectPipeline: {
         unitPrice: 0,
         description: ''
@@ -141,9 +111,14 @@ export default {
   computed: {},
   watch: {
     // 监听外界传来的v-model的值
-    value(newVal) {
-      this.model = newVal
+    value: {
+      handler(newVal, oldName) {
+        this.model = newVal
+      },
+      immediate: true,
+      deep: true
     },
+
     // 判断下拉框的值是否有改变
     model(val, oldVal) {
       if (val !== oldVal) {
@@ -156,7 +131,7 @@ export default {
     this.getData()
   },
   mounted() {
-    if (this.fetchList) {
+    if (this.fetchList && !this.isCopy) {
       this.getData()
     }
   },
@@ -175,55 +150,46 @@ export default {
       this.$emit('get-complete-data', currentPipeline)
     },
     handleChange(val) {
-      console.log('val', val)
-      // const selectData = val[1]
-      // const childOptions = this.optionsList
-      //   .map(item => item.version)
-      //   .flat(Infinity) // 将自己版本数据拉平
-      // const resultData = childOptions.find(item => item.params === selectData)
-
       const resultData = this.versionList.find(item => item.params === val)
       this.selectPipeline = resultData
       this.$emit('get-complete-data', resultData)
     },
     // 下拉框出现时重新加载数据
     visibleChange(val) {
-      // val && this.getData()
+      val && this.getData()
     },
-    getData() {
+    getData(value = '') {
       const loading = this.$loading({
         lock: true
       })
       GetAnalysisType().then(res => {
         if (res.code === 200) {
           const resultData = res.data
-          // resultData.map(item => {
-          //   item.showName = item.lamdaName
-          //   item.children = item.version
-          //   item.version.map(child => {
-          //     child.showName = `${child.name}:${child.version}`
-          //   })
-          // })
-          this.optionsList = resultData
+          this.optionsList = deepClone(resultData)
           console.log('resultData', resultData)
-          const [current] = resultData
-          this.selectPipelineData = current.lamdaName
-          this.onChangePipeline(current.lamdaName)
+          if (this.isCopy) {
+            const copyData = deepClone(resultData)
+            const analysisChildTypeOptions = copyData
+              .map(item => item.version)
+              .flat(Infinity)
+            console.log('value', value)
+            analysisChildTypeOptions.forEach(item => {
+              if (item.params === value) {
+                this.onChangePipeline(item.name)
+                this.selectPipelineData = item.name
+              }
+            })
+            this.handleChange(value)
+          } else {
+            const [current] = resultData
+            this.selectPipelineData = current.lamdaName
+            this.onChangePipeline(current.lamdaName)
+          }
           this.$emit('get-complete-options', resultData)
-          this.getCompleteOptions(resultData)
+          // this.getCompleteOptions(resultData)
           loading.close()
         }
       })
-    },
-    getCompleteOptions(val) {
-      console.log('完整数据', val)
-      const analysisChildTypeOptions = val
-        .map(item => item.version)
-        .flat(Infinity)
-      // .flat(Infinity) // 将自己版本数据拉平
-      console.log('analysisChildTypeOptions', analysisChildTypeOptions)
-
-      this.selectPipeline = analysisChildTypeOptions[0]
     }
   }
 }

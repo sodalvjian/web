@@ -160,6 +160,7 @@ div:focus {
   float: left;
   height: calc(100% - 50px);
   border-right: 10px solid #f4f7fe;
+  z-index: 1003;
   // i {
   //   color: #f75a7f;
   // }

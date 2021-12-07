@@ -2,10 +2,11 @@
   <div class="vital-container">
     <nav class="cb">
       <div class="f17 color-main">
-        <router-link to="/annotateJobs" class="color-main f17"
-          ><i class="el-icon-arrow-left fb"></i>
-          <span class="color-hui">Batch Analysis</span></router-link
-        >
+        <router-link
+          to="/annotateJobs"
+          class="color-main f17"
+        ><i class="el-icon-arrow-left fb"></i>
+          <span class="color-hui">Batch Analysis</span></router-link>
         <span class="ml-5 mr-5">/</span> New job
       </div>
     </nav>
@@ -24,7 +25,7 @@
         </el-row>
         <el-divider class="m-0"></el-divider>
         <el-row :gutter="20">
-          <el-col :span="12" class="br-1">
+          <el-col :span="12">
             <div class="p20">
               <el-form-item
                 label="Job name"
@@ -38,65 +39,25 @@
                   placeholder="Input your job name"
                 ></el-input>
               </el-form-item>
-              <!-- <div class="mt-20 f13 lh1-5">
-                <i class="el-icon-warning color-main f15"></i> Support for
-                letters, Numbers and their combinations 2.Please enter 6
-                characters to 256 characters
-              </div> -->
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="p20">
+
               <el-form-item
-                label="Pipeline"
+                label="Select NLP Pipeline"
                 prop="pipelineId"
                 :rules="{ required: true }"
               >
-                <select-pipeline
+                <select-pipeline-split
+                  ref="selectPipelineSplitRef"
                   v-model="formData.pipelineId"
+                  class="mt-15"
                   size="big"
                   fetch-list
+                  @get-complete-data="getCompleteData"
                   @get-complete-options="getCompleteOptions"
                 />
-                <!-- <el-input v-model="formData.pipelineId" readonly>
-                  <el-select
-                    id="select-pipeline"
-                    slot="append"
-                    v-model="formData.pipelineId"
-                    class="w"
-                    popper-class=""
-                    placeholder="Please select…"
-                    @change="changepipeline"
-                  >
-                    <el-option-group
-                      v-for="(group, index) in analysisTypeOptions"
-                      :key="index"
-                      :label="group.lamdaName"
-                    >
-                      <el-option
-                        v-for="item in group.version"
-                        :key="item.id"
-                        :label="item.params"
-                        :value="item.params"
-                      >
-                      </el-option>
-                    </el-option-group>
-                  </el-select>
-                  <el-button
-                    slot="append"
-                    @click="
-                      openBrowse('output', {
-                        label: outRegionLabel,
-                        value: outRegion
-                      })
-                    "
-                    >Change pipeline
-                  </el-button>
-                </el-input> -->
               </el-form-item>
             </div>
-          </el-col></el-row
-        >
+          </el-col>
+          <el-col :span="13"> <div class="p20"></div> </el-col></el-row>
       </section>
       <section
         v-loading="pageLoading"
@@ -108,62 +69,7 @@
           </el-col>
           <el-col :span="12">
             <strong class="f16 p20 disinblock fl">Output Data</strong>
-            <!-- <el-popover
-              v-model="popoverVisible"
-              placement="top-end"
-              trigger="manual"
-              width="300"
-            >
-              <el-radio-group v-model="encryptionRadio" class="w">
-                <el-radio label="AES-256">AES-256</el-radio>
-                <div class="mt-10 encryption-handle">
-                  <el-radio label=""></el-radio>
-                  <div class="encryption-input">
-                    <el-input
-                      v-model="encryptionHandle"
-                      clearable
-                      placeholder="Please enter kms key"
-                      size="mini"
-                      @change="handleEncryption"
-                    ></el-input>
-                  </div>
-                </div>
-              </el-radio-group>
-              <div class="mt-20 tr">
-                <el-button
-                  size="mini"
-                  type="text"
-                  class="encryption-close-button"
-                  icon="el-icon-error"
-                  @click="popoverVisible = false"
-                ></el-button>
-                <el-button
-                  type="text"
-                  size="mini"
-                  class="color-red"
-                  @click="cancerPopoverVisible"
-                  >Close</el-button
-                >
-                <el-button
-                  type="text"
-                  size="mini"
-                  class="color-green"
-                  @click="confirmEncryption"
-                  >Confirm</el-button
-                >
-              </div>
-              <el-switch
-                slot="reference"
-                v-model="encryption"
-                class="mr-20 fr mt-15 job-create-switch"
-                active-color="#13ce66"
-                inactive-text="Encryption"
-                disabled
-                @click.native="popoverVisible = true"
-                @change="changeEncrytion"
-              >
-              </el-switch>
-            </el-popover> -->
+
             <el-switch
               v-model="formData.encryption"
               class="mr-20 fr mt-15 job-create-switch"
@@ -213,30 +119,12 @@
                     </el-button>
                   </el-tooltip>
                 </el-col>
-                <!-- <el-button
-                    slot="append"
-                    :disabled="!formData.input"
-                    :loading="inputCheckLoading"
-                    @click="verifyS3Data('r')"
-                    ><i
-                      v-if="verityInput"
-                      class="mr-5 el-icon-success color-green"
-                    ></i
-                    >Verify</el-button
-                  > -->
-                <!-- </el-input> -->
               </el-form-item>
 
               <div class="mt-20 f13 lh1-5">
                 <i class="el-icon-warning color-main f15"></i>
                 Example: s3://mybucket/my_input_folder
-                <!-- Browse,type or
-                paste the URL of a bucket or folder location in S3, or select a
-                bucket or folder location in S3 -->
               </div>
-              <!-- <div v-if="inRegionName" class="f15 mt-15">
-                S3 region: <strong>{{ inRegionName }}</strong>
-              </div> -->
             </div>
           </el-col>
           <el-col :span="12">
@@ -245,67 +133,21 @@
                 <el-col :span="24" class="pl-0">
                   <el-input v-model="formData.output" disabled> </el-input>
                 </el-col>
-                <!-- <el-col :span="8">
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="Validate"
-                    placement="top"
-                  >
-                    <el-button
-                      :disabled="!formData.output"
-                      :loading="outputCheckLoading"
-                      :type="verityOutput ? 'success' : 'primary'"
-                      size="medium"
-                      icon="icon-yanzhengma iconfont"
-                      @click="verifyS3Data('write')"
-                    >
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="Authorize"
-                    placement="top"
-                  >
-                    <el-button
-                      :disabled="!formData.output"
-                      :loading="outputAuthorizeLoading"
-                      type="warning"
-                      size="medium"
-                      icon="icon-shouquan iconfont"
-                      @click="authorizeS3Data('write')"
-                    >
-                    </el-button>
-                  </el-tooltip>
-                </el-col> -->
               </el-form-item>
-              <!-- <div class="mt-20 f13 lh1-5">
-                <i class="el-icon-warning color-main f15"></i>
-                Example: s3://mybucket/my_output_folder
-                Browse,type or
-                paste the URL of a bucket or folder location in S3, or select a
-                bucket or folder location in S3
-              </div> -->
-              <!-- <div v-if="outRegionName" class="f15 mt-15">
-                S3 region: <strong>{{ outRegionName }}</strong>
-              </div> -->
-            </div>
-          </el-col></el-row
-        >
+            </div> </el-col></el-row>
       </section>
       <el-form-item class="mt-40 tc">
-        <el-button size="medium" @click="$emit('close-dialog')"
-          >Cancel</el-button
-        >
+        <el-button
+          size="medium"
+          @click="$emit('close-dialog')"
+        >Cancel</el-button>
         <el-button
           size="medium"
           type="primary"
           class="button-shadow"
           :loading="btnLoading"
           @click="onSubmit"
-          >Confirm</el-button
-        >
+        >Confirm</el-button>
       </el-form-item>
     </el-form>
     <section class="mt-40 tc"></section>
@@ -393,6 +235,7 @@ export default {
       outputAuthorizeLoading: false,
       btnOutputLoading: false,
       needAuthor: false,
+      selectPipeline: {},
       projectNameRules: [
         { required: true, message: 'Job name is required' },
         { validator: validateProjectName }
@@ -423,6 +266,10 @@ export default {
   mounted() {
     this.showIconStatus = true
     this.messageData = ''
+    const copyStatus = this.$route.query.copy
+    if (copyStatus) {
+      this.getCopyData()
+    }
   },
   methods: {
     verityhandle(type) {
@@ -528,26 +375,17 @@ export default {
         outRegion
       } = copyJobData
       if (copyStatus) {
-        console.log('pipeline', this.analysisChildTypeOptions)
         this.$nextTick(() => {
-          const pipelineObj = this.analysisChildTypeOptions.find(
-            item => item.params === pipeline
-          )
-          console.log('pipelineObj', pipelineObj)
           console.log('copyencryption', encryption)
 
           this.formData = {
             name: name,
-            pipelineId: pipelineObj ? pipelineObj.params : '',
+            pipelineId: pipeline,
             encryption: !!encryption,
             input: input,
             output: output
           }
-          this.pipelineData = pipelineObj
-            ? this.analysisChildTypeOptions.find(
-                item => item.params === pipelineObj.params
-              )
-            : {}
+
           this.inRegion = inRegion
           const inRegionLabel = s3List.find(item => inRegion === item.value)
           this.inRegionName = `${inRegionLabel.label}(${inRegionLabel.value})`
@@ -570,6 +408,7 @@ export default {
           } else {
             this.encryption = false
           }
+          this.$refs.selectPipelineSplitRef.getData(pipeline)
         })
 
         this.$nextTick(() => {
@@ -586,21 +425,7 @@ export default {
       this.encryption = true
       this.popoverVisible = false
     },
-    handleEncryption() {
-      this.encryptionRadio = this.encryptionHandle ? '' : 'AES-256'
-    },
-    changeEncrytion() {
-      this.popoverVisible = this.encryption
-      if (!this.encryption) {
-        this.formData.encryption = ''
-      }
-    },
-    changepipeline() {
-      this.pipelineData = this.analysisChildTypeOptions.find(
-        item => item.params === this.formData.pipelineId
-      )
-      console.log('this.pipelineData', this.pipelineData)
-    },
+
     onSubmit() {
       this.$refs.formData.validate(valid => {
         if (valid) {
@@ -718,20 +543,19 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
+    getCompleteData(val) {
+      console.log('val', val)
+      this.selectPipeline = val
+    },
     getCompleteOptions(val) {
       this.analysisTypeOptions = val
       this.analysisChildTypeOptions = val
         .map(item => item.version)
         .flat(Infinity) // 将自己版本数据拉平
 
-      this.$nextTick(() => {
-        this.formData.pipelineId = this.analysisChildTypeOptions[0].params
-      })
-
-      const copyStatus = this.$route.query.copy
-      if (copyStatus) {
-        this.getCopyData()
-      }
+      // this.$nextTick(() => {
+      //   this.formData.pipelineId = this.analysisChildTypeOptions[0].params
+      // })
 
       this.pageLoading = false
     }
