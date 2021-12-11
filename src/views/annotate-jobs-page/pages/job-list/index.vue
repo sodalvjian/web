@@ -116,46 +116,57 @@
               :style="scope.row.passFileCount ? 'padding-top:4px' : ''"
             >
               <el-tooltip
-                class="cp"
-                effect="dark"
-                :disabled="setTooltipDisabled(scope.row)"
+                v-show="
+                  scope.row.status === 'STOPPED' ||
+                    scope.row.status === 'CANCELED' ||
+                    scope.row.reqStatus === 'STOPPED' ||
+                    scope.row.reqStatus === 'STOPPING'
+                "
                 :content="setTooltipContent(scope.row)"
+                class="cp"
                 placement="top"
               >
                 <span
                   v-if="
-                    scope.row.status === 'STOPPED' ||
-                      scope.row.status === 'CANCELED' ||
-                      scope.row.reqStatus === 'STOPPED' ||
-                      scope.row.reqStatus === 'STOPPING'
-                  "
-                ><span
-                  v-if="
                     scope.row.subStatus === 'FAILED_TASK_LIMIT' ||
                       scope.row.subStatus === 'FAILED_QUOTA_LIMIT'
                   "
-                ><i class="el-icon-warning color-yellow f18"></i></span><span v-else>--</span></span>
+                ><i class="el-icon-warning color-yellow f18"></i></span><span v-else>--</span>
+              </el-tooltip>
 
-                <div
-                  v-else-if="
-                    scope.row.status === 'STARTED' ||
-                      scope.row.status === 'STARTING'
-                  "
-                  class="progress-running"
-                >
+              <el-tooltip
+                v-show="
+                  scope.row.status === 'STARTED' ||
+                    scope.row.status === 'STARTING'
+                "
+                class="cp"
+                effect="dark"
+                :content="setTooltipContent(scope.row)"
+                placement="top"
+              >
+                <div class="progress-running">
                   <el-progress
+                    class="w"
                     :stroke-width="8"
                     :percentage="setProcessData(scope.row)"
-                    class="w"
                   ></el-progress><i
-                    style="right:14%"
+                    style="right:1%"
                     class="progress-running-icon el-icon-loading"
                   ></i>
                 </div>
+              </el-tooltip>
+              <el-tooltip
+                v-show="
+                  scope.row.status === 'COMPLETED' ||
+                    scope.row.status === 'FAILED'
+                "
+                :content="setTooltipContent(scope.row)"
+                class="cp"
+                placement="top"
+              >
                 <el-progress
-                  v-else
+                  :percentage="progressNum(scope.row)"
                   :stroke-width="8"
-                  :percentage="setPercent(scope.row)"
                   :status="setStatus(scope.row)"
                 ></el-progress>
               </el-tooltip>
@@ -269,6 +280,20 @@ export default {
     clearInterval(this.setInterval)
   },
   methods: {
+    progressNum(row) {
+      const processNum = row.processedSize / row.totalSize
+      if (processNum) {
+        if (Math.round(processNum * 100) >= 100) {
+          return 100
+        } else {
+          return Math.round(processNum * 100)
+        }
+      } else if (row.status === 'FAILED' || row.status === 'COMPLETED') {
+        return 100
+      } else {
+        return 0
+      }
+    },
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
@@ -306,13 +331,15 @@ export default {
       const processNum = row.processedSize / row.totalSize
       if (row.processedErrCount > 0) {
         return `Error count: ${row.processedErrCount}`
-      } else if (row.status === 'STARTED' || row.status === 'STARTING') {
-        return (processNum ? Math.round(processNum * 100) : 0) + '%'
       } else if (
         row.subStatus === 'FAILED_TASK_LIMIT' ||
         row.subStatus === 'FAILED_QUOTA_LIMIT'
       ) {
         return `You have exceeded your account limit, please contact us.`
+      } else if (row.status === 'STARTED' || row.status === 'STARTING') {
+        return (processNum ? Math.round(processNum * 100) : 0) + '%'
+      } else {
+        return row.status
       }
     },
     setPercent(row) {
@@ -344,7 +371,7 @@ export default {
           : processNum
             ? Math.round(processNum * 100) >= 100
               ? 'success'
-              : ''
+              : null
             : 'exception'
       }
     },

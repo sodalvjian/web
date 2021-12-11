@@ -18,7 +18,7 @@ const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
 // const porxyUrl = 'http://www.autowire-code.com' // 开发
 // const porxyUrl = 'http://153.37.174.42:10080' // 吕大
-// const porxyUrl = 'https://mercury-dev.melaxtech.com' // 测试
+// const porxyUrl = 'http://internal-k8s-default-testwebm-5424d5d0a9-1250990822.us-east-2.elb.amazonaws.com' // 测试
 const porxyUrl = 'https://mercury.melaxtech.com' // 正式
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/

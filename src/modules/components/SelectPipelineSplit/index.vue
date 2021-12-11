@@ -47,13 +47,13 @@
       </el-col>
     </el-row>
     <div class="color-main mt-20 f16 fb">
-      Pipeline Description & Pipeline Information:
+      Pipeline Information:
     </div>
     <div class="mt-10">
       <strong class="mr-10">Pricing:</strong>
       {{
         selectPipeline.unitPrice
-          ? (selectPipeline.unitPrice * 100).toFixed(3) + '/unit;100byte/unit'
+          ? (selectPipeline.unitPrice * 100).toFixed(3) + ' $/unit;100byte/unit'
           : '--'
       }}
     </div>
@@ -143,11 +143,20 @@ export default {
       this.versionList = versionList
       // this.model = ''
       console.log('versionList', versionList)
-      const [currentPipeline] = versionList
-      this.selectPipeline = currentPipeline
-      this.model = currentPipeline.params || ''
-      console.log('currentPipeline.params', currentPipeline.params)
-      this.$emit('get-complete-data', currentPipeline)
+      if (this.isCopy) {
+        versionList.forEach(item => {
+          if (item.params === this.value) {
+            this.model = item.params
+            this.$emit('get-complete-data', item)
+          }
+        })
+      } else {
+        const [currentPipeline] = versionList
+        this.selectPipeline = currentPipeline
+        this.model = currentPipeline.params || ''
+        console.log('currentPipeline.params', currentPipeline.params)
+        this.$emit('get-complete-data', currentPipeline)
+      }
     },
     handleChange(val) {
       const resultData = this.versionList.find(item => item.params === val)
@@ -173,6 +182,7 @@ export default {
               .map(item => item.version)
               .flat(Infinity)
             console.log('value', value)
+            console.log('analysisChildTypeOptions', analysisChildTypeOptions)
             analysisChildTypeOptions.forEach(item => {
               if (item.params === value) {
                 this.onChangePipeline(item.name)
