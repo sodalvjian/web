@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">Mercury NLP</div>
+    <div class="dashboard-text">Meric NLP</div>
   </div>
 </template>
 

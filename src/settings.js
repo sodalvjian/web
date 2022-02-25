@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Mercury NLP',
+  title: 'Meric NLP',
 
   /**
    * @type {boolean} true | false

@@ -287,7 +287,7 @@
                   style="color: rgb(96, 98, 102); padding:20px;line-height: 1.6;font-size:13px"
                 >
                   Visit your Account Settings page to manage your billing
-                  details. See the Mercury NLP Terms of Service for the terms
+                  details. See the Meric NLP Terms of Service for the terms
                   that apply to your purchase. All fees are listed in USD and
                   are subject to Sales Tax (as applicable). If you have any
                   questions , please contact us at contact@melaxtech.com.

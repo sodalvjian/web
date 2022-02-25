@@ -24,7 +24,7 @@
               </router-link>
             </div>
             <div class="mt-40 title-container">
-              <nav class="title color-main fb f24">Welcome to Mercury NLP</nav>
+              <nav class="title color-main fb f24">Welcome to Meric NLP</nav>
               <div class="mt-10 color-gray f13">
                 Fast, secure, cloud-based clinical NLP with high precision and
                 accuracy based on the award-winning CLAMP system from Melax

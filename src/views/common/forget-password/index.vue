@@ -38,8 +38,8 @@
               <span v-if="step === 2">
                 If you no longer use the email address associated with your
                 account. Please contact customer service
-                <a href="mailto:mercurynlp@melaxtech.com"
-                  >mercurynlp@melaxtech.com</a
+                <a href="mailto:mericnlp@melaxtech.com"
+                  >mericnlp@melaxtech.com</a
                 >
                 to help restore access to your account.
               </span>
@@ -141,8 +141,8 @@
             <div v-if="step === 1" class="f13 mt-50 color-gray lh1-5">
               If you no longer use the email address associated with your
               account. Please contact customer service &lt;
-              <a class="color-light-blue" href="mailto:mercurynlp@melaxtech.com"
-                >mercurynlp@melaxtech.com</a
+              <a class="color-light-blue" href="mailto:mericnlp@melaxtech.com"
+                >mericnlp@melaxtech.com</a
               >
               &gt; to help restore access to your account.
             </div>

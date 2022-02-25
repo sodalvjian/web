@@ -24,7 +24,7 @@ color:black"
         <span
           lang="EN-US"
           style="font-family:&quot;Times New Roman&quot;,serif;color:black"
-        >This Privacy Policy applies to Mercury NLP&nbsp;service (hereinafter,
+        >This Privacy Policy applies to Meric NLP&nbsp;service (hereinafter,
           &quot;We&quot;, &quot;Us&quot;, &quot;Our&quot;, or &quot;Melax
           Technologies, Inc.&quot;). It is Our policy to respect your privacy
           regarding any information We may collect while operating Our website

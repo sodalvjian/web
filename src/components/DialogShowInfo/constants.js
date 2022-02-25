@@ -10,7 +10,7 @@ export const errorCode = [
 
   {
     type: 'login',
-    title: 'Welcome to Mercury NLP.',
+    title: 'Welcome to Meric NLP.',
     description: `Go to personal center You have not set up the credit
     card information, we suggest you go to
     <strong class="disinblock"> [ Account Setting ] </strong> as soon as

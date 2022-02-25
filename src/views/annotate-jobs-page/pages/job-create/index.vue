@@ -339,7 +339,7 @@ export default {
               this.messageData = res.message
             } else {
               this.$message.warning(
-                'Authorization error. Please check the path of your S3 folder and grant Mercury NLP permissions to verify your S3 Bucket.'
+                'Authorization error. Please check the path of your S3 folder and grant Meric NLP permissions to verify your S3 Bucket.'
               )
               this.needAuthor = true
             }

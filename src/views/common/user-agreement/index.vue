@@ -10,7 +10,7 @@
           lang="EN-US"
           style="font-size:14.0pt;font-family:&quot;Times New Roman&quot;,serif;
 color:black"
-        >MERCURY NLP TERMS OF SERVICE</span></b>
+        >Meric NLP TERMS OF SERVICE</span></b>
       </p>
 
       <p
@@ -45,7 +45,7 @@ color:black"
           agreement made between you, or on behalf of another person or a
           company, (collectively, “You” or “Your”) and Melax Technologies, Inc.
           (“We”, “Us”, or “Our”) (collectively, the “Parties” and individually,
-          the “Party”), concerning Your access to, and use of Mercury NLP
+          the “Party”), concerning Your access to, and use of Meric NLP
           (“Service”). These Terms govern the rules and regulations for
           Service.</span>
       </p>
@@ -135,7 +135,7 @@ color:black"
           lang="EN-US"
           style="font-family:&quot;Times New Roman&quot;,serif;color:black"
         >
-          means the service having the core functionality provided by Mercury
+          means the service having the core functionality provided by Meric
           NLP. Service uses machine learning models and other algorithms to
           generate predictions based on patterns in textual data. The core
           functionality of Service might be updated from time to time.
@@ -155,7 +155,7 @@ color:black"
           obtained by one party from the other in the course of, or in
           connection with, the provision and use of Service. Our Confidential
           Information includes Intellectual Property owned by us, including
-          Mercury NLP. Your Confidential Information includes the Data.</span>
+          Meric NLP. Your Confidential Information includes the Data.</span>
       </p>
 
       <p class="MsoNormal" style="line-height:normal">
@@ -180,7 +180,7 @@ color:black"
           lang="EN-US"
           style="font-family:&quot;Times New Roman&quot;,serif;color:black"
         >
-          means the applicable fees set out on Mercury NLP pricing page at
+          means the applicable fees set out on Meric NLP pricing page at
           <!-- [<span
             style="background:
 yellow"
@@ -212,11 +212,11 @@ yellow"
           lang="EN-US"
           style="font-family:&quot;Times New Roman&quot;,serif;color:black"
         >
-          means these terms titled Mercury NLP Terms of Service, referring to
+          means these terms titled Meric NLP Terms of Service, referring to
           the offer, acceptance and consideration of Payment necessary to
           undertake the process of accessing to and using Service, for the
           express purpose of meeting Your needs in respect of the functionality
-          and provision of Mercury NLP, in accordance with and subject to,
+          and provision of Meric NLP, in accordance with and subject to,
           prevailing law of U.S..</span>
       </p>
 
@@ -614,7 +614,7 @@ color:black"
           lang="EN-US"
           style="font-family:&quot;Times New Roman&quot;,serif;color:black"
         >Service is offered as a paid service. By choosing to use Service, You
-          agree to pay Us the volume based payment set out on Mercury NLP
+          agree to pay Us the volume based payment set out on Meric NLP
           pricing page at
           <!-- [<span style="background:yellow">insert link</span>] -->
           or as agreed otherwise in writing between You and Us. Your Payment are

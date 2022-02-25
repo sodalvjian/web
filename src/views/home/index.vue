@@ -13,7 +13,7 @@
         <el-col :sm="12" class="color-white">
           <h1><img src="../../assets/img/logo_mercury.png" alt="" /></h1>
           <div class="mt-30 f17 lh1-5">
-            Mercury Natural Language Processing makes quick work of your medical
+            Meric Natural Language Processing makes quick work of your medical
             data extraction projects — accurately and at a fraction of the cost
             of other web-based products.
           </div>
@@ -88,7 +88,7 @@
               class="mt-15 f15 lh2 mercury-nav-content"
               title="The option of deploying on your own server"
             >
-              Deploy Mercury NLP on your own server
+              Deploy Meric NLP on your own server
             </div>
           </el-card>
         </el-col>
@@ -171,16 +171,16 @@
         <main class="mt-15 f15">
           <div>
             <p>
-              MERCURY NLP is Melax Tech’s breakthrough software for Natural
-              Language Processing in healthcare and related industries. Mercury
+              Meric NLP is Melax Tech’s breakthrough software for Natural
+              Language Processing in healthcare and related industries. Meric
               NLP offers users the ability to extract textual data in a simple
               to use DIY format, backed by our expert data and development
-              support team. Mercury NLP’s pay-per-byte system allows users to
+              support team. Meric NLP’s pay-per-byte system allows users to
               automate and speed up data extraction with unparalleled accuracy
               and flexibility.
             </p>
             <p>
-              At half of the price of competitors, Mercury NLP allows
+              At half of the price of competitors, Meric NLP allows
               administrators to continually monitor and refine projects. The
               results are processes and outputs that can be reproduced by
               project teammates for better, more reliable analytics reporting.
@@ -189,7 +189,7 @@
             <p>
               With five pre-built clinical pipelines and more on the way, users
               are able to apply a pipeline to text data, process it and see
-              results in record time. Mercury NLP is HIPAA compliant; client
+              results in record time. Meric NLP is HIPAA compliant; client
               data is never divulged to or used by anyone other than client team
               members.
             </p>
