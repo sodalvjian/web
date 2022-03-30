@@ -30,7 +30,7 @@
               :closable="false"
               description="If you find any anomalies or problems, please feel free to send feedback to our team. Do not send PHI, confidential content, and sensitive information. Our team will continue to improve and update the product based on user feedback.
 
-However, we do not respond to questions reported on this page. If you need immediate technical assistance, send your question to: mericnlp@melaxtech.com. We will respond within 2 business days. Thank you very much."
+However, we do not respond to questions reported on this page. If you need immediate technical assistance, send your question to: meric@melaxtech.com. We will respond within 2 business days. Thank you very much."
               show-icon
             >
             </el-alert>
