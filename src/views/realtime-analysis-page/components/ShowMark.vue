@@ -10,7 +10,34 @@
         name="markBrat"
         src="/static/main_shen.htm"
       ></iframe>
+      <div
+        class="posi-content"
+        ref="posiRef"
+        v-if="posiContent"
+        :style="
+          'top:' + positionY + 'px;left:' + positionX  + 'px;'
+        "
+      >
+        <i
+          @click="closePosi"
+          class="el-icon-close"
+          style="float: right; cursor: pointer"
+        ></i>
+        <div>
+          <span><span class="strongText">startPos</span>:  {{ startPos }}</span>
+          <el-divider></el-divider>
+          <span><span class="strongText">endPos</span>:  {{ endPos }}</span>
+          <el-divider></el-divider>
+          <span><span class="strongText">semanticTag</span>:  {{ semanticTag }}</span>
+          <el-divider></el-divider>
+          <span><span class="strongText">semanticText</span>:  {{ semanticText }}</span>
+          <el-divider></el-divider>
+          <span><span class="strongText">semanticCui:</span> {{ semanticCui }}</span>
+          <el-divider></el-divider>
+        </div>
+      </div>
     </div>
+
     <!-- info message -->
     <dialog-show-info ref="dialogShowInfoRef" />
   </div>
@@ -29,6 +56,14 @@ export default {
   props: ['id'],
   data() {
     return {
+      startPos: '',
+      endPos: '',
+      semanticTag: '',
+      semanticText: '',
+      semanticList: [],
+      positionX: null,
+      positionY: null,
+      posiContent: false,
       type: '',
       showType: 'xmi',
       loading: false,
@@ -43,6 +78,7 @@ export default {
       typedef_entity_types: [],
       typedef_relation_types: [],
       _highLightTimeout: null,
+      
       highLightDetail: {
         // 高亮内容
         ids: 0,
@@ -50,7 +86,7 @@ export default {
         text: '',
         assertion: '',
         umlsCui: '',
-        umlsCuiDesc: ''
+        umlsCuiDesc: '',
       },
       typedef_entity_types_filter: [],
       typedef_entity_types_filter_copy: [], // 这是typedef_entity_types_filter数组的filter arr
@@ -80,49 +116,49 @@ export default {
         _sentence: {
           sentBratFile: {
             entities: [],
-            relations: []
+            relations: [],
           },
-          sentBratSem: {}
+          sentBratSem: {},
         },
         _token: {},
         _typedef_entity_types: [],
         _typedef_relation_types: [],
         service: {},
-        relationLineCongfig: {}
-      }
+        relationLineCongfig: {},
+      },
     }
   },
   computed: {
     ...mapState({
       allEntities(state) {
         return state.projectEntities
-      }
+      },
       // projectRelations:'projectRelations',
       // projectEntities:'projectEntities',
     }),
-    ...mapGetters(['sentenceRelations']) // corpusConfig.relationLineCongfig
+    ...mapGetters(['sentenceRelations']), // corpusConfig.relationLineCongfig
   },
   watch: {
     corpusConfig: {
-      handler: function(val) {
+      handler: function (val) {
         this.updateBrat()
       },
-      deep: true
+      deep: true,
     },
 
-    waitingRelationEnd: function(n) {
+    waitingRelationEnd: function (n) {
       if (n) {
         this.messageInstance = this.$message({
           showClose: false,
           message: 'Relation-start selected, waiting for Relation-end...',
           // type: 'warning',
           type: 'success',
-          duration: 0
+          duration: 0,
         })
       } else {
         this.messageInstance.close()
       }
-    }
+    },
   },
   mounted() {
     console.log('mounted!')
@@ -139,6 +175,7 @@ export default {
     window.onHightLightEntity = this.onHightLightEntity // 悬停
     window.onHightLightRelation = this.onHightLightRelation // 悬停
     window.unHighLight = this.unHighLight
+    window.getDatas = this.getDatas
     // window.addRange = this.addRange; //选中
     // window.onEntitySelection = this.onEntitySelection;
     // window.onNewRelation = this.onNewRelation;
@@ -169,9 +206,39 @@ export default {
     window.unHighLight = null
   },
   methods: {
+    closePosi() {
+      this.posiContent = false
+    },
+    getDatas(id, x, y) {
+      this.posiContent = true
+      if(x - 180<(-32)){
+        this.positionX = -32
+      }else{
+        this.positionX = x - 180
+      }
+      
+      if(y - 230<(-96)){
+        this.positionY = -96
+      }else{
+        this.positionY = y - 230
+      }
+
+      let data = JSON.parse(this.semanticList.bratOut)
+      this.startPos = data.entities[id].begin
+      this.endPos = data.entities[id].end
+      this.semanticTag = data.entities[id].semanticTag
+      if('cui' in data.entities[id]){
+        this.semanticCui = data.entities[id].cui
+      }
+      if(data.entities[id]&&data.entities[id].attrs&&data.entities[id].attrs.umlsCuiDesc){
+        this.semanticText = data.entities[id].attrs.umlsCuiDesc
+      }
+      
+      
+    },
     ...mapMutations({
       setCorpusConfigAttr: 'SET_CORPUSCONFIGATTR',
-      setSentenceRelations: 'SET_SENTENCERELATIONS'
+      setSentenceRelations: 'SET_SENTENCERELATIONS',
     }),
     initData() {
       this.type = this.$route.params.type
@@ -186,6 +253,7 @@ export default {
 
           if (res.code === 200) {
             const data = res.data
+            this.semanticList = res.data
             if (data) {
               this.$emit('success-data')
               this.setBratData(data, true)
@@ -204,7 +272,7 @@ export default {
         //      GET /tagged/label/{fileId}
         // const url = `tagged/label/${this.id}`
         GetBrat(params)
-          .then(res => {
+          .then((res) => {
             this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
             this.loading = false
             this.noDataShow = false
@@ -223,7 +291,7 @@ export default {
             }
             globalBus.$emit('set-analysis-loading-false')
           })
-          .catch(res => {
+          .catch((res) => {
             if (res.code === 800008) {
               this.$refs.dialogShowInfoRef.openDialog('nlp')
               this.loading = false
@@ -244,11 +312,7 @@ export default {
       const config = this.corpusConfig.relationLineCongfig || {}
 
       for (let n = 0; n < data.typeDefXml.relation_types.length; n++) {
-        const randomColor_16 =
-          '#' +
-          Math.random()
-            .toString(16)
-            .slice(-6)
+        const randomColor_16 = '#' + Math.random().toString(16).slice(-6)
         const relationType = data.typeDefXml.relation_types[n].type
         if (!config[relationType]) {
           config[relationType] = randomColor_16
@@ -266,13 +330,13 @@ export default {
         entity_types: this.entity_types,
         entity_attribute_types: [],
         relation_types: [],
-        event_types: []
+        event_types: [],
       }
       const docData = {
         text: this.text,
         entities: this.entities,
         attributes: [],
-        relations: this.relations
+        relations: this.relations,
       }
       // datasource的文本不要显示实体右侧的菜单
       const drawDelCircle = false
@@ -283,7 +347,7 @@ export default {
           $('#markBrat')[0].contentWindow.Window.readyToEmbed
         )
         iframe.contentWindow.location.reload(true)
-        iframe.onload = function() {
+        iframe.onload = function () {
           $('#markBrat')[0].contentWindow.readyToEmbed(
             collData,
             docData,
@@ -325,29 +389,29 @@ export default {
       // })
       this.sentence = {
         sentBratFile: sentBratFile,
-        sentBratSem: sentBratSem
+        sentBratSem: sentBratSem,
       }
       this.token = {
         tokenBratFile: tokenBratFile,
-        tokenBratSem: tokenBratSem
+        tokenBratSem: tokenBratSem,
       }
       this.typedef_entity_types = originData.typeDefXml.entity_types
       this.typedef_relation_types = originData.typeDefXml.relation_types
 
       const distinctEntities = _.chain(this.entities)
-        .map(item => {
+        .map((item) => {
           return item[1]
         })
         .uniq()
         .value()
       const currentEntityTypes = _.chain(this.entity_types)
-        .map(item => {
+        .map((item) => {
           if (_.indexOf(distinctEntities, item.type) != -1) {
             item.selected = true
             // 将entities push进去
             item.items = []
             _.chain(this.entities)
-              .map(item1 => {
+              .map((item1) => {
                 if (item1[1] == item.type) {
                   item1.push(true)
                   item.items.push(item1)
@@ -363,22 +427,22 @@ export default {
       // console.log(this.relations);
 
       const distinctRelationsName = _.chain(this.relations)
-        .map(item => {
+        .map((item) => {
           return item[1]
         })
         .uniq()
         .value()
       const distinctRelations = []
-      _.map(distinctRelationsName, item => {
+      _.map(distinctRelationsName, (item) => {
         distinctRelations.push({ type: item })
       })
       const currentRelationTypes = _.chain(distinctRelations)
-        .map(item => {
+        .map((item) => {
           item.selected = true
           // 将entities push进去
           item.items = []
           _.chain(this.relations)
-            .map(item1 => {
+            .map((item1) => {
               if (item1[1] == item.type) {
                 item1.push(true)
                 item.items.push(item1)
@@ -410,7 +474,7 @@ export default {
     preLabeling() {
       this.loading = true
       // console.log('子组件 执行预标注:');
-      this.$http.get(`task/prelabel/${this.$route.params.id}`, {}, res => {
+      this.$http.get(`task/prelabel/${this.$route.params.id}`, {}, (res) => {
         this.loading = false
         if (res.success) {
           this.$message.success(res.msg)
@@ -433,7 +497,7 @@ export default {
         // 获取显示的具体项目
         this.highLightDetail.ids = ''
         _.chain(this.entities)
-          .map(item => {
+          .map((item) => {
             if (item[0] == id) {
               this.highLightDetail.ids = id
               this.highLightDetail.label = item[1]
@@ -447,7 +511,7 @@ export default {
         if (this.highLightDetail.ids == '') {
           const tokenEntities = this.token.tokenBratFile.entities
           _.chain(tokenEntities)
-            .map(item => {
+            .map((item) => {
               if (item[0] == id) {
                 this.highLightDetail.ids = id
                 this.highLightDetail.label = item[1]
@@ -462,7 +526,7 @@ export default {
         if (this.highLightDetail.ids == '') {
           const sentenceEntities = this.sentence.sentBratFile.entities
           _.chain(sentenceEntities)
-            .map(item => {
+            .map((item) => {
               if (item[0] == id) {
                 this.highLightDetail.ids = id
                 this.highLightDetail.label = item[1]
@@ -489,7 +553,7 @@ export default {
         // 获取显示的具体项目
         this.highLightDetail.ids = ''
         _.chain(this.relations)
-          .map(item => {
+          .map((item) => {
             if (item[0] == id) {
               this.highLightDetail.ids = id
               this.highLightDetail.label = item[1]
@@ -501,7 +565,7 @@ export default {
         if (this.highLightDetail.ids == '') {
           const sentenceRelations = this.sentence.sentBratFile.relations
           _.chain(sentenceRelations)
-            .map(item => {
+            .map((item) => {
               if (item[0] == id) {
                 this.highLightDetail.ids = id
                 this.highLightDetail.label = item[1]
@@ -538,7 +602,7 @@ export default {
       this.entitySelection = {
         start: start,
         end: end,
-        spanText: spanText
+        spanText: spanText,
       }
       this.typedef_entity_types_filter = this.typedef_entity_types
       this.typedef_entity_types_filter_copy = [...this.typedef_entity_types]
@@ -558,14 +622,16 @@ export default {
     },
     // 筛选过滤实体
     entitySearchKeyWordChange(e) {
-      this.typedef_entity_types_filter_copy = this.typedef_entity_types_filter.filter(
-        v => v.labelsStr.indexOf(this.entitySearchKeyWord) != -1
-      )
+      this.typedef_entity_types_filter_copy =
+        this.typedef_entity_types_filter.filter(
+          (v) => v.labelsStr.indexOf(this.entitySearchKeyWord) != -1
+        )
     },
     relationSearchKeyWordChange(e) {
-      this.typedef_relation_types_filter_copy = this.typedef_relation_types_filter.filter(
-        v => v.type.indexOf(this.relationSearchKeyWord) != -1
-      )
+      this.typedef_relation_types_filter_copy =
+        this.typedef_relation_types_filter.filter(
+          (v) => v.type.indexOf(this.relationSearchKeyWord) != -1
+        )
     },
     // 添加实体(划词 标实体)
     selectEntity(e) {},
@@ -591,7 +657,7 @@ export default {
       this.$http.get(
         `task/update/entity/${this.id}/${this.entitySelectionId}/${this.candidateEntityLabelsStr}`,
         {},
-        res => {
+        (res) => {
           this.loading = false
           if (res.success) {
             this.replaceEntityModalVisible = false
@@ -649,7 +715,7 @@ export default {
       entityTypes = entityTypes.concat(tokenEntityType)
       // 判断entities是否已选择
       _.chain(entities)
-        .map(item => {
+        .map((item) => {
           if (item[7] == true) {
             entitiesToBrat.push(item)
           }
@@ -657,7 +723,7 @@ export default {
         .value()
       // 判断relations是否已选择
       _.chain(relations)
-        .map(item => {
+        .map((item) => {
           if (item[4] == true) {
             relationsToBrat.push(item)
           }
@@ -665,7 +731,7 @@ export default {
         .value()
       // 判断token是否已选择
       _.chain(tokenEntities)
-        .map(item => {
+        .map((item) => {
           if (item[4] == true) {
             tokensToBrat.push(item)
           }
@@ -673,13 +739,13 @@ export default {
         .value()
       // 判断sentence是否已选择
       _.chain(sentenceRelations)
-        .map(item => {
+        .map((item) => {
           if (item[4] == true) {
             sentenceToBrat.push(item)
             const from = item[2][0][1]
             const to = item[2][1][1]
             _.chain(sentenceEntities)
-              .map(item1 => {
+              .map((item1) => {
                 if (item1[0] == from || item1[0] == to) {
                   entitiesToBrat.push(item1)
                 }
@@ -695,13 +761,13 @@ export default {
         entity_types: entityTypes,
         entity_attribute_types: [],
         relation_types: [],
-        event_types: []
+        event_types: [],
       }
       let docData = {
         text: this.text,
         entities: entitiesToBrat,
         attributes: [],
-        relations: relationsToBrat
+        relations: relationsToBrat,
       }
       collData = JSON.parse(JSON.stringify(collData))
       docData = JSON.parse(JSON.stringify(docData))
@@ -731,10 +797,10 @@ export default {
         show: true,
         tabName: 'Issue',
         issueType: type,
-        targetId: id
+        targetId: id,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -745,6 +811,7 @@ export default {
 .root-show-mark .xmi-container {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 .root-show-mark iframe {
   width: 100%;
@@ -852,5 +919,23 @@ export default {
 }
 .btns:hover > div {
   opacity: 1;
+}
+.posi-content {
+    width: 400px;
+    position: absolute;
+    border-radius: 10px;
+    color: #fff;
+    // height: 198px;
+    background: rgba(105,105,105,0.9);
+    top: 0;
+    left: 0;
+    padding: 20px 12px;
+    z-index: 999;
+}
+::v-deep .el-divider--horizontal{
+  margin: 8px 0;
+}
+.strongText{
+  font-weight: 600;
 }
 </style>

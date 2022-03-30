@@ -10,6 +10,32 @@
         name="markBrat"
         src="/static/main_shen.htm"
       ></iframe>
+      <div
+        class="posi-content"
+        ref="posiRef"
+        v-if="posiContent"
+        :style="
+          'top:' + positionY + 'px;left:' + positionX  + 'px;'
+        "
+      >
+        <i
+          @click="closePosi"
+          class="el-icon-close"
+          style="float: right; cursor: pointer"
+        ></i>
+        <div>
+          <span><span class="strongText">startPos:</span> {{ startPos }}</span>
+          <el-divider></el-divider>
+          <span><span class="strongText">endPos:</span> {{ endPos }}</span>
+          <el-divider></el-divider>
+          <span><span class="strongText">semanticTag:</span> {{ semanticTag }}</span>
+          <el-divider></el-divider>
+          <span><span class="strongText">semanticText:</span> {{ semanticText }}</span>
+          <el-divider></el-divider>
+          <span><span class="strongText">semanticCui:</span> {{ semanticCui }}</span>
+          <el-divider></el-divider>
+        </div>
+      </div>
     </div>
     <!-- info message -->
     <dialog-show-info ref="dialogShowInfoRef" />
@@ -29,6 +55,15 @@ export default {
   props: ['id'],
   data() {
     return {
+      startPos: '',
+      endPos: '',
+      semanticTag: '',
+      semanticText: '',
+      semanticCui: '',
+      semanticList: [],
+      positionX: null,
+      positionY: null,
+      posiContent:false,
       type: '',
       showType: 'xmi',
       loading: false,
@@ -139,6 +174,7 @@ export default {
     window.onHightLightEntity = this.onHightLightEntity // 悬停
     window.onHightLightRelation = this.onHightLightRelation // 悬停
     window.unHighLight = this.unHighLight
+    window.getDatas = this.getDatas
     // window.addRange = this.addRange; //选中
     // window.onEntitySelection = this.onEntitySelection;
     // window.onNewRelation = this.onNewRelation;
@@ -169,6 +205,35 @@ export default {
     window.unHighLight = null
   },
   methods: {
+    closePosi() {
+      this.posiContent = false
+    },
+    getDatas(id, x, y) {
+      console.log(id)
+      // this.posiContent = true
+      // if(x - 180<(-32)){
+      //   this.positionX = -32
+      // }else{
+      //   this.positionX = x - 180
+      // }
+      
+      //  if(y - 230<(-96)){
+      //   this.positionY = -96
+      // }else{
+      //   this.positionY = y - 230
+      // }
+      // let data = JSON.parse(this.semanticList.bratOut)
+      // this.startPos = data.entities[id].begin
+      // this.endPos = data.entities[id].end
+      // this.semanticTag = data.entities[id].semanticTag
+      // if('cui' in data.entities[id]){
+      //   this.semanticCui = data.entities[id].cui
+      // }
+      // if(data.entities[id]&&data.entities[id].attrs&&data.entities[id].attrs.umlsCuiDesc){
+      //   this.semanticText = data.entities[id].attrs.umlsCuiDesc
+      // }
+      
+    },
     ...mapMutations({
       setCorpusConfigAttr: 'SET_CORPUSCONFIGATTR',
       setSentenceRelations: 'SET_SENTENCERELATIONS'
@@ -183,8 +248,9 @@ export default {
           const res = demoResult
           this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
           this.loading = false
-
+          
           if (res.code === 200) {
+            this.semanticList = res.data
             const data = res.data
             if (data) {
               this.$emit('success-data')
@@ -201,6 +267,7 @@ export default {
         }, 500)
       } else {
         this.loading = true
+        // debugger
         //      GET /tagged/label/{fileId}
         // const url = `tagged/label/${this.id}`
         GetBratForTest(params)
@@ -210,6 +277,7 @@ export default {
             this.noDataShow = false
             if (res.code === 200) {
               this.$nextTick(() => {
+                this.semanticList = res.data
                 const data = res.data
                 if (data) {
                   this.$emit('success-data')
@@ -853,5 +921,23 @@ export default {
 }
 .btns:hover > div {
   opacity: 1;
+}
+.posi-content {
+    width: 400px;
+    position: absolute;
+    border-radius: 10px;
+    color: #fff;
+    // height: 198px;
+    background: rgba(105,105,105,0.9);
+    top: 0;
+    left: 0;
+    padding: 20px 12px;
+    z-index: 999;
+}
+::v-deep .el-divider--horizontal{
+  margin: 8px 0;
+}
+.strongText{
+  font-weight: 600;
 }
 </style>

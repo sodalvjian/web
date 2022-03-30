@@ -8879,7 +8879,9 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
 
         // var onMouseUp = function (evt) {
         var onClick = function (evt) {
+         
           var target = $(evt.target);
+          
           // console.log('target:');
           // console.log(target);
           // console.log(target[0].tagName);
@@ -8898,6 +8900,7 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
               // 结束实体id 不等于 开始实体的id, 此处触发 '新建关系'
               if (id != arcDragOrigin) {
                 if(target[0].tagName == 'rect'){
+                  
                   // console.log('点了关系的开始实体，id：', id,'开始实体的id：', arcDragOrigin);
                   window.status = "brat:onNewRelation:from=[" + arcDragOrigin + "], to=[" + id + "]";
                   window.parent.onNewRelation && window.parent.onNewRelation(arcDragOrigin, id, mouseX, mouseY);
@@ -8913,6 +8916,7 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
                 // console.log('target.tagName:', target[0].tagName);
                 // console.log('target[0]:', target[0]);
                 if(target[0].tagName == 'circle'){
+                  
                   // 点的是菜单（三条横线的菜单）
                   window.status = "brat:onEntitySelection:" + id;
                   window.parent.onEntitySelection && window.parent.onEntitySelection(id, mouseX, mouseY);
@@ -8956,6 +8960,8 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
             // arcDragOrigin为空， 且没有文本处于被选中的状态
             var mouseX = evt.originalEvent.x || evt.originalEvent.layerX || 0;
             var mouseY = evt.originalEvent.y || evt.originalEvent.layerY || 0;
+            var offSetX = evt.originalEvent.screenX ;
+            var offSetY = evt.originalEvent.screenY ;
             // 1. select entity or relation;
             if (id = target.attr('data-span-id')) {
               // 点的是实体名或者叉叉圆，实体名或者叉叉圆 才具有 data-span-id 属性
@@ -8968,6 +8974,7 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
                 var entityName = $(target[0]).attr('entity-name');
                 // console.log('entity-name:', entityName);
                 var res = window.parent.onRelationStartSelected && window.parent.onRelationStartSelected(id, entityName);
+                window.parent.getDatas(id,mouseX, mouseY)
                 // res=true / false
                 // true 表示该实体可以作为关系的开始，反之则不能
                 // console.log("res:", res);
@@ -8981,6 +8988,7 @@ src: local('PT Sans Caption'), local('PTSans-Caption'), url('fonts/PT_Sans-Capti
                 window.parent.onRelationModalClose && window.parent.onRelationModalClose();
               }
             } else if (id = target.attr('data-arc-ed')) {
+              
               // 点的是关系名 关系名具有 data-arc-ed 属性
               window.status = "brat:onRelationSelection:" + id;
               window.parent.onRelationSelection && window.parent.onRelationSelection(id, mouseX, mouseY);

@@ -10,6 +10,30 @@
         name="markBrat"
         src="/static/main_shen.htm"
       ></iframe>
+      <div
+        class="posi-content"
+        ref="posiRef"
+        v-if="posiContent"
+        :style="
+          'top:' + (positionY - 350) + 'px;left:' + (positionX - 180) + 'px;'
+        "
+      >
+        <i
+          @click="closePosi"
+          class="el-icon-close"
+          style="float: right; cursor: pointer"
+        ></i>
+        <div>
+          <span>startPos:{{ startPos }}</span>
+          <el-divider></el-divider>
+          <span>endPos:{{ endPos }}</span>
+          <el-divider></el-divider>
+          <span>semanticTag:{{ semanticTag }}</span>
+          <el-divider></el-divider>
+          <span>semanticText:{{ semanticText }}</span>
+          <el-divider></el-divider>
+        </div>
+      </div>
     </div>
     <!-- info message -->
     <dialog-show-info ref="dialogShowInfoRef" />
@@ -29,6 +53,15 @@ export default {
   props: ['id'],
   data() {
     return {
+      startPos: '',
+      endPos: '',
+      semanticTag: '',
+      semanticText: '',
+      semanticCui: '',
+      semanticList: [],
+      positionX: null,
+      positionY: null,
+      posiContent:false,
       type: '',
       showType: 'xmi',
       loading: false,
@@ -139,6 +172,7 @@ export default {
     window.onHightLightEntity = this.onHightLightEntity // 悬停
     window.onHightLightRelation = this.onHightLightRelation // 悬停
     window.unHighLight = this.unHighLight
+    window.getDatas = this.getDatas
     // window.addRange = this.addRange; //选中
     // window.onEntitySelection = this.onEntitySelection;
     // window.onNewRelation = this.onNewRelation;
@@ -169,6 +203,19 @@ export default {
     window.unHighLight = null
   },
   methods: {
+    closePosi() {
+      this.posiContent = false
+    },
+    getDatas(id, x, y) {
+      this.posiContent = true
+      let data = JSON.parse(this.semanticList.bratOut)
+      this.startPos = data.entities[id].begin
+      this.endPos = data.entities[id].end
+      this.semanticTag = data.entities[id].semanticTag
+      this.semanticText = data.entities[id].cui
+      this.positionX = x
+      this.positionY = y
+    },
     ...mapMutations({
       setCorpusConfigAttr: 'SET_CORPUSCONFIGATTR',
       setSentenceRelations: 'SET_SENTENCERELATIONS'
@@ -185,6 +232,7 @@ export default {
           this.loading = false
 
           if (res.code === 200) {
+            this.semanticList = res.data
             const data = res.data
             if (data) {
               this.$emit('success-data')
@@ -850,5 +898,15 @@ export default {
 }
 .btns:hover > div {
   opacity: 1;
+}
+.posi-content {
+  width: 400px;
+  position: absolute;
+  height: 280px;
+  background: #faebd7;
+  top: 0;
+  left: 0;
+  padding: 30px;
+  z-index: 999;
 }
 </style>
