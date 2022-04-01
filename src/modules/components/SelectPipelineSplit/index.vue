@@ -144,13 +144,11 @@ export default {
       // this.model = ''
       console.log('versionList', versionList)
       if (this.isCopy) {
-        versionList.forEach(item => {
-          if (item.params === this.value) {
-            this.model = item.params
-            this.$emit('get-complete-data', item)
-          }
-        })
-      } else {
+        // this.selectPipeline = versionList
+        this.model = versionList[0].params
+        this.$emit('get-complete-data', versionList)
+      }
+       else {
         const [currentPipeline] = versionList
         this.selectPipeline = currentPipeline
         this.model = currentPipeline.params || ''

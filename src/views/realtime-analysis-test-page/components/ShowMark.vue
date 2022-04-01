@@ -207,14 +207,15 @@ export default {
       this.posiContent = false
     },
     getDatas(id, x, y) {
-      this.posiContent = true
-      let data = JSON.parse(this.semanticList.bratOut)
-      this.startPos = data.entities[id].begin
-      this.endPos = data.entities[id].end
-      this.semanticTag = data.entities[id].semanticTag
-      this.semanticText = data.entities[id].cui
-      this.positionX = x
-      this.positionY = y
+      console.log(id)
+      // this.posiContent = true
+      // let data = JSON.parse(this.semanticList.bratOut)
+      // this.startPos = data.entities[id].begin
+      // this.endPos = data.entities[id].end
+      // this.semanticTag = data.entities[id].semanticTag
+      // this.semanticText = data.entities[id].cui
+      // this.positionX = x
+      // this.positionY = y
     },
     ...mapMutations({
       setCorpusConfigAttr: 'SET_CORPUSCONFIGATTR',

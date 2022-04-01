@@ -90,6 +90,7 @@
                     v-loading="inputCheckLoading"
                     class="job-create-input-read"
                     placeholder="s3://mybucket"
+                    @paste.native="verityhandle('read')"
                     @keyup.native="verityhandle('read')"
                   >
                   </el-input>
@@ -545,6 +546,7 @@ export default {
     },
     getCompleteData(val) {
       console.log('val', val)
+      // this.formData.pipelineId=val.params
       this.selectPipeline = val
     },
     getCompleteOptions(val) {

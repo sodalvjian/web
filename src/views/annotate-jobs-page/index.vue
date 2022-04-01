@@ -29,7 +29,9 @@ export default {
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+    console.log('进入')
+  },
   methods: {
     closeDialog() {
       this.$router.push('/annotateJobs')
