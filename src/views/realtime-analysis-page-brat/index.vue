@@ -108,11 +108,15 @@ export default {
         return false
       }
       const params = {
-        token: this.$route.query.token || ''
+        token: this.$route.query.token || '',
+        
+      }
+      const domain = {
+        domain:this.$route.query.domain || ''
       }
       console.log('父级数据', window.parent)
       this.analysisLoading = true
-      this.$refs.analysisResultRef.getResult(params, false)
+      this.$refs.analysisResultRef.getResult(params, false ,domain)
     },
     clearData() {
       this.formData.text = ''

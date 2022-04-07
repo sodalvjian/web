@@ -272,10 +272,10 @@ export default {
       // this.$refs.entityRelationref.setData(this.originalBratData, selectDataArr)
       this.dialogVisible = false
     },
-    getResult(params, loadType) {
+    getResult(params, loadType ,domain) {
       this.generalDisabled = true
       // this.$refs.entityRelationref.setDataEmpty()
-      this.$refs.showMarkRef.fetchData(params, loadType)
+      this.$refs.showMarkRef.fetchData(params, loadType, domain)
     },
     switchClick() {
       console.log()

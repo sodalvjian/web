@@ -18,9 +18,9 @@ export function GetBratTest(data) {
   })
 }
 
-export function GetBratForTest(params) {
+export function GetBratForTest(params,domain) {
   return request({
-    url: `https://meric-dev.melaxtech.com/api/nlpdata`,
+    url: `${domain.domain}/api/nlpdata`,
     method: 'get',
     params
   })

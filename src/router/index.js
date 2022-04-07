@@ -14,32 +14,32 @@ import realtimeAnalysisTest from './realtime-analysis-test-page'
 export const constantRoutes = [
   {
     path: '/',
-    component: () => import('@/views/home'),
+    component: () => import('@/views/realtime-analysis-page-brat'),
     hidden: true
   },
   {
     path: '/login',
-    component: () => import('@/views/common/login/index'),
+    component: () => import('@/views/realtime-analysis-page-brat'),
     hidden: true
   },
   {
     path: '/loginAuto',
-    component: () => import('@/views/common/login-auto'),
+    component: () => import('@/views/realtime-analysis-page-brat'),
     hidden: true
   },
   {
     path: '/register',
-    component: () => import('@/views/common/register/index'),
+    component: () => import('@/views/realtime-analysis-page-brat'),
     hidden: true
   },
   {
     path: '/forgetPassword',
-    component: () => import('@/views/common/forget-password/index'),
+    component: () => import('@/views/realtime-analysis-page-brat'),
     hidden: true
   },
   {
     path: '/sendEmailSuccess',
-    component: () => import('@/views/common/send-email-success/index'),
+    component: () => import('@/views/realtime-analysis-page-brat'),
     hidden: true
   },
   {
@@ -49,7 +49,7 @@ export const constantRoutes = [
   },
   {
     path: '/404',
-    component: () => import('@/views/404'),
+    component: () => import('@/views/realtime-analysis-page-brat'),
     hidden: true
   }
 

@@ -241,7 +241,7 @@ export default {
     initData() {
       this.type = this.$route.params.type
     },
-    fetchData(params, loadType = false) {
+    fetchData(params, loadType = false,domain) {
       if (loadType) {
         this.noDataShow = false
         setTimeout(() => {
@@ -270,7 +270,7 @@ export default {
         // debugger
         //      GET /tagged/label/{fileId}
         // const url = `tagged/label/${this.id}`
-        GetBratForTest(params)
+        GetBratForTest(params,domain)
           .then(res => {
             this.$emit('set-nlp-data', res.data) // 把获取的值传到外面
             this.loading = false
