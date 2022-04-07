@@ -20,7 +20,7 @@ export function GetBratTest(data) {
 
 export function GetBratForTest(params) {
   return request({
-    url: `api/nlpdata`,
+    url: `https://meric-dev.melaxtech.com/api/nlpdata`,
     method: 'get',
     params
   })
